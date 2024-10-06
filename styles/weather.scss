@@ -1,0 +1,14 @@
+@media (max-width: 767px) {
+  .mobile {
+    display: none;
+  }
+  .destination_banner_img {
+    height: 220px;
+  }
+}
+
+@media (min-width: 767px) {
+  .desktop {
+    display: none;
+  }
+}

@@ -1,0 +1,140 @@
+//TourCard skeleton
+
+.skeleton {
+  position: relative;
+}
+.skeleton::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  background: linear-gradient(90deg, #eee, #f9f9f9, #eee);
+  background-size: 200%;
+  animation: skeleton 1s infinite reverse;
+}
+
+.title-text {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.title-text .show-all {
+  -webkit-line-clamp: initial;
+}
+
+/* coockie */
+
+.cookieConsent {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  text-align: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.cookieContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cookieContent p {
+  margin: 0;
+}
+
+.cookieContent a {
+  color: #00bfff;
+  text-decoration: underline;
+  margin-left: 5px;
+}
+
+.acceptButton {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.acceptButton:hover {
+  background-color: #0056b3;
+}
+// for list item
+.interweave-content ul {
+  list-style-type: disc;
+  list-style-position: inside; // margin-left: 20px; /* optional, to add some spacing */
+  margin-left: 10px;
+}
+.interweave-content li {
+  list-style-type: disc;
+  list-style-position: inside; // margin-left: 20px; /* optional, to add some spacing */
+  margin-left: 10px;
+}
+
+.interweave-content ol {
+  list-style-type: decimal; /* or lower-alpha, upper-alpha, etc. */
+  list-style-position: inside; // margin-left: 20px; /* optional, to add some spacing */
+  margin-left: 10px;
+}
+.trip-advisor-icon {
+  display: flex;
+  width: 20px;
+  height: 20px;
+  background: #36e0a2;
+  border-radius: 50%;
+  // overflow: hidden; /* Ensures the image doesn't overflow the container */
+  align-items: center; /* Centers the image vertically */
+  @media (max-width: 767px) {
+    width: 12px;
+    height: 12px;
+    align-items: center;
+    padding: 1px;
+  }
+}
+.text-hover-underline:hover {
+  text-decoration: underline;
+}
+
+.my-svg {
+  width: 88px;
+  height: 16px;
+}
+@media only screen and (max-width: 767px) {
+  .my-svg {
+    width: 66px; /* 25% less than 88px */
+    height: 12px; /* 25% less than 16px */
+  }
+}
+
+.map-container {
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  position: relative;
+}
+
+.leaflet-map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes skeleton {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}

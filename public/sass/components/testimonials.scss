@@ -1,0 +1,55 @@
+.testimonials-slider-2 {
+  .swiper-slide {
+    opacity: 0.8;
+
+    &.swiper-slide-active {
+      opacity: 1;
+    }
+  }
+}
+
+.testimonials .-type-2 {
+  .testimonials {
+    &__image {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      z-index: 0;
+
+      > img:nth-child(1) {
+      }
+
+      > img:nth-child(2) {
+        position: absolute;
+        z-index: 1;
+        width: 96px;
+        height: 96px;
+        object-fit: cover;
+      }
+    }
+  }
+}
+
+.link-hover {
+  position: relative;
+}
+
+.link-hover::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: black; /* You can change this to your preferred color */
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.link-hover:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
