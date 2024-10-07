@@ -7,8 +7,8 @@ const fetchMetadata = async (type) => {
     const res = await fetch(
       `${GET_METADATA_BY_CONTENT_NAME}/${
         type == "general_terms_of_use"
-          ? "Terms and Conditions"
-          : "Privacy Policy"
+          ? "terms-and-conditions"
+          : "privacy-policy"
       }`
     );
     if (!res.ok) {

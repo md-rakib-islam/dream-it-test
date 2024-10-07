@@ -9,7 +9,7 @@ const WhyChoose = dynamic(() => import("@/components/home/home/WhyChoose"));
 
 const fetchMetadata = async () => {
   try {
-    const res = await fetch(`${GET_METADATA_BY_CONTENT_NAME}/About`);
+    const res = await fetch(`${GET_METADATA_BY_CONTENT_NAME}/about`);
     if (!res.ok) {
       throw new Error("Failed to fetch metadata");
     }

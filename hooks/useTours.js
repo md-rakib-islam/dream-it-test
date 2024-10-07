@@ -5,6 +5,14 @@ import convertCurrency from "@/utils/currency";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 export const singleTourInfo = {
+  "Vatican Museum and Sistine Chapel Admission Ticket": {
+    location: "Rome, Italy",
+    numberOfReviews: "0",
+    languages: "English",
+    groupSize: "1-10",
+    itinerarySrc:
+      "https://www.google.com/maps/d/u/0/embed?mid=1nO_1-Xc4ZbZ6dBYgB-hpOFlB2rQ5O0k&ehbc=2E312F&noprof=1",
+  },
   "Rome: Colosseum, Roman Forum, and Palatine Hills Ticket with Hosted Entry": {
     location: "Rome, Italy",
     numberOfReviews: "296",

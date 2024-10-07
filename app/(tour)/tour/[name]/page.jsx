@@ -7,6 +7,8 @@ import getAllMenuItem from "@/services/menuService";
 import Head from "next/head";
 
 export const tourUrlsMap = {
+  "vatican-museum-and-sistine-chapel-admission-ticket":
+    "Vatican Museum and Sistine Chapel Admission Ticket",
   "rome-colosseum-hosted-entry-roman-forum-and-palatine-hills-with-arena-ticket":
     "Rome: Colosseum Hosted entry, Roman Forum and Palatine hills with Arena Ticket",
   "rome-colosseum-roman-forum-and-palatine-hills-ticket-with-hosted-entry":
@@ -91,7 +93,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   const { name } = params;
-  const metaTitle = tourUrlsMap[name];
+  const metaTitle = name;
   const metadata = await fetchMetadata(metaTitle);
 
   if (!metadata) {
