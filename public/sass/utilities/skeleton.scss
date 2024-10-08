@@ -72,18 +72,40 @@
 .interweave-content ul {
   list-style-type: disc;
   list-style-position: inside; // margin-left: 20px; /* optional, to add some spacing */
-  margin-left: 10px;
+  margin-left: 5px;
+  color: black;
 }
 .interweave-content li {
   list-style-type: disc;
   list-style-position: inside; // margin-left: 20px; /* optional, to add some spacing */
-  margin-left: 10px;
+  margin-left: 5px;
+  color: black;
 }
 
 .interweave-content ol {
   list-style-type: decimal; /* or lower-alpha, upper-alpha, etc. */
   list-style-position: inside; // margin-left: 20px; /* optional, to add some spacing */
-  margin-left: 10px;
+  margin-left: 5px;
+  color: black;
+}
+.interweave-content {
+  color: black;
+}
+.interweave-content body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+span,
+div,
+li,
+strong,
+em {
+  color: black;
 }
 .trip-advisor-icon {
   display: flex;

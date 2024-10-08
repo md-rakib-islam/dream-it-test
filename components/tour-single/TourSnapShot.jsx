@@ -1,4 +1,3 @@
-import { singleTourInfo } from "@/hooks/useTours";
 import { useSelector } from "react-redux";
 const TourSnapShot = () => {
   const { tourItem } = useSelector((state) => state.tour);
@@ -21,7 +20,7 @@ const TourSnapShot = () => {
           <i className="icon-customer text-22 text-blue-1 mr-10"></i>
           <div className="text-15 lh-15">
             Group size:
-            <br /> {singleTourInfo[tourItem?.name]?.groupSize}
+            <br /> {tourItem?.group_size}
           </div>
         </div>
       </div>

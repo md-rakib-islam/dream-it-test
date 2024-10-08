@@ -8,7 +8,6 @@ import TourGallery from "@/components/tour-single/TourGallery";
 import Tours from "@/components/tours/Tours";
 import { useGetImagesByMenuIdQuery } from "@/features/image/imageApi";
 import { addItenarayItems, addtourItem } from "@/features/tour/tourSlice";
-import { singleTourInfo } from "@/hooks/useTours";
 import Loading from "@/app/loading";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
@@ -85,13 +84,19 @@ const TourSingleV1Dynamic = ({ params, children }) => {
         ? imageContents?.content_images[data?.name]
         : [`${imageContents?.content_images[data?.name]}`],
       title: data?.name,
-      location: singleTourInfo[data?.name]?.location,
+      location: data.location,
       duration: data?.duration,
-      numberOfReviews: singleTourInfo[data?.name]?.numberOfReviews,
+      additional_info: data?.additional_info,
+      knw_before_go: data?.knw_before_go,
+      inclution: data?.inclution,
+      exclusion: data?.exclusion,
+      trip_url: data?.trip_url,
+      cancelValue: data?.value,
+      numberOfReviews: data?.reviews,
       price: data?.price,
       tourType: "Attractions & Museums",
       delayAnimation: "200",
-      languages: singleTourInfo[data?.name]?.languages,
+      languages: data?.languages,
     };
 
     dispatch(addtourItem(data));

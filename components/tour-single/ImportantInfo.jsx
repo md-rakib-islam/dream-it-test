@@ -15,36 +15,20 @@ const ImportantInfo = () => {
             content={tourItem?.inclution}
           />
         </div>
-
-        {/* <ul className="list-disc">
-          <li>Superior Coach, Wi-Fi and USB Charging On-board</li>
-          <li>Expert guide</li>
-          <li>Admission to Windsor Castle (if option selected)</li>
-          <li>Admission to Stonehenge</li>
-        </ul> */}
       </div>
 
-      {/* {tourItem?.name?.toLowerCase()?.includes("colosseum") ||
-      tourItem?.name?.toLowerCase()?.includes("capri") ? (
-        ""
-      ) : (
-        <div className="col-lg-4 col-md-6">
-          <div className="fw-600 mb-10">Departure details</div>
-          <div className="text-15">
-            Our service includes convenient traveler pickup within the Makkah
-            City area, within a distance not exceeding 9 kilometers from your
-            hotel. We are pleased to offer pickup services for all tourists and
-            Umrah pilgrims from their respective hotels. We ensure a timely and
-            efficient pickup process to make your journey as smooth as possible.
-            Please be ready for pickup at your hotel within the specified
-            distance limit in the Makkah City area.
+      {tourItem?.knw_before_go && (
+        <div className="col-lg-5 col-md-6">
+          <div className="fw-600 mb-10">Know before you go</div>
+          <div className="interweave-content">
+            <Interweave
+              allowAttributes
+              allowElements
+              disableLineBreaks={false}
+              content={tourItem?.knw_before_go}
+            />
           </div>
-        </div>
-      )} */}
-
-      <div className="col-lg-5 col-md-6">
-        <div className="fw-600 mb-10">Know before you go</div>
-        <ul className="list-disc">
+          {/* <ul className="list-disc">
           <li>Duration: {tourItem?.duration}</li>
           <li>Mobile tickets accepted</li>
           <li>Instant confirmation</li>
@@ -94,29 +78,37 @@ const ImportantInfo = () => {
           ) : (
             ""
           )}
-        </ul>
-      </div>
-
-      <div className="col-lg-3 col-md-6">
-        <div className="fw-600 mb-10">Exclusions</div>
-        {/* <ul className="list-disc">
-          <li>Hotel pick-up and drop-off</li>
-          <li>Gratuities</li>
-          <li>Lunch</li>
         </ul> */}
-        <div className="interweave-content">
-          <Interweave
-            allowAttributes
-            allowElements
-            disableLineBreaks={false}
-            content={tourItem?.exclusion}
-          />
         </div>
-      </div>
+      )}
 
-      <div className="col-12">
-        <div className="fw-600 mb-10">Additional information</div>
-        {tourItem?.name?.toLowerCase()?.includes("colosseum") ||
+      {tourItem?.exclusion && (
+        <div className="col-lg-3 col-md-6">
+          <div className="fw-600 mb-10">Exclusions</div>
+
+          <div className="interweave-content">
+            <Interweave
+              allowAttributes
+              allowElements
+              disableLineBreaks={false}
+              content={tourItem?.exclusion}
+            />
+          </div>
+        </div>
+      )}
+
+      {tourItem?.additional_info && (
+        <div className="col-12">
+          <div className="fw-600 mb-10">Additional information</div>
+          <div className="interweave-content">
+            <Interweave
+              allowAttributes
+              allowElements
+              disableLineBreaks={false}
+              content={tourItem?.additional_info}
+            />
+          </div>
+          {/* {tourItem?.name?.toLowerCase()?.includes("colosseum") ||
         tourItem?.name?.toLowerCase()?.includes("vatican") ? (
           <ul className="list-disc">
             <li>
@@ -192,8 +184,9 @@ const ImportantInfo = () => {
               before the experience start date.
             </li>
           </ul>
-        )}
-      </div>
+        )} */}
+        </div>
+      )}
     </div>
   );
 };
