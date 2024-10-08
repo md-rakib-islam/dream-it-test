@@ -60,6 +60,14 @@ const Overview = () => {
                     If you cancel up to 7 days prior to the tour, you are
                     eligible for a full refund.
                   </>
+                ) : tourItem?.name
+                    ?.toLowerCase()
+                    ?.includes("vatican museum") ? (
+                  <>
+                    This experience is non-refundable and cannot be changed for
+                    any reason. If you cancel or ask for an amendment, the
+                    amount you paid will not be refunded.
+                  </>
                 ) : (
                   <>
                     We will charge a cancellation fee of 100% if booking is

@@ -48,7 +48,7 @@ const ImportantInfo = () => {
           <li>Duration: {tourItem?.duration}</li>
           <li>Mobile tickets accepted</li>
           <li>Instant confirmation</li>
-          {tourItem?.name?.toLowerCase()?.includes("colosseum") && (
+          {tourItem?.name?.toLowerCase()?.includes("colosseum") ? (
             <>
               <li>Confirmation will be received at the time of booking.</li>
               <li>Wheelchair accessible.</li>
@@ -60,6 +60,39 @@ const ImportantInfo = () => {
               <li>Not suitable for individuals with heart problems</li>
               <li>Suitable for most travelers.</li>
             </>
+          ) : tourItem?.name?.toLowerCase()?.includes("vatican museum") ? (
+            <>
+              <li>Confirmation will be received at the time of booking.</li>
+              <li>Wheelchair accessible.</li>
+              <li>Stroller accessible.</li>
+              <li>Conveniently located near public transportation.</li>
+              <li>Infants must sit on laps.</li>
+              <li>Not recommended for travelers with back problems.</li>
+              <li>Not recommended for pregnant travelers.</li>
+              <li>Not suitable for individuals with heart problems</li>
+              <li>
+                Students (underage of 26) must have in possession of their valid
+                student ID.
+              </li>
+              <li>
+                Children less than 6 years old are free however they need to
+                show the valid Photo ID.
+              </li>
+              <li>
+                ONE MUST BE COVERED FROM THEIR SHOULDER DOWN TO THEIR KNEES.
+              </li>
+              <li>
+                Children under the age of 18 must arrive with their valid ID.
+              </li>
+              <div className="fw-600 mb-10 mt-10">Not allowed</div>
+              <li>Pets</li>
+              <li>Shorts</li>
+              <li>Weapons or sharp objects</li>
+              <li>Short skirts</li>
+              <li>Sleeveless shirts</li>
+            </>
+          ) : (
+            ""
           )}
         </ul>
       </div>
@@ -83,7 +116,8 @@ const ImportantInfo = () => {
 
       <div className="col-12">
         <div className="fw-600 mb-10">Additional information</div>
-        {tourItem?.name?.toLowerCase()?.includes("colosseum") ? (
+        {tourItem?.name?.toLowerCase()?.includes("colosseum") ||
+        tourItem?.name?.toLowerCase()?.includes("vatican") ? (
           <ul className="list-disc">
             <li>
               <span className="text-dark fw-600">Confirmation:</span> You will
