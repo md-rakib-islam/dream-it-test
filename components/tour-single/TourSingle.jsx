@@ -26,31 +26,6 @@ import { useState } from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 
-export const tourUrlsMap = {
-  "rome%3A-colosseum-hosted-entry-roman-forum-and-palatine-hills-with-arena-ticket":
-    "Rome: Colosseum Hosted entry, Roman Forum and Palatine hills with Arena Ticket",
-  "rome%3A-colosseum-roman-forum-and-palatine-hills-ticket-with-hosted-entry":
-    "Rome: Colosseum, Roman Forum, and Palatine Hills Ticket with Hosted Entry",
-  "colosseum-roman-forum-and-palatine-hills-priority-ticket-skip-the-ticket-line":
-    "Colosseum, Roman Forum And Palatine Hills Priority Ticket- Skip The Ticket Line",
-  "skip-the-line-ticket-colosseum-forum-%26-palatine-hills-with-audio-%26-video-guide":
-    "Skip the Line ticket Colosseum, Forum & Palatine Hills with Audio & Video Guide",
-  "full-experience-colosseum-with-arena":
-    "Full Experience Colosseum with Arena",
-  "capri-island-day-trip-from-rome": "Capri Island Day Trip From Rome",
-  "capri-island-day-trip-from-rome-with-blue-grotto":
-    "Capri Island Day Trip From Rome With Blue Grotto",
-  "celebrate-new-year-in-paris%3A-a-3night-4day-tour-from-london":
-    "Celebrate New Year In Paris: A 3-Night, 4-Day Tour From London",
-  "visit-europe-in-summer-holiday%3A-switzerland-venice-austria-and-liechtenstein":
-    "Visit Europe In Summer Holiday: Switzerland, Venice, Austria And Liechtenstein",
-  "dream-meets-the-blue-at-santorini": "Dream Meets The Blue At Santorini",
-  "valentine's-day-in-venice-and-bernina-express-journey-to-switzerland":
-    "Valentine's Day In Venice And Bernina Express Journey To Switzerland",
-  "tulip-garden-tour-from-london-by-eurostar":
-    "Tulip Garden Tour From London By Eurostar",
-};
-
 const Itinerary = dynamic(() => import("@/components/tour-single/itinerary"));
 
 const TourSingleV1Dynamic = ({ params, children }) => {
