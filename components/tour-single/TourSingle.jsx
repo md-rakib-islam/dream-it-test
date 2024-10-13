@@ -32,8 +32,11 @@ const TourSingleV1Dynamic = ({ params, children }) => {
   const dispatch = useDispatch();
   const { menuItems } = useSelector((state) => state.menus);
   const tourId = menuItems.find((item) => item.name === "Tours")?.id;
+  const slug = params?.name?.endsWith("-1")
+    ? params?.name.slice(0, -2)
+    : params?.name;
   const { data, isSuccess, isFulfilled } =
-    useGetContentsByMenuContentTitleQuery(params?.name);
+    useGetContentsByMenuContentTitleQuery(slug);
   const [copied, setCopied] = useState(false);
   const [isCopyLoading, setIsCopyLoading] = useState(false);
   const [dataAvailable, setDataAvailable] = useState(false);

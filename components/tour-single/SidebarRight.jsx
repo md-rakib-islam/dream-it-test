@@ -7,8 +7,11 @@ import Image from "next/image";
 
 const SidebarRight = () => {
   const params = useParams();
+  const slug = params?.name?.endsWith("-1")
+    ? params?.name.slice(0, -2)
+    : params?.name;
   const { data, isSuccess, isFulfilled } =
-    useGetContentsByMenuContentTitleQuery(params?.name);
+    useGetContentsByMenuContentTitleQuery(slug);
   useEffect(() => {
     const script = document.createElement("script");
     script.src =
