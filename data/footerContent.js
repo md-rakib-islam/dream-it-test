@@ -5,7 +5,6 @@ module.exports = [
     menuList: [
       { name: "About Us", routerPath: "/about" },
       { name: "Contact", routerPath: "/contact" },
-      { name: "Blogs", routerPath: "/blogs" },
       // { name: "Legal Notice", routerPath: "/" },
       { name: "Privacy Policy", routerPath: "/terms?type=privacy_policy" },
       {

@@ -8,11 +8,7 @@ const MainMenu = ({ style = "" }) => {
   const menuItems = useMenus();
 
   const currentPathName =
-    pathname.split("/")[1] === "destinations"
-      ? "/destinations"
-      : pathname.split("/")[1] === "blog-details"
-      ? "/blog"
-      : pathname;
+    pathname.split("/")[1] === "destinations" ? "/destinations" : pathname;
 
   return (
     <nav className="menu js-navList">

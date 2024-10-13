@@ -53,9 +53,6 @@ const TermsConent = () => {
         <div className="col-lg-9">
           <TabPanel>
             <div className="tabs__content js-tabs-content" data-aos="fade">
-              <h1 className="text-30 fw-600 mb-15">
-                Terms and Conditions of Use
-              </h1>
               <h2 className="text-16 fw-500">1. Terms</h2>
               <p className="text-15 text-justify text-dark-1 mt-5">
                 By accessing this Website, accessible from{" "}
@@ -183,7 +180,6 @@ const TermsConent = () => {
               className="tabs__content js-tabs-content text-15 text-dark-1"
               data-aos="fade"
             >
-              <h1 className="text-30 fw-600 mb-15"> PRIVACY POLICY</h1>
               <div className="mb-20">
                 <div>
                   <p className="text-15 text-dark-1 mt-5">

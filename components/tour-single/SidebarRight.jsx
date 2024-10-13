@@ -32,6 +32,7 @@ const SidebarRight = () => {
             src="https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/863921a6-6870-4690-d6bd-8dd0f0314f00/public"
             width={50}
             height={22}
+            alt="Klarna Payment System"
           ></Image>
 
           <span className="fw-500 ml-20">Book now, pay in 3 installments</span>

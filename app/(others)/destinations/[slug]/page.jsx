@@ -81,6 +81,29 @@ const Destinations = ({ params }) => {
       <section className="layout-pb-md">
         <div className="container">
           <div className="row">
+            <div
+              className="absolute z-2 px-50 py-30 md:py-20 md:px-30 "
+              style={{ width: "fit-content" }}
+            >
+              <h1
+                className="text-50 fw-600 text-white lg:text-40 md:text-30"
+                style={{
+                  textShadow: "2px 2px 4px rgba(0,0,0,0.5)",
+                }}
+              >
+                Explore {slug.charAt(0).toUpperCase() + slug.slice(1)}
+              </h1>
+              <div
+                className="text-white"
+                style={{
+                  textShadow: "2px 2px 4px rgba(0,0,0,0.5)",
+                  overflow: "hidden",
+                }}
+              >
+                Explore deals, travel guides and things to do in{" "}
+                {slug.charAt(0).toUpperCase() + slug.slice(1)}
+              </div>
+            </div>
             <Banner slug={slug} />
           </div>
           {/* End .row */}

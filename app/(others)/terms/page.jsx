@@ -55,7 +55,8 @@ export async function generateMetadata({ params, searchParams }, parent) {
   };
 }
 
-const Terms = () => {
+const Terms = ({ searchParams }) => {
+  const { type } = searchParams;
   return (
     <>
       {/* End Page Title */}
@@ -63,12 +64,20 @@ const Terms = () => {
       <div className="header-margin"></div>
       {/* header top margin */}
 
-      {/* <DefaultHeader /> */}
       {/* End Header 1 */}
 
       <section className="layout-pt-lg layout-pb-lg">
         <div className="container">
           <div className="tabs js-tabs">
+            {type === "general_terms_of_use" ? (
+              <h1 className="text-30 fw-600 mb-15 text-center">
+                Terms and Conditions of Use
+              </h1>
+            ) : (
+              <h1 className="text-30 fw-600 mb-15 text-center">
+                Privacy Policy
+              </h1>
+            )}
             <TermsConent />
           </div>
         </div>

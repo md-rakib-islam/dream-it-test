@@ -4,7 +4,6 @@ import Hero3 from "@/components/hero/hero";
 import WhyChoose from "@/components/home/home/WhyChoose";
 import Tours from "@/components/tours/Tours";
 import Link from "next/link";
-import Blog4 from "../blog/Blog4";
 import { useEffect, useMemo, useState } from "react";
 import Testimonial from "../testimonial/Testimonial";
 import Counter2 from "../counter/Counter2";
@@ -14,14 +13,12 @@ import useWindowSize from "@/hooks/useWindowSize";
 import { useSelector } from "react-redux";
 import ToursForMobile from "../tours/ToursForMobile";
 import { useGetSliderImagesQuery } from "@/features/image/imageApi";
-import useBlogs from "@/hooks/useBlogs";
 
 const index = () => {
   const { isSuccess, isLoading, data } = useGetSliderImagesQuery();
 
   const { data: reviewsData, isSuccess: reviewsSuccess } =
     useGetAllReviewsQuery(null);
-  const blogPosts = useBlogs();
 
   const [dataAvailable, setDataAvailable] = useState(false);
   const [mobileDataAvailable, setMobileDataAvailable] = useState(false);
@@ -200,30 +197,6 @@ const index = () => {
             </section>
           )}
           {/* End testimonial section */}
-          {blogPosts?.length !== 0 && (
-            <section className="layout-pt-lg layout-pb-lg">
-              <div className="container">
-                <div className="row justify-center text-center">
-                  <div className="col-auto">
-                    <div className="sectionTitle -md">
-                      <h2 className="sectionTitle__title md:text-24">
-                        Get inspiration for your next trip
-                      </h2>
-                      <p className=" sectionTitle__text mt-5 sm:mt-0 md:text-13">
-                        Interdum et malesuada fames
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                {/* End .row  */}
-                <div className="row y-gap-30 pt-40">
-                  <Blog4 blogPosts={blogPosts} />
-                </div>
-                {/* End .row */}
-              </div>
-              {/* End .container */}
-            </section>
-          )}
         </>
       )}
       {/* End Popular Tours Sections */}
@@ -437,30 +410,6 @@ const index = () => {
             </section>
           )}
           {/* End testimonial section */}
-          {blogPosts?.length !== 0 && (
-            <section className="layout-pt-lg layout-pb-lg">
-              <div className="container">
-                <div className="row justify-center text-center">
-                  <div className="col-auto">
-                    <div className="sectionTitle -md">
-                      <h2 className="sectionTitle__title">
-                        Get inspiration for your next trip
-                      </h2>
-                      <p className=" sectionTitle__text mt-5 sm:mt-0">
-                        Interdum et malesuada fames
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                {/* End .row  */}
-                <div className="row y-gap-30 pt-40">
-                  <Blog4 blogPosts={blogPosts} />
-                </div>
-                {/* End .row */}
-              </div>
-              {/* End .container */}
-            </section>
-          )}
 
           {isShow && (
             <section className="section-bg layout-pt-md layout-pb-md mt-20 mb-20">

@@ -1,7 +1,4 @@
 import {
-  GET_CMS_BLOGS,
-  GET_CMS_BLOG_BY_TITLE,
-  GET_CMS_BLOG_COMMENTS_BY_BLOG_ID,
   GET_CONTENTS,
   GET_CONTENTS_BY_MENU_CONTENT_ID,
   GET_CONTENTS_WITH_URL_BY_MENU_ID,
@@ -18,12 +15,7 @@ export const contentApi = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
-    getAllBlogContents: builder.query({
-      query: (blogId) => ({
-        url: `${GET_CONTENTS}/${blogId}`,
-        method: "GET",
-      }),
-    }),
+
     getContentsByMenuContentId: builder.query({
       query: (menuContentId) => ({
         url: `${GET_CONTENTS_BY_MENU_CONTENT_ID}/${menuContentId}`,
@@ -43,34 +35,12 @@ export const contentApi = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
-    getBlogsAllWithPagination: builder.query({
-      query: () => ({
-        url: `${GET_CMS_BLOGS}`,
-        method: "GET",
-      }),
-    }),
-    getBlogContentsByBlogTitle: builder.query({
-      query: (blogId) => ({
-        url: `${GET_CMS_BLOG_BY_TITLE}/${blogId}`,
-        method: "GET",
-      }),
-    }),
-    getCommentByBlogId: builder.query({
-      query: (blogId) => ({
-        url: `${GET_CMS_BLOG_COMMENTS_BY_BLOG_ID}/${blogId}`,
-        method: "GET",
-      }),
-    }),
   }),
 });
 
 export const {
   useGetAllContentQuery,
-  useGetAllBlogContentsQuery,
   useGetContentsByMenuContentIdQuery,
   useGetItenariesByMenuContentIdQuery,
   useGetContentsByMenuContentTitleQuery,
-  useGetBlogsAllWithPaginationQuery,
-  useGetBlogContentsByBlogTitleQuery,
-  useGetCommentByBlogIdQuery,
 } = contentApi;

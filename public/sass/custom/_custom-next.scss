@@ -251,11 +251,6 @@
   z-index: inherit;
 }
 
-// blog details large image sizing
-.img_large_details {
-  height: 600px;
-  object-fit: cover;
-}
 .ratio-41\:45:before {
   padding-bottom: 109.7561%;
 }
@@ -406,31 +401,6 @@
 .carsSlider-slider {
   border: 1px solid #ddd;
   border-radius: 4px;
-}
-
-@media (max-width: 767.98px) {
-  .img_large_details {
-    height: 100%;
-    object-fit: cover;
-  }
-  .slider__flex {
-    flex-direction: column-reverse;
-  }
-  .slider__col {
-    flex-direction: row;
-    align-items: center;
-    margin-right: 0;
-    margin-top: 24px;
-    width: 100%;
-  }
-  .slider__images {
-    width: 100%;
-  }
-  .slider__thumbs {
-    height: 60px;
-    width: 304px;
-    margin: auto;
-  }
 }
 
 // counter box border

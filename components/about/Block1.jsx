@@ -4,8 +4,6 @@ const Block1 = () => {
   return (
     <>
       <div className="col-lg-5">
-        <h2 className="text-30 fw-600">About Dream Tourism</h2>
-        <p className="mt-5">Where Journeys Become Spiritual Narratives</p>
         <p className="text-dark-1 mt-30 lg:mt-40 md:mt-20">
           Once upon a time, nestled in the heart of Rome, there was a team of
           travel enthusiasts who shared one common passion: to turn ordinary

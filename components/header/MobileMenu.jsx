@@ -24,11 +24,7 @@ const MobileMenu = () => {
   }
 
   const currentPathName =
-    pathname.split("/")[1] === "destinations"
-      ? "/destinations"
-      : pathname.split("/")[1] === "blog-details"
-      ? "/blog"
-      : pathname;
+    pathname.split("/")[1] === "destinations" ? "/destinations" : pathname;
 
   return (
     <>

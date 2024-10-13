@@ -1,31 +1,27 @@
 import {
-  GET_CMS_BLOGS,
   GET_CONTENTS_WITH_URL_BY_MENU_ID,
   GET_MENUS_ALL_NESTED,
 } from "@/constant/constants";
-import { slugify } from "@/utils/sluglify";
 
 const BASE_URL = "https://dreamtourism.it";
 
 export default async function Sitemap() {
   try {
     // Perform all fetch requests in parallel
-    const [contentRes, blogRes, desRes] = await Promise.all([
+    const [contentRes, desRes] = await Promise.all([
       fetch(`${GET_CONTENTS_WITH_URL_BY_MENU_ID}/1`),
-      fetch(`${GET_CMS_BLOGS}`),
       fetch(`${GET_MENUS_ALL_NESTED}`),
     ]);
 
     // Check if all fetch requests were successful
-    if (!contentRes.ok || !blogRes.ok || !desRes.ok) {
+    if (!contentRes.ok || !desRes.ok) {
       throw new Error(
-        `Failed to fetch data: ${contentRes.status} ${contentRes.statusText}, ${blogRes.status} ${blogRes.statusText}, ${desRes.status} ${desRes.statusText}`
+        `Failed to fetch data: ${contentRes.status} ${contentRes.statusText}, ${desRes.status} ${desRes.statusText}`
       );
     }
 
-    const [contentData, blogsData, destinationData] = await Promise.all([
+    const [contentData, destinationData] = await Promise.all([
       contentRes.json(),
-      blogRes.json(),
       desRes.json(),
     ]);
 
@@ -33,34 +29,20 @@ export default async function Sitemap() {
     if (!Array.isArray(contentData)) {
       throw new TypeError("Content data is not an array");
     }
-    if (!Array.isArray(blogsData.blogs)) {
-      throw new TypeError("Blogs data is not an array");
-    }
+
     if (!Array.isArray(destinationData?.menus)) {
       throw new TypeError("Destination data is not an array");
     }
 
     // Generate sitemap URLs
-    const blogsXml = blogsData.blogs.map((item) => ({
-      url: `${BASE_URL}/blog-details/${encodeURIComponent(item.title)}`,
-      lastModified: new Date(item.updated_at).toISOString(),
-      changeFrequency: "weekly",
-      priority: 1,
-    }));
 
-    const excludedCountries = [
-      "Italy",
-      "United States",
-      "Netherlands",
-      "Switzerland",
-      "Germany",
-      "France",
-      "Belgium",
-    ];
     const contentsXml = contentData
-      .filter((item) => !excludedCountries.includes(item.name))
+      .filter((item) => {
+        if (item.type !== "Tours") return false;
+        return true;
+      })
       .map((item) => ({
-        url: `${BASE_URL}/tour/${encodeURIComponent(slugify(item.name))}`,
+        url: `${BASE_URL}/tour/${item.slug}`,
         lastModified: new Date(item.updated_at).toISOString(),
         changeFrequency: "weekly",
         priority: 1,
@@ -94,12 +76,7 @@ export default async function Sitemap() {
         changeFrequency: "weekly",
         priority: 1,
       },
-      {
-        url: `${BASE_URL}/blogs`,
-        lastModified: new Date().toISOString(),
-        changeFrequency: "weekly",
-        priority: 1,
-      },
+
       {
         url: `${BASE_URL}/terms?type=privacy_policy`,
         lastModified: new Date().toISOString(),
@@ -114,12 +91,7 @@ export default async function Sitemap() {
       },
     ];
 
-    const combinedXml = [
-      ...contentsXml,
-      ...blogsXml,
-      ...destinationsXml,
-      ...otherXml,
-    ];
+    const combinedXml = [...contentsXml, ...destinationsXml, ...otherXml];
 
     return combinedXml;
   } catch (error) {
