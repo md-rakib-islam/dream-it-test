@@ -24,10 +24,13 @@ if (typeof window !== "undefined") {
 
 export default function RootLayout({ children }) {
   useEffect(() => {
-    Aos.init({
-      duration: 1200,
-      once: true,
-    });
+    // Initialize AOS only on the client side
+    if (typeof window !== "undefined") {
+      Aos.init({ duration: 1200, once: true });
+    }
+    const body = document.body;
+    body.removeAttribute("data-new-gr-c-s-check-loaded");
+    body.removeAttribute("data-gr-ext-installed");
   }, []);
   return (
     <html lang="en">
@@ -88,7 +91,7 @@ export default function RootLayout({ children }) {
           defer
         ></script> */}
       </head>
-      <body>
+      <body suppressHydrationWarning={true}>
         <main>
           <noscript>
             <iframe

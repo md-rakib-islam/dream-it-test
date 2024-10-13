@@ -1,32 +1,21 @@
-// import MainFilterSearchBox from "./MainFilterSearchBox";
-
 "use client";
-import { addExchangeRates } from "@/features/currency/currencySlice";
-import useCurrencyExchangeRates from "@/hooks/currency";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import MainFilterSearchBox from "./MainFilterSearchBox";
 import CoverSkeleton from "@/components/skeleton/CoverSkeleton";
 import { useEffect, useState } from "react";
-import useWindowSize from "@/hooks/useWindowSize";
 import { addCurrentTab } from "@/features/hero/findPlaceSlice";
+
 const index = ({
   onDataAvailable,
   isSuccess,
   isLoading,
   data,
-  isMobile,
   onMobileDataAvailable,
 }) => {
   const dispatch = useDispatch();
-  const exchangeRates = useCurrencyExchangeRates();
-
   const { tabs, currentTab } = useSelector((state) => state.hero) || {};
   const [navbar, setNavbar] = useState(false);
-
-  useEffect(() => {
-    dispatch(addExchangeRates(exchangeRates));
-  }, [dispatch, exchangeRates]);
 
   let sliderImageItems = [];
   if (isSuccess) {
@@ -51,9 +40,13 @@ const index = ({
     });
   };
 
+  // Ensure this is only called when isSuccess changes
   useEffect(() => {
-    onMobileDataAvailable(true);
+    if (isSuccess) {
+      onMobileDataAvailable(true);
+    }
   }, [isSuccess]);
+
   useEffect(() => {
     window.addEventListener("scroll", changeBackground);
     return () => {
@@ -90,16 +83,12 @@ const index = ({
                         dispatch(addCurrentTab(tab?.name));
                       }}
                     >
-                      {/* <i className={`${tab.icon} text-20 mr-10 sm:mr-5`}></i> */}
                       {tab?.name}
                     </button>
                   ))}
                 </div>
               </div>
-              {/* End tabs */}
             </div>
-            {/* End .masthead__tabs */}
-
             <div className="">
               <div
                 className="row justify-center"
@@ -110,7 +99,6 @@ const index = ({
                   backgroundRepeat: "no-repeat",
                   opacity: 0.89,
                   height: "120px",
-                  // width: '100%',  // Uncomment if you need this property
                   backgroundPosition: "center",
                   backgroundAttachment: "local",
                 }}
@@ -137,14 +125,11 @@ const index = ({
                       Discover amazing places at exclusive deals
                     </p>
                   </div>
-                  {/* End hero title */}
                 </div>
               </div>
             </div>
           </div>
-          {/* End .masthead__content */}
         </div>
-        {/* End .container */}
       </section>
 
       <section className="masthead -type-6 mb-40 bannar_mobile">
@@ -154,9 +139,8 @@ const index = ({
             width={1920}
             height={860}
             alt="image"
-            // className="h-100"
             priority={true}
-            onLoad={onDataAvailable(true)}
+            onLoad={() => onDataAvailable(true)} // Changed to arrow function
           />
         </div>
 
@@ -197,7 +181,6 @@ const index = ({
             data-aos-delay="200"
           >
             <MainFilterSearchBox />
-            {/* End tab-filter */}
           </div>
         </div>
       </section>

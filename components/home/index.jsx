@@ -13,6 +13,8 @@ import useWindowSize from "@/hooks/useWindowSize";
 import { useSelector } from "react-redux";
 import ToursForMobile from "../tours/ToursForMobile";
 import { useGetSliderImagesQuery } from "@/features/image/imageApi";
+import Aos from "aos";
+import "aos/dist/aos.css";
 
 const index = () => {
   const { isSuccess, isLoading, data } = useGetSliderImagesQuery();
@@ -51,6 +53,12 @@ const index = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [memoizedApiCallsMade]);
+  useEffect(() => {
+    // Initialize AOS only on the client side
+    if (typeof window !== "undefined") {
+      Aos.init({ duration: 1200, once: true });
+    }
+  }, []);
 
   return (
     <>

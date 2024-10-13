@@ -59,6 +59,7 @@ const Header = () => {
                       width={128}
                       height={128}
                       alt="Dream Tourism Ltd"
+                      priority={true}
                     />
                   </Link>
                   <div className="header-menu">

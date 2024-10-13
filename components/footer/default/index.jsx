@@ -1,7 +1,7 @@
 // import AppButton from "./AppButton";
 "use client";
 import { useCreateNewsLetterJustEmailMutation } from "@/features/newsLetter/newsLetterSlice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import ContactInfo from "./ContactInfo";
 import Copyright from "./Copyright";
@@ -27,8 +27,15 @@ const index = () => {
   const [email, setEmail] = useState("");
   const [createNewsLetterJustEmail, { isLoading, isSuccess }] =
     useCreateNewsLetterJustEmailMutation();
-  const { isLoading: pageLoading } = useGetLogoUrlQuery(null);
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShow(true);
+    }, 2000);
 
+    // Clean up the timer if the component is unmounted
+    return () => clearTimeout(timer);
+  }, []);
   const handleSubmit = async () => {
     try {
       const res = await createNewsLetterJustEmail({ email });
@@ -79,7 +86,7 @@ const index = () => {
 
   return (
     <footer className="footer -type-1">
-      {!pageLoading && (
+      {show && (
         <div className="container">
           <ToastContainer
             position="top-center"
