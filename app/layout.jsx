@@ -36,6 +36,8 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="canonical" href="https://dreamtourism.it" />
+
         <link
           rel="preconnect"
           href="https://fonts.gstatic.com"

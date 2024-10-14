@@ -89,6 +89,28 @@ const nextConfig = {
         has: [
           {
             type: "host",
+            value: "https://www.dreamtourism.it",
+          },
+        ],
+        destination: "https://dreamtourism.it/:path*", // Redirect to non-www
+        permanent: true,
+      },
+      {
+        source: "/:path*",
+        has: [
+          {
+            type: "host",
+            value: "http://www.dreamtourism.it",
+          },
+        ],
+        destination: "https://dreamtourism.it/:path*", // Redirect to non-www
+        permanent: true,
+      },
+      {
+        source: "/:path*",
+        has: [
+          {
+            type: "host",
             value: "http.dreamtourism.it",
           },
         ],
