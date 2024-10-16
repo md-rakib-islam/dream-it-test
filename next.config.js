@@ -73,50 +73,6 @@ const nextConfig = {
         destination: "/destinations/france",
         permanent: true, // Set to true for a 308 permanent redirect, or false for a 307 temporary redirect
       },
-      {
-        source: "/:path*",
-        has: [
-          {
-            type: "host",
-            value: "www.dreamtourism.it",
-          },
-        ],
-        destination: "https://dreamtourism.it/:path*", // Redirect to non-www
-        permanent: true,
-      },
-      {
-        source: "/:path*",
-        has: [
-          {
-            type: "host",
-            value: "https://www.dreamtourism.it",
-          },
-        ],
-        destination: "https://dreamtourism.it/:path*", // Redirect to non-www
-        permanent: true,
-      },
-      {
-        source: "/:path*",
-        has: [
-          {
-            type: "host",
-            value: "http://www.dreamtourism.it",
-          },
-        ],
-        destination: "https://dreamtourism.it/:path*", // Redirect to non-www
-        permanent: true,
-      },
-      {
-        source: "/:path*",
-        has: [
-          {
-            type: "host",
-            value: "http.dreamtourism.it",
-          },
-        ],
-        destination: "https://dreamtourism.it/:path*", // Redirect to non-www
-        permanent: true,
-      },
     ];
   },
   async headers() {
