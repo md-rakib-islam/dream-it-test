@@ -1,11 +1,8 @@
-
 import { slightContent } from "@/data/desinations";
 import Image from "next/image";
 import Link from "next/link";
 
-const Slights = ({slug}) => {
-  
-
+const Slights = ({ slug }) => {
   return (
     <>
       {slightContent[slug]?.items?.slice(0, 4)?.map((item) => (
@@ -31,15 +28,24 @@ const Slights = ({slug}) => {
               </div>
               <div className="col">
                 <div className="d-flex flex-column justify-center h-full px-30">
-                  <h3 className="text-lg-start text-center text-18 fw-500">{item.title}</h3>
+                  <h3 className="text-lg-start text-center text-18 fw-600">
+                    {item.title}
+                  </h3>
                   <p className="text-15">{item.text.split(/\r?\n|\. /)[0]}</p>
-                  <p id={item.collapseTarget} className="text-15 accordion-collapse collapse">{item.text.split(/\r?\n|\. /)?.slice(1).join(" ")}</p>
+                  <p
+                    id={item.collapseTarget}
+                    className="text-15 accordion-collapse collapse"
+                  >
+                    {item.text
+                      .split(/\r?\n|\. /)
+                      ?.slice(1)
+                      .join(" ")}
+                  </p>
                   <Link
                     href="#"
                     data-bs-toggle="collapse"
                     data-bs-target={`#${item.collapseTarget}`}
-                    className="d-block text-14 text-blue-1 fw-500 underline mt-5"
-                    
+                    className="d-block text-14 text-blue-1 fw-600 underline mt-5"
                   >
                     See More
                   </Link>

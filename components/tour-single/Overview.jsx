@@ -16,7 +16,7 @@ const Overview = () => {
     <>
       <div className="row x-gap-40 y-gap-40">
         <div className="col-12 text-dark-1 text-15">
-          <h3 className="text-22 fw-500">Overview</h3>
+          <h3 className="text-22 fw-600">Overview</h3>
           <div className="interweave-content">
             <Interweave
               allowAttributes
@@ -41,14 +41,14 @@ const Overview = () => {
 
         {tourItem?.languages && (
           <div className="col-md-6">
-            <h5 className="text-16 fw-500">Available languages</h5>
+            <h5 className="text-16 fw-600">Available languages</h5>
             <div className="text-15 mt-10">{tourItem?.languages}</div>
           </div>
         )}
 
         {tourItem?.value && (
           <div className="col-md-6">
-            <h5 className="text-16 fw-500">Cancellation policy</h5>
+            <h5 className="text-16 fw-600">Cancellation policy</h5>
             <div className="interweave-content">
               <Interweave
                 allowAttributes

@@ -66,7 +66,7 @@ const Address = ({ uk }) => {
       {newAddressContent.map((item) => (
         <div className={`${item.colClass}`} key={item.id}>
           <div className="text-14 text-light-1">{item.title}</div>
-          <div className="text-18 fw-500 mt-10">{item.content}</div>
+          <div className="text-18 fw-600 mt-10">{item.content}</div>
         </div>
       ))}
     </>

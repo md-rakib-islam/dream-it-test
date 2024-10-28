@@ -4,7 +4,7 @@ const TopHeaderFilter = () => {
       <div className="row y-gap-10 items-center justify-between">
         <div className="col-auto">
           <div className="text-18">
-            <span className="fw-500">7 tours</span> in Europe
+            <span className="fw-600">7 tours</span> in Europe
           </div>
         </div>
         {/* End .col */}

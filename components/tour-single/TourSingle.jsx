@@ -272,7 +272,7 @@ const TourSingleV1Dynamic = ({ params, children }) => {
           <div className="pt-40 border-top-light">
             <div className="row x-gap-40 y-gap-40">
               <div className="col-auto">
-                <h3 className="text-22 fw-500">Important information</h3>
+                <h3 className="text-22 fw-600">Important information</h3>
               </div>
             </div>
             {/* End row */}
@@ -287,7 +287,7 @@ const TourSingleV1Dynamic = ({ params, children }) => {
       {dataAvailable && (
         <section className="border-top-light  mt-40 pt-40">
           <div className="container">
-            <h3 className="text-22 fw-500 mb-20">Itinerary</h3>
+            <h3 className="text-22 fw-600 mb-20">Itinerary</h3>
             <Itinerary />
           </div>
         </section>

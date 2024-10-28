@@ -66,8 +66,8 @@ const MobileMenu = () => {
                   data-bs-dismiss="offcanvas"
                   className={
                     pathname === menu?.routePath
-                      ? "menu-active-link fw-500"
-                      : "fw-500"
+                      ? "menu-active-link fw-600"
+                      : "fw-600"
                   }
                 >
                   {menu.name}
@@ -84,8 +84,8 @@ const MobileMenu = () => {
                         item.routePath?.split("/")[1] ==
                         currentPathName.split("/")[1]
                     )
-                      ? "menu-active-link fw-500"
-                      : "fw-500"
+                      ? "menu-active-link fw-600"
+                      : "fw-600"
                   }
                 >
                   {menu?.children?.map((item, i) => (
@@ -111,7 +111,7 @@ const MobileMenu = () => {
             data-bs-dismiss="offcanvas"
             onClick={() => router.push("/contact")}
             className={
-              pathname === "/contact" ? "menu-active-link fw-500" : "fw-500"
+              pathname === "/contact" ? "menu-active-link fw-600" : "fw-600"
             }
           >
             Contact
@@ -125,14 +125,14 @@ const MobileMenu = () => {
       <div className="pro-footer">
         <ContactInfo />
         <div className="mt-10">
-          <h5 className="text-16 fw-500 mb-10">Follow us on social media</h5>
+          <h5 className="text-16 fw-600 mb-10">Follow us on social media</h5>
           <div className="d-flex x-gap-20 items-center">
             <Social />
           </div>
         </div>
         {/* <div className="mt-20">
           <Link
-            className=" button -dark-1 px-30 fw-500 text-14 bg-blue-1 h-50 text-white"
+            className=" button -dark-1 px-30 fw-600 text-14 bg-blue-1 h-50 text-white"
             href="/login"
           >
             Become An Expert

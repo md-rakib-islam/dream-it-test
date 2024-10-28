@@ -28,7 +28,7 @@ const useTours = (destination = "Home") => {
     if (isSuccess && isContentSuccess) {
       let tours = contentItems
         .filter((item) => {
-          if (item.type !== "Tours") return false;
+          if (item.published == false) return false;
           return true;
         })
         .map((tour) => ({

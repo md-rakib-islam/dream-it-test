@@ -77,10 +77,12 @@ const ItineraryContent = ({
                 >
                   <div className="pt-15 pb-15">
                     <div className="text-14 lh-17 mt-15 text-black">
-                      <Interweave
-                        className="text-black"
-                        content={item.content}
-                      />
+                      <div className="interweave-content">
+                        <Interweave
+                          className="text-black"
+                          content={item.content}
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>

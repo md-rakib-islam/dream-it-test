@@ -1,26 +1,30 @@
-"use client"
+"use client";
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useSelector } from 'react-redux';
-import { ToastContainer, toast } from 'react-toastify';
+import { useSelector } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
 
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 const HeaderSearch = () => {
   const [searchText, setSearchText] = useState("");
-  const {menuItems} = useSelector(state => state.menus);
-  const destinations = menuItems.find((item) => item.name === "Destinations")?.children;
+  const { menuItems } = useSelector((state) => state.menus);
+  const destinations = menuItems.find(
+    (item) => item.name === "Destinations"
+  )?.children;
 
   const router = useRouter();
   const handleSubmit = () => {
-    if(searchText){
-      const isLocation = destinations.find((item) => item.name.toLowerCase().includes(searchText));
-      if(isLocation){
-        router.push(`/destinations/${isLocation?.name?.toLowerCase()}`)
-      }else{
+    if (searchText) {
+      const isLocation = destinations.find((item) =>
+        item.name.toLowerCase().includes(searchText)
+      );
+      if (isLocation) {
+        router.push(`/destinations/${isLocation?.name?.toLowerCase()}`);
+      } else {
         // alert("Your Location is not found!")
-        toast('Your Location is not found!', {
+        toast("Your Location is not found!", {
           position: "top-center",
           autoClose: 4000,
           hideProgressBar: false,
@@ -29,11 +33,10 @@ const HeaderSearch = () => {
           draggable: true,
           progress: undefined,
           theme: "dark",
-          });
+        });
       }
-      
     }
-  }
+  };
   // const [searchValue, setSearchValue] = useState("");
   // const [selectedItem, setSelectedItem] = useState(null);
 
@@ -71,7 +74,7 @@ const HeaderSearch = () => {
   // };
   return (
     <div className="single-field relative d-flex items-center xl:d-none mr-20">
-       <ToastContainer
+      <ToastContainer
         position="top-center"
         autoClose={4000}
         hideProgressBar={false}
@@ -82,24 +85,28 @@ const HeaderSearch = () => {
         draggable
         pauseOnHover
         theme="dark"
-        />
+      />
       <input
         value={searchText}
-        onKeyDown={(e) => {if(e.key === "Enter"){
-          handleSubmit()
-        }}}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            handleSubmit();
+          }
+        }}
         onChange={(e) => setSearchText(e.target.value)}
         className="pl-50 border-light text-dark-1 h-50 rounded-8"
         type="text"
         required
         placeholder="Destination, attraction, hotel, etc"
       />
-      <button onClick={handleSubmit} type="submit" className="absolute d-flex items-center h-full">
+      <button
+        onClick={handleSubmit}
+        type="submit"
+        className="absolute d-flex items-center h-full"
+      >
         <i className="icon-search text-20 px-15 text-dark-1" />
       </button>
-     
     </div>
-    
 
     // <>
     //   <div className="searchMenu-loc px-30 lg:py-20 lg:px-0 js-form-dd js-liverSearch">
@@ -138,7 +145,7 @@ const HeaderSearch = () => {
     //               <div className="d-flex">
     //                 <div className="icon-location-2 text-light-1 text-20 pt-4" />
     //                 <div className="ml-10">
-    //                   <div className="text-15 lh-12 fw-500 js-search-option-target">
+    //                   <div className="text-15 lh-12 fw-600 js-search-option-target">
     //                     {item.name}
     //                   </div>
     //                   <div className="text-14 lh-12 text-light-1 mt-5">

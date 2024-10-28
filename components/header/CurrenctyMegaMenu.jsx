@@ -62,7 +62,7 @@ const CurrenctyMegaMenu = ({ textClass }) => {
         <div className="currencyMenu__bg" onClick={handleCurrency}></div>
         <div className="currencyMenu__content bg-white rounded-4">
           <div className="d-flex items-center justify-between px-30 py-20 sm:px-15 border-bottom-light">
-            <div className="text-20 fw-500 lh-15">Select your currency</div>
+            <div className="text-20 fw-600 lh-15">Select your currency</div>
             {/* End Title */}
 
             <button className="pointer" onClick={handleCurrency}>
@@ -81,7 +81,7 @@ const CurrenctyMegaMenu = ({ textClass }) => {
                 onClick={() => handleItemClick(item)}
               >
                 <div className="py-10 px-15 sm:px-5 sm:py-5">
-                  <div className="text-15 lh-15 fw-500 text-dark-1">
+                  <div className="text-15 lh-15 fw-600 text-dark-1">
                     {item.name}
                   </div>
                   <div className="text-14 lh-15 mt-5">

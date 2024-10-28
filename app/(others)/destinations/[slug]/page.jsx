@@ -118,7 +118,7 @@ const Destinations = ({ params }) => {
 
           <div className="row y-gap-20">
             <div className="col-12">
-              <h2 className="text-22 fw-500">Local weather</h2>
+              <h2 className="text-22 fw-600">Local weather</h2>
             </div>
             {/* End. col-12 */}
 
@@ -230,7 +230,7 @@ const Destinations = ({ params }) => {
         <div className="container">
           <div className="row y-gap-20">
             <div className="col-lg-4">
-              <h2 className="text-30 fw-500">
+              <h2 className="text-30 fw-600">
                 FAQs about
                 <br />
                 {slug

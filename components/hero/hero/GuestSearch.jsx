@@ -1,5 +1,4 @@
-
-'use client'
+"use client";
 
 import { useState } from "react";
 const counters = [
@@ -25,7 +24,7 @@ const Counter = ({ name, defaultValue, onCounterChange }) => {
     <>
       <div className="row y-gap-10 justify-between items-center">
         <div className="col-auto">
-          <div className="text-15 lh-12 fw-500">{name}</div>
+          <div className="text-15 lh-12 fw-600">{name}</div>
           {name === "Children" && (
             <div className="text-14 lh-12 text-light-1 mt-5">Ages 0 - 17</div>
           )}
@@ -78,7 +77,7 @@ const GuestSearch = () => {
         aria-expanded="false"
         data-bs-offset="0,22"
       >
-        <h4 className="text-15 fw-500 ls-2 lh-16">Guest</h4>
+        <h4 className="text-15 fw-600 ls-2 lh-16">Guest</h4>
         <div className="text-15 text-light-1 ls-2 lh-16">
           <span className="js-count-adult">{guestCounts.Adults}</span> adults -{" "}
           <span className="js-count-child">{guestCounts.Children}</span>{" "}

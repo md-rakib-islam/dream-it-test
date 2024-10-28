@@ -22,12 +22,12 @@ const MainMenu = ({ style = "" }) => {
           >
             {menu?.children?.length > 0 ? (
               <a href="#">
-                <span className="mr-10 fw-500">{menu.name}</span>
+                <span className="mr-10 fw-600">{menu.name}</span>
                 <i className="icon icon-chevron-sm-down" />
               </a>
             ) : (
               <Link href={menu?.routePath}>
-                <span className="mr-10 fw-500">{menu.name}</span>
+                <span className="mr-10 fw-600">{menu.name}</span>
               </Link>
             )}
             {menu.children.length > 0 && (
@@ -37,7 +37,7 @@ const MainMenu = ({ style = "" }) => {
                     key={item.id}
                     className={`${
                       isActiveLink(item.routePath, pathname) ? "current" : ""
-                    } menu-item-has-children fw-500`}
+                    } menu-item-has-children fw-600`}
                   >
                     <Link href={item.routePath}>{item.name}</Link>
                   </li>

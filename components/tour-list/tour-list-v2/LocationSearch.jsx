@@ -43,7 +43,7 @@ const SearchBar = () => {
             <i className="icon-location-2 text-20 text-light-1 mt-5"></i>
 
             <div className="ml-10 flex-grow-1">
-              <h4 className="text-15 fw-500 ls-2 lh-16">Location</h4>
+              <h4 className="text-15 fw-600 ls-2 lh-16">Location</h4>
               <div className="text-15 text-light-1 ls-2 lh-16">
                 <input
                   autoComplete="off"
@@ -75,7 +75,7 @@ const SearchBar = () => {
                   <div className="d-flex">
                     <div className="icon-location-2 text-light-1 text-20 pt-4" />
                     <div className="ml-10">
-                      <div className="text-15 lh-12 fw-500 js-search-option-target">
+                      <div className="text-15 lh-12 fw-600 js-search-option-target">
                         {item.name}
                       </div>
                       <div className="text-14 lh-12 text-light-1 mt-5">

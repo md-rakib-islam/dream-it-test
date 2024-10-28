@@ -53,7 +53,7 @@ const TermsConent = () => {
         <div className="col-lg-9">
           <TabPanel>
             <div className="tabs__content js-tabs-content" data-aos="fade">
-              <h2 className="text-16 fw-500">1. Terms</h2>
+              <h2 className="text-16 fw-600">1. Terms</h2>
               <p className="text-15 text-justify text-dark-1 mt-5">
                 By accessing this Website, accessible from{" "}
                 <a
@@ -70,7 +70,7 @@ const TermsConent = () => {
                 The materials contained in this Website are protected by
                 copyright and trade mark law.
               </p>
-              <h2 className="text-16 fw-500 mt-35">2. Use License</h2>
+              <h2 className="text-16 fw-600 mt-35">2. Use License</h2>
               <p className="text-15 text-justify text-dark-1 mt-5">
                 Permission is granted to temporarily download one copy of the
                 materials on Dream Tourism's Website for personal,
@@ -106,7 +106,7 @@ const TermsConent = () => {
                 format. These Terms of Service has been created with the help of
                 the Terms Of Service Generator.
               </p>
-              <h2 className="text-16 fw-500 mt-35">3. Disclaimer</h2>
+              <h2 className="text-16 fw-600 mt-35">3. Disclaimer</h2>
               <p className="text-15 text-justify text-dark-1 mt-5">
                 All the materials on Dream Tourism's Website are provided "as
                 is". Dream Tourism makes no warranties, may it be expressed or
@@ -116,7 +116,7 @@ const TermsConent = () => {
                 Website or otherwise relating to such materials or any sites
                 linked to this Website.
               </p>
-              <h2 className="text-16 fw-500 mt-35">4. Limitations</h2>
+              <h2 className="text-16 fw-600 mt-35">4. Limitations</h2>
               <p className="text-15 text-justify text-dark-1 mt-5">
                 Dream Tourism or its suppliers will not be held accountable for
                 any damages that will arise with the use or inability to use the
@@ -127,7 +127,7 @@ const TermsConent = () => {
                 limitations of liability for incidental damages, these
                 limitations may not apply to you.
               </p>
-              <h2 className="text-16 fw-500 mt-35">5. Revisions and Errata</h2>
+              <h2 className="text-16 fw-600 mt-35">5. Revisions and Errata</h2>
               <p className="text-15 text-justify text-dark-1 mt-5">
                 The materials appearing on Dream Tourism's Website may include
                 technical, typographical, or photographic errors.{" "}
@@ -137,7 +137,7 @@ const TermsConent = () => {
                 at any time without notice. Dream Tourism does not make any
                 commitment to update the materials.
               </p>
-              <h2 className="text-16 fw-500 mt-35">6. Links</h2>
+              <h2 className="text-16 fw-600 mt-35">6. Links</h2>
               <p className="text-15 text-justify text-dark-1 mt-5">
                 Dream Tourism has not reviewed all of the sites linked to its
                 Website and is not responsible for the contents of any such
@@ -145,7 +145,7 @@ const TermsConent = () => {
                 by Dream Tourism of the site. The use of any linked website is
                 at the user's own risk.
               </p>
-              <h2 className="text-16 fw-500 mt-35">
+              <h2 className="text-16 fw-600 mt-35">
                 7. Site Terms of Use Modifications
               </h2>
               <p className="text-15 text-justify text-dark-1 mt-5">
@@ -154,7 +154,7 @@ const TermsConent = () => {
                 agreeing to be bound by the current version of these Terms and
                 Conditions of Use.
               </p>
-              <h2 className="text-16 fw-500 mt-35">8. Your Privacy</h2>
+              <h2 className="text-16 fw-600 mt-35">8. Your Privacy</h2>
               <p className="text-15 text-justify text-dark-1 mt-5">
                 Please read our{" "}
                 <span
@@ -165,7 +165,7 @@ const TermsConent = () => {
                 </span>
                 .
               </p>
-              <h2 className="text-16 fw-500 mt-35">9. Governing Law</h2>
+              <h2 className="text-16 fw-600 mt-35">9. Governing Law</h2>
               <p className="text-15 text-justify text-dark-1 mt-5">
                 Any claim related to Dream Tourism's Website shall be governed
                 by the laws of it without regards to its conflict of law
@@ -832,7 +832,7 @@ const TermsConent = () => {
           {/* <TabPanel>
             <div className="tabs__content js-tabs-content" data-aos="fade">
               <h1 className="text-30 fw-600 mb-15"> Cookie Policy</h1>
-              <h2 className="text-16 fw-500">1. Your Agreement</h2>
+              <h2 className="text-16 fw-600">1. Your Agreement</h2>
               <p className="text-15 text-dark-1 mt-5">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry. Lorem Ipsum has been the industry&apos;s standard
@@ -847,7 +847,7 @@ const TermsConent = () => {
                 desktop publishing software like Aldus PageMaker including
                 versions of Lorem Ipsum.
               </p>
-              <h2 className="text-16 fw-500 mt-35">
+              <h2 className="text-16 fw-600 mt-35">
                 2. Change of Terms of Use
               </h2>
               <p className="text-15 text-dark-1 mt-5">
@@ -864,7 +864,7 @@ const TermsConent = () => {
                 desktop publishing software like Aldus PageMaker including
                 versions of Lorem Ipsum.
               </p>
-              <h2 className="text-16 fw-500 mt-35">
+              <h2 className="text-16 fw-600 mt-35">
                 3. Access and Use of the Services
               </h2>
               <p className="text-15 text-dark-1 mt-5">
@@ -888,7 +888,7 @@ const TermsConent = () => {
           {/* <TabPanel>
             <div className="tabs__content js-tabs-content" data-aos="fade">
               <h1 className="text-30 fw-600 mb-15"> Best Price Guarantee</h1>
-              <h2 className="text-16 fw-500">1. Your Agreement</h2>
+              <h2 className="text-16 fw-600">1. Your Agreement</h2>
               <p className="text-15 text-dark-1 mt-5">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry. Lorem Ipsum has been the industry&apos;s standard
@@ -903,7 +903,7 @@ const TermsConent = () => {
                 desktop publishing software like Aldus PageMaker including
                 versions of Lorem Ipsum.
               </p>
-              <h2 className="text-16 fw-500 mt-35">
+              <h2 className="text-16 fw-600 mt-35">
                 2. Change of Terms of Use
               </h2>
               <p className="text-15 text-dark-1 mt-5">
@@ -920,7 +920,7 @@ const TermsConent = () => {
                 desktop publishing software like Aldus PageMaker including
                 versions of Lorem Ipsum.
               </p>
-              <h2 className="text-16 fw-500 mt-35">
+              <h2 className="text-16 fw-600 mt-35">
                 3. Access and Use of the Services
               </h2>
               <p className="text-15 text-dark-1 mt-5">
