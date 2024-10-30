@@ -30,7 +30,7 @@ const Banner = ({ slug }) => {
         />
 
         {/* <div className="absolute d-flex justify-end items-end col-12 h-full z-1 px-10 py-10">
-          <button className="button -md -blue-1 bg-white text-dark-1 text-14 fw-600">
+          <button className="button -md -blue-1 bg-white text-dark-1 text-14 fw-500">
             See All Photos
           </button>
         </div> */}

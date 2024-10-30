@@ -28,7 +28,7 @@ const Slights = ({ slug }) => {
               </div>
               <div className="col">
                 <div className="d-flex flex-column justify-center h-full px-30">
-                  <h3 className="text-lg-start text-center text-18 fw-600">
+                  <h3 className="text-lg-start text-center text-18 fw-500">
                     {item.title}
                   </h3>
                   <p className="text-15">{item.text.split(/\r?\n|\. /)[0]}</p>
@@ -45,7 +45,7 @@ const Slights = ({ slug }) => {
                     href="#"
                     data-bs-toggle="collapse"
                     data-bs-target={`#${item.collapseTarget}`}
-                    className="d-block text-14 text-blue-1 fw-600 underline mt-5"
+                    className="d-block text-14 text-blue-1 fw-500 underline mt-5"
                   >
                     See More
                   </Link>

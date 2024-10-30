@@ -18,7 +18,7 @@ const ContactInfo = () => {
       {contactContent.map((item) => (
         <div className="mt-0" key={item.id}>
           <div className={"text-14 mt-0"}>{item.title}</div>
-          <a href={item.action} className="text-18 fw-600 mt-5">
+          <a href={item.action} className="text-18 fw-500 mt-5">
             {item.text}
           </a>
         </div>

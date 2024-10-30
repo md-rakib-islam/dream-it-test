@@ -10,7 +10,7 @@ const Sidebar = () => {
     <>
       <div className="sidebar__item -no-border">
         <div className="px-20 py-20 bg-light-2 rounded-4">
-          <h5 className="text-18 fw-600 mb-10">Search Tours</h5>
+          <h5 className="text-18 fw-500 mb-10">Search Tours</h5>
 
           <div className="row y-gap-20 pt-20">
             <MainFilterSearchBox />
@@ -20,7 +20,7 @@ const Sidebar = () => {
       {/* End search tours */}
 
       <div className="sidebar__item -no-border">
-        <h5 className="text-18 fw-600 mb-10">Category Types</h5>
+        <h5 className="text-18 fw-500 mb-10">Category Types</h5>
         <div className="sidebar-checkbox">
           <CategoryTypes />
         </div>
@@ -29,7 +29,7 @@ const Sidebar = () => {
       {/* End popular filter */}
 
       <div className="sidebar__item">
-        <h5 className="text-18 fw-600 mb-10">Other</h5>
+        <h5 className="text-18 fw-500 mb-10">Other</h5>
         <div className="sidebar-checkbox">
           <OthersFilter />
         </div>
@@ -38,7 +38,7 @@ const Sidebar = () => {
       {/* End Aminities filter */}
 
       <div className="sidebar__item pb-30">
-        <h5 className="text-18 fw-600 mb-10">Price</h5>
+        <h5 className="text-18 fw-500 mb-10">Price</h5>
         <div className="row x-gap-10 y-gap-30">
           <div className="col-12">
             <PirceSlider />
@@ -48,7 +48,7 @@ const Sidebar = () => {
       {/* End Nightly priceslider */}
 
       <div className="sidebar__item">
-        <h5 className="text-18 fw-600 mb-10">Duration</h5>
+        <h5 className="text-18 fw-500 mb-10">Duration</h5>
         <div className="sidebar-checkbox">
           <Duration />
         </div>
@@ -56,7 +56,7 @@ const Sidebar = () => {
       {/* End style filter */}
 
       <div className="sidebar__item">
-        <h5 className="text-18 fw-600 mb-10">Languages</h5>
+        <h5 className="text-18 fw-500 mb-10">Languages</h5>
         <div className="sidebar-checkbox">
           <Languages />
         </div>

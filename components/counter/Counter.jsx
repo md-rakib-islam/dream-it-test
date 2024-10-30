@@ -38,7 +38,7 @@ const Counter = () => {
           data-aos="fade"
           data-aos-delay={item.delayAnim}
         >
-          <div className="text-40 lg:text-30 lh-13 fw-600">
+          <div className="text-40 lg:text-30 lh-13 fw-500">
             {item.number}
             {item.hasUnit}
           </div>

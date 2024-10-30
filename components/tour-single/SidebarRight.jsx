@@ -35,7 +35,7 @@ const SidebarRight = () => {
             alt="Klarna Payment System"
           ></Image>
 
-          <span className="fw-600 ml-20">Book now, pay in 3 installments</span>
+          <span className="fw-500 ml-20">Book now, pay in 3 installments</span>
         </div>
         {isSuccess && <div className="bokunWidget" data-src={data?.url}></div>}
       </div>

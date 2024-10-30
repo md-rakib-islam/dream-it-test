@@ -55,8 +55,8 @@ const Weather = async ({ slug }) => {
     <>
       {weatherContent.map((item) => (
         <div className="col-xl-3 col-6 mobile" key={item?.id}>
-          <div className="text-15 lh-1 fw-600">{item?.date}</div>
-          <div className="text-22 fw-600 mt-10">
+          <div className="text-15 lh-1 fw-500">{item?.date}</div>
+          <div className="text-22 fw-500 mt-10">
             {item?.highestTemperature}{" "}
             <span className="text-light-1 ml-15">
               {item?.lowestTemperature}
@@ -67,8 +67,8 @@ const Weather = async ({ slug }) => {
 
       {weatherContentMobile.map((item) => (
         <div className="col-xl-3 col-6 desktop" key={item?.id}>
-          <div className="text-15 lh-1 fw-600">{item?.date}</div>
-          <div className="text-22 fw-600 mt-10">
+          <div className="text-15 lh-1 fw-500">{item?.date}</div>
+          <div className="text-22 fw-500 mt-10">
             {item?.highestTemperature}{" "}
             <span className="text-light-1 ml-15">
               {item?.lowestTemperature}

@@ -207,7 +207,7 @@ const TourSkeleton = () => {
 
                 <div className="cardImage__leftBadge skeleton">
                   <div
-                    className={`py-5 px-15 rounded-right-4 text-12 lh-16 fw-600 uppercase bg-blue-1 text-white `}
+                    className={`py-5 px-15 rounded-right-4 text-12 lh-16 fw-500 uppercase bg-blue-1 text-white `}
                   >
                     {item?.tag}
                   </div>
@@ -227,14 +227,14 @@ const TourSkeleton = () => {
                 <div className="col-auto">
                   <div className="text-14 text-dark-1 fw-bold skeleton">
                     From $
-                    <span className="text-16 fw-600 text-blue-1 fw-bold">
+                    <span className="text-16 fw-500 text-blue-1 fw-bold">
                       {" "}
                       {item?.price}
                     </span>
                   </div>
                 </div>
               </div>
-              <h4 className="tourCard__title text-dark-1 text-18 lh-16 fw-600 skeleton">
+              <h4 className="tourCard__title text-dark-1 text-18 lh-16 fw-500 skeleton">
                 <span>{item?.title}</span>
               </h4>
               <p className="text-light-1 lh-14 text-14 mt-5 skeleton">
@@ -261,7 +261,7 @@ const TourSkeleton = () => {
                 {/* <div className="col-auto">
                 <div className="text-14 text-light-1">
                   From {currentCurrency?.symbol} 
-                  <span className="text-16 fw-600 text-dark-1">
+                  <span className="text-16 fw-500 text-dark-1">
                     {" "}
                     
                     {item.price}

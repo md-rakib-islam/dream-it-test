@@ -284,7 +284,7 @@ const TourSingleV1Dynamic = ({ params, children }) => {
       </section>
       {/* End important info */}
 
-      {dataAvailable && (
+      {dataAvailable && itenarayItems?.length !==0 && (
         <section className="border-top-light  mt-40 pt-40">
           <div className="container">
             <h3 className="text-22 fw-600 mb-20">Itinerary</h3>

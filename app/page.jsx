@@ -6,7 +6,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 
 const fetchMetadata = async () => {
   try {
-    const res = await fetch(`${GET_METADATA_BY_CONTENT_NAME}/Home`);
+    const res = await fetch(`${GET_METADATA_BY_CONTENT_NAME}/home`);
     if (!res.ok) {
       throw new Error("Failed to fetch metadata");
     }

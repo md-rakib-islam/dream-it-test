@@ -98,7 +98,7 @@ const ToursForMobile = ({ destination, filterTour }) => {
                 <div className="col-auto">
                   <div className="text-14 md:text-12 text-dark-1 fw-bold">
                     From {currentCurrency?.symbol}
-                    <span className="text-16 md:text-13 fw-600 text-blue-1 fw-bold">
+                    <span className="text-16 md:text-13 fw-500 text-blue-1 fw-bold">
                       {" "}
                       {item.price}
                     </span>

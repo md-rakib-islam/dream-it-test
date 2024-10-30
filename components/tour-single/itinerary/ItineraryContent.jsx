@@ -58,11 +58,11 @@ const ItineraryContent = ({
                   expandedItems[item.id] ? "text-blue-1" : ""
                 } rounded-full`}
               >
-                <div className="text-14 fw-600">{index + 1}</div>
+                <div className="text-14 fw-500">{index + 1}</div>
               </div>
               <div className="ml-20">
                 <div
-                  className={`text-16 lh-15 fw-600 ${
+                  className={`text-16 lh-15 fw-500 ${
                     expandedItems[item.id] ? "text-blue-1" : ""
                   }`}
                 >
@@ -95,7 +95,7 @@ const ItineraryContent = ({
                   }}
                 >
                   {/* Toggle button text based on item expansion state */}
-                  <button className="d-block lh-15 text-14 text-blue-1 underline fw-600 mt-5">
+                  <button className="d-block lh-15 text-14 text-blue-1 underline fw-500 mt-5">
                     {expandedItems[item.id] ? "See less" : "See more"}
                   </button>
                 </div>

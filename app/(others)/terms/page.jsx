@@ -70,11 +70,11 @@ const Terms = ({ searchParams }) => {
         <div className="container">
           <div className="tabs js-tabs">
             {type === "general_terms_of_use" ? (
-              <h1 className="text-30 fw-600 mb-15 text-center">
+              <h1 className="text-30 fw-500 mb-15 text-center">
                 Terms and Conditions of Use
               </h1>
             ) : (
-              <h1 className="text-30 fw-600 mb-15 text-center">
+              <h1 className="text-30 fw-500 mb-15 text-center">
                 Privacy Policy
               </h1>
             )}

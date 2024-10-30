@@ -157,7 +157,7 @@ const Testimonial = ({ reviewsData }) => {
                       style={{ textDecoration: "none", cursor: "pointer" }}
                     >
                       <div className=" d-flex items-center">
-                        <h4 className="text-14 fw-600 lh-14 link-hover">
+                        <h4 className="text-14 fw-500 lh-14 link-hover">
                           {item.reviewer_name.slice(0, 15)}
                         </h4>
 
@@ -189,7 +189,7 @@ const Testimonial = ({ reviewsData }) => {
                   WebkitLineClamp: 1,
                   WebkitBoxOrient: "vertical",
                 }}
-                className="text-14 fw-600"
+                className="text-14 fw-500"
               >
                 {item.title}
               </h4>

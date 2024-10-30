@@ -86,7 +86,7 @@ const Destinations = ({ params }) => {
               style={{ width: "fit-content" }}
             >
               <h1
-                className="text-50 fw-600 text-white lg:text-40 md:text-30"
+                className="text-50 fw-500 text-white lg:text-40 md:text-30"
                 style={{
                   textShadow: "2px 2px 4px rgba(0,0,0,0.5)",
                 }}
@@ -118,7 +118,7 @@ const Destinations = ({ params }) => {
 
           <div className="row y-gap-20">
             <div className="col-12">
-              <h2 className="text-22 fw-600">Local weather</h2>
+              <h2 className="text-22 fw-500">Local weather</h2>
             </div>
             {/* End. col-12 */}
 
@@ -230,7 +230,7 @@ const Destinations = ({ params }) => {
         <div className="container">
           <div className="row y-gap-20">
             <div className="col-lg-4">
-              <h2 className="text-30 fw-600">
+              <h2 className="text-30 fw-500">
                 FAQs about
                 <br />
                 {slug

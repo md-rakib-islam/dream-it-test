@@ -139,7 +139,7 @@ const Tours = ({ destination, filterTour, dailyTours, multiDays }) => {
 
                 <div className="cardImage__leftBadge cardImage-2__leftBadge sm:d-none">
                   {/* <div
-                    className={`py-5  rounded-right-4 text-12 lh-16 fw-600 uppercase ${
+                    className={`py-5  rounded-right-4 text-12 lh-16 fw-500 uppercase ${
                       isTextMatched(item?.tag, "likely to sell out*")
                         ? "bg-dark-1 text-white"
                         : ""
@@ -199,7 +199,7 @@ const Tours = ({ destination, filterTour, dailyTours, multiDays }) => {
                 <div className="col-auto">
                   <div className="text-14 md:text-12 text-dark-1 fw-bold">
                     From {currentCurrency?.symbol}
-                    <span className="text-16 md:text-13 fw-600 text-blue-1 fw-bold">
+                    <span className="text-16 md:text-13 fw-500 text-blue-1 fw-bold">
                       {" "}
                       {item.price}
                     </span>
@@ -281,7 +281,7 @@ const Tours = ({ destination, filterTour, dailyTours, multiDays }) => {
 
                   <div className="cardImage__leftBadge cardImage-2__leftBadge">
                     {/* <div
-                    className={`py-5  rounded-right-4 text-12 lh-16 fw-600 uppercase ${
+                    className={`py-5  rounded-right-4 text-12 lh-16 fw-500 uppercase ${
                       isTextMatched(item?.tag, "likely to sell out*")
                         ? "bg-dark-1 text-white"
                         : ""
@@ -341,7 +341,7 @@ const Tours = ({ destination, filterTour, dailyTours, multiDays }) => {
                   <div className="col-auto">
                     <div className="text-14 text-dark-1 fw-bold">
                       From {currentCurrency?.symbol}
-                      <span className="text-16 fw-600 text-blue-1 fw-bold">
+                      <span className="text-16 fw-500 text-blue-1 fw-bold">
                         {" "}
                         {item.price}
                       </span>

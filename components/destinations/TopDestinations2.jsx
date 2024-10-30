@@ -88,7 +88,7 @@ const TopDestinations2 = ({ slug }) => {
                   />{" "}
                 </div>
                 <div className="citiesCard__content d-flex justify-content-center align-items-center px-30 py-30">
-                  <h4 className="text-26 fw-600 text-white text-capitalize">
+                  <h4 className="text-26 fw-500 text-white text-capitalize">
                     {item.location}
                   </h4>
                   {/* <div className="text-15 text-white">

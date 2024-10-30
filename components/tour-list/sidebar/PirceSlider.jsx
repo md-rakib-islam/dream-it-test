@@ -14,7 +14,7 @@ const PirceSlider = () => {
 
   return (
     <div className="js-price-rangeSlider">
-      <div className="text-14 fw-600"></div>
+      <div className="text-14 fw-500"></div>
 
       <div className="d-flex justify-between mb-20">
         <div className="text-15 text-dark-1">
