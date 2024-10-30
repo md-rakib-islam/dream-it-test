@@ -166,12 +166,12 @@ const Destinations = ({ params }) => {
 
             <div className="row y-gap-30 pt-40 sm:pt-20 item_gap-x30">
               <Tours
-                destination={slug
+                destination={`${slug
                   ?.split("_")
                   ?.map(
                     (word) => word?.charAt(0).toUpperCase() + word?.slice(1)
                   )
-                  ?.join(" ")}
+                  ?.join(" ")}`}
               />
             </div>
             {/* End .row */}

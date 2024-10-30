@@ -15,7 +15,7 @@ const MainFilterSearchBox = () => {
       </div>
       {/* End .col-12 */}
 
-      <div className="col-12">
+      {/* <div className="col-12">
         <div className="searchMenu-date px-20 py-10 bg-white rounded-4 -left js-form-dd js-calendar">
           <div className="d-flex">
             <i className="icon-calendar-2 text-20 text-light-1 mt-5"></i>
@@ -27,8 +27,8 @@ const MainFilterSearchBox = () => {
             </div>
           </div>
         </div>
-        {/* End check-in-out */}
-      </div>
+        End check-in-out
+      </div> */}
       {/* End .col-12 */}
 
       <div className="col-12">

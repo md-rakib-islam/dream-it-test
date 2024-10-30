@@ -12,7 +12,15 @@ import TripReview from "@/components/common/TripReview";
 const TourProperties = () => {
   const searchParams = useSearchParams();
   const search = searchParams.get("location");
-  const tourItems = useFilterTours(search ? search : "Home");
+  const tourItems = useFilterTours();
+  const filteredTourItems = search
+      ? tourItems.filter(
+        
+          (item) =>
+            item.location &&
+            item.location.includes(search)
+        )
+    : tourItems;
 
   const { currentCurrency } = useSelector((state) => state.currency);
   const width = useWindowSize();
@@ -53,7 +61,7 @@ const TourProperties = () => {
       className="row row-cols-1 row-cols-md-3 g-3 "
       style={{ marginTop: "-20px" }}
     >
-      {tourItems?.map((item) => {
+      {filteredTourItems?.map((item) => {
         const slug = item?.slug?.endsWith("-1")
           ? item?.slug.slice(0, -2)
           : item?.slug;

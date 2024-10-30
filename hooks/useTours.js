@@ -13,11 +13,12 @@ const useTours = (destination = "Home") => {
   let menuId;
   if (destination == "Home") {
     menuId = menuItems.find((item) => item.name == "Home")?.id;
-  } else {
-    menuId = menuItems
-      .find((item) => item.name == "Destinations")
-      ?.children?.find((child) => child?.name == destination)?.id;
-  }
+  } 
+  // else {
+  //   menuId = menuItems
+  //     .find((item) => item.name == "Destinations")
+  //     ?.children?.find((child) => child?.name == destination)?.id;
+  // }
   const { isSuccess, data, isLoading } = useGetImagesByMenuIdQuery(menuId);
   const {
     isSuccess: isContentSuccess,

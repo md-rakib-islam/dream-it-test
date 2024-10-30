@@ -5,7 +5,7 @@ import convertCurrency from "@/utils/currency";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-const useFilterTours = (destination) => {
+const useFilterTours = (destination = "Home") => {
   const [tourItems, setTourItems] = useState([]);
   const { menuItems } = useSelector((state) => state?.menus);
   const { currentCurrency, exchangeRates } = useSelector(
@@ -13,13 +13,10 @@ const useFilterTours = (destination) => {
   );
 
   let menuId;
-  if (destination == "Home") {
+  if (destination) {
     menuId = menuItems.find((item) => item.name == "Home")?.id;
-  } else {
-    menuId = menuItems
-      .find((item) => item.name == "Destinations")
-      ?.children?.find((child) => child?.name == destination)?.id;
-  }
+  } 
+
   const { isSuccess, data, isLoading } = useGetImagesByMenuIdQuery(menuId);
   const {
     isSuccess: isContentSuccess,
@@ -33,6 +30,7 @@ const useFilterTours = (destination) => {
           if (item.published == false) return false;
           return true;
         })
+     
         .map((tour) => ({
           id: tour.id,
           tag: "",

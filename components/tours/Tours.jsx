@@ -11,7 +11,7 @@ import TourSkeleton from "../skeleton/TourSkeleton";
 import TripReview from "../common/TripReview";
 
 const Tours = ({ destination, filterTour, dailyTours, multiDays }) => {
-  const tourItems = useTours(destination);
+  const tourItems = useTours();
   const filteredTourItems = filterTour
     ? tourItems.filter((item) => item.title !== filterTour)
     : dailyTours
@@ -22,7 +22,16 @@ const Tours = ({ destination, filterTour, dailyTours, multiDays }) => {
     ? tourItems.filter(
         (item) => item.duration && !item.duration.includes("hours")
       )
+    : destination
+      ? tourItems.filter(
+        
+          (item) =>
+            item.location &&
+            item.location.includes(destination)
+        )
     : tourItems;
+
+
   const { currentCurrency } = useSelector((state) => state.currency);
   const width = useWindowSize();
   const isMobile = width < 768;
