@@ -12,6 +12,10 @@ const SearchBar = () => {
   const searchParams = useSearchParams();
 
   const search = searchParams.get("location");
+  const category = searchParams.get("category");
+  const min = searchParams.get("min");
+  const max = searchParams.get("max");
+
   const [searchValue, setSearchValue] = useState(search);
   const [selectedItem, setSelectedItem] = useState(null);
   const { menuItems } = useSelector((state) => state.menus);
@@ -38,7 +42,9 @@ const SearchBar = () => {
       setSelectedItem(item);
       dispatch(addSearchValue(item.name));
 
-      Router.push(`/tours/?location=${item.name}`);
+      Router.push(
+        `/tours/?location=${item.name}&category=${category}&min=${min}&max=${max}`
+      );
     }
   };
 
@@ -69,7 +75,7 @@ const SearchBar = () => {
                     if (value == "") {
                       setSelectedItem(null);
                       dispatch(addSearchValue("")); // Clear the search value in the state
-                      Router.push(`/tours/?location=`);
+                      Router.push(`/tours/?location=&category&min=&max`);
                     }
                   }}
                 />
