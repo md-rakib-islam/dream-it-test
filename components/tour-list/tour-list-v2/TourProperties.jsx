@@ -4,25 +4,53 @@ import useFilterTours from "@/hooks/useFilterTours";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useWindowSize from "@/hooks/useWindowSize";
 import Slider from "react-slick";
 import TripReview from "@/components/common/TripReview";
+import { addFiltertourItems } from "@/features/tour/tourSlice";
+import { useEffect } from "react";
 
 const TourProperties = () => {
+  const dispatch = useDispatch();
   const searchParams = useSearchParams();
   const search = searchParams.get("location");
-  const tourItems = useFilterTours();
-  const filteredTourItems = search
-      ? tourItems.filter(
-        
-          (item) =>
-            item.location &&
-            item.location.includes(search)
-        )
-    : tourItems;
-
+  const category = searchParams.get("category");
+  const min = parseFloat(searchParams.get("min")) || 0; // Convert to number, default to 0
+  const max = parseFloat(searchParams.get("max")) || Infinity; // Convert to number, default to Infinity
   const { currentCurrency } = useSelector((state) => state.currency);
+
+  const tourItems = useFilterTours();
+
+  // Filtering logic that combines location, category, and price range
+  const filteredResults = tourItems.filter((item) => {
+    const locationMatches = search
+      ? item.location && item.location.includes(search)
+      : true;
+
+    const categoryMatches = category
+      ? (category === "Attraction Tours" &&
+          item.title &&
+          item.title.includes("Ticket")) ||
+        (category === "Day Tours" &&
+          item.duration &&
+          item.duration.includes("hours")) ||
+        (category === "Multi-Day Tours" &&
+          item.duration &&
+          !item.duration.includes("hours"))
+      : true;
+
+    const price = parseFloat(item.price.replace(/[^0-9.-]+/g, "")); // Remove non-numeric characters from price string and convert to number
+    const priceMatches = price >= min && price <= max;
+
+    return locationMatches && categoryMatches && priceMatches;
+  });
+
+  // Dispatch filtered results to Redux store only when filteredResults changes
+  useEffect(() => {
+    dispatch(addFiltertourItems(filteredResults));
+  }, [dispatch, filteredResults]);
+
   const width = useWindowSize();
   const isMobile = width < 768;
 
@@ -33,7 +61,8 @@ const TourProperties = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
-  // custom navigation
+
+  // Custom navigation
   function Arrow(props) {
     let className =
       props.type === "next"
@@ -56,12 +85,13 @@ const TourProperties = () => {
       </button>
     );
   }
+
   return (
     <div
       className="row row-cols-1 row-cols-md-3 g-3 "
       style={{ marginTop: "-20px" }}
     >
-      {filteredTourItems?.map((item) => {
+      {filteredResults?.map((item) => {
         const slug = item?.slug?.endsWith("-1")
           ? item?.slug.slice(0, -2)
           : item?.slug;
@@ -137,7 +167,10 @@ const TourProperties = () => {
                     </div>
                   </div>
                 </div>
-                <h4 className="tourCard__title text-dark-5 text-18 lh-16 fw-500">
+                <h4
+                  className="tourCard__title text-dark-5 text-18 lh-16 fw-600"
+                  style={{ color: "black" }}
+                >
                   <span>{item?.title}</span>
                 </h4>
                 <p className="text-light-1 lh-14 text-14 mt-5">

@@ -2,12 +2,13 @@
 
 import { addSearchValue } from "@/features/search/searchSlice";
 import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
-
+  const Router = useRouter();
   const searchParams = useSearchParams();
 
   const search = searchParams.get("location");
@@ -25,10 +26,20 @@ const SearchBar = () => {
   }));
 
   const handleOptionClick = (item) => {
-    setSearchValue(item.name);
-    setSelectedItem(item);
+    if (!item.name) {
+      // If the item name is empty, clear search value and selected item
+      setSearchValue("");
+      setSelectedItem(null);
+      dispatch(addSearchValue(""));
+    } else {
+      // Otherwise, proceed with the selected item
 
-    dispatch(addSearchValue(item.name));
+      setSearchValue(item.name);
+      setSelectedItem(item);
+      dispatch(addSearchValue(item.name));
+
+      Router.push(`/tours/?location=${item.name}`);
+    }
   };
 
   return (
@@ -51,7 +62,16 @@ const SearchBar = () => {
                   placeholder="Where are you going?"
                   className="js-search js-dd-focus"
                   value={searchValue}
-                  onChange={(e) => setSearchValue(e.target.value)}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    setSearchValue(value);
+
+                    if (value == "") {
+                      setSelectedItem(null);
+                      dispatch(addSearchValue("")); // Clear the search value in the state
+                      Router.push(`/tours/?location=`);
+                    }
+                  }}
                 />
               </div>
             </div>
