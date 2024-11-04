@@ -2,7 +2,6 @@
 import { useGetContentsByMenuContentTitleQuery } from "@/features/content/contentApi";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
-import { tourUrlsMap } from "./TourSingle";
 import Image from "next/image";
 
 const SidebarRight = () => {

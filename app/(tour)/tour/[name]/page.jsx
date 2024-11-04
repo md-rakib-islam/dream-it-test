@@ -6,35 +6,6 @@ import getAllContentByMenuId from "@/services/contentService";
 import getAllMenuItem from "@/services/menuService";
 import Head from "next/head";
 
-export const tourUrlsMap = {
-  "vatican-museum-and-sistine-chapel-admission-ticket":
-    "Vatican Museum and Sistine Chapel Admission Ticket",
-  "rome-colosseum-hosted-entry-roman-forum-and-palatine-hills-with-arena-ticket":
-    "Rome: Colosseum Hosted entry, Roman Forum and Palatine hills with Arena Ticket",
-  "rome-colosseum-roman-forum-and-palatine-hills-ticket-with-hosted-entry":
-    "Rome: Colosseum, Roman Forum, and Palatine Hills Ticket with Hosted Entry",
-  "switzerland-by-bernina-express-visit-milan-lake-como":
-    "Switzerland by Bernina Express & Visit Milan Lake Como",
-  "colosseum-roman-forum-and-palatine-hills-priority-ticket-skip-the-ticket-line":
-    "Colosseum, Roman Forum And Palatine Hills Priority Ticket- Skip The Ticket Line",
-  "skip-the-line-ticket-colosseum-forum-%26-palatine-hills-with-audio-%26-video-guide":
-    "Skip the Line ticket Colosseum, Forum & Palatine Hills with Audio & Video Guide",
-  "full-experience-colosseum-with-arena":
-    "Full Experience Colosseum with Arena",
-  "capri-island-day-trip-from-rome": "Capri Island Day Trip From Rome",
-  "capri-island-day-trip-from-rome-with-blue-grotto":
-    "Capri Island Day Trip From Rome With Blue Grotto",
-  "celebrate-new-year-in-paris-a-3-night-4-day-tour-from-london":
-    "Celebrate New Year In Paris: A 3-Night, 4-Day Tour From London",
-  "visit-europe-in-summer-holiday-switzerland-venice-austria-and-liechtenstein":
-    "Visit Europe In Summer Holiday: Switzerland, Venice, Austria And Liechtenstein",
-  "dream-meets-the-blue-at-santorini": "Dream Meets The Blue At Santorini",
-  "valentine-s-day-in-venice-and-bernina-express-journey-to-switzerland":
-    "Valentine's Day In Venice And Bernina Express Journey To Switzerland",
-  "tulip-garden-tour-from-london-by-eurostar":
-    "Tulip Garden Tour From London By Eurostar",
-};
-
 const fetchMetadata = async (tourTitle) => {
   try {
     const res = await fetch(`${GET_METADATA_BY_CONTENT_NAME}/${tourTitle}`);
@@ -133,8 +104,7 @@ export default async function Tour({ params }) {
   const fullUrl = getFullUrl(params);
 
   // Fetch metadata
-  const metaTitle = tourUrlsMap[params.name];
-  const metadata = await fetchMetadata(metaTitle);
+  const metadata = await fetchMetadata(params.name);
   return (
     <Wrapper>
       <Head>

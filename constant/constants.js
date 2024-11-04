@@ -1,6 +1,6 @@
 //base url
-export const BASE_URL = "http://192.168.68.110:8001";
-// export const BASE_URL = "https://api.dreamtourism.it";
+// export const BASE_URL = "http://192.168.68.110:8001";
+export const BASE_URL = "https://api.dreamtourism.it";
 
 // slidersettings
 export const CREATE_SLIDERSETTING = `${BASE_URL}/homepage_slider/api/v1/homepage_slider/create/`;
