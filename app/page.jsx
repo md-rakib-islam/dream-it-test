@@ -58,7 +58,7 @@ export default function Home() {
     <>
       <Wrapper>
         <MainHome />
-        <GoogleAnalytics gaId="G-PLLX0DKZKJ" />
+        <GoogleAnalytics gaId="G-TXJZSJCPCZ" />
       </Wrapper>
     </>
   );
