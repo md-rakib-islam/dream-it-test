@@ -104,14 +104,17 @@ const index = () => {
             <div className="row y-gap-40">
               <div className="col-xl-4 col-lg-4 col-sm-6">
                 <div className="d-flex items-center">
-                  <h5 className="text-18 fw-500 mb-10 w-100">Dream Tourism</h5>
+                  <h5 className="text-18 fw-500 mb-10 w-100">
+                    Dream Tourism SRLS
+                  </h5>
                   {/* End logo */}
                 </div>
+
                 <div
                   className={"text-14 mt-0 w-100 text-justify"}
                   style={{ textAlign: "justify" }}
                 >
-                  Explore, Experience, Wander with Dream Tourism. Book your
+                  Explore, Experience, Wander with Dream Tourism SRLS. Book your
                   dream tours and activities worldwide with Dream Tourism SRLS.
                   Your adventure awaits!
                 </div>

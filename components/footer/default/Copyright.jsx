@@ -14,7 +14,7 @@ const Copyright = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Dream Tourism
+                Dream Tourism SRLS
               </a>
               {/* All rights reserved. */}
             </div>

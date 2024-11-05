@@ -254,11 +254,12 @@ const index = () => {
                     <div className="col-8 col-lg-auto">
                       <div className="sectionTitle -md">
                         <h2 className="sectionTitle__title">
-                          Top Daily Tours for Ultimate Experiences
+                          Unmissable Attraction Tours Await
                         </h2>
                         <p className=" sectionTitle__text mt-5 sm:mt-0">
-                          Experience the best daily tours, offering
-                          unforgettable adventures and sights.
+                          Experience the best attraction tours, offering
+                          unforgettable journeys through iconic landmarks and
+                          hidden gems.
                         </p>
                       </div>
                     </div>
@@ -266,7 +267,44 @@ const index = () => {
 
                     <div className="col-4 col-lg-auto">
                       <Link
-                        href="/tours"
+                        href="/tours?location=&category=Attraction%20Tours&min=&max="
+                        className="button -md -blue-1 bg-blue-1-05 text-blue-1"
+                      >
+                        More <div className="icon-arrow-top-right ml-15" />
+                      </Link>
+                    </div>
+                    {/* End .col */}
+                  </div>
+                  {/* End .row */}
+
+                  <div className="row y-gap-30 pt-40 sm:pt-20 item_gap-x30">
+                    <Tours attraction={true} />
+                  </div>
+                  {/* End .row */}
+                </div>
+                {/* End .container */}
+              </section>
+              {/* Attraction Tours End */}
+              <section className="layout-pt-md layout-pb-md">
+                <div className="container">
+                  <div className="row y-gap-22 justify-between items-start">
+                    <div className="col-8 col-lg-auto">
+                      <div className="sectionTitle -md">
+                        <h2 className="sectionTitle__title">
+                          Top Daily Tours for Incredible Moments
+                        </h2>
+                        <p className=" sectionTitle__text mt-5 sm:mt-0">
+                          Uncover the heart of each destination with expertly
+                          planned day tours, offering captivating sights and
+                          experiences in every hour.
+                        </p>
+                      </div>
+                    </div>
+                    {/* End .col */}
+
+                    <div className="col-4 col-lg-auto">
+                      <Link
+                        href="/tours?location=&category=Day%20Tours&min=&max="
                         className="button -md -blue-1 bg-blue-1-05 text-blue-1"
                       >
                         More <div className="icon-arrow-top-right ml-15" />
@@ -290,11 +328,12 @@ const index = () => {
                     <div className="col-8 col-lg-auto">
                       <div className="sectionTitle -md">
                         <h2 className="sectionTitle__title">
-                          Top Multi-Day Tours for Ultimate Adventures
+                          Epic Multi-Day Tours for Unforgettable Escapes
                         </h2>
                         <p className=" sectionTitle__text mt-5 sm:mt-0">
-                          Discover unforgettable journeys with our top-rated,
-                          thrilling long tours.
+                          Venture on immersive journeys that span days, blending
+                          adventure, culture, and relaxation for a truly
+                          enriching travel experience.
                         </p>
                       </div>
                     </div>
@@ -302,7 +341,7 @@ const index = () => {
 
                     <div className="col-4 col-lg-auto">
                       <Link
-                        href="/tours"
+                        href="/tours?location=&category=Multi-Day%20Tours&min=&max="
                         className="button -md -blue-1 bg-blue-1-05 text-blue-1"
                       >
                         More <div className="icon-arrow-top-right ml-15" />

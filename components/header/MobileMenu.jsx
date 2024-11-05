@@ -38,7 +38,7 @@ const MobileMenu = () => {
               src={logoUrl}
               width={128}
               height={128}
-              alt="Dream Tourism Ltd"
+              alt="Dream Tourism SRLS"
             />
           )}
         </Link>

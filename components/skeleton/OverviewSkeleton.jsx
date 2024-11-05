@@ -3,7 +3,7 @@ const OverviewSkeleton = () => {
     <>
       <div className="row x-gap-40 y-gap-40">
         <div className="col-12 text-dark-1 text-15">
-          <h3 className="text-22 fw-600 pb-15">Overview</h3>
+          <h3 className="text-22 fw-600 mb-40">Overview</h3>
 
           <p className="skeleton mt-5">
             <span>

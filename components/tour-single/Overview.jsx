@@ -16,7 +16,7 @@ const Overview = () => {
     <>
       <div className="row x-gap-40 y-gap-40">
         <div className="col-12 text-dark-1 text-15">
-          <h3 className="text-22 fw-500">Overview</h3>
+          <h3 className="text-22 fw-600 mb-40">Overview</h3>
           <div className="interweave-content">
             <Interweave
               allowAttributes

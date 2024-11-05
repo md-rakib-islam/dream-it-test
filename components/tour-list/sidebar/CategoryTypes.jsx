@@ -1,6 +1,7 @@
 "use client";
 import { addCategory } from "@/features/tour/tourSlice";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const CategoryTypes = () => {
@@ -9,9 +10,10 @@ const CategoryTypes = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const location = searchParams.get("location") || "";
+  const category = searchParams.get("category") || "";
+
   const min = searchParams.get("min") || "";
   const max = searchParams.get("max") || "";
-
 
   const dailyTours = filterTours.filter(
     (item) => item.duration && item.duration.includes("hours")
@@ -38,8 +40,13 @@ const CategoryTypes = () => {
 
     // Update the URL
     const categoryParam = newCategory ? `&category=${newCategory}` : "";
-    router.push(`/tours/?location=${location}${categoryParam}&min=${min}&max=${max}`);
+    router.push(
+      `/tours/?location=${location}${categoryParam}&min=${min}&max=${max}`
+    );
   };
+  useEffect(() => {
+    dispatch(addCategory(category));
+  }, [dispatch, category]);
 
   return (
     <>

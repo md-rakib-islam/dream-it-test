@@ -183,10 +183,10 @@ const TermsConent = () => {
               <div className="mb-20">
                 <div>
                   <p className="text-15 text-dark-1 mt-5">
-                    This privacy notice for Dream Tourism Limited ('we', 'us',
-                    or 'our'), describes how and why we might collect,store,
-                    use, and/or share ('process') your information when you use
-                    our services ('Services'), such as when you:{" "}
+                    This privacy notice for Dream Tourism SRLS ('we', 'us', or
+                    'our'), describes how and why we might collect,store, use,
+                    and/or share ('process') your information when you use our
+                    services ('Services'), such as when you:{" "}
                   </p>
                   <ul className="mt-5 pl-80 mt-5 pl-80 listStyle">
                     <li>
@@ -794,7 +794,7 @@ const TermsConent = () => {
                   </p>
                   <div className="row">
                     <div className="col-md-3">
-                      <h6 className="pb-10">Dream Tourism Limited</h6>
+                      <h6 className="pb-10">Dream Tourism SRLS</h6>
                       <h6>Address: </h6>
                       <span>
                         Unit-6, 736-740 Romford Road, London E12 6BT United
