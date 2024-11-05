@@ -73,12 +73,15 @@
   list-style-type: disc;
   list-style-position: inside; // margin-left: 20px; /* optional, to add some spacing */
   margin-left: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   color: black;
 }
 .interweave-content li {
   list-style-type: disc;
   list-style-position: inside; // margin-left: 20px; /* optional, to add some spacing */
   margin-left: 5px;
+  margin-bottom: 10px;
   color: black;
 }
 
@@ -90,6 +93,7 @@
 }
 .interweave-content {
   color: black;
+  line-height: 1.5;
 }
 .interweave-content body,
 .interweave-content h1,

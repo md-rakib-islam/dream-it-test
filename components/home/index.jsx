@@ -222,8 +222,7 @@ const index = () => {
                           Most Popular Tours
                         </h2>
                         <p className=" sectionTitle__text mt-5 sm:mt-0">
-                          Explore Our Best Sellers: Unmatched Experiences in
-                          Every Journey
+                          Italy’s Best Experiences, Loved by Travelers.
                         </p>
                       </div>
                     </div>
@@ -254,12 +253,10 @@ const index = () => {
                     <div className="col-8 col-lg-auto">
                       <div className="sectionTitle -md">
                         <h2 className="sectionTitle__title">
-                          Unmissable Attraction Tours Await
+                          Top Attraction Tours
                         </h2>
                         <p className=" sectionTitle__text mt-5 sm:mt-0">
-                          Experience the best attraction tours, offering
-                          unforgettable journeys through iconic landmarks and
-                          hidden gems.
+                          Experience Italy's Iconic Sights Like Never Before.
                         </p>
                       </div>
                     </div>
@@ -290,13 +287,9 @@ const index = () => {
                   <div className="row y-gap-22 justify-between items-start">
                     <div className="col-8 col-lg-auto">
                       <div className="sectionTitle -md">
-                        <h2 className="sectionTitle__title">
-                          Top Daily Tours for Incredible Moments
-                        </h2>
+                        <h2 className="sectionTitle__title">Top Daily Tours</h2>
                         <p className=" sectionTitle__text mt-5 sm:mt-0">
-                          Uncover the heart of each destination with expertly
-                          planned day tours, offering captivating sights and
-                          experiences in every hour.
+                          Perfect Day Trips for Exploring Italy’s Highlights.
                         </p>
                       </div>
                     </div>
@@ -328,12 +321,10 @@ const index = () => {
                     <div className="col-8 col-lg-auto">
                       <div className="sectionTitle -md">
                         <h2 className="sectionTitle__title">
-                          Epic Multi-Day Tours for Unforgettable Escapes
+                          Top Multi-Day Tours
                         </h2>
                         <p className=" sectionTitle__text mt-5 sm:mt-0">
-                          Venture on immersive journeys that span days, blending
-                          adventure, culture, and relaxation for a truly
-                          enriching travel experience.
+                          Extended Escapes Through Europe’s Rich Heritage.
                         </p>
                       </div>
                     </div>
@@ -392,6 +383,7 @@ const index = () => {
       {dataAvailable && isMobile && (
         <>
           <section className="layout-pt-md layout-pb-md">
+            k
             <div className="container">
               <div className="row justify-center text-center">
                 <div className="col-auto">
@@ -462,7 +454,7 @@ const index = () => {
             <section className="section-bg layout-pt-md layout-pb-md mt-20 mb-20">
               <div className="section-bg__item -mx-20 bg-warning-1" />
               <div className="container">
-                <div className="row y-gap-20 justify-between items-end">
+                <div className="row y-gap-20 justify-between itkems-end">
                   <div className="col-auto">
                     <div className="sectionTitle -md">
                       <h2 className="sectionTitle__title">Popular Links</h2>

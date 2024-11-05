@@ -1,10 +1,11 @@
-
-'use client'
+"use client";
 
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const Pagination = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const { filterTours } = useSelector((state) => state.tour);
 
   const handlePageClick = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -61,7 +62,7 @@ const Pagination = () => {
 
           <div className="text-center mt-30 md:mt-10">
             <div className="text-14 text-light-1">
-              1 – 1 of 7 tours found
+              1 – 1 of {filterTours.length} tours found
             </div>
           </div>
         </div>
