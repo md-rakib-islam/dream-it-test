@@ -47,11 +47,13 @@ export default function RootLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+          rel="stylesheet"
+        ></link>
 
         <link rel="icon" href="./favicon.ico" />
 
-       
-                    
         {/* Google Analytics */}
         <script
           dangerouslySetInnerHTML={{
@@ -75,7 +77,6 @@ export default function RootLayout({ children }) {
       </head>
       <body suppressHydrationWarning={true}>
         <main>
-        
           <Provider store={store}>
             <Header3 />
             {children}
