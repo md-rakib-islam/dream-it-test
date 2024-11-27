@@ -214,11 +214,11 @@ const HeaderBottom = () => {
                                           <h6>{item.name}</h6>
                                           {/* <p>Kabul, Herat, Mazar-i-Sharif</p> */}
                                         </div>
-                                        <div className="tour">
+                                        {/* <div className="tour">
                                           <span>
                                             25 <br /> Tour
                                           </span>
-                                        </div>
+                                        </div> */}
                                       </li>
                                     ))}
                                   </ul>
