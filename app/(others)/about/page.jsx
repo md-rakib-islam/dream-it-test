@@ -64,18 +64,18 @@ const About = () => {
 
       {/* End About Banner Section */}
 
-      <section className="layout-pt-md">
+      {/* <section className="layout-pt-md">
         <div className="container">
           <div className="row y-gap-30 ">
             <h1 className="text-30 fw-500 pb-0">About Dream Tourism SRLS</h1>
             <p className="pt-0 pb-0">
               Where Journeys Become Spiritual Narratives
-            </p>
+            </p> */}
 
-            <Block1 />
-          </div>
+      <Block1 />
+      {/* </div>
         </div>
-      </section>
+      </section> */}
       {/* End about block section */}
 
       {/* End team section */}
