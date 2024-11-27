@@ -88,3 +88,43 @@ button {
     color: var(--color-dark-1) !important;
   }
 }
+.primary-btn1 {
+  border-radius: 5px;
+  background-color: #edf2de;
+  font-family: var(--font-rubik);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--white-color);
+  letter-spacing: 0.48px;
+  text-transform: capitalize;
+  line-height: 1;
+  padding: 16px 34px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: 0.5s;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  white-space: nowrap;
+}
+
+.primary-btn1:after {
+  position: absolute;
+  content: "";
+  display: block;
+  left: 15%;
+  right: -20%;
+  top: -4%;
+  height: 150%;
+  width: 150%;
+  bottom: 0;
+  border-radius: 2px;
+  background-color: #fab03b;
+  transform: skewX(45deg) scaleX(0);
+  z-index: -1;
+  transition: all 0.5s ease-out 0s;
+}
+.primary-btn1:hover:after {
+  transform: skewX(45deg) scale(1);
+}

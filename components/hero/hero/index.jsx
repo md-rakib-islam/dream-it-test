@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CoverSkeleton from "@/components/skeleton/CoverSkeleton";
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, EffectFade } from "swiper";
+import { Navigation, EffectFade, Autoplay } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/effect-fade";
@@ -59,8 +59,6 @@ const index = ({
     };
   }, []);
   const bannerImages = [
-    "/img/banner/home1-banner-img1.png",
-    "/img/banner/home1-banner-img2.png",
     "/img/banner/home1-banner-img3.png",
     "/img/banner/home1-banner-img4.png",
   ];
@@ -198,7 +196,7 @@ const index = ({
       <div className="home1-banner-area">
         <div className="container-fluid">
           <Swiper
-            modules={[Navigation, EffectFade]}
+            modules={[Navigation, EffectFade, Autoplay]}
             effect="fade"
             navigation={{
               nextEl: ".home1-banner-next",
@@ -206,8 +204,11 @@ const index = ({
             }}
             loop={true}
             fadeEffect={{ crossFade: true }}
-            speed={500}
-            autoplay={true}
+            speed={1500}
+            autoplay={{
+              delay: 3000, // Adjust delay as needed
+              disableOnInteraction: false,
+            }}
           >
             {bannerImages.map((image, index) => (
               <SwiperSlide key={index}>
@@ -223,14 +224,10 @@ const index = ({
                         <div className="home1-banner-content">
                           <div className="eg-tag">
                             <i className="icon-location text-18 text-white "></i>
-                            <span>United States</span>
+                            <span>Italy, Switzerland, France, Netherlands</span>
                           </div>
-                          <h1>Let's Travel And Explore Destination.</h1>
-                          <p>
-                            Life is unpredictable, and we understand that plans
-                            might change. Enjoy flexible booking options, so you
-                            can reschedule or modify your trip with ease.
-                          </p>
+                          <h1>The World is Waiting For You.</h1>
+                          <p>Discover amazing places at exclusive deals.</p>
                           <div className="banner-content-bottom">
                             <a className="primary-btn1" href="/tours">
                               Book A Trip
