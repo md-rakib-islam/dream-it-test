@@ -18,10 +18,19 @@ const ToursForMobile = ({ destination, filterTour }) => {
 
   const filteredTourItems = filterTour
     ? tourItems.filter((item) => item.title !== filterTour)
-    : currentTab == "Daily Tours"
-    ? tourItems.filter(
-        (item) => item.duration && item.duration.includes("hours")
-      )
+    : currentTab == "Day Tours"
+    ? tourItems.filter((item) => {
+        if (item.duration && item.duration.includes("hours")) {
+          const hours = parseInt(
+            item.duration.replace(/hour[s]?/, "").trim(),
+            10
+          );
+          return hours < 1 || hours > 4; // Only include items outside the 1-4 hour range
+        }
+        return false;
+      })
+    : currentTab == "Attraction Tours"
+    ? tourItems.filter((item) => item.title && item.title.includes("Ticket"))
     : currentTab == "Multi-Day Tours"
     ? tourItems.filter(
         (item) => item.duration && !item.duration.includes("hours")

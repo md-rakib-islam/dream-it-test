@@ -21,9 +21,16 @@ const Tours = ({
   const filteredTourItems = filterTour
     ? tourItems.filter((item) => item.title !== filterTour)
     : dailyTours
-    ? tourItems.filter(
-        (item) => item.duration && item.duration.includes("hours")
-      )
+    ? tourItems.filter((item) => {
+        if (item.duration && item.duration.includes("hours")) {
+          const hours = parseInt(
+            item.duration.replace(/hour[s]?/, "").trim(),
+            10
+          );
+          return hours < 1 || hours > 4; // Only include items outside the 1-4 hour range
+        }
+        return false;
+      })
     : multiDays
     ? tourItems.filter(
         (item) => item.duration && !item.duration.includes("hours")

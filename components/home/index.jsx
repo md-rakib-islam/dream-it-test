@@ -287,7 +287,7 @@ const index = () => {
                   <div className="row y-gap-22 justify-between items-start">
                     <div className="col-8 col-lg-auto">
                       <div className="sectionTitle -md">
-                        <h2 className="sectionTitle__title">Top Daily Tours</h2>
+                        <h2 className="sectionTitle__title">Top Day Tours</h2>
                         <p className=" sectionTitle__text mt-5 sm:mt-0">
                           Perfect Day Trips for Exploring Italy’s Highlights.
                         </p>

@@ -3,8 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   tabs: [
     { id: 1, name: "All" },
-    { id: 2, name: "Daily Tours" },
-    { id: 3, name: "Multi-Day Tours" },
+    { id: 2, name: "Attraction Tours" },
+    { id: 3, name: "Day Tours" },
+    { id: 4, name: "Multi-Day Tours" },
     // { id: 4, name: "Holyday Rentals", icon: "icon-home" },
     // { id: 5, name: "Car", icon: "icon-car" },
     // { id: 6, name: "Cruise", icon: "icon-yatch" },
