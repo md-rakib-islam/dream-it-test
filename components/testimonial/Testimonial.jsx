@@ -143,6 +143,22 @@ const Testimonial = ({ reviewsData }) => {
       >
         {reviewsData?.reviews
           .filter((item) => item.rating === 5)
+          .sort((a, b) => {
+            const dateA = new Date(a.publication * 1000);
+            const dateB = new Date(b.publication * 1000);
+            // Compare by year (descending)
+            if (dateB.getFullYear() !== dateA.getFullYear()) {
+              return dateB.getFullYear() - dateA.getFullYear();
+            }
+
+            // If years are equal, compare by month (descending)
+            if (dateB.getMonth() !== dateA.getMonth()) {
+              return dateB.getMonth() - dateA.getMonth();
+            }
+
+            // If months and years are equal, compare by day (descending)
+            return dateB.getDate() - dateA.getDate();
+          })
           .map((item, index) => (
             <div
               className=" bg-white rounded-4 pt-20 pb-30 px-20"
