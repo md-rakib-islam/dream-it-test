@@ -248,7 +248,7 @@ const Block1 = () => {
                     perfect.
                   </p>
                 </div>
-                <div className="footer-content">
+                <div className="footer-content mt-40">
                   {/* <div className="footer-content-image">
                     <Image
                       src="/img/about/svgviewer-output.svg"
