@@ -808,7 +808,7 @@
   li
   i {
   color: #00aa6c;
-  font-size: 30px;
+  font-size: 20px;
 }
 
 .home1-banner-area
@@ -838,6 +838,12 @@
 @media (max-width: 767px) {
   .home1-banner-area .slider-btn-grp .home1-banner-prev {
     display: none;
+  }
+  .home1-banner-area .home1-banner-wrapper .home1-banner-content .eg-tag {
+    padding: 9px 30px;
+  }
+  .home1-banner-area .home1-banner-wrapper .home1-banner-content .eg-tag span {
+    font-size: 14px;
   }
 }
 

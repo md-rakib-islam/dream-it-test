@@ -1,8 +1,9 @@
 "use client";
 
+import { addCurrentTab } from "@/features/hero/findPlaceSlice";
 import Link from "next/link";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 const tourTypes = [
   { id: 1, name: "Popular Tours" },
   { id: 2, name: "Attraction Tours" },
@@ -15,6 +16,7 @@ const durations = [
   { id: 3, name: "1 to 5 Days" },
 ];
 const HeaderBottom = () => {
+  const dispatch = useDispatch();
   const [activeDropdown, setActiveDropdown] = useState(null);
   const { menuItems } = useSelector((state) => state.menus);
   const destinations = menuItems?.find(
@@ -60,6 +62,10 @@ const HeaderBottom = () => {
                     role="tab"
                     aria-controls="tour"
                     aria-selected="true"
+                    onClick={() => {
+                      dispatch(addCurrentTab("All"));
+                      setTourtypeValue("Popular Tours");
+                    }}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -86,6 +92,10 @@ const HeaderBottom = () => {
                     role="tab"
                     aria-controls="tour"
                     aria-selected="false"
+                    onClick={() => {
+                      dispatch(addCurrentTab("Attraction Tours"));
+                      setTourtypeValue("Attraction Tours");
+                    }}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -110,6 +120,10 @@ const HeaderBottom = () => {
                     role="tab"
                     aria-controls="tour"
                     aria-selected="false"
+                    onClick={() => {
+                      dispatch(addCurrentTab("Day Tours"));
+                      setTourtypeValue("Day Tours");
+                    }}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -132,6 +146,10 @@ const HeaderBottom = () => {
                     role="tab"
                     aria-controls="tour"
                     aria-selected="false"
+                    onClick={() => {
+                      dispatch(addCurrentTab("Multi-Day Tours"));
+                      setTourtypeValue("Multi-Day Tours");
+                    }}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

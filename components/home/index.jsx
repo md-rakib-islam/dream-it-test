@@ -82,7 +82,9 @@ const index = () => {
                 <div className="col-8 col-lg-auto">
                   <div className="sectionTitle -md">
                     <h2 className="sectionTitle__title  md:text-24">
-                      Most Popular {currentTab == "All" ? "Tours" : currentTab}
+                      {currentTab == "All"
+                        ? "Most Popular Tours"
+                        : `Top ${currentTab}`}
                     </h2>
                   </div>
                 </div>
@@ -99,8 +101,15 @@ const index = () => {
                 </div>
                 <div className="col-12 col-lg-auto">
                   <p className=" sectionTitle__text mt-5 sm:mt-0 md:text-13">
-                    Explore Our Best Sellers: Unmatched Experiences in Every
-                    Journey
+                    {currentTab == "All"
+                      ? "Italy’s Best Experiences, Loved by Travelers."
+                      : currentTab == "Attraction Tours"
+                      ? "Experience Italy's Iconic Sights Like Never Before."
+                      : currentTab == "Day Tours"
+                      ? "Perfect Day Trips for Exploring Italy’s Highlights."
+                      : currentTab == "Multi-Day Tours"
+                      ? "Extended Escapes Through Europe’s Rich Heritage."
+                      : ""}
                   </p>
                 </div>
                 {/* End .col */}
