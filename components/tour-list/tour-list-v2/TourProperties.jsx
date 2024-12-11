@@ -88,7 +88,7 @@ const TourProperties = () => {
 
   return (
     <div
-      className="row row-cols-1 row-cols-md-3 g-3 "
+      className="row row-cols-2 row-cols-md-3  "
       style={{ marginTop: "-20px" }}
     >
       {filteredResults?.map((item) => {
@@ -127,8 +127,8 @@ const TourProperties = () => {
                     ))}
                   </Slider>
 
-                  <div className="cardImage__leftBadge cardImage-2__leftBadge">
-                    <div>
+                  <div className="cardImage__leftBadge cardImage-2__leftBadge sm:d-none">
+                    {/* <div>
                       <Image
                         width={80}
                         height={80}
@@ -145,6 +145,19 @@ const TourProperties = () => {
                             : "price-position"
                         }
                       >{`${currentCurrency?.symbol} ${item.price}`}</p>
+                    </div> */}
+                    <div className="buttons-2">
+                      <button
+                        style={{
+                          backgroundColor: "#353537",
+                          backgroundImage:
+                            "linear-gradient(to right, #353537 , #0d0c0d)",
+                        }}
+                      >
+                        {`${currentCurrency?.symbol} ${item.price}`}{" "}
+                        <span> PER PERSON</span>
+                      </button>
+                      <button>No</button>
                     </div>
                   </div>
                 </div>
@@ -153,14 +166,14 @@ const TourProperties = () => {
 
               <div className="tourCard__content mt-10">
                 <div className="d-flex justify-content-between lh-14 mb-5">
-                  <div className="text-14 text-light-1">
+                  <div className="text-14 md:text-12 text-light-1">
                     {isMobile ? `${item?.duration}` : `${item?.duration}`}
                   </div>
                   <div className="ml-10 mr-10" />
                   <div className="col-auto">
-                    <div className="text-14 text-dark-1 fw-bold">
+                    <div className="text-14 md:text-12 text-dark-1 fw-bold">
                       From {currentCurrency?.symbol}
-                      <span className="text-16 fw-500 text-blue-1 fw-bold">
+                      <span className="text-16 md:text-13 fw-500 text-blue-1 fw-bold">
                         {" "}
                         {item.price}
                       </span>
@@ -168,12 +181,12 @@ const TourProperties = () => {
                   </div>
                 </div>
                 <h4
-                  className="tourCard__title text-dark-5 text-18 lh-16 fw-600"
+                  className="tourCard__title text-dark-5 text-18 md:text-13 lh-16 fw-600"
                   style={{ color: "black" }}
                 >
                   <span>{item?.title}</span>
                 </h4>
-                <p className="text-light-1 lh-14 text-14 mt-5">
+                <p className="text-light-1 lh-14 text-14 md:text-12 mt-5">
                   {item?.location}
                 </p>
               </div>
@@ -198,13 +211,13 @@ const TourProperties = () => {
               </div>
             </Link>
 
-            {isMobile && (
+            {/* {isMobile && (
               <Link href={`/tour/${slug}`} style={{ cursor: "pointer" }}>
                 <button className="button -md h-5 border border-secondary bg-blue-1 text-white w-100">
                   Book Now
                 </button>
               </Link>
-            )}
+            )} */}
           </div>
         );
       })}
