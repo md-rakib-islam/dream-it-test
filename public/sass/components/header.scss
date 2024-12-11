@@ -3590,3 +3590,163 @@
 .swiper-fade .swiper-slide-active .swiper-slide-active {
   pointer-events: auto;
 }
+///blogs css
+///
+.sponsor {
+  position: relative;
+}
+
+.sponsor .sponsor-contetn {
+  position: relative;
+  transition: 0.5s;
+}
+
+.sponsor .sponsor-contetn .sponsor-bg {
+  position: relative;
+  min-height: 400px;
+  width: 100%;
+  background-size: cover;
+  background-position: 50%;
+  z-index: 1;
+}
+
+.sponsor .sponsor-contetn .sponsor-bg .sponsor-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.5
+  ); /* Add a dark overlay with transparency */
+  z-index: 2; /* Ensure it is above the background image */
+}
+
+.sponsor .sponsor-text-content {
+  position: absolute; /* Position it above the content */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Adjust for centering */
+  color: #fff; /* White text for contrast */
+  z-index: 3; /* Ensure it is above the overlay */
+  text-align: center; /* Center align text */
+}
+
+.sponsor .sponsor-text-content h2 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: bold;
+}
+.sponsor .sponsor-text-content button {
+  border-radius: 3px;
+  border: 2px solid white;
+}
+.sponsor .sponsor-conter-text {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: auto;
+  right: 0;
+  transform: rotate(90deg);
+  width: 150px;
+  overflow: hidden;
+  height: 150px;
+}
+
+.sponsor .sponsor-conter-text .conter-text {
+  text-align: center;
+  left: 0;
+  width: 200%;
+  transform: translateY(-50%) translateX(-50%) translateX(35px) rotate(-45deg);
+  margin-top: 35px;
+  font-size: 13px;
+  line-height: 2;
+  font-weight: 800;
+  text-transform: uppercase;
+  background: #000;
+  background-color: rgb(0, 0, 0);
+  color: #fff;
+}
+
+//blog explore
+.explore {
+  position: relative;
+}
+
+.explore .explore-contetn {
+  position: relative;
+  transition: 0.5s;
+}
+
+.explore .explore-contetn .explore-bg {
+  position: relative;
+  min-height: 300px;
+  width: 100%;
+  background-size: cover;
+  background-position: 50%;
+  z-index: 1;
+}
+
+.explore .explore-contetn .explore-bg .explore-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.5
+  ); /* Add a dark overlay with transparency */
+  z-index: 2; /* Ensure it is above the background image */
+}
+
+.explore .explore-text-content {
+  position: absolute; /* Position it above the content */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Adjust for centering */
+  color: #fff; /* White text for contrast */
+  z-index: 3; /* Ensure it is above the overlay */
+  text-align: center; /* Center align text */
+}
+
+.explore .explore-text-content h2 {
+  // margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.explore .explore-text-content button {
+  border-radius: 3px;
+  border: 2px solid white;
+}
+.explore .explore-conter-text {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: auto;
+  right: 0;
+  transform: rotate(90deg);
+  width: 150px;
+  overflow: hidden;
+  height: 150px;
+}
+
+.explore .explore-conter-text .conter-text {
+  text-align: center;
+  left: 0;
+  width: 200%;
+  transform: translateY(-50%) translateX(-50%) translateX(35px) rotate(-45deg);
+  margin-top: 35px;
+  font-size: 13px;
+  line-height: 2;
+  font-weight: 800;
+  text-transform: uppercase;
+  background: #000;
+  background-color: rgb(0, 0, 0);
+  color: #fff;
+}
