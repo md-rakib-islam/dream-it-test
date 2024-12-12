@@ -294,7 +294,7 @@ const Blogs = () => {
                 </div>
                 <div className="col-12">
                   <div>
-                    <div className="mb-20 mt-20">
+                    <div className="mb-30 mt-20">
                       <h5> Sponsor</h5>
                     </div>
                     <div className="sponsor">
