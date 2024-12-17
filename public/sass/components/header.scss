@@ -3750,3 +3750,27 @@
   background-color: rgb(0, 0, 0);
   color: #fff;
 }
+.blog-content p {
+  color: black;
+}
+.blog-content span {
+  color: rgb(126, 126, 126);
+  font-style: italic;
+}
+.blog-content .blog-sidebar .category ul {
+  -moz-column-count: 3;
+  -moz-column-gap: 15px;
+  -webkit-column-count: 3;
+  -webkit-column-gap: 7px;
+  column-count: 3;
+  column-gap: 7px;
+  -webkit-column-width: 200px;
+  -moz-column-width: 200px;
+  column-width: 100px;
+}
+.blog-content .blog-sidebar h5 {
+  background: url("/img/blog/tag.png") no-repeat;
+  background-size: contain;
+  text-align: center;
+  padding: 15px 10px;
+}
