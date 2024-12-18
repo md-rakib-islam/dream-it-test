@@ -14,7 +14,7 @@ const Blog1 = () => {
     setFilteredItems(
       blogsData.filter((elm) => elm.tags?.includes(filterOption))
     );
-  }, [filterOption]);
+  }, [filterOption, blogsData]);
 
   const filterOptions = [
     { label: "Art and culture", value: "art_culture" },
