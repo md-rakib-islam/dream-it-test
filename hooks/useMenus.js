@@ -6,7 +6,7 @@ const useMenus = () => {
   const filteredMenus = menuItems
     ?.filter((item) => {
       // Filter out "About Us" and "Blogs" from the top-level items
-      if (item.name === "About Us" || item.name === "Blogs") {
+      if (item.name === "About Us") {
         return false;
       }
 

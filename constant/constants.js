@@ -39,7 +39,7 @@ export const CREATE_CMS_BLOG = `${BASE_URL}/cms_blog/api/v1/cms_blog/create/`;
 
 export const GET_CMS_BLOGID = `${BASE_URL}/cms_blog/api/v1/cms_blog/`;
 
-export const GET_CMS_BLOG_BY_TITLE = `${BASE_URL}/cms_blog/api/v1/cms_blog/get_blogBy_blog_title`;
+export const GET_CMS_BLOG_BY_TITLE = `${BASE_URL}/cms_blog/api/v1/cms_blog/get_blogBy_blog_title_slug`;
 
 export const GET_CMS_BLOGS = `${BASE_URL}/cms_blog/api/v1/cms_blog/all/`;
 
@@ -50,6 +50,8 @@ export const UPDATE_CMS_BLOG = `${BASE_URL}/cms_blog/api/v1/cms_blog/update/`;
 export const DELETE_CMS_BLOG = `${BASE_URL}/cms_blog/api/v1/cms_blog/delete/`;
 
 export const SEARCH_CMS_BLOG = `${BASE_URL}/cms_blog/api/v1/cms_blog/search/`;
+
+export const BLOG_CATEGORIES = `${BASE_URL}/cms_blog_category/api/v1/blog_category/without_pagination/all/`;
 
 //menu item
 export const MENU_ITEMS = `${BASE_URL}/menu_item/api/v1/menu_item/nested_menu_item_by_user_role/`;

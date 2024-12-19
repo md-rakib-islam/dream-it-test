@@ -1,14 +1,20 @@
 import BlogsSide from "@/components/blogs/BlogsSide";
-import Image from "next/image";
+import { BLOG_CATEGORIES, GET_CMS_BLOG_BY_TITLE } from "@/constant/constants";
+import { dataFetcher } from "@/utils/dataFetcher";
+import { Interweave } from "interweave";
 
 export const metadata = {
   title: "Blog Single || GoTrip - Travel & Tour React NextJS Template",
   description: "GoTrip - Travel & Tour React NextJS Template",
 };
 
-const BlogSingleDynamic = ({ params }) => {
-  //   const id = params.id;
-  //   const blog = blogsData.find((item) => item.id == id) || blogsData[0];
+const BlogSingleDynamic = async ({ params }) => {
+  const contentData = await dataFetcher(
+    `${GET_CMS_BLOG_BY_TITLE}/${params.slug}`
+  );
+  const categoryData = await dataFetcher(`${BLOG_CATEGORIES}`);
+
+  console.log("rakib", contentData);
 
   return (
     <>
@@ -24,45 +30,22 @@ const BlogSingleDynamic = ({ params }) => {
             <div className="col-md-8">
               <div className="row x-gap-20 y-gap-20">
                 <div className="col-md-12">
-                  <h1 className="text-25 fw-600 ">
-                    This is the Demo Post Title
-                  </h1>
-                  <span> Updated: November 1, 2024</span>
+                  <h1 className="text-25 fw-600 ">{contentData.title}</h1>
+                  <span> Updated: {contentData.date}</span>
                   <div>
-                    <Image
-                      src="/img/blogs/blog.jpg"
-                      width={1000}
-                      height={395}
-                      className="mt-20 mb-20"
-                    ></Image>
-
-                    <p>
-                      Lorem Ipsum is simply dummy text of the printing and
-                      typesetting industry. Lorem Ipsum has been the industry’s
-                      standard dummy text Lorem Ipsum is simply dummy text of
-                      the printing and typesetting industry. Lorem Ipsum has
-                      been the industry’s standard dummy text Lorem Ipsum is
-                      simply dummy text of the printing and typesetting
-                      industry. Lorem Ipsum has been the industry’s standard
-                      dummy text Lorem Ipsum is simply dummy text of the
-                      printing and typesetting industry. Lorem Ipsum has been
-                      the industry’s standard dummy text Lorem Ipsum is simply
-                      dummy text of the printing and typesetting industry. Lorem
-                      Ipsum has been the industry’s standard dummy text Lorem
-                      Ipsum is simply dummy text of the printing and typesetting
-                      industry. Lorem Ipsum has been the industry’s standard
-                      dummy text Lorem Ipsum is simply dummy text of the
-                      printing and typesetting industry. Lorem Ipsum has been
-                      the industry’s standard dummy text Lorem Ipsum is simply
-                      dummy text of the printing and typesetting industry. Lorem
-                      Ipsum has been the industry’s standard dummy text
-                    </p>
+                    <div className="interweave-content">
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: contentData.description,
+                        }}
+                      ></div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
             <div className="col-md-4 mt-60">
-              <BlogsSide />
+              <BlogsSide categories={categoryData} />
             </div>
           </div>
         </div>

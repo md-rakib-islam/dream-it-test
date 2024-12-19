@@ -3408,6 +3408,11 @@
   height: 203.44px;
   z-index: -1;
 }
+@media (max-width: 768px) {
+  .about-section-design .content .footer-content .content-details {
+    column-gap: 10px;
+  }
+}
 @media (max-width: 1200px) {
   .about-section-design {
     padding: 0;
@@ -3755,7 +3760,7 @@
 }
 .blog-content span {
   color: rgb(126, 126, 126);
-  font-style: italic;
+  // font-style: italic;
 }
 .blog-content .blog-sidebar .category ul {
   -moz-column-count: 3;

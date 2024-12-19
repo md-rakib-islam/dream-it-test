@@ -202,7 +202,7 @@ const Block1 = () => {
                 </div>
                 <div className="mt-40 mb-40 content-image">
                   <Image
-                    src="/img/about/image.png"
+                    src="/img/about/Banner.png"
                     alt="About Image"
                     width={844}
                     height={444}

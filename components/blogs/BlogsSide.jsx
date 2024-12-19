@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const BlogsSide = () => {
+const BlogsSide = ({ categories }) => {
   const filterOptions = [
     { label: "Art and culture", value: "art_culture" },
     { label: "Beaches", value: "beaches" },
@@ -49,8 +49,8 @@ const BlogsSide = () => {
             </div>
             <div className="category">
               <ul>
-                {filterOptions.map((option) => (
-                  <li>{option.label}</li>
+                {categories?.blog_categories.map((option) => (
+                  <li>{option.name}</li>
                 ))}
               </ul>
             </div>
