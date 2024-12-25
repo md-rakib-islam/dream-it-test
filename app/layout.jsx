@@ -1,37 +1,159 @@
-"use client";
-
-import DefaultFooter from "@/components/footer/default";
-import Header3 from "@/components/header/header";
-import Aos from "aos";
-import "aos/dist/aos.css";
-import { useEffect } from "react";
-import { Provider } from "react-redux";
-import "swiper/css";
-import "swiper/css/effect-cards";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
-import SrollTop from "../components/common/ScrollTop";
-import { store } from "../store/store";
+import { Geist, Geist_Mono } from "next/font/google";
 import "../styles/index.scss";
-import CookieConsent from "@/components/cookie/CookieConsent";
-import ChatWidget from "@/components/chat/ChatWidget";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import { contentFetcher, dataFetcher } from "@/utils/dataFetcher";
+import {
+  BLOG_CATEGORIES,
+  GET_ALL_REVIEWS,
+  GET_CMS_BLOGS,
+  GET_CONTENTS_WITH_URL_BY_MENU_ID,
+  GET_IMAGE_BY_MENU_ID,
+  GET_MENUS_ALL_NESTED,
+  GET_METADATA_BY_CONTENT_NAME,
+  GET_SITESETTINGS,
+} from "@/constant/constants";
+import Header from "@/components/header";
+import Footer from "@/components/footer/default";
+import LayoutProvider from "./LayoutProvider";
 
 if (typeof window !== "undefined") {
-  require("bootstrap/dist/js/bootstrap");
+  require("bootstrap/dist/js/bootstrap.bundle.min.js");
+  require("bootstrap/dist/css/bootstrap.bundle.min.css");
 }
 
-export default function RootLayout({ children }) {
-  useEffect(() => {
-    // Initialize AOS only on the client side
-    if (typeof window !== "undefined") {
-      Aos.init({ duration: 1200, once: true });
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+const fetchMetadata = async () => {
+  try {
+    const res = await fetch(`${GET_METADATA_BY_CONTENT_NAME}/home`);
+    if (!res.ok) {
+      throw new Error("Failed to fetch metadata");
     }
-    const body = document.body;
-    body.removeAttribute("data-new-gr-c-s-check-loaded");
-    body.removeAttribute("data-gr-ext-installed");
-  }, []);
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    console.error(error);
+    return {
+      meta_title:
+        "Dream Tourism SRLS - Your Place for Amazing Travel Adventure",
+      meta_description:
+        "Start your dream vacation with Dream Tourism SRLS. Explore fantastic destinations and enjoy unforgettable adventures. Your perfect getaway is just a click away!",
+      image:
+        "https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/5dbac07d-cbd4-4694-9a38-615bf832f800/public", // Default image
+    };
+  }
+};
+
+// Define the generateMetadata function
+export async function generateMetadata() {
+  const metadata = await fetchMetadata();
+  return {
+    title: metadata.meta_title,
+    description: metadata.meta_description,
+    openGraph: {
+      title: metadata.meta_title,
+      description: metadata.meta_description,
+      images: [
+        {
+          url: metadata?.cloudflare_image,
+          width: 100,
+          height: 100,
+          alt: metadata?.meta_title,
+        },
+      ],
+      type: "website",
+    },
+    twitter: {
+      title: metadata.meta_title,
+      description: metadata.meta_description,
+      image: metadata?.cloudflare_image,
+    },
+  };
+}
+
+export default async function RootLayout({ children }) {
+  const data = await dataFetcher(GET_MENUS_ALL_NESTED);
+  const siteSetting = (await dataFetcher(GET_SITESETTINGS))?.general_settings;
+  const reviewsData = await dataFetcher(GET_ALL_REVIEWS);
+  const contentBlogData = await dataFetcher(`${GET_CMS_BLOGS}`);
+  const categoryData = await dataFetcher(`${BLOG_CATEGORIES}`);
+  const homeId = data?.menus?.find((menu) => menu?.name === "Home")?.id;
+  const destinations = data?.menus?.find(
+    (item) => item.name === "Destinations"
+  )?.children;
+
+  let tourContent = null,
+    tourImages = [],
+    toursMainData = [],
+    topDestinations = [],
+    blogData = { blogs: contentBlogData || [], categories: categoryData };
+
+  if (homeId) {
+    const contentData = await contentFetcher(
+      `${GET_CONTENTS_WITH_URL_BY_MENU_ID}/${homeId}`
+    );
+    const contentImages = await contentFetcher(
+      `${GET_IMAGE_BY_MENU_ID}/${homeId}`
+    );
+
+    tourContent = contentData;
+    tourImages = contentImages;
+
+    if (contentData) {
+      //for tours
+      let tours = contentData
+        .filter((item) => {
+          if (item.published == false) return false;
+          return true;
+        })
+        .map((tour) => ({
+          id: tour.id,
+          tag: "",
+          slideImg: [`${contentImages?.content_images[tour.name]}`],
+          title: tour.name,
+          location: tour?.location,
+          duration: tour?.duration,
+          numberOfReviews: tour?.reviews ? tour?.reviews : "0",
+          trip_url: tour?.trip_url,
+          slug: tour?.slug,
+          price: tour?.price,
+          tourType: "Full-day Tours",
+          delayAnimation: "100",
+          position: tour?.position,
+        }));
+
+      tours?.sort((a, b) => a?.position - b?.position);
+      toursMainData = tours;
+      // top destinations
+    }
+    if (destinations) {
+      topDestinations = destinations?.map((item, indx) => ({
+        id: item.id,
+        colClass: "col-xl-auto col-md-4 col-sm-6",
+        img: `${contentImages?.content_images[item?.name]}`,
+        name: item.name,
+        numberOfProperties: "1714",
+        delayAnimation: "200",
+      }));
+    }
+  }
+
+  const menusData = {
+    menus: data?.menus,
+    logo: siteSetting,
+    toursMainData: toursMainData,
+    topDestinations: topDestinations,
+    reviewsData: reviewsData,
+    blogs: blogData,
+  };
   return (
     <html lang="en">
       <head>
@@ -51,42 +173,13 @@ export default function RootLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
           rel="stylesheet"
         ></link>
-
-        <link rel="icon" href="./favicon.ico" />
-
-        {/* Google Analytics */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', 'G-TXJZSJCPCZ');
-              `,
-          }}
-        ></script>
-
-        {/* end*/}
-        {/* 
-        script for 3rd party for tripadvisor 
-        <script
-          src="https://static.elfsight.com/platform/platform.js"
-          data-use-service-core
-          defer
-        ></script> */}
       </head>
-      <body suppressHydrationWarning={true}>
-        <main>
-          <Provider store={store}>
-            <Header3 />
-            {children}
-            <DefaultFooter />
-            <GoogleAnalytics gaId="G-TXJZSJCPCZ" />
-            <SrollTop />
-            <ChatWidget />
-            <CookieConsent />
-          </Provider>
-        </main>
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <LayoutProvider data={menusData}>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </LayoutProvider>
       </body>
     </html>
   );

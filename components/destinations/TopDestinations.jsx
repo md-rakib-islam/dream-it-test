@@ -1,31 +1,12 @@
 "use client";
-import { useGetImagesByMenuIdQuery } from "@/features/image/imageApi";
+import { LayoutContext } from "@/app/LayoutProvider";
 import Image from "next/image";
 import Link from "next/link";
-import { useSelector } from "react-redux";
+import { useContext } from "react";
 import Slider from "react-slick";
-// import { destinations5 } from "../../data/desinations";
 
 const TopDestinations = () => {
-  const { menuItems } = useSelector((state) => state.menus);
-  const destinations = menuItems?.find(
-    (item) => item.name === "Destinations"
-  )?.children;
-  const homeId = menuItems?.find((item) => item.name === "Home")?.id;
-  const { isSuccess, data, isLoading } = useGetImagesByMenuIdQuery(homeId);
-
-  // (indx + 1) <= 3 ? (indx + 1) % 2 !== 0? "col-xl-3 col-md-4 col-sm-6" : "col-xl-6 col-md-4 col-sm-6" : "col-xl-6 col-md-4 col-sm-6"
-  let modifiedDestinations = [];
-  if (isSuccess) {
-    modifiedDestinations = destinations?.map((item, indx) => ({
-      id: item.id,
-      colClass: "col-xl-auto col-md-4 col-sm-6",
-      img: `${data?.content_images[item?.name]}`,
-      name: item.name,
-      numberOfProperties: "1714",
-      delayAnimation: "200",
-    }));
-  }
+  const { topDestinations } = useContext(LayoutContext);
 
   const settings = {
     dots: true,
@@ -69,7 +50,7 @@ const TopDestinations = () => {
   return (
     <>
       <Slider {...settings}>
-        {modifiedDestinations?.map((item) => (
+        {topDestinations?.map((item) => (
           <div
             className={`${item.colClass} top_destination_width px-5`}
             key={item.id}

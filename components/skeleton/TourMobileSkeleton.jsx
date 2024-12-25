@@ -1,14 +1,8 @@
 "use client";
-// import useTours from "@/hooks/useTours";
 import Image from "next/image";
 import Link from "next/link";
-import Slider from "react-slick";
-import isTextMatched from "../../utils/isTextMatched";
 
-const TourSkeleton = () => {
-  //   const width = useWindowSize();
-  //   const isMobile = width < 768;
-
+const TourMobileSkeleton = () => {
   const defaultTourItem = [
     {
       id: 0,
@@ -72,12 +66,6 @@ const TourSkeleton = () => {
       >
         <div className="tourCard__image position-relative">
           <div className="inside-slider">
-            {/* <Slider
-                {...itemSettings}
-                arrows={true}
-                nextArrow={<Arrow type="next" />}
-                prevArrow={<Arrow type="prev" />}
-              > */}
             {item?.slideImg?.map((slide, i) => (
               <div className="cardImage" key={i}>
                 <div className="cardImage__content skeleton">
@@ -92,56 +80,8 @@ const TourSkeleton = () => {
                 </div>
               </div>
             ))}
-            {/* </Slider> */}
 
             <div className="cardImage__leftBadge cardImage-2__leftBadge sm:d-none">
-              {/* <div
-                    className={`py-5  rounded-right-4 text-12 lh-16 fw-500 uppercase ${
-                      isTextMatched(item?.tag, "likely to sell out*")
-                        ? "bg-dark-1 text-white"
-                        : ""
-                    } ${
-                      isTextMatched(item?.tag, "best seller")
-                        ? "bg-blue-1 text-white"
-                        : ""
-                    }  ${
-                      isTextMatched(item?.tag, "top rated")
-                        ? "bg-yellow-1 text-dark-1"
-                        : ""
-                    }`}
-                  >
-                    Item
-                  </div> */}
-              {/* <div className="buttons-2">
-                    <button
-                      style={{
-                        backgroundColor:
-                          searchLocation == "Makkah"
-                            ? "#353537"
-                            : searchLocation == "Madina"
-                            ? "#21b510"
-                            : searchLocation == "Taif"
-                            ? "#824007"
-                            : searchLocation == "Jeddah"
-                            ? "#078de6"
-                            : "",
-                        backgroundImage:
-                          searchLocation == "Makkah"
-                            ? "linear-gradient(to right, #353537 , #0d0c0d)"
-                            : searchLocation == "Madina"
-                            ? "linear-gradient(to right, #21b510 , #158805)"
-                            : searchLocation == "Taif"
-                            ? "linear-gradient(to right, #824007 , #601817)"
-                            : searchLocation == "Jeddah"
-                            ? "linear-gradient(to right, #078de6 , #29317a)"
-                            : "",
-                      }}
-                    >
-                      {`$$ ${item.price}`}{" "}
-                      <span> PER PERSON</span>
-                    </button>
-                    <button>No</button>
-                  </div> */}
               <div>
                 <Image
                   width={80}
@@ -201,4 +141,4 @@ const TourSkeleton = () => {
   ));
 };
 
-export default TourSkeleton;
+export default TourMobileSkeleton;

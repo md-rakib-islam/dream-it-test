@@ -3,13 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import Slider from "react-slick";
-import isTextMatched from "../../utils/isTextMatched";
 
 const TourSkeleton = () => {
   //   const width = useWindowSize();
   //   const isMobile = width < 768;
 
   const settings = {
+    dots: true,
+    infinite: true,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 4,
@@ -17,29 +18,32 @@ const TourSkeleton = () => {
       {
         breakpoint: 992,
         settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
+          slidesToShow: 3,
+          slidesToScroll: 3,
         },
       },
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
+          slidesToShow: 3,
+          slidesToScroll: 3,
         },
       },
       {
-        breakpoint: 520,
+        breakpoint: 540,
         settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
+          slidesToShow: 2,
+          slidesToScroll: 2,
         },
       },
+
       {
-        breakpoint: 0, // Adjust breakpoint to 0 for smallest devices
+        breakpoint: 300,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 1.09,
           slidesToScroll: 1,
+          centerMode: true,
+          centerPadding: "35px",
         },
       },
     ],

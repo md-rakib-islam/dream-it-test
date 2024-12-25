@@ -1,6 +1,4 @@
 import dynamic from "next/dynamic";
-// import DefaultHeader from "@/components/header/default-header";
-// import DefaultFooter from "@/components/footer/default";
 import NotFound from "@/components/common/NotFound";
 import { GET_METADATA_BY_CONTENT_NAME } from "@/constant/constants";
 
@@ -66,4 +64,4 @@ const index = () => {
   );
 };
 
-export default dynamic(() => Promise.resolve(index), { ssr: false });
+export default dynamic(() => Promise.resolve(index), { ssr: true });

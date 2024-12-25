@@ -1,9 +1,5 @@
-import { useSelector } from "react-redux";
-
-const useMenus = () => {
-  const { menuItems } = useSelector((state) => state.menus);
-
-  const filteredMenus = menuItems
+const useMenus = (menus) => {
+  const filteredMenus = menus
     ?.filter((item) => {
       // Filter out "About Us" and "Blogs" from the top-level items
       if (item.name === "About Us") {
@@ -33,7 +29,7 @@ const useMenus = () => {
       return { ...item };
     });
 
-  filteredMenus.sort((a, b) => a.position - b.position);
+  filteredMenus?.sort((a, b) => a.position - b.position);
 
   const modifiedMenuItems = filteredMenus?.map((item) => {
     if (item.name === "Home") {

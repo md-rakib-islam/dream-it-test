@@ -1,16 +1,6 @@
 import Image from "next/image";
 
 const BlogsSide = ({ categories }) => {
-  const filterOptions = [
-    { label: "Art and culture", value: "art_culture" },
-    { label: "Beaches", value: "beaches" },
-    { label: "Adventure travel", value: "adventure_travel" },
-    { label: "Explore", value: "explore" },
-    { label: "Family holidays", value: "family_holidays" },
-    { label: "Air travel", value: "air_travel" },
-    { label: "Food and drink", value: "food_drink" },
-    // add more options as needed
-  ];
   return (
     <>
       <div className="row x-gap-20 y-gap-20">
@@ -49,8 +39,8 @@ const BlogsSide = ({ categories }) => {
             </div>
             <div className="category">
               <ul>
-                {categories?.blog_categories.map((option) => (
-                  <li>{option.name}</li>
+                {categories?.blog_categories.map((option, idx) => (
+                  <li key={idx}>{option.name}</li>
                 ))}
               </ul>
             </div>

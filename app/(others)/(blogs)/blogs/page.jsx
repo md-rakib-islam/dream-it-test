@@ -1,10 +1,10 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { GET_METADATA_BY_CONTENT_NAME } from "@/constant/constants";
-import Blog1 from "@/components/blogs/Blog1";
+import Blog from "@/components/blogs/Blog";
 import { useContext } from "react";
-import { BlogContext } from "./BlogProvider";
+// import { BlogContext } from "./BlogProvider";
+import { LayoutContext } from "@/app/LayoutProvider";
 
 // const fetchMetadata = async () => {
 //   try {
@@ -55,14 +55,13 @@ import { BlogContext } from "./BlogProvider";
 //   };
 // }
 const Blogs = () => {
-  const { blogs, categories } = useContext(BlogContext);
+  const { blogs } = useContext(LayoutContext);
+
+  console.log("blogPages", blogs);
 
   return (
     <>
-      {/* End Page Title */}
-
       <div className="header-margin"></div>
-      {/* header top margin */}
       <section className="layout-pt-md layout-pb-lg">
         <div className="container">
           <div className="row justify-center text-center">
@@ -75,207 +74,9 @@ const Blogs = () => {
               </div>
             </div>
           </div>
-          <Blog1 blogs={blogs} categories={categories} />
+          <Blog blogs={blogs.blogs} categories={blogs.categories} />
         </div>
       </section>
-      {/*<section className="layout-pt-md layout-pb-lg">
-        <div className="container">
-          <div className="row x-gap-20 y-gap-20 justify-between">
-            <div className="col-12">
-              <h1 className="text-20 sm:text-24 fw-500">Our Blogs</h1>
-            </div>
-            <div className="col-md-6 col-sm-12">
-              <div>
-                <Image
-                  src="/img/blogs/blog.jpg"
-                  width={1200}
-                  height={400}
-                ></Image>
-                <h5>This is the Demo Post Title </h5>
-                <p>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry’s
-                  standard dummy text Lorem Ipsum is simply dummy text of the
-                  printing and typesetting industry. Lorem Ipsum has been the
-                  industry’s standard dummy text
-                </p>
-              </div>
-            </div>
-            <div className="col-md-6 sm:d-none">
-              <div className="d-flex justify-between mb-20">
-                <Image
-                  src="/img/blogs/blog.jpg"
-                  width={200}
-                  height={50}
-                ></Image>
-                <div className="ml-20">
-                  <h5>This is the Demo Post Title </h5>
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry.
-                  </p>
-                </div>
-              </div>
-              <div className="d-flex justify-between mb-20">
-                <Image
-                  src="/img/blogs/blog.jpg"
-                  width={200}
-                  height={50}
-                ></Image>
-                <div className="ml-20">
-                  <h5>This is the Demo Post Title </h5>
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry.
-                  </p>
-                </div>
-              </div>
-              <div className="d-flex justify-between ">
-                <Image
-                  src="/img/blogs/blog.jpg"
-                  width={200}
-                  height={50}
-                ></Image>
-                <div className="ml-20">
-                  <h5>This is the Demo Post Title </h5>
-                  <p>
-                    Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-3 col-12">
-              <Image src="/img/blogs/blog.jpg" width={600} height={400}></Image>
-            </div>
-            <div className="col-md-3 col-12">
-              <Image src="/img/blogs/blog.jpg" width={600} height={400}></Image>
-            </div>
-            <div className="col-md-3 col-12">
-              <Image src="/img/blogs/blog.jpg" width={600} height={400}></Image>
-            </div>
-            <div className="col-md-3 col-12 ">
-              <Image src="/img/blogs/blog.jpg" width={600} height={400}></Image>
-            </div>
-            <div className="col-12 ">
-              <div className="px-40 py-40 bg-dark-2 ">
-                <div className="row">
-                  <div className="col-md-6 text-white">
-                    <h5>Want to get update tips & tricks?</h5>
-                    <p className="text-white">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    </p>
-                  </div>
-                  <div className="single-field col-md-6 col-sm-12 d-flex sm:d-block">
-                    <div className="mr-10 sm:mr-0 sm:mb-10 sm:mt-10">
-                      <input
-                        //   onChange={(e) => setEmail(e.target.value)}
-                        //   value={email}
-                        required
-                        name="email"
-                        className="border border-secondary w-100 h-50"
-                        style={{ backgroundColor: "#ffffff" }}
-                        type="email"
-                        placeholder="Your Email"
-                      />
-                    </div>
-                    {/* End email input 
-
-                    <div>
-                      <button
-                        //   disabled={!email || isLoading}
-                        //   onClick={handleSubmit}
-                        className="px-20 fw-400 text-14 border-white -outline-white h-50 text-white  w-100 pointer"
-                      >
-                        Subscribe
-                      </button>
-                    </div>
-                    {/* End subscribe btn 
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="col-md-8">
-              <div className="row x-gap-20 y-gap-20">
-                <div className="col-md-6">
-                  <div>
-                    <Image
-                      src="/img/blogs/blog.jpg"
-                      width={600}
-                      height={400}
-                    ></Image>
-                    <h5>This is the Demo Post Title </h5>
-                    <p>
-                      Lorem Ipsum is simply dummy text of the printing and
-                      typesetting industry. Lorem Ipsum has been the industry’s
-                      standard dummy text Lorem Ipsum is simply dummy text of
-                      the printing and typesetting industry. Lorem Ipsum has
-                      been the industry’s standard dummy text
-                    </p>
-                  </div>
-                </div>
-                <div className="col-md-6">
-                  <div>
-                    <Image
-                      src="/img/blogs/blog.jpg"
-                      width={600}
-                      height={400}
-                    ></Image>
-                    <h5>This is the Demo Post Title </h5>
-                    <p>
-                      Lorem Ipsum is simply dummy text of the printing and
-                      typesetting industry. Lorem Ipsum has been the industry’s
-                      standard dummy text Lorem Ipsum is simply dummy text of
-                      the printing and typesetting industry. Lorem Ipsum has
-                      been the industry’s standard dummy text
-                    </p>
-                  </div>
-                </div>
-                <div className="col-md-6">
-                  <div>
-                    <Image
-                      src="/img/blogs/blog.jpg"
-                      width={600}
-                      height={400}
-                    ></Image>
-                    <h5>This is the Demo Post Title </h5>
-                    <p>
-                      Lorem Ipsum is simply dummy text of the printing and
-                      typesetting industry. Lorem Ipsum has been the industry’s
-                      standard dummy text Lorem Ipsum is simply dummy text of
-                      the printing and typesetting industry. Lorem Ipsum has
-                      been the industry’s standard dummy text
-                    </p>
-                  </div>
-                </div>
-                <div className="col-md-6">
-                  <div>
-                    <Image
-                      src="/img/blogs/blog.jpg"
-                      width={600}
-                      height={400}
-                    ></Image>
-                    <h5>This is the Demo Post Title </h5>
-                    <p>
-                      Lorem Ipsum is simply dummy text of the printing and
-                      typesetting industry. Lorem Ipsum has been the industry’s
-                      standard dummy text Lorem Ipsum is simply dummy text of
-                      the printing and typesetting industry. Lorem Ipsum has
-                      been the industry’s standard dummy text
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-4">
-              <BlogsSide />
-            </div>
-            
-          </div>
-          
-        </div>
-      </section> */}
     </>
   );
 };

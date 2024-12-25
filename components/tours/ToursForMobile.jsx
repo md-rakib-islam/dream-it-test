@@ -1,25 +1,20 @@
 "use client";
 
-import useTours from "@/hooks/useTours";
 import Image from "next/image";
 import Link from "next/link";
-import { useSelector } from "react-redux";
-import Slider from "react-slick";
-import isTextMatched from "../../utils/isTextMatched";
 import useWindowSize from "@/hooks/useWindowSize";
-import TourMobileSkeleton from "../skeleton/TourMobileSkeleton";
 import TripReview from "../common/TripReview";
+import TourMobileSkeleton from "../skeleton/TourMobileSkeleton";
+import { useContext } from "react";
+import { LayoutContext } from "@/app/LayoutProvider";
 
-const ToursForMobile = ({ destination, filterTour }) => {
-  const tourItems = useTours(destination);
+const ToursForMobile = ({ destination, filterTour, tourType }) => {
+  const { toursMainData } = useContext(LayoutContext);
 
-  const { currentCurrency } = useSelector((state) => state.currency);
-  const { currentTab } = useSelector((state) => state.hero) || {};
-
-  const filteredTourItems = filterTour
-    ? tourItems.filter((item) => item.title !== filterTour)
-    : currentTab == "Day Tours"
-    ? tourItems.filter((item) => {
+  const filteredtoursMainData = filterTour
+    ? toursMainData.filter((item) => item.title !== filterTour)
+    : tourType == "day"
+    ? toursMainData.filter((item) => {
         if (item.duration && item.duration.includes("hours")) {
           const hours = parseInt(
             item.duration.replace(/hour[s]?/, "").trim(),
@@ -29,20 +24,26 @@ const ToursForMobile = ({ destination, filterTour }) => {
         }
         return false;
       })
-    : currentTab == "Attraction Tours"
-    ? tourItems.filter((item) => item.title && item.title.includes("Ticket"))
-    : currentTab == "Multi-Day Tours"
-    ? tourItems.filter(
+    : tourType == "multi"
+    ? toursMainData.filter(
         (item) => item.duration && !item.duration.includes("hours")
       )
-    : tourItems;
+    : tourType == "attraction"
+    ? toursMainData.filter(
+        (item) => item.title && item.title.includes("Ticket")
+      )
+    : destination
+    ? toursMainData.filter(
+        (item) => item.location && item.location.includes(destination)
+      )
+    : toursMainData;
   const width = useWindowSize();
   const isMobile = width < 768;
 
-  return filteredTourItems?.length === 0 ? (
+  return filteredtoursMainData?.length === 0 ? (
     <TourMobileSkeleton />
   ) : (
-    filteredTourItems?.map((item) => {
+    filteredtoursMainData?.map((item) => {
       const slug = item?.slug?.endsWith("-1")
         ? item?.slug.slice(0, -2)
         : item?.slug;
@@ -106,7 +107,8 @@ const ToursForMobile = ({ destination, filterTour }) => {
                 <div className="ml-10 mr-10" />
                 <div className="col-auto">
                   <div className="text-14 md:text-12 text-dark-1 fw-bold">
-                    From {currentCurrency?.symbol}
+                    {/* From {currentCurrency?.symbol} */}
+                    From $
                     <span className="text-16 md:text-13 fw-500 text-blue-1 fw-bold">
                       {" "}
                       {item.price}

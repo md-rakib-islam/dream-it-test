@@ -1,51 +1,24 @@
 const Counter = () => {
-  const blockContent = [
-    {
-      id: 1,
-      number: "7",
-      meta: "Destinations",
-      hasUnit: "",
-      delayAnim: "100",
-    },
-    // {
-    //   id: 2,
-    //   number: "2,869",
-    //   meta: "Total Properties",
-    //   hasUnit: "",
-    //   delayAnim: "200",
-    // },
-    {
-      id: 3,
-      number: "100",
-      meta: "Happy customers",
-      hasUnit: "K+",
-      delayAnim: "300",
-    },
-    // {
-    //   id: 4,
-    //   number: "574,974",
-    //   meta: "Our Volunteers",
-    //   hasUnit: "",
-    //   delayAnim: "400",
-    // },
-  ];
   return (
-    <>
-      {blockContent.map((item) => (
-        <div
-          className="col-xl-3 col-6"
-          key={item.id}
-          data-aos="fade"
-          data-aos-delay={item.delayAnim}
-        >
-          <div className="text-40 lg:text-30 lh-13 fw-500">
-            {item.number}
-            {item.hasUnit}
-          </div>
-          <div className="text-14 lh-14 text-light-1 mt-5">{item.meta}</div>
+    <div className="row y-gap-30 text-dark-1">
+      <div className="col-sm-5 col-6 d-flex flex-column justify-content-center align-items-center align-items-sm-start justify-content-sm-start">
+        <div className="text-30 lh-15 fw-500">100K+</div>
+        <div className="lh-15">Happy People</div>
+      </div>
+      {/* End .col */}
+
+      <div className="col-sm-5 col-6 d-flex flex-column justify-content-center align-items-center align-items-sm-start justify-content-sm-start">
+        <div className="text-30 lh-15 fw-500">4.88</div>
+        <div className="lh-15">Overall rating</div>
+        <div className="d-flex x-gap-5 items-center pt-10">
+          <div className="icon-star text-dark-1 text-10" />
+          <div className="icon-star text-dark-1 text-10" />
+          <div className="icon-star text-dark-1 text-10" />
+          <div className="icon-star text-dark-1 text-10" />
+          <div className="icon-star text-dark-1 text-10" />
         </div>
-      ))}
-    </>
+      </div>
+    </div>
   );
 };
 

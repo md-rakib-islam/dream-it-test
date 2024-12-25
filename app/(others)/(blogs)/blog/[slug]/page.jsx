@@ -1,7 +1,6 @@
 import BlogsSide from "@/components/blogs/BlogsSide";
 import { BLOG_CATEGORIES, GET_CMS_BLOG_BY_TITLE } from "@/constant/constants";
 import { dataFetcher } from "@/utils/dataFetcher";
-import { Interweave } from "interweave";
 
 export const metadata = {
   title: "Blog Single || GoTrip - Travel & Tour React NextJS Template",
@@ -19,10 +18,6 @@ const BlogSingleDynamic = async ({ params }) => {
   return (
     <>
       <div className="header-margin"></div>
-      {/* header top margin */}
-
-      {/* <LocationTopBar /> */}
-      {/* End location top bar section */}
 
       <section className="layout-pt-md layout-pb-lg blog-content">
         <div className="container">
@@ -50,7 +45,6 @@ const BlogSingleDynamic = async ({ params }) => {
           </div>
         </div>
       </section>
-      {/* Details Blog Details Content */}
     </>
   );
 };

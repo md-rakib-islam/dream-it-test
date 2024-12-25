@@ -1,17 +1,18 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
 import Link from "next/link";
+import { LayoutContext } from "@/app/LayoutProvider";
 
-const Testimonial = ({ reviewsData }) => {
-  // const [loadImage, setLoadImage] = useState(false);
+const Testimonial = () => {
+  const { reviewsData } = useContext(LayoutContext);
+
   const [expandedRows, setExpandedRows] = useState([]);
   const textRefs = useRef([]);
 
   useEffect(() => {
-    // Initialize the array of expanded state with false for each row
     setExpandedRows(Array(reviewsData?.reviews.length).fill(false));
   }, [reviewsData]);
 
@@ -32,7 +33,6 @@ const Testimonial = ({ reviewsData }) => {
       month: "long",
     };
 
-    // Check if the year is the current year
     if (date.getFullYear() !== now.getFullYear()) {
       options.year = "numeric";
     }
@@ -41,21 +41,19 @@ const Testimonial = ({ reviewsData }) => {
   }
 
   const settings = {
-    // dots: true,
-    // infinite: true,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
-    autoplay: true, // Enable autoplay
-    autoplaySpeed: 3000, // Set autoplay speed in milliseconds
+    autoplay: true,
+    autoplaySpeed: 3000,
     responsive: [
       {
         breakpoint: 992,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
-          autoplay: true, // Enable autoplay
-          autoplaySpeed: 3000, // Set autoplay speed in milliseconds
+          autoplay: true,
+          autoplaySpeed: 3000,
         },
       },
       {
@@ -63,8 +61,8 @@ const Testimonial = ({ reviewsData }) => {
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
-          autoplay: true, // Enable autoplay
-          autoplaySpeed: 3000, // Set autoplay speed in milliseconds
+          autoplay: true,
+          autoplaySpeed: 3000,
         },
       },
       {
@@ -72,8 +70,8 @@ const Testimonial = ({ reviewsData }) => {
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
-          autoplay: true, // Enable autoplay
-          autoplaySpeed: 3000, // Set autoplay speed in milliseconds
+          autoplay: true,
+          autoplaySpeed: 3000,
         },
       },
       {
@@ -83,8 +81,8 @@ const Testimonial = ({ reviewsData }) => {
           slidesToScroll: 1,
           centerMode: true,
           centerPadding: "35px",
-          autoplay: true, // Enable autoplay
-          autoplaySpeed: 3000, // Set autoplay speed in milliseconds
+          autoplay: true,
+          autoplaySpeed: 3000,
         },
       },
       {
@@ -94,8 +92,8 @@ const Testimonial = ({ reviewsData }) => {
           slidesToScroll: 1,
           centerMode: true,
           centerPadding: "35px",
-          autoplay: true, // Enable autoplay
-          autoplaySpeed: 3000, // Set autoplay speed in milliseconds
+          autoplay: true,
+          autoplaySpeed: 3000,
         },
       },
     ],
@@ -129,17 +127,6 @@ const Testimonial = ({ reviewsData }) => {
         arrows={true}
         nextArrow={<Arrow type="next" />}
         prevArrow={<Arrow type="prev" />}
-        // dots={(count, dotList) => {
-
-        //   // Calculate the number of dots to show
-        //   const maxDotsToShow = 4;
-        //   const totalSlides = count + settings.slidesToShow - 1; // Adjust total slides considering the slidesToShow
-        //   const totalDots = Math.ceil(totalSlides / settings.slidesToShow);
-        //   const visibleDots = Math.min(maxDotsToShow, totalDots);
-
-        //   // Render only the visible dots
-        //   return dotList.slice(0, visibleDots);
-        // }}
       >
         {reviewsData?.reviews
           .filter((item) => item.rating === 5)

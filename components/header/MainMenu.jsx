@@ -1,15 +1,14 @@
-import useMenus from "@/hooks/useMenus";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { isActiveLink } from "../../utils/linkActiveChecker";
+import useMenus from "@/hooks/useMenus";
 
-const MainMenu = ({ style = "" }) => {
+const MainMenu = ({ style = "", menus }) => {
   const pathname = usePathname();
-  const menuItems = useMenus();
+  const menuItems = useMenus(menus);
 
   const currentPathName =
     pathname.split("/")[1] === "destinations" ? "/destinations" : pathname;
-
   return (
     <nav className="menu js-navList">
       <ul className={`menu__nav ${style} -is-active`}>

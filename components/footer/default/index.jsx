@@ -1,6 +1,6 @@
 // import AppButton from "./AppButton";
 "use client";
-import { useCreateNewsLetterJustEmailMutation } from "@/features/newsLetter/newsLetterSlice";
+// import { useCreateNewsLetterJustEmailMutation } from "@/features/newsLetter/newsLetterSlice";
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import ContactInfo from "./ContactInfo";
@@ -8,7 +8,6 @@ import Copyright from "./Copyright";
 import FooterContent from "./FooterContent";
 
 import "react-toastify/dist/ReactToastify.css";
-import { useGetLogoUrlQuery } from "@/features/site-setting/siteSettingApi";
 import Image from "next/image";
 
 const paymentMethodImages = [
@@ -25,17 +24,16 @@ const paymentMethodImages = [
 ];
 const index = () => {
   const [email, setEmail] = useState("");
-  const [createNewsLetterJustEmail, { isLoading, isSuccess }] =
-    useCreateNewsLetterJustEmailMutation();
-  const [show, setShow] = useState(false);
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShow(true);
-    }, 2000);
+  const [createNewsLetterJustEmail] = "";
+  // const [show, setShow] = useState(false);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setShow(true);
+  //   }, 2000);
 
-    // Clean up the timer if the component is unmounted
-    return () => clearTimeout(timer);
-  }, []);
+  //   // Clean up the timer if the component is unmounted
+  //   return () => clearTimeout(timer);
+  // }, []);
   const handleSubmit = async () => {
     try {
       const res = await createNewsLetterJustEmail({ email });
@@ -86,105 +84,105 @@ const index = () => {
 
   return (
     <footer className="footer -type-1">
-      {show && (
-        <div className="container">
-          <ToastContainer
-            position="top-center"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="dark"
-          />
-          <div className="pt-60 pb-60">
-            <div className="row y-gap-40">
-              <div className="col-xl-4 col-lg-4 col-sm-6">
-                <div className="d-flex items-center">
-                  <h5 className="text-18 fw-500 mb-10 w-100">
-                    Dream Tourism SRLS
-                  </h5>
-                  {/* End logo */}
-                </div>
-
-                <div
-                  className={"text-14 mt-0 w-100 text-justify"}
-                  style={{ textAlign: "justify" }}
-                >
-                  Explore, Experience, Wander with Dream Tourism SRLS. Book your
-                  dream tours and activities worldwide with Dream Tourism SRLS.
-                  Your adventure awaits!
-                </div>
+      {/* {show && ( */}
+      <div className="container">
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
+        <div className="pt-60 pb-60">
+          <div className="row y-gap-40">
+            <div className="col-xl-4 col-lg-4 col-sm-6">
+              <div className="d-flex items-center">
+                <h1 className="text-18 fw-500 mb-10 w-100">
+                  Dream Tourism SRLS
+                </h1>
+                {/* End logo */}
               </div>
-              <div className="col-xl-3 col-lg-3 col-sm-6">
-                <h5 className="text-18 fw-500 mb-10 w-100">Contact Us</h5>
-                <ContactInfo />
+
+              <div
+                className={"text-14 mt-0 w-100 text-justify"}
+                style={{ textAlign: "justify" }}
+              >
+                Explore, Experience, Wander with Dream Tourism SRLS. Book your
+                dream tours and activities worldwide with Dream Tourism SRLS.
+                Your adventure awaits!
               </div>
-              {/* End col */}
+            </div>
+            <div className="col-xl-3 col-lg-3 col-sm-6">
+              <h2 className="text-18 fw-500 mb-10 w-100">Contact Us</h2>
+              <ContactInfo />
+            </div>
+            {/* End col */}
 
-              <FooterContent />
-              {/* End footer menu content */}
+            <FooterContent />
+            {/* End footer menu content */}
 
-              <div className="col-xl-3 col-lg-3 col-sm-6 ">
-                <h5 className="text-18 fw-500 mb-10 w-100">
-                  Sign up to our newsletter
-                </h5>
-                {/* <AppButton /> */}
-                <div className="single-field w-100 d-flex flex-column y-gap-20 w-100">
-                  <div>
-                    <input
-                      onChange={(e) => setEmail(e.target.value)}
-                      value={email}
-                      required
-                      name="email"
-                      className="border border-secondary h-50"
-                      style={{ backgroundColor: "#ffffff" }}
-                      type="email"
-                      placeholder="Your Email"
+            <div className="col-xl-3 col-lg-3 col-sm-6 ">
+              <h2 className="text-18 fw-500 mb-10 w-100">
+                Sign up to our newsletter
+              </h2>
+              {/* <AppButton /> */}
+              <div className="single-field w-100 d-flex flex-column y-gap-20 w-100">
+                <div>
+                  <input
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                    required
+                    name="email"
+                    className="border border-secondary h-50"
+                    style={{ backgroundColor: "#ffffff" }}
+                    type="email"
+                    placeholder="Your Email"
+                  />
+                </div>
+                {/* End email input */}
+
+                <div>
+                  <button
+                    // disabled={!email || isLoading}
+                    onClick={handleSubmit}
+                    className="px-30 fw-400 text-14 border-white -outline-white h-50 text-white  w-100 pointer"
+                  >
+                    Subscribe
+                  </button>
+                </div>
+                {/* End subscribe btn */}
+              </div>
+
+              <h2 className="text-16 fw-500 mb-10 mt-10 w-100">We Accept</h2>
+              <div className="payment-methods">
+                {paymentMethodImages.map((src, index) => {
+                  return (
+                    <Image
+                      width={50}
+                      height={50}
+                      key={index}
+                      src={src}
+                      alt={`Payment Method ${index + 1}`}
                     />
-                  </div>
-                  {/* End email input */}
-
-                  <div>
-                    <button
-                      disabled={!email || isLoading}
-                      onClick={handleSubmit}
-                      className="px-30 fw-400 text-14 border-white -outline-white h-50 text-white  w-100 pointer"
-                    >
-                      Subscribe
-                    </button>
-                  </div>
-                  {/* End subscribe btn */}
-                </div>
-
-                <h5 className="text-16 fw-500 mb-10 mt-10 w-100">We Accept</h5>
-                <div className="payment-methods">
-                  {paymentMethodImages.map((src, index) => {
-                    return (
-                      <Image
-                        width={50}
-                        height={50}
-                        key={index}
-                        src={src}
-                        alt={`Payment Method ${index + 1}`}
-                      />
-                    );
-                  })}
-                </div>
+                  );
+                })}
               </div>
             </div>
           </div>
-          {/* End footer top */}
-
-          <div className="py-20 border-top-light">
-            <Copyright />
-          </div>
-          {/* End footer-copyright */}
         </div>
-      )}
+        {/* End footer top */}
+
+        <div className="py-20 border-top-light">
+          <Copyright />
+        </div>
+        {/* End footer-copyright */}
+      </div>
+      {/* )} */}
       {/* End container */}
     </footer>
   );

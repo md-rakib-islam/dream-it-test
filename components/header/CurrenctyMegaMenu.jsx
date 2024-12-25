@@ -1,11 +1,11 @@
 "use client";
 
-import { addCurrency } from "@/features/currency/currencySlice";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { LayoutContext } from "@/app/LayoutProvider";
+import { useContext, useState } from "react";
 
 const CurrenctyMegaMenu = ({ textClass }) => {
-  const dispatch = useDispatch();
+  const { selectedCurrency, updateCurrency } = useContext(LayoutContext);
+
   const [click, setClick] = useState(false);
   const handleCurrency = () => setClick((prevState) => !prevState);
 
@@ -32,11 +32,9 @@ const CurrenctyMegaMenu = ({ textClass }) => {
     // { id: 20, name: "Nepal Rupee", currency: "NPR", symbol: "Nepal Rupee" },
   ];
 
-  const [selectedCurrency, setSelectedCurrency] = useState(currencyContent[3]);
-
   const handleItemClick = (item) => {
-    setSelectedCurrency(item);
-    dispatch(addCurrency(item));
+    updateCurrency(item);
+    // dispatch(addCurrency(item));
     setClick(false);
   };
 

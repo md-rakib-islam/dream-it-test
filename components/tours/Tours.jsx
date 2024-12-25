@@ -1,27 +1,22 @@
 "use client";
 
-import useTours from "@/hooks/useTours";
 import Image from "next/image";
 import Link from "next/link";
-import { useSelector } from "react-redux";
 import Slider from "react-slick";
-import isTextMatched from "../../utils/isTextMatched";
 import useWindowSize from "@/hooks/useWindowSize";
-import TourSkeleton from "../skeleton/TourSkeleton";
+import { LayoutContext } from "@/app/LayoutProvider";
 import TripReview from "../common/TripReview";
+import TourSkeleton from "../skeleton/TourSkeleton";
+import { useContext } from "react";
+import { modifiedCurrency } from "@/utils/modifiedCurrency";
 
-const Tours = ({
-  destination,
-  filterTour,
-  dailyTours,
-  multiDays,
-  attraction,
-}) => {
-  const tourItems = useTours();
-  const filteredTourItems = filterTour
-    ? tourItems.filter((item) => item.title !== filterTour)
-    : dailyTours
-    ? tourItems.filter((item) => {
+const Tours = ({ destination, filterTour, tourType }) => {
+  const { toursMainData, selectedCurrency } = useContext(LayoutContext);
+
+  const filteredtoursMainData = filterTour
+    ? toursMainData.filter((item) => item.title !== filterTour)
+    : tourType == "day"
+    ? toursMainData.filter((item) => {
         if (item.duration && item.duration.includes("hours")) {
           const hours = parseInt(
             item.duration.replace(/hour[s]?/, "").trim(),
@@ -31,19 +26,22 @@ const Tours = ({
         }
         return false;
       })
-    : multiDays
-    ? tourItems.filter(
+    : tourType == "multi"
+    ? toursMainData.filter(
         (item) => item.duration && !item.duration.includes("hours")
       )
-    : attraction
-    ? tourItems.filter((item) => item.title && item.title.includes("Ticket"))
+    : tourType == "attraction"
+    ? toursMainData.filter(
+        (item) => item.title && item.title.includes("Ticket")
+      )
     : destination
-    ? tourItems.filter(
+    ? toursMainData.filter(
         (item) => item.location && item.location.includes(destination)
       )
-    : tourItems;
+    : toursMainData;
 
-  const { currentCurrency } = useSelector((state) => state.currency);
+  console.log("toursMainData", toursMainData);
+
   const width = useWindowSize();
   const isMobile = width < 768;
   const settings = {
@@ -118,10 +116,10 @@ const Tours = ({
     );
   }
 
-  return filteredTourItems?.length === 0 ? (
+  return filteredtoursMainData?.length === 0 ? (
     <TourSkeleton />
-  ) : filteredTourItems?.length < 4 ? (
-    filteredTourItems?.map((item) => {
+  ) : filteredtoursMainData?.length < 4 ? (
+    filteredtoursMainData?.map((item) => {
       const slug = item?.slug?.endsWith("-1")
         ? item?.slug.slice(0, -2)
         : item?.slug;
@@ -135,12 +133,6 @@ const Tours = ({
           >
             <div className="tourCard__image position-relative">
               <div className="inside-slider">
-                {/* <Slider
-                {...itemSettings}
-                arrows={true}
-                nextArrow={<Arrow type="next" />}
-                prevArrow={<Arrow type="prev" />}
-              > */}
                 {item?.slideImg?.map((slide, i) => (
                   <div className="cardImage ratio ratio-1:1" key={i}>
                     <div className="cardImage__content ">
@@ -155,26 +147,8 @@ const Tours = ({
                     </div>
                   </div>
                 ))}
-                {/* </Slider> */}
 
                 <div className="cardImage__leftBadge cardImage-2__leftBadge sm:d-none">
-                  {/* <div
-                    className={`py-5  rounded-right-4 text-12 lh-16 fw-500 uppercase ${
-                      isTextMatched(item?.tag, "likely to sell out*")
-                        ? "bg-dark-1 text-white"
-                        : ""
-                    } ${
-                      isTextMatched(item?.tag, "best seller")
-                        ? "bg-blue-1 text-white"
-                        : ""
-                    }  ${
-                      isTextMatched(item?.tag, "top rated")
-                        ? "bg-yellow-1 text-dark-1"
-                        : ""
-                    }`}
-                  >
-                    Item
-                  </div> */}
                   <div className="buttons-2">
                     <button
                       style={{
@@ -183,29 +157,14 @@ const Tours = ({
                           "linear-gradient(to right, #353537 , #0d0c0d)",
                       }}
                     >
-                      {`${currentCurrency?.symbol} ${item.price}`}{" "}
+                      {`${selectedCurrency?.symbol} ${modifiedCurrency(
+                        item.price,
+                        selectedCurrency.currency
+                      )}`}
                       <span> PER PERSON</span>
                     </button>
                     <button>No</button>
                   </div>
-                  {/* <div>
-                  <Image
-                    width={80}
-                    height={80}
-                    priority
-                    className="col-12 js-lazy"
-                    src={`https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/94088711-e642-4216-52ee-393e4c6a3c00/public`}
-                    alt="price"
-                  />
-
-                  <p
-                    className={
-                      currentCurrency?.symbol == "ريال"
-                        ? "price-arabic-position"
-                        : "price-position"
-                    }
-                  >{`${currentCurrency?.symbol} ${item.price}`}</p>
-                </div> */}
                 </div>
               </div>
             </div>
@@ -218,10 +177,10 @@ const Tours = ({
                 <div className="ml-10 mr-10" />
                 <div className="col-auto">
                   <div className="text-14 md:text-12 text-dark-1 fw-bold">
-                    From {currentCurrency?.symbol}
+                    From {selectedCurrency?.symbol}
                     <span className="text-16 md:text-13 fw-500 text-blue-1 fw-bold">
                       {" "}
-                      {item.price}
+                      {modifiedCurrency(item.price, selectedCurrency.currency)}
                     </span>
                   </div>
                 </div>
@@ -263,7 +222,7 @@ const Tours = ({
       nextArrow={<Arrow type="next" />}
       prevArrow={<Arrow type="prev" />}
     >
-      {filteredTourItems?.map((item) => {
+      {filteredtoursMainData?.map((item) => {
         const slug = item?.slug?.endsWith("-1")
           ? item?.slug.slice(0, -2)
           : item?.slug;
@@ -300,23 +259,6 @@ const Tours = ({
                   </Slider>
 
                   <div className="cardImage__leftBadge cardImage-2__leftBadge">
-                    {/* <div
-                    className={`py-5  rounded-right-4 text-12 lh-16 fw-500 uppercase ${
-                      isTextMatched(item?.tag, "likely to sell out*")
-                        ? "bg-dark-1 text-white"
-                        : ""
-                    } ${
-                      isTextMatched(item?.tag, "best seller")
-                        ? "bg-blue-1 text-white"
-                        : ""
-                    }  ${
-                      isTextMatched(item?.tag, "top rated")
-                        ? "bg-yellow-1 text-dark-1"
-                        : ""
-                    }`}
-                  >
-                    Item
-                  </div> */}
                     <div className="buttons-2">
                       <button
                         style={{
@@ -325,29 +267,14 @@ const Tours = ({
                             "linear-gradient(to right, #353537 , #0d0c0d)",
                         }}
                       >
-                        {`${currentCurrency?.symbol} ${item.price}`}{" "}
+                        {`${selectedCurrency?.symbol} ${modifiedCurrency(
+                          item.price,
+                          selectedCurrency.currency
+                        )}`}{" "}
                         <span> PER PERSON</span>
                       </button>
                       <button>No</button>
                     </div>
-                    {/* <div>
-                    <Image
-                      width={80}
-                      height={80}
-                      priority
-                      className="col-12 js-lazy"
-                      src={`https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/94088711-e642-4216-52ee-393e4c6a3c00/public`}
-                      alt="price"
-                    />
-
-                    <p
-                      className={
-                        currentCurrency?.symbol == "ريال"
-                          ? "price-arabic-position"
-                          : "price-position"
-                      }
-                    >{`${currentCurrency?.symbol} ${item.price}`}</p>
-                  </div> */}
                   </div>
                 </div>
               </div>
@@ -360,10 +287,13 @@ const Tours = ({
                   <div className="ml-10 mr-10" />
                   <div className="col-auto">
                     <div className="text-14 text-dark-1 fw-bold">
-                      From {currentCurrency?.symbol}
+                      From {selectedCurrency?.symbol}
                       <span className="text-16 fw-500 text-blue-1 fw-bold">
                         {" "}
-                        {item.price}
+                        {modifiedCurrency(
+                          item.price,
+                          selectedCurrency.currency
+                        )}
                       </span>
                     </div>
                   </div>
