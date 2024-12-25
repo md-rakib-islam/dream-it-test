@@ -14,6 +14,8 @@ export default function LayoutProvider({ data, children }) {
   });
   const [filteredTours, setFilteredTours] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedDuration, setSelectedDuration] = useState("");
+
   const updateCurrency = (currency) => {
     setSelectedCurrency(currency);
   };
@@ -27,6 +29,8 @@ export default function LayoutProvider({ data, children }) {
         setFilteredTours,
         setSelectedCategory,
         selectedCategory,
+        selectedDuration,
+        setSelectedDuration,
       }}
     >
       {children}

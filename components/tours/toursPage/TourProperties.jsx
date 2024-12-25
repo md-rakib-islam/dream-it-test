@@ -17,11 +17,14 @@ const TourProperties = () => {
   const searchParams = useSearchParams();
   const search = searchParams.get("location");
   const category = searchParams.get("category");
+  const duration = searchParams.get("duration");
   const min = parseFloat(searchParams.get("min")) || 0;
   const max = parseFloat(searchParams.get("max")) || Infinity;
 
   const filteredResults = useMemo(() => {
     return toursMainData.filter((item) => {
+      if (!item) return false; // Skip undefined or null items
+
       const locationMatches = search
         ? item.location && item.location.includes(search)
         : true;
@@ -38,12 +41,35 @@ const TourProperties = () => {
             !item.duration.includes("hours"))
         : true;
 
-      const price = parseFloat(item.price.replace(/[^0-9.-]+/g, "")); // Remove non-numeric characters from price string and convert to number
+      const durationMatches = () => {
+        if (!item.duration) return false; // Exclude items with no duration
+
+        const hours = parseInt(item.duration?.match(/(\d+)/)?.[0] || 0); // Extract numeric value
+        const days = parseInt(item.duration?.match(/(\d+)/)?.[0] || 0);
+        if (duration === "1 to 4 Hours") {
+          return hours >= 1 && hours <= 4;
+        }
+
+        if (duration === "5 Hours to 1 Day") {
+          return hours > 4 && hours <= 24;
+        }
+
+        if (duration === "2 to 5 Days") {
+          return days >= 2 && days <= 5 && item.duration.includes("days"); // Filter for 2 to 5 days// Convert days to hours
+        }
+
+        return true; // Default to true if no specific duration filter is applied
+      };
+
+      const price = parseFloat(item.price?.replace(/[^0-9.-]+/g, "") || "0"); // Handle undefined price gracefully
       const priceMatches = price >= min && price <= max;
 
-      return locationMatches && categoryMatches && priceMatches;
+      return (
+        locationMatches && categoryMatches && priceMatches && durationMatches()
+      );
     });
-  }, [toursMainData, search, min, max, category]);
+  }, [toursMainData, search, min, max, category, duration]);
+
   // Dispatch filtered results to Redux store only when filteredResults changes
   useEffect(() => {
     setFilteredTours(filteredResults);

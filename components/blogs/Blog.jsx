@@ -7,7 +7,7 @@ import BlogPagination from "./BlogPagination";
 
 const Blog = ({ blogs, categories }) => {
   const [filterOption, setFilterOption] = useState(
-    categories.blog_categories[0].name
+    categories?.blog_categories[0].name
   );
   const [filteredItems, setFilteredItems] = useState(blogs.blogs);
   console.log("categoriesdfsdfs", blogs);

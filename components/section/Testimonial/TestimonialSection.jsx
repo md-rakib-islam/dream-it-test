@@ -6,8 +6,8 @@ import React from "react";
 const TestimonialSection = ({ title, des }) => {
   return (
     <div>
-      <section className="section-bg layout-pt-lg layout-pb-lg">
-        <div className="section-bg__item -mx-20 bg-light-2" />
+      <section className="section-bg layout-pt-lg layout-pb-lg bg-light-2">
+        <div className="section-bg__item -mx-20 " />
         <div className="container">
           <div className="row justify-center text-center">
             <div className="col-auto">

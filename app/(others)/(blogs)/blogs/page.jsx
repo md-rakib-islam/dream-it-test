@@ -1,6 +1,5 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import Blog from "@/components/blogs/Blog";
 import { useContext } from "react";
 // import { BlogContext } from "./BlogProvider";
@@ -54,7 +53,7 @@ import { LayoutContext } from "@/app/LayoutProvider";
 //     },
 //   };
 // }
-const Blogs = () => {
+const index = () => {
   const { blogs } = useContext(LayoutContext);
 
   console.log("blogPages", blogs);
@@ -63,22 +62,35 @@ const Blogs = () => {
     <>
       <div className="header-margin"></div>
       <section className="layout-pt-md layout-pb-lg">
-        <div className="container">
+        {blogs?.categories?.blog_categories.length !== 0 ? (
+          <div className="container">
+            <div className="row justify-center text-center">
+              <div className="col-auto">
+                <div className="sectionTitle -md">
+                  <h2 className="sectionTitle__title">Latest Blog Posts</h2>
+                  <p className=" sectionTitle__text mt-5 sm:mt-0">
+                    Lorem ipsum is placeholder text commonly used in site.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <Blog blogs={blogs.blogs} categories={blogs.categories} />
+          </div>
+        ) : (
           <div className="row justify-center text-center">
             <div className="col-auto">
               <div className="sectionTitle -md">
                 <h2 className="sectionTitle__title">Latest Blog Posts</h2>
                 <p className=" sectionTitle__text mt-5 sm:mt-0">
-                  Lorem ipsum is placeholder text commonly used in site.
+                  There is no blogs
                 </p>
               </div>
             </div>
           </div>
-          <Blog blogs={blogs.blogs} categories={blogs.categories} />
-        </div>
+        )}
       </section>
     </>
   );
 };
 
-export default dynamic(() => Promise.resolve(Blogs), { ssr: true });
+export default index;

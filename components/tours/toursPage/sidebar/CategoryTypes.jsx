@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useContext, useEffect } from "react";
 
 const CategoryTypes = () => {
-  const { selectedCategory, setSelectedCategory, filteredTours } =
+  const { selectedCategory, setSelectedCategory, toursMainData } =
     useContext(LayoutContext);
   // const { filteredTours, selectedCategory } = useSelector((state) => state.tour);
   const router = useRouter();
@@ -15,13 +15,13 @@ const CategoryTypes = () => {
   const min = searchParams.get("min") || "";
   const max = searchParams.get("max") || "";
 
-  const dailyTours = filteredTours.filter(
+  const dailyTours = toursMainData.filter(
     (item) => item.duration && item.duration.includes("hours")
   );
-  const multiDayTours = filteredTours.filter(
+  const multiDayTours = toursMainData.filter(
     (item) => item.duration && !item.duration.includes("hours")
   );
-  const attractionTours = filteredTours.filter(
+  const attractionTours = toursMainData.filter(
     (item) => item.title && item.title.includes("Ticket")
   );
 
@@ -37,7 +37,7 @@ const CategoryTypes = () => {
 
     // Update the Redux store
     // dispatch(addCategory(newCategory));
-
+    setSelectedCategory(newCategory);
     // Update the URL
     const categoryParam = newCategory ? `&category=${newCategory}` : "";
     router.push(
