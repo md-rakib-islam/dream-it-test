@@ -1,61 +1,78 @@
-import { Interweave } from "interweave";
-import { useSelector } from "react-redux";
-
-const ImportantInfo = () => {
-  const { tourItem } = useSelector((state) => state.tour);
+const ImportantInfo = ({ data }) => {
   return (
     <div className="row x-gap-40 y-gap-40 justify-between pt-20">
       <div className="col-lg-4 col-md-6">
         <div className="fw-600 mb-10">Inclusions</div>
         <div className="interweave-content">
-          <Interweave
+          {/* <Interweave
             allowAttributes
             allowElements
             disableLineBreaks={false}
-            content={tourItem?.inclution}
-          />
+            content={data?.inclution}
+          /> */}
+          <div
+            dangerouslySetInnerHTML={{
+              __html: data?.inclution,
+            }}
+          ></div>
         </div>
       </div>
 
-      {tourItem?.knw_before_go && (
+      {data?.knw_before_go && (
         <div className="col-lg-5 col-md-6">
           <div className="fw-600 mb-10">Know before you go</div>
           <div className="interweave-content">
-            <Interweave
+            {/* <Interweave
               allowAttributes
               allowElements
               disableLineBreaks={false}
-              content={tourItem?.knw_before_go}
-            />
+              content={data?.knw_before_go}
+            /> */}
+            <div
+              dangerouslySetInnerHTML={{
+                __html: data?.knw_before_go,
+              }}
+            ></div>
           </div>
         </div>
       )}
 
-      {tourItem?.exclusion && (
+      {data?.exclusion && (
         <div className="col-lg-3 col-md-6">
           <div className="fw-600 mb-10">Exclusions</div>
 
           <div className="interweave-content">
-            <Interweave
+            {/* <Interweave
               allowAttributes
               allowElements
               disableLineBreaks={false}
-              content={tourItem?.exclusion}
-            />
+              conte
+              nt={data?.exclusion}
+            /> */}
+            <div
+              dangerouslySetInnerHTML={{
+                __html: data?.exclusion,
+              }}
+            ></div>
           </div>
         </div>
       )}
 
-      {tourItem?.additional_info && (
+      {data?.additional_info && (
         <div className="col-12">
           <div className="fw-600 mb-10">Additional information</div>
           <div className="interweave-content">
-            <Interweave
+            {/* <Interweave
               allowAttributes
               allowElements
               disableLineBreaks={false}
-              content={tourItem?.additional_info}
-            />
+              content={data?.additional_info}
+            /> */}
+            <div
+              dangerouslySetInnerHTML={{
+                __html: data?.additional_info,
+              }}
+            ></div>
           </div>
         </div>
       )}

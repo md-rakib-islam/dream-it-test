@@ -1,29 +1,40 @@
 import Wrapper from "@/components/tourLayout/Wrapper";
 import TourHeading from "@/components/tours/singleTour/TourHeading";
 import TourSingleV1Dynamic from "@/components/tours/singleTour/TourSingle";
-import { GET_METADATA_BY_CONTENT_NAME } from "@/constant/constants";
-import getAllContentByMenuId from "@/services/contentService";
-import getAllMenuItem from "@/services/menuService";
+import {
+  GET_CONTENT_BY_TITLE,
+  GET_IMAGE_BY_MENU_ID,
+  GET_ITENARIES_BY_CONTENT_ID,
+  GET_METADATA_BY_CONTENT_NAME,
+} from "@/constant/constants";
+// import getAllContentByMenuId from "@/services/contentService";
+// import getAllMenuItem from "@/services/menuService";
+import { dataFetcher } from "@/utils/dataFetcher";
 import Head from "next/head";
 
-const fetchMetadata = async (tourTitle) => {
-  try {
-    const res = await fetch(`${GET_METADATA_BY_CONTENT_NAME}/${tourTitle}`);
-    if (res.status !== 200) {
-      throw new Error("Failed to fetch metadata");
-    }
-    const data = await res.json();
+// const fetchMetadata = async (tourTitle) => {
+//   try {
+//     const res = await fetch(`${GET_METADATA_BY_CONTENT_NAME}/${tourTitle}`);
+//     if (res.status !== 200) {
+//       throw new Error("Failed to fetch metadata");
+//     }
+//     const data = await res.json();
 
-    return data;
-  } catch (error) {
-    console.error(error);
-    return {
-      meta_title: `${tourTitle} by Dream Tourism SRLS`,
-      meta_description: `${tourTitle} by Dream Tourism SRLS`,
-      meta_image:
-        "https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/5dbac07d-cbd4-4694-9a38-615bf832f800/public", // Default image
-    };
-  }
+//     return data;
+//   } catch (error) {
+//     console.error(error);
+//     return {
+//       meta_title: `${tourTitle} by Dream Tourism SRLS`,
+//       meta_description: `${tourTitle} by Dream Tourism SRLS`,
+//       meta_image:
+//         "https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/5dbac07d-cbd4-4694-9a38-615bf832f800/public", // Default image
+//     };
+//   }
+// };
+
+export const metadata = {
+  title: "Blog Single || GoTrip - Travel & Tour React NextJS Template",
+  description: "GoTrip - Travel & Tour React NextJS Template",
 };
 function getFullUrl(params) {
   const baseUrl =
@@ -33,81 +44,63 @@ function getFullUrl(params) {
   const fullPath = `${baseUrl}/tour/${params.name}`;
   return fullPath;
 }
-export async function generateStaticParams() {
-  const data = await getAllMenuItem();
-  const homeId = data?.menus?.find((item) => item.name === "Home")?.id;
 
-  const tourContents = await getAllContentByMenuId(homeId);
+// export async function generateMetadata({ params }) {
+//   const { name } = params;
+//   const metaTitle = name;
+//   const metadata = await fetchMetadata(metaTitle);
 
-  const modifiedContents = tourContents?.filter((item) => {
-    if (
-      item.name === "Title" ||
-      item.name === "Our Tour" ||
-      item.name === "Our Tour Image" ||
-      item.name === "About" ||
-      item.name === "Switzerland" ||
-      item.name === "Italy" ||
-      item.name === "France" ||
-      item.name === "Belgium" ||
-      item.name === "Netherlands" ||
-      item.name === "United States" ||
-      item.name === "Germany"
-    )
-      return false;
-    return true;
-  });
+//   if (!metadata) {
+//     return {
+//       title: "Tour Not Found",
+//       description: "The tour you are looking for does not exist.",
+//     };
+//   }
 
-  return modifiedContents?.map((item) => ({
-    name: item?.name?.toLowerCase()?.split(" ")?.join("-"),
-  }));
-}
-
-export async function generateMetadata({ params }) {
-  const { name } = params;
-  const metaTitle = name;
-  const metadata = await fetchMetadata(metaTitle);
-
-  if (!metadata) {
-    return {
-      title: "Tour Not Found",
-      description: "The tour you are looking for does not exist.",
-    };
-  }
-
-  return {
-    metadataBase: new URL("https://dreamtourism.it"),
-    title: metadata?.meta_title,
-    description: metadata?.meta_description,
-    openGraph: {
-      title: metadata?.meta_title,
-      description: metadata?.meta_description,
-      images: [
-        {
-          url: metadata?.cloudflare_image,
-          width: 200,
-          height: 200,
-          alt: metadata?.meta_title,
-        },
-      ],
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: metadata?.meta_title,
-      description: metadata?.meta_description,
-      image: metadata?.cloudflare_image,
-    },
-  };
-}
+//   return {
+//     metadataBase: new URL("https://dreamtourism.it"),
+//     title: metadata?.meta_title,
+//     description: metadata?.meta_description,
+//     openGraph: {
+//       title: metadata?.meta_title,
+//       description: metadata?.meta_description,
+//       images: [
+//         {
+//           url: metadata?.cloudflare_image,
+//           width: 200,
+//           height: 200,
+//           alt: metadata?.meta_title,
+//         },
+//       ],
+//       type: "website",
+//     },
+//     twitter: {
+//       card: "summary_large_image",
+//       title: metadata?.meta_title,
+//       description: metadata?.meta_description,
+//       image: metadata?.cloudflare_image,
+//     },
+//   };
+// }
 
 export default async function Tour({ params }) {
+  const contentData = await dataFetcher(
+    `${GET_CONTENT_BY_TITLE}/${params.slug}`
+  );
+  // let itenarayItems = {};
+  // if (contentData) {
+  //   const getItinerary = await dataFetcher(
+  //     `${GET_ITENARIES_BY_CONTENT_ID}/${contentData.id}`
+  //   );
+  //   itenarayItems = getItinerary;
+  // }
   const fullUrl = getFullUrl(params);
 
   // Fetch metadata
-  const metadata = await fetchMetadata(params.name);
+  // const metadata = await fetchMetadata(params.name);
   return (
     <Wrapper>
-      <Head>
+      {/* <Head>
         <title>{metadata.meta_title}</title>
         <meta name="description" content={metadata.meta_description} />
         <meta property="og:title" content={metadata.meta_title} />
@@ -123,9 +116,9 @@ export default async function Tour({ params }) {
         <meta name="twitter:title" content={metadata.meta_title} />
         <meta name="twitter:description" content={metadata.meta_description} />
         <meta name="twitter:image" content={metadata.cloudflare_image} />
-      </Head>
-      <TourSingleV1Dynamic params={{ ...params, fullUrl }}>
-        <TourHeading params={{ ...params, fullUrl }} />
+      </Head> */}
+      <TourSingleV1Dynamic data={contentData} fullUrl={fullUrl}>
+        <TourHeading data={contentData} />
       </TourSingleV1Dynamic>
     </Wrapper>
   );

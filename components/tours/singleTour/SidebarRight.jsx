@@ -1,16 +1,9 @@
 "use client";
-import { useGetContentsByMenuContentTitleQuery } from "@/features/content/contentApi";
-import { useParams } from "next/navigation";
+
 import { useEffect } from "react";
 import Image from "next/image";
 
-const SidebarRight = () => {
-  const params = useParams();
-  const slug = params?.name?.endsWith("-1")
-    ? params?.name.slice(0, -2)
-    : params?.name;
-  const { data, isSuccess, isFulfilled } =
-    useGetContentsByMenuContentTitleQuery(slug);
+const SidebarRight = ({ data }) => {
   useEffect(() => {
     const script = document.createElement("script");
     script.src =
@@ -36,7 +29,7 @@ const SidebarRight = () => {
 
           <span className="fw-500 ml-20">Book now, pay in 3 installments</span>
         </div>
-        {isSuccess && <div className="bokunWidget" data-src={data?.url}></div>}
+        <div className="bokunWidget" data-src={data?.url}></div>
       </div>
     </div>
   );

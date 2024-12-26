@@ -1,16 +1,20 @@
 "use client";
 
-import Overview from "@/components/tour-single/Overview";
-import SidebarRight from "@/components/tour-single/SidebarRight";
-import TourSnapShot from "@/components/tour-single/TourSnapShot";
+// import Overview from "@/components/tour-single/Overview";
+// import SidebarRight from "@/components/tour-single/SidebarRight";
+// import TourSnapShot from "@/components/tour-single/TourSnapShot";
 import Image from "next/image";
 import useWindowSize from "@/hooks/useWindowSize";
-import "../../styles/weather.scss";
+import "../../../styles/weather.scss";
 import { useState } from "react";
-import OverviewSkeleton from "../skeleton/OverviewSkeleton";
-import GalarySkeleton from "../skeleton/GalarySkeleton";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Zoom } from "swiper";
+// import OverviewSkeleton from "../skeleton/OverviewSkeleton";
+// import GalarySkeleton from "../skeleton/GalarySkeleton";
+
+import TourSnapShot from "./TourSnapShot";
+import Overview from "./Overview";
+import OverviewSkeleton from "@/components/skeleton/OverviewSkeleton";
+import SidebarRight from "./SidebarRight";
+import Slider from "react-slick";
 
 export default function TourGallery({ tour, onDataAvailable }) {
   const [dataAvailable, setDataAvailable] = useState(false);
@@ -18,6 +22,35 @@ export default function TourGallery({ tour, onDataAvailable }) {
   const width = useWindowSize();
   const isMobile = width < 768;
 
+  const settings = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: true,
+  };
+  function Arrow(props) {
+    let className =
+      props.type === "next"
+        ? "section-slider-nav -next flex-center button -blue-1 shadow-1 size-40 rounded-full sm:d-none"
+        : "section-slider-nav -prev flex-center button -blue-1 shadow-1 size-40 rounded-full sm:d-none ";
+    className += " arrow";
+    const char =
+      props.type === "next" ? (
+        <>
+          <i className="icon icon-chevron-right text-12 text-light"></i>
+        </>
+      ) : (
+        <>
+          <span className="icon icon-chevron-left text-12 text-light"></span>
+        </>
+      );
+    return (
+      <button className={className} onClick={props.onClick}>
+        {char}
+      </button>
+    );
+  }
   return (
     <>
       <section className="pt-40 js-pin-container">
@@ -25,81 +58,76 @@ export default function TourGallery({ tour, onDataAvailable }) {
           <div className="row y-gap-30">
             <div className="col-xl-8">
               <div
-                className="relative d-flex justify-center overflow-hidden js-section-slider"
-                // style={{ height: isMobile ? 300 : 400 }}
+
+              // style={{ height: isMobile ? 300 : 400 }}
               >
-                <Swiper
-                  modules={[Zoom, Navigation]}
-                  loop={true}
-                  zoom={true}
-                  navigation={{
-                    nextEl: ".js-img-next",
-                    prevEl: ".js-img-prev",
-                  }}
+                <Slider
+                  {...settings}
+                  arrows={true}
+                  nextArrow={<Arrow type="next" />}
+                  prevArrow={<Arrow type="prev" />}
                 >
                   {tour?.slideImg?.map((slide, i) => (
-                    <SwiperSlide key={i}>
-                      <div className="swiper-zoom-container">
-                        <Image
-                          className="col-12 rounded-4 destination_banner_img swiper-zoom-container"
-                          height={860}
-                          width={1920}
-                          style={{ maxHeight: "448px" }}
-                          priority={true}
-                          src={`${slide}`}
-                          alt={tour?.title}
-                          onLoad={(e) => {
-                            if (e) {
-                              onDataAvailable(true);
-                              setDataAvailable(true);
-                            }
-                          }} // Attach onLoad event handler
-                          // className="rounded-4 col-12 cover object-cover"
-                        />
-                      </div>
-                    </SwiperSlide>
+                    <div key={i}>
+                      <Image
+                        className="col-12 rounded-4 destination_banner_img "
+                        height={860}
+                        width={1920}
+                        style={{ maxHeight: "448px" }}
+                        priority={true}
+                        src={`${slide}`}
+                        alt={tour?.title}
+                        onLoad={() => {
+                          setDataAvailable(true);
+                          onDataAvailable(true);
+                        }} // Mark data as available
+                      />
+                    </div>
                   ))}
-                </Swiper>
+                </Slider>
 
-                {/* {dataAvailable && ( */}
-                <div
-                  className={`absolute h-full col-11 ${
-                    !dataAvailable ? "d-none" : ""
-                  }`}
-                >
-                  <button className="section-slider-nav -prev flex-center button -blue-1  shadow-1 size-40 rounded-full sm:d-none js-img-prev">
-                    <i className="icon icon-chevron-left text-12" />
-                  </button>
-                  <button className="section-slider-nav -next flex-center button -blue-1  shadow-1 size-40 rounded-full sm:d-none js-img-next">
-                    <i className="icon icon-chevron-right text-12" />
-                  </button>
-                </div>
-                {/* )} */}
-                {/* End prev nav button wrapper */}
+                {/* Navigation Buttons */}
+                {dataAvailable && (
+                  <div
+                    className={`absolute h-full col-11 ${
+                      !dataAvailable ? "d-none" : ""
+                    }`}
+                  >
+                    <button className="section-slider-nav -prev flex-center button -blue-1 shadow-1 size-40 rounded-full sm:d-none">
+                      <i className="icon icon-chevron-left text-12" />
+                    </button>
+                    <button className="section-slider-nav -next flex-center button -blue-1 shadow-1 size-40 rounded-full sm:d-none">
+                      <i className="icon icon-chevron-right text-12" />
+                    </button>
+                  </div>
+                )}
               </div>
-              {!dataAvailable && <GalarySkeleton />}
               {/* End relative */}
 
               {/* slider gallery */}
 
               <h3 className="text-22 fw-600 mt-40">Tour snapshot</h3>
-              <TourSnapShot />
+              <TourSnapShot data={tour} />
               {/* End toursnapshot */}
               <div className="border-top-light mt-40 mb-40"></div>
 
               {!isMobile &&
-                (dataAvailable ? <Overview /> : <OverviewSkeleton />)}
+                (dataAvailable ? (
+                  <Overview data={tour} />
+                ) : (
+                  <OverviewSkeleton />
+                ))}
               {/* End  Overview */}
             </div>
             {/* End .col-xl-8 */}
 
             <div className="col-xl-4">
-              <SidebarRight />
+              <SidebarRight data={tour} />
             </div>
             {isMobile &&
               (dataAvailable ? (
                 <div style={{ marginTop: "" }}>
-                  <Overview />
+                  <Overview data={tour} />
                 </div>
               ) : (
                 <OverviewSkeleton />

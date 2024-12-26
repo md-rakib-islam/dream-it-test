@@ -1,16 +1,13 @@
 "use client";
-import {
-  useGetContentsByMenuContentTitleQuery,
-  useGetItenariesByMenuContentIdQuery,
-} from "@/features/content/contentApi";
-import ImportantInfo from "@/components/tour-single/ImportantInfo";
-import TourGallery from "@/components/tour-single/TourGallery";
+
+// import ImportantInfo from "@/components/tour-single/ImportantInfo";
+// import TourGallery from "@/components/tour-single/TourGallery";
 import Tours from "@/components/tours/Tours";
-import { useGetImagesByMenuIdQuery } from "@/features/image/imageApi";
-import { addItenarayItems, addtourItem } from "@/features/tour/tourSlice";
+// import { useGetImagesByMenuIdQuery } from "@/features/image/imageApi";
+// import { addItenarayItems, addtourItem } from "@/features/tour/tourSlice";
 import Loading from "@/app/loading";
 import Link from "next/link";
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 import {
   EmailIcon,
   EmailShareButton,
@@ -22,47 +19,44 @@ import {
   WhatsappShareButton,
 } from "react-share";
 import { toast } from "react-toastify";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
+import { LayoutContext } from "@/app/LayoutProvider";
+import TourGallery from "./TourGallery";
+import ImportantInfo from "./ImportantInfo";
 
-const Itinerary = dynamic(() => import("@/components/tour-single/itinerary"));
+// const Itinerary = dynamic(() => import("@/components/tour-single/itinerary"));
 
-const TourSingleV1Dynamic = ({ params, children }) => {
-  const dispatch = useDispatch();
-  const { menuItems } = useSelector((state) => state.menus);
-  const tourId = menuItems.find((item) => item.name === "Tours")?.id;
-  const slug = params?.name?.endsWith("-1")
-    ? params?.name.slice(0, -2)
-    : params?.name;
-  const { data, isSuccess, isFulfilled } =
-    useGetContentsByMenuContentTitleQuery(slug);
+const TourSingleV1Dynamic = ({ children, data, fullUrl }) => {
+  const { imageContentsForTours } = useContext(LayoutContext);
+
+  // const { menuItems } = useSelector((state) => state.menus);
+  // const tourId = menuItems.find((item) => item.name === "Tours")?.id;
+  // const slug = params?.name?.endsWith("-1")
+  //   ? params?.name.slice(0, -2)
+  //   : params?.name;
+
   const [copied, setCopied] = useState(false);
   const [isCopyLoading, setIsCopyLoading] = useState(false);
   const [dataAvailable, setDataAvailable] = useState(false);
 
-  const {
-    data: imageContents,
-    isSuccess: isImageContentsSuccess,
-    isLoading,
-  } = useGetImagesByMenuIdQuery(tourId);
-
-  const { data: itenarayItems, isSuccess: isItenariesSuccess } =
-    useGetItenariesByMenuContentIdQuery(data?.id);
-
-  if (isItenariesSuccess) {
-    dispatch(addItenarayItems(itenarayItems));
-  }
+  // if (isItenariesSuccess) {
+  //   dispatch(addItenarayItems(itenarayItems));
+  // }
   let tour = {};
-  if (isSuccess && isImageContentsSuccess) {
+  if (data && imageContentsForTours) {
     tour = {
       id: data?.id,
       tag: "",
-      slideImg: Array.isArray(imageContents?.content_images[data?.name])
-        ? imageContents?.content_images[data?.name]
-        : [`${imageContents?.content_images[data?.name]}`],
+      slideImg: Array.isArray(imageContentsForTours?.content_images[data?.name])
+        ? imageContentsForTours?.content_images[data?.name]
+        : [`${imageContentsForTours?.content_images[data?.name]}`],
       title: data?.name,
+      url: data?.url,
       location: data.location,
+      description: data?.description,
+      value: data?.value,
       duration: data?.duration,
       additional_info: data?.additional_info,
       knw_before_go: data?.knw_before_go,
@@ -77,7 +71,7 @@ const TourSingleV1Dynamic = ({ params, children }) => {
       languages: data?.languages,
     };
 
-    dispatch(addtourItem(data));
+    // dispatch(addtourItem(data));
   }
 
   const handleDataAvailability = (isDataAvailable) => {
@@ -154,34 +148,28 @@ const TourSingleV1Dynamic = ({ params, children }) => {
                   </button>
                   <ul className="dropdown-menu">
                     <li className="d-flex my-2">
-                      <FacebookShareButton
-                        className="me-2"
-                        url={params.fullUrl}
-                      >
+                      <FacebookShareButton className="me-2" url={fullUrl}>
                         <FacebookIcon size={32} round={true} />
                       </FacebookShareButton>
                       <FacebookMessengerShareButton
                         className="me-2"
-                        url={params.fullUrl}
+                        url={fullUrl}
                       >
                         <FacebookMessengerIcon size={32} round={true} />
                       </FacebookMessengerShareButton>
-                      <WhatsappShareButton
-                        className="me-2"
-                        url={params.fullUrl}
-                      >
+                      <WhatsappShareButton className="me-2" url={fullUrl}>
                         <WhatsappIcon size={32} round={true} />
                       </WhatsappShareButton>
                       <EmailShareButton
                         className="me-2"
-                        url={params.fullUrl}
+                        url={fullUrl}
                         subject="Check out this amazing tour!"
                         body={`I found this great tour. Check it out here:`}
                       >
                         <EmailIcon size={32} round={true} />
                       </EmailShareButton>
                       {/* <LinkedinShareButton
-                         url={params.fullUrl}
+                         url={fullUrl}
                       >
                         <LinkedinIcon size={32} round={true} />
                       </LinkedinShareButton> */}
@@ -276,22 +264,22 @@ const TourSingleV1Dynamic = ({ params, children }) => {
               </div>
             </div>
             {/* End row */}
-            <ImportantInfo />
+            <ImportantInfo data={tour} />
           </div>
           {/* End pt-40 */}
         </div>
         {/* End .container */}
       </section>
       {/* End important info */}
-
-      {dataAvailable && itenarayItems?.length !==0 && (
+      {/* 
+      {dataAvailable && itenarayItems?.length !== 0 && (
         <section className="border-top-light  mt-40 pt-40">
           <div className="container">
             <h3 className="text-22 fw-600 mb-20">Itinerary</h3>
             <Itinerary />
           </div>
         </section>
-      )}
+      )} */}
       {/* End Itinerary */}
 
       {dataAvailable && (

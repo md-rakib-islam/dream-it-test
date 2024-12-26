@@ -2,14 +2,14 @@ import TripReview from "@/components/common/TripReview";
 import { GET_CONTENT_BY_TITLE } from "@/constant/constants";
 import Link from "next/link";
 
-const TourHeading = async ({ params }) => {
+const TourHeading = async ({ data }) => {
   // const name = params?.name;
 
-  const res = await fetch(`${GET_CONTENT_BY_TITLE}/${params?.name}`);
-  let data;
-  if (res.ok) {
-    data = await res.json();
-  }
+  // const res = await fetch(`${GET_CONTENT_BY_TITLE}/${params?.name}`);
+  // let data;
+  // if (res.ok) {
+  //   data = await res.json();
+  // }
 
   return (
     <div className="col-xl-8">

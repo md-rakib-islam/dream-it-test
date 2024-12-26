@@ -14,10 +14,16 @@ import {
 import Header from "@/components/header";
 import Footer from "@/components/footer/default";
 import LayoutProvider from "./LayoutProvider";
+import "swiper/css";
+import "swiper/css/effect-cards";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
 
 if (typeof window !== "undefined") {
-  require("bootstrap/dist/js/bootstrap.bundle.min.js");
-  require("bootstrap/dist/css/bootstrap.bundle.min.css");
+  import("bootstrap/dist/js/bootstrap").then((bootstrap) => {
+    console.log("Bootstrap loaded", bootstrap);
+  });
 }
 
 const geistSans = Geist({
@@ -86,6 +92,7 @@ export default async function RootLayout({ children }) {
   const contentBlogData = await dataFetcher(`${GET_CMS_BLOGS}`);
   const categoryData = await dataFetcher(`${BLOG_CATEGORIES}`);
   const homeId = data?.menus?.find((menu) => menu?.name === "Home")?.id;
+  const tourId = data?.menus?.find((item) => item.name === "Tours")?.id;
   const destinations = data?.menus?.find(
     (item) => item.name === "Destinations"
   )?.children;
@@ -94,8 +101,16 @@ export default async function RootLayout({ children }) {
     tourImages = [],
     toursMainData = [],
     topDestinations = [],
+    imageContentsForTours = {},
     blogData = { blogs: contentBlogData || [], categories: categoryData };
 
+  if (tourId) {
+    const contentImages = await contentFetcher(
+      `${GET_IMAGE_BY_MENU_ID}/${tourId}`
+    );
+
+    imageContentsForTours = contentImages;
+  }
   if (homeId) {
     const contentData = await contentFetcher(
       `${GET_CONTENTS_WITH_URL_BY_MENU_ID}/${homeId}`
@@ -146,13 +161,14 @@ export default async function RootLayout({ children }) {
     }
   }
 
-  const menusData = {
+  const siteData = {
     menus: data?.menus,
     logo: siteSetting,
     toursMainData: toursMainData,
     topDestinations: topDestinations,
     reviewsData: reviewsData,
     blogs: blogData,
+    imageContentsForTours: imageContentsForTours,
   };
   return (
     <html lang="en">
@@ -175,7 +191,7 @@ export default async function RootLayout({ children }) {
         ></link>
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <LayoutProvider data={menusData}>
+        <LayoutProvider data={siteData}>
           <Header />
           <main>{children}</main>
           <Footer />
