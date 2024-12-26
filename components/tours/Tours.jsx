@@ -40,8 +40,6 @@ const Tours = ({ destination, filterTour, tourType }) => {
       )
     : toursMainData;
 
-  console.log("toursMainData", toursMainData);
-
   const width = useWindowSize();
   const isMobile = width < 768;
   const settings = {

@@ -56,8 +56,6 @@ import { LayoutContext } from "@/app/LayoutProvider";
 const index = () => {
   const { blogs } = useContext(LayoutContext);
 
-  console.log("blogPages", blogs);
-
   return (
     <>
       <div className="header-margin"></div>

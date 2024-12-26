@@ -30,8 +30,6 @@ const SearchBar = () => {
     address: "",
   }));
 
-  console.log("Location Search Content:", locationSearchContent);
-
   const handleOptionClick = (item) => {
     setSearchValue(item.name);
     setSelectedItem(item);

@@ -1,5 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
-import "../styles/index.scss";
+import "../styles/globals.scss";
 import { contentFetcher, dataFetcher } from "@/utils/dataFetcher";
 import {
   BLOG_CATEGORIES,
@@ -21,9 +21,7 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 
 if (typeof window !== "undefined") {
-  import("bootstrap/dist/js/bootstrap").then((bootstrap) => {
-    console.log("Bootstrap loaded", bootstrap);
-  });
+  import("bootstrap/dist/js/bootstrap").then((bootstrap) => {});
 }
 
 const geistSans = Geist({

@@ -10,7 +10,7 @@ const Blog = ({ blogs, categories }) => {
     categories?.blog_categories[0].name
   );
   const [filteredItems, setFilteredItems] = useState(blogs.blogs);
-  console.log("categoriesdfsdfs", blogs);
+
   useEffect(() => {
     setFilteredItems(
       blogs.blogs.filter((elm) =>

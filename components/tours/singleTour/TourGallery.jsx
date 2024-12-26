@@ -7,8 +7,6 @@ import Image from "next/image";
 import useWindowSize from "@/hooks/useWindowSize";
 import "../../../styles/weather.scss";
 import { useState } from "react";
-// import OverviewSkeleton from "../skeleton/OverviewSkeleton";
-// import GalarySkeleton from "../skeleton/GalarySkeleton";
 
 import TourSnapShot from "./TourSnapShot";
 import Overview from "./Overview";

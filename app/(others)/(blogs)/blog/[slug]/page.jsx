@@ -13,8 +13,6 @@ const BlogSingleDynamic = async ({ params }) => {
   );
   const categoryData = await dataFetcher(`${BLOG_CATEGORIES}`);
 
-  console.log("rakib", contentData);
-
   return (
     <>
       <div className="header-margin"></div>

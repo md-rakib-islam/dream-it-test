@@ -24,7 +24,7 @@ const Header = () => {
       window.removeEventListener("scroll", changeBackground);
     };
   }, []);
-  console.log("data", data);
+
   const logoUrl = data?.logo ? data?.logo[0]?.cloudflare_favicon : "";
 
   return (
