@@ -12,6 +12,9 @@ const nextConfig = {
     formats: ["image/webp", "image/avif"],
     minimumCacheTTL: 86400, // 1 day
   },
+  sassOptions: {
+    implementation: "sass",
+  },
 };
 
 export default nextConfig;

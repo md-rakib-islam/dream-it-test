@@ -1,5 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
-import "../styles/globals.scss";
+import "../styles/index.scss";
 import { contentFetcher, dataFetcher } from "@/utils/dataFetcher";
 import {
   BLOG_CATEGORIES,
