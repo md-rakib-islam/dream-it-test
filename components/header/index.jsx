@@ -6,6 +6,8 @@ import { useContext, useEffect, useState } from "react";
 import MainMenu from "./MainMenu";
 import { LayoutContext } from "@/app/LayoutProvider";
 import CurrenctyMegaMenu from "./CurrenctyMegaMenu";
+import MobileCurrencyMenu from "./MobileCurrencyMenu";
+import MobileMenu from "./MobileMenu";
 // import CurrenctyMegaMenu from "../CurrenctyMegaMenu";
 // import MainMenu from "../MainMenu";
 // import MobileCurrencyMenu from "../MobileCurrencyMenu";
@@ -61,28 +63,28 @@ const Header = () => {
                     <div className="w-1 h-20 bg-white-20" />
                   </div>
                 </div>
-                {/* <div className="d-none xl:d-flex x-gap-20 items-center pl-30 text-dark-1">
-                    <div>
-                      <MobileCurrencyMenu />
+                <div className="d-none xl:d-flex x-gap-20 items-center pl-30 text-dark-1">
+                  <div>
+                    <MobileCurrencyMenu />
+                  </div>
+                  <div>
+                    <button
+                      className="d-flex items-center icon-menu text-inherit text-20"
+                      data-bs-toggle="offcanvas"
+                      aria-controls="mobile-sidebar_menu"
+                      data-bs-target="#mobile-sidebar_menu"
+                    />
+                    <div
+                      className="offcanvas offcanvas-start  mobile_menu-contnet"
+                      tabIndex="-1"
+                      id="mobile-sidebar_menu"
+                      aria-labelledby="offcanvasMenuLabel"
+                      data-bs-scroll="true"
+                    >
+                      <MobileMenu logoUrl={logoUrl} menus={data?.menus} />
                     </div>
-                    <div>
-                      <button
-                        className="d-flex items-center icon-menu text-inherit text-20"
-                        data-bs-toggle="offcanvas"
-                        aria-controls="mobile-sidebar_menu"
-                        data-bs-target="#mobile-sidebar_menu"
-                      />
-                      <div
-                        className="offcanvas offcanvas-start  mobile_menu-contnet"
-                        tabIndex="-1"
-                        id="mobile-sidebar_menu"
-                        aria-labelledby="offcanvasMenuLabel"
-                        data-bs-scroll="true"
-                      >
-                        <MobileMenu />
-                      </div>
-                    </div>
-                  </div> */}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
