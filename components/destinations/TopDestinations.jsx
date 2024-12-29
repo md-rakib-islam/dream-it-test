@@ -5,8 +5,14 @@ import Link from "next/link";
 import { useContext } from "react";
 import Slider from "react-slick";
 
-const TopDestinations = () => {
+const TopDestinations = ({ destination }) => {
   const { topDestinations } = useContext(LayoutContext);
+  console.log("topDestinations", topDestinations, destination);
+  const filteredTopDestinations = destination
+    ? topDestinations?.filter(
+        (item) => item.name.toLowerCase() !== destination.toLowerCase()
+      )
+    : topDestinations;
 
   const settings = {
     dots: true,
@@ -50,7 +56,7 @@ const TopDestinations = () => {
   return (
     <>
       <Slider {...settings}>
-        {topDestinations?.map((item) => (
+        {filteredTopDestinations?.map((item) => (
           <div
             className={`${item.colClass} top_destination_width px-5`}
             key={item.id}

@@ -98,6 +98,8 @@ export const GET_CONTENTS_BY_MENU_CONTENT_ID = `${BASE_URL}/cms_menu_content/api
 
 export const GET_CONTENT_BY_TITLE = `${BASE_URL}/cms_menu_content/api/v1/cms_menu_content`;
 
+export const GET_CONTENT_BY_MENU_NAME = `${BASE_URL}/cms_menu_content/api/v1/cms_menu_content/get_cms_menu_content_by_cms_menu_name`;
+
 // Reviews
 export const GET_ALL_REVIEWS = `${BASE_URL}/cms_review/api/v1/cms_review/all/`;
 

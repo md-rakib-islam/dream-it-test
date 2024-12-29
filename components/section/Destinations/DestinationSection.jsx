@@ -1,7 +1,7 @@
 import TopDestinations from "@/components/destinations/TopDestinations";
 import React from "react";
 
-const DestinationSection = ({ title, des }) => {
+const DestinationSection = ({ title, des, slug }) => {
   return (
     <div>
       <section className="layout-pt-md layout-pb-md">
@@ -17,7 +17,7 @@ const DestinationSection = ({ title, des }) => {
           {/* End .row */}
 
           <div className="row y-gap-40 pt-40 sm:pt-20">
-            <TopDestinations />
+            <TopDestinations destination={slug} />
           </div>
           {/* End .row */}
         </div>
