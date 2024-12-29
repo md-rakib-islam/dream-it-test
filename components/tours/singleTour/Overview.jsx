@@ -1,4 +1,4 @@
-// import { Interweave } from "interweave";
+"use client";
 import { useState } from "react";
 // import { useSelector } from "react-redux";
 const Overview = ({ data }) => {
@@ -11,6 +11,7 @@ const Overview = ({ data }) => {
 
   // Calculate the length for displaying half of the description
   const halfLength = Math.ceil(data?.description.length / 2);
+
   return (
     <>
       <div className="row x-gap-40 y-gap-40">

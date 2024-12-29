@@ -1,13 +1,15 @@
 "use client";
+import { useEffect, useState } from "react";
 
 // IMPORTANT: the order matters!
 import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css";
 import "leaflet-defaulticon-compatibility";
+import { MapContainer } from "react-leaflet/MapContainer";
+import { TileLayer } from "react-leaflet/TileLayer";
+import { useMap } from "react-leaflet/hooks";
 
-import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
-import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 
 // Fix the marker icon issue
@@ -48,9 +50,12 @@ const ChangeMapView = ({ coords, zoom }) => {
   return null;
 };
 
-export default function Map({ selectedLocation, zoom, markerClick }) {
-  const { itenarayItems } = useSelector((state) => state.tour);
-
+export default function Map({
+  selectedLocation,
+  zoom,
+  markerClick,
+  itenarayItems,
+}) {
   // State to manage the selected marker ID
   const [selectedMarkerId, setSelectedMarkerId] = useState(selectedLocation.id);
   const [newMapZoom, setNewMapZoom] = useState(zoom);
@@ -81,7 +86,7 @@ export default function Map({ selectedLocation, zoom, markerClick }) {
       {selectedLocation?.lat ? (
         <MapContainer
           center={[selectedLocation?.lat, selectedLocation?.lng]}
-          zoom={17}
+          zoom={20}
           scrollWheelZoom={true}
           className="leaflet-map"
         >

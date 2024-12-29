@@ -19,16 +19,14 @@ import {
   WhatsappShareButton,
 } from "react-share";
 import { toast } from "react-toastify";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Image from "next/image";
-import dynamic from "next/dynamic";
 import { LayoutContext } from "@/app/LayoutProvider";
 import TourGallery from "./TourGallery";
 import ImportantInfo from "./ImportantInfo";
+import Itinerary from "./itinerary/index";
 
-// const Itinerary = dynamic(() => import("@/components/tour-single/itinerary"));
-
-const TourSingleV1Dynamic = ({ children, data, fullUrl }) => {
+const TourSingleV1Dynamic = ({ children, data, fullUrl, itenarayItems }) => {
   const { imageContentsForTours } = useContext(LayoutContext);
 
   // const { menuItems } = useSelector((state) => state.menus);
@@ -74,9 +72,20 @@ const TourSingleV1Dynamic = ({ children, data, fullUrl }) => {
     // dispatch(addtourItem(data));
   }
 
-  const handleDataAvailability = (isDataAvailable) => {
-    setDataAvailable(isDataAvailable);
-  };
+  useEffect(() => {
+    // Button is displayed after scrolling for 500 pixels
+    const toggleVisibility = () => {
+      if (window.pageYOffset > 80) {
+        setDataAvailable(true);
+      } else {
+        setDataAvailable(false);
+      }
+    };
+
+    window.addEventListener("scroll", toggleVisibility);
+
+    return () => window.removeEventListener("scroll", toggleVisibility);
+  }, []);
   //copy link
   const copyToClipboard = () => {
     setIsCopyLoading(true);
@@ -251,7 +260,7 @@ const TourSingleV1Dynamic = ({ children, data, fullUrl }) => {
       </section>
       {/* End gallery grid wrapper */}
 
-      <TourGallery tour={tour} onDataAvailable={handleDataAvailability} />
+      <TourGallery tour={tour} />
 
       {/* End single page content */}
 
@@ -271,15 +280,15 @@ const TourSingleV1Dynamic = ({ children, data, fullUrl }) => {
         {/* End .container */}
       </section>
       {/* End important info */}
-      {/* 
+
       {dataAvailable && itenarayItems?.length !== 0 && (
         <section className="border-top-light  mt-40 pt-40">
           <div className="container">
             <h3 className="text-22 fw-600 mb-20">Itinerary</h3>
-            <Itinerary />
+            <Itinerary itenarayItems={itenarayItems} />
           </div>
         </section>
-      )} */}
+      )}
       {/* End Itinerary */}
 
       {dataAvailable && (

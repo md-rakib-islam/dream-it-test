@@ -1,11 +1,8 @@
 import AccordionContent from "./ItineraryContent";
-import { useSelector } from "react-redux";
-import Map from "./Map";
 import { useEffect, useState } from "react";
-
-const index = () => {
-  const { itenarayItems } = useSelector((state) => state.tour);
-
+import dynamic from "next/dynamic";
+const LeafletMap = dynamic(() => import("./LeafletMap"), { ssr: false });
+const index = ({ itenarayItems }) => {
   const [selectedLocation, setSelectedLocation] = useState(itenarayItems[0]);
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [zoom, setZoom] = useState(12);
@@ -48,7 +45,8 @@ const index = () => {
 
       <div className="col-lg-8">
         {itenarayItems?.length !== 0 && selectedLocation && (
-          <Map
+          <LeafletMap
+            itenarayItems={itenarayItems}
             selectedLocation={selectedLocation}
             zoom={zoom}
             markerClick={handleMarkerClick}

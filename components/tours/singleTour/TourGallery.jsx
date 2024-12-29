@@ -14,9 +14,7 @@ import OverviewSkeleton from "@/components/skeleton/OverviewSkeleton";
 import SidebarRight from "./SidebarRight";
 import Slider from "react-slick";
 
-export default function TourGallery({ tour, onDataAvailable }) {
-  const [dataAvailable, setDataAvailable] = useState(false);
-
+export default function TourGallery({ tour }) {
   const width = useWindowSize();
   const isMobile = width < 768;
 
@@ -75,30 +73,10 @@ export default function TourGallery({ tour, onDataAvailable }) {
                         priority={true}
                         src={`${slide}`}
                         alt={tour?.title}
-                        onLoad={() => {
-                          setDataAvailable(true);
-                          onDataAvailable(true);
-                        }} // Mark data as available
                       />
                     </div>
                   ))}
                 </Slider>
-
-                {/* Navigation Buttons */}
-                {dataAvailable && (
-                  <div
-                    className={`absolute h-full col-11 ${
-                      !dataAvailable ? "d-none" : ""
-                    }`}
-                  >
-                    <button className="section-slider-nav -prev flex-center button -blue-1 shadow-1 size-40 rounded-full sm:d-none">
-                      <i className="icon icon-chevron-left text-12" />
-                    </button>
-                    <button className="section-slider-nav -next flex-center button -blue-1 shadow-1 size-40 rounded-full sm:d-none">
-                      <i className="icon icon-chevron-right text-12" />
-                    </button>
-                  </div>
-                )}
               </div>
               {/* End relative */}
 
@@ -109,12 +87,7 @@ export default function TourGallery({ tour, onDataAvailable }) {
               {/* End toursnapshot */}
               <div className="border-top-light mt-40 mb-40"></div>
 
-              {!isMobile &&
-                (dataAvailable ? (
-                  <Overview data={tour} />
-                ) : (
-                  <OverviewSkeleton />
-                ))}
+              {!isMobile && <Overview data={tour} />}
               {/* End  Overview */}
             </div>
             {/* End .col-xl-8 */}
@@ -122,14 +95,11 @@ export default function TourGallery({ tour, onDataAvailable }) {
             <div className="col-xl-4">
               <SidebarRight data={tour} />
             </div>
-            {isMobile &&
-              (dataAvailable ? (
-                <div style={{ marginTop: "" }}>
-                  <Overview data={tour} />
-                </div>
-              ) : (
-                <OverviewSkeleton />
-              ))}
+            {isMobile && (
+              <div style={{ marginTop: "" }}>
+                <Overview data={tour} />
+              </div>
+            )}
             {/* End .col-xl-4 */}
           </div>
           {/* End .row */}

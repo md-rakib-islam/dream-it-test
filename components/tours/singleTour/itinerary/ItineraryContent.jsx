@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import { Interweave } from "interweave";
 
 const ItineraryContent = ({
   itenarayItems,
@@ -9,7 +8,6 @@ const ItineraryContent = ({
 }) => {
   // Maintain state for expanded items
   const [expandedItems, setExpandedItems] = useState({});
-
   const modifiedItenarayItem = itenarayItems?.map((item, indx) => ({
     id: item.id,
     targetCollapse: `item_${indx + 1}`,
@@ -78,10 +76,11 @@ const ItineraryContent = ({
                   <div className="pt-15 pb-15">
                     <div className="text-14 lh-17 mt-15 text-black">
                       <div className="interweave-content">
-                        <Interweave
-                          className="text-black"
-                          content={item.content}
-                        />
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: item?.content || null,
+                          }}
+                        ></div>
                       </div>
                     </div>
                   </div>

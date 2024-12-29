@@ -1,4 +1,17 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 const ImportantInfo = ({ data }) => {
+  const [hydratedData, setHydratedData] = useState({});
+
+  useEffect(() => {
+    setHydratedData(data);
+  }, [data]);
+
+  if (!hydratedData) {
+    return null; // or a loading spinner
+  }
   return (
     <div className="row x-gap-40 y-gap-40 justify-between pt-20">
       <div className="col-lg-4 col-md-6">
@@ -8,17 +21,17 @@ const ImportantInfo = ({ data }) => {
             allowAttributes
             allowElements
             disableLineBreaks={false}
-            content={data?.inclution}
+            content={hydratedData.inclution}
           /> */}
           <div
             dangerouslySetInnerHTML={{
-              __html: data?.inclution,
+              __html: hydratedData.inclution,
             }}
           ></div>
         </div>
       </div>
 
-      {data?.knw_before_go && (
+      {hydratedData.knw_before_go && (
         <div className="col-lg-5 col-md-6">
           <div className="fw-600 mb-10">Know before you go</div>
           <div className="interweave-content">
@@ -26,18 +39,18 @@ const ImportantInfo = ({ data }) => {
               allowAttributes
               allowElements
               disableLineBreaks={false}
-              content={data?.knw_before_go}
+              content={hydratedData.knw_before_go}
             /> */}
             <div
               dangerouslySetInnerHTML={{
-                __html: data?.knw_before_go,
+                __html: hydratedData.knw_before_go,
               }}
             ></div>
           </div>
         </div>
       )}
 
-      {data?.exclusion && (
+      {hydratedData.exclusion && (
         <div className="col-lg-3 col-md-6">
           <div className="fw-600 mb-10">Exclusions</div>
 
@@ -47,18 +60,18 @@ const ImportantInfo = ({ data }) => {
               allowElements
               disableLineBreaks={false}
               conte
-              nt={data?.exclusion}
+              nt={hydratedData.exclusion}
             /> */}
             <div
               dangerouslySetInnerHTML={{
-                __html: data?.exclusion,
+                __html: hydratedData.exclusion,
               }}
             ></div>
           </div>
         </div>
       )}
 
-      {data?.additional_info && (
+      {hydratedData.additional_info && (
         <div className="col-12">
           <div className="fw-600 mb-10">Additional information</div>
           <div className="interweave-content">
@@ -66,11 +79,11 @@ const ImportantInfo = ({ data }) => {
               allowAttributes
               allowElements
               disableLineBreaks={false}
-              content={data?.additional_info}
+              content={hydratedData.additional_info}
             /> */}
             <div
               dangerouslySetInnerHTML={{
-                __html: data?.additional_info,
+                __html: hydratedData.additional_info,
               }}
             ></div>
           </div>
