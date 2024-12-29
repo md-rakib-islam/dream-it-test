@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Slider from "react-slick";
 
-const WhyChoose = () => {
+const WhyChoosePage = () => {
   const blockContent = [
     {
       id: 1,
@@ -105,4 +105,4 @@ const WhyChoose = () => {
   );
 };
 
-export default WhyChoose;
+export default WhyChoosePage;

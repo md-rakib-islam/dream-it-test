@@ -1,4 +1,4 @@
-import WhyChoose from "@/components/common/whyChoose/WhyChoose";
+import WhyChoosePage from "@/components/common/whyChoose/WhyChoosePage";
 import React from "react";
 
 const WhyChooseSection = ({ title, des }) => {
@@ -18,7 +18,7 @@ const WhyChooseSection = ({ title, des }) => {
           </div>
 
           <div className="row y-gap-40 justify-between pt-50">
-            <WhyChoose />
+            <WhyChoosePage />
           </div>
         </div>
       </section>
