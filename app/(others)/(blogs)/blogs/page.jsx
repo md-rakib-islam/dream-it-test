@@ -4,6 +4,7 @@ import Blog from "@/components/blogs/Blog";
 import { useContext } from "react";
 // import { BlogContext } from "./BlogProvider";
 import { LayoutContext } from "@/app/LayoutProvider";
+import Head from "next/head";
 
 // const fetchMetadata = async () => {
 //   try {
@@ -50,14 +51,21 @@ import { LayoutContext } from "@/app/LayoutProvider";
 //       title: metadata.meta_title,
 //       description: metadata.meta_description,
 //       image: metadata?.cloudflare_image,
-//     },
-//   };
-// }
+
 const index = () => {
   const { blogs } = useContext(LayoutContext);
 
   return (
     <>
+      <Head>
+        <title>
+          Blogs | Dream Tourism SRLS - Your Place for Amazing Travel Adventure
+        </title>
+        <meta
+          name="description"
+          content="Start your dream vacation with Dream Tourism SRLS. Explore fantastic destinations and enjoy unforgettable adventures. Your perfect getaway is just a click away!"
+        />
+      </Head>
       <div className="header-margin"></div>
       <section className="layout-pt-md layout-pb-lg">
         {blogs?.categories?.blog_categories.length !== 0 ? (
@@ -65,10 +73,10 @@ const index = () => {
             <div className="row justify-center text-center">
               <div className="col-auto">
                 <div className="sectionTitle -md">
-                  <h2 className="sectionTitle__title">Latest Blog Posts</h2>
-                  <p className=" sectionTitle__text mt-5 sm:mt-0">
+                  <h1 className="sectionTitle__title">Latest Blog Posts</h1>
+                  {/* <p className=" sectionTitle__text mt-5 sm:mt-0">
                     Lorem ipsum is placeholder text commonly used in site.
-                  </p>
+                  </p> */}
                 </div>
               </div>
             </div>

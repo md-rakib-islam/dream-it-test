@@ -1,35 +1,45 @@
+"use client";
+
+import { LayoutContext } from "@/app/LayoutProvider";
 import Image from "next/image";
+import Link from "next/link";
+import { useContext } from "react";
 
 const BlogsSide = ({ categories }) => {
+  const { blogs } = useContext(LayoutContext);
+  const featuredBlogs = blogs?.blogs.blogs
+    .filter((blog) => blog.is_featured == true)
+    .slice(0, 3);
   return (
     <>
       <div className="row x-gap-20 y-gap-20">
         <div className="col-12">
           <div className="blog-sidebar">
             <div className="mb-20">
-              <h5> My Personal Favarite </h5>
+              <h5> Featured Blogs </h5>
             </div>
-            <div className="d-flex justify-between mb-20">
-              <Image src="/img/blogs/blog.jpg" width={150} height={50}></Image>
-              <div className="ml-10">
-                <h2 className="text-18 ">This is the Demo Post Title </h2>
-                <p>Read More</p>
+
+            {featuredBlogs.map((blog) => (
+              <div key={blog.id} className="d-flex justify-between mb-20">
+                <Image
+                  src={blog.cloudflare_image}
+                  width={150}
+                  height={50}
+                  alt={blog.image_alt}
+                ></Image>
+                <Link href={`/blog/${blog.slug}`}>
+                  <div className="ml-10">
+                    <h2 className="text-18 ">{blog.title} </h2>
+                    <p>Read More</p>
+                  </div>
+                </Link>
               </div>
-            </div>
-            <div className="d-flex justify-between mb-20">
-              <Image src="/img/blogs/blog.jpg" width={150} height={50}></Image>
-              <div className="ml-10">
-                <h2 className="text-18 ">This is the Demo Post Title </h2>
-                <p>Read More</p>
+            ))}
+            {featuredBlogs.length === 0 && (
+              <div className="text-center">
+                <p> No Featured Blogs Found </p>
               </div>
-            </div>
-            <div className="d-flex justify-between mb-20">
-              <Image src="/img/blogs/blog.jpg" width={150} height={50}></Image>
-              <div className="ml-10">
-                <h2 className="text-18 ">This is the Demo Post Title </h2>
-                <p>Read More</p>
-              </div>
-            </div>
+            )}
           </div>
         </div>
         <div className="col-12">
