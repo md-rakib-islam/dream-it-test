@@ -6,6 +6,7 @@ import Image from "next/image";
 // import "swiper/css/navigation";
 // import "swiper/css/effect-fade";
 import Link from "next/link";
+import HeroBottom from "./HeroBottom";
 // import HeaderBottom from "./HeaderBottom";
 const index = () => {
   const bannerImages = [
@@ -126,7 +127,7 @@ const index = () => {
           </div>
         </div>
       </div>
-      {/* <HeaderBottom /> */}
+      <HeroBottom />
     </>
   );
 };

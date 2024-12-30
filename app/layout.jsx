@@ -19,6 +19,7 @@ import "swiper/css/effect-cards";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 if (typeof window !== "undefined") {
   import("bootstrap/dist/js/bootstrap").then((bootstrap) => {});
@@ -187,6 +188,19 @@ export default async function RootLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
           rel="stylesheet"
         ></link>
+        {/* Google Analytics */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-TXJZSJCPCZ');
+              `,
+          }}
+        ></script>
+
+        {/* end*/}
         <script
           src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
           integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
@@ -198,6 +212,7 @@ export default async function RootLayout({ children }) {
           <Header />
           <main>{children}</main>
           <Footer />
+          <GoogleAnalytics gaId="G-TXJZSJCPCZ" />
         </LayoutProvider>
       </body>
     </html>

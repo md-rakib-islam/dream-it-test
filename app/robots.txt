@@ -1,0 +1,13 @@
+User-Agent: *
+Allow: /
+Disallow: /private/
+Disallow: /https://dreamtourism.it/tour/contact/
+Disallow: /https://dreamtourism.it/tour/home/
+Disallow: /https://dreamtourism.it/tour/tours/
+Disallow: /https://dreamtourism.it/tour/switzerland-by-bernina-express-&amp;-visit-milan-lake-como/
+Disallow: /https://dreamtourism.it/tour/about/
+Disallow: /https://dreamtourism.it/tour/privacy-policy/
+Disallow: /https://dreamtourism.it/tour/terms-and-conditions/
+Disallow: /https://dreamtourism.it/blogs/
+
+Sitemap: https://dreamtourism.it/sitemap.xml
