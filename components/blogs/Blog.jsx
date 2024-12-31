@@ -18,6 +18,7 @@ const Blog = ({ blogs, categories }) => {
       )
     );
   }, [filterOption, blogs]);
+  console.log(blogs);
 
   return (
     <>

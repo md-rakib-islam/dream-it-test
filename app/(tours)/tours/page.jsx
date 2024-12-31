@@ -1,11 +1,54 @@
 import Sidebar from "@/components/tours/toursPage/Sidebar";
 import TopHeaderFilter from "@/components/tours/toursPage/TopHeaderFilter";
 import TourProperties from "@/components/tours/toursPage/TourProperties";
+import { GET_METADATA_BY_CONTENT_NAME } from "@/constant/constants";
 
-export const metadata = {
-  title: "Blog Single || GoTrip - Travel & Tour React NextJS Template",
-  description: "GoTrip - Travel & Tour React NextJS Template",
+const fetchMetadata = async () => {
+  try {
+    const res = await fetch(`${GET_METADATA_BY_CONTENT_NAME}/Tours`);
+    if (!res.ok) {
+      throw new Error("Failed to fetch metadata");
+    }
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    console.error(error);
+    return {
+      meta_title: "Immerse in Exceptional Tours by Dream Tourism SRLS",
+      meta_description: "Immerse in Exceptional Tours by Dream Tourism SRLS",
+      image:
+        "https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/5dbac07d-cbd4-4694-9a38-615bf832f800/public", // Default image
+    };
+  }
 };
+
+// Define the generateMetadata function
+export async function generateMetadata() {
+  const metadata = await fetchMetadata();
+  return {
+    title: metadata.meta_title,
+    description: metadata.meta_description,
+    openGraph: {
+      title: metadata.meta_title,
+      description: metadata.meta_description,
+      images: [
+        {
+          url: metadata?.cloudflare_image,
+          width: 100,
+          height: 100,
+          alt: metadata?.meta_title,
+        },
+      ],
+      type: "website",
+    },
+    twitter: {
+      title: metadata.meta_title,
+      description: metadata.meta_description,
+      image: metadata?.cloudflare_image,
+    },
+  };
+}
 
 const index = () => {
   return (

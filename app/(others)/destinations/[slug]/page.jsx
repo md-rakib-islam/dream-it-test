@@ -69,16 +69,11 @@ const Destinations = async ({ params }) => {
   let contentImagesData = {},
     content = {};
 
-  if (slug) {
-    const contentData = await dataFetcher(
-      `${GET_CONTENT_BY_MENU_NAME}/${slug}`
-    );
-    const contentImages = await dataFetcher(
-      `${GET_IMAGE_BY_MENU_NAME}/${slug}`
-    );
-    contentImagesData = contentImages;
-    content = contentData;
-  }
+  const contentData = await dataFetcher(`${GET_CONTENT_BY_MENU_NAME}/${slug}`);
+  const contentImages = await dataFetcher(`${GET_IMAGE_BY_MENU_NAME}/${slug}`);
+  contentImagesData = contentImages;
+  content = contentData;
+
   console.log("slug", slug, "content", content);
   return (
     <>
