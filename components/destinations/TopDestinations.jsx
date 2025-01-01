@@ -7,7 +7,7 @@ import Slider from "react-slick";
 
 const TopDestinations = ({ destination }) => {
   const { topDestinations } = useContext(LayoutContext);
-  console.log("topDestinations", topDestinations, destination);
+
   const filteredTopDestinations = destination
     ? topDestinations?.filter(
         (item) => item.name.toLowerCase() !== destination.toLowerCase()

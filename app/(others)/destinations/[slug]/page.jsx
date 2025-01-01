@@ -74,7 +74,6 @@ const Destinations = async ({ params }) => {
   contentImagesData = contentImages;
   content = contentData;
 
-  console.log("slug", slug, "content", content);
   return (
     <>
       <div className="header-margin"></div>
