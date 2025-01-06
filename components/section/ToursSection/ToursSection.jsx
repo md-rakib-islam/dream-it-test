@@ -17,11 +17,14 @@ const ToursSection = ({ title, des, tourType }) => {
           <div className="col-4 col-lg-auto">
             <Link
               href="/tours"
-              className="button -md -blue-1 bg-blue-1-05 text-blue-1"
-              aria-label="Explore more tours"
+              className="button -md -blue-1 bg-blue-1-05 text-blue-1 py-10 px-10"
+              aria-label="Explore more"
             >
-              <span>Explore More Tours</span>
-              <div className="icon-arrow-top-right ml-15" aria-hidden="true" />
+              <span className="text-12">Explore More</span>
+              <div
+                className="icon-arrow-top-right ml-10 text-12"
+                aria-hidden="true"
+              />
             </Link>
           </div>
           <div className="col-12 col-lg-auto d-md-none">
