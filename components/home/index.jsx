@@ -11,7 +11,7 @@ const index = () => {
   useEffect(() => {
     // Button is displayed after scrolling for 500 pixels
     const toggleVisibility = () => {
-      if (window.pageYOffset > 80) {
+      if (window.pageYOffset > 2) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
@@ -28,23 +28,28 @@ const index = () => {
 
       <Hero />
       <ToursSection
+        isVisible={isVisible}
         title={"Most Popular Tours"}
         des={"Italy’s Best Experiences, Loved by Travelers."}
         tourType={"popular"}
       />
-      <ToursSection
-        title={"Top Attraction Tours"}
-        des={"Experience Italy's Iconic Sights Like Never Before."}
-        tourType={"attraction"}
-      />
+
       {isVisible && (
         <>
           <ToursSection
+            isVisible={isVisible}
+            title={"Top Attraction Tours"}
+            des={"Experience Italy's Iconic Sights Like Never Before."}
+            tourType={"attraction"}
+          />
+          <ToursSection
+            isVisible={isVisible}
             title={"Top Day Tours"}
             des={"Perfect Day Trips for Exploring Italy’s Highlights."}
             tourType={"day"}
           />
           <ToursSection
+            isVisible={isVisible}
             title={"Top Multi-Day Tours"}
             des={"Extended Escapes Through Europe’s Rich Heritage."}
             tourType={"multi"}

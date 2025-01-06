@@ -1,46 +1,45 @@
 "use client";
 import Image from "next/image";
-// import { Swiper, SwiperSlide } from "swiper/react";
-// import { Navigation, EffectFade, Autoplay } from "swiper";
-// import "swiper/css";
-// import "swiper/css/navigation";
-// import "swiper/css/effect-fade";
 import Link from "next/link";
 import HeroBottom from "./HeroBottom";
-// import HeaderBottom from "./HeaderBottom";
 const index = () => {
-  const bannerImages = [
-    "https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/0a78bcf7-e889-497d-af44-5d372cecc000/public",
-    // "https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/8284f06e-888b-40fb-790a-82355695b300/public",
-  ];
-
   return (
     <>
       <div className="home1-banner-area">
         <div className="container-fluid">
-          {/* <Swiper
-            modules={[Navigation, EffectFade, Autoplay]}
-            effect="fade"
-            navigation={{
-              nextEl: ".home1-banner-next",
-              prevEl: ".home1-banner-prev",
-            }}
-            loop={true}
-            fadeEffect={{ crossFade: true }}
-            speed={1500}
-            autoplay={{
-              delay: 3000, // Adjust delay as needed
-              disableOnInteraction: false,
-            }}
-          > */}
-          {/* {bannerImages.map((image, index) => ( */}
-          {/* //   <SwiperSlide key={index}> */}
           <div
             className="home1-banner-wrapper"
             style={{
-              backgroundImage: `linear-gradient(180deg, rgba(16, 12, 8, 0.4) 0%, rgba(16, 12, 8, 0.4) 100%), url(https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/0a78bcf7-e889-497d-af44-5d372cecc000/public)`,
+              position: "relative",
+              overflow: "hidden",
             }}
           >
+            {/* <div className="image-overlay" /> */}
+
+            {/* Optimized Hero Image */}
+            <div className="bannar_mobile">
+              <Image
+                src="https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/64130ed0-b661-4ba8-a599-a00367a46800/public"
+                alt="Hero Banner"
+                layout="fill"
+                objectFit="cover"
+                priority
+                placeholder="blur"
+                blurDataURL="/path-to-low-res-placeholder.jpg"
+              />
+            </div>
+            <div className="d-md-none">
+              <Image
+                src="https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/64bcaa3a-ccc8-489e-7e60-91271a64f600/public"
+                alt="Hero Banner"
+                layout="fill"
+                objectFit="cover"
+                priority
+                placeholder="blur"
+                blurDataURL="/path-to-low-res-placeholder.jpg"
+              />
+            </div>
+
             <div className="container">
               <div className="row">
                 <div className="col-lg-12">
@@ -117,9 +116,6 @@ const index = () => {
               </div>
             </div>
           </div>
-          {/* //   </SwiperSlide> */}
-          {/* ))} */}
-          {/* </Swiper> */}
 
           <div className="slider-btn-grp">
             <div className="slider-btn home1-banner-prev">

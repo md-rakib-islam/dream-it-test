@@ -1,4 +1,3 @@
-import { Geist, Geist_Mono } from "next/font/google";
 import "../styles/index.scss";
 import { contentFetcher, dataFetcher } from "@/utils/dataFetcher";
 import {
@@ -21,22 +20,6 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import AddBootstrap from "./AddBootstrap";
-
-if (typeof window !== "undefined") {
-  import("bootstrap/dist/js/bootstrap.bundle.min.js").then(() => {
-    console.log("Bootstrap JS loaded");
-  });
-}
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 const fetchMetadata = async () => {
   try {
@@ -205,7 +188,7 @@ export default async function RootLayout({ children }) {
 
         {/* end*/}
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body>
         <AddBootstrap />
         <main>
           <LayoutProvider data={siteData}>

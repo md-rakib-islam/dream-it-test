@@ -2,7 +2,7 @@ import Tours from "@/components/tours/Tours";
 import ToursForMobile from "@/components/tours/ToursForMobile";
 import Link from "next/link";
 
-const ToursSection = ({ title, des, tourType }) => {
+const ToursSection = ({ title, des, tourType, isVisible }) => {
   return (
     <section className="layout-pt-md layout-pb-md sm:mt-40">
       <div className="container">
@@ -42,12 +42,26 @@ const ToursSection = ({ title, des, tourType }) => {
           </div>
         </div>
 
-        <div className="row y-gap-30 pt-40  bannar_mobile  sm:pt-20 item_gap-x30">
-          <Tours tourType={tourType} />
-        </div>
-        <div className="row y-gap-30 pt-40 d-md-none sm:pt-20 item_gap-x30">
-          <ToursForMobile tourType={tourType} />
-        </div>
+        {isVisible && (
+          <div className="row y-gap-30 pt-40  bannar_mobile  sm:pt-20 item_gap-x30">
+            <Tours tourType={tourType} />
+          </div>
+        )}
+        {!isVisible && (
+          <div className="row y-gap-30 pt-40  bannar_mobile  sm:pt-20 item_gap-x30 text-center">
+            <p>loading ...</p>
+          </div>
+        )}
+        {!isVisible && (
+          <div className="row y-gap-30 pt-40 d-md-none sm:pt-20 item_gap-x30 text-center">
+            <p>loading ...</p>
+          </div>
+        )}
+        {isVisible && (
+          <div className="row y-gap-30 pt-40 d-md-none sm:pt-20 item_gap-x30">
+            <ToursForMobile tourType={tourType} />
+          </div>
+        )}
       </div>
     </section>
   );
