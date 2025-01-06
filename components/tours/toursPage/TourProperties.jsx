@@ -104,7 +104,11 @@ const TourProperties = () => {
         </>
       );
     return (
-      <button className={className} onClick={props.onClick}>
+      <button
+        className={className}
+        onClick={props.onClick}
+        aria-label={props.type === "next" ? "Next Slide" : "Previous Slide"}
+      >
         {char}
       </button>
     );

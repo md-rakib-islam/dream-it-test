@@ -9,6 +9,7 @@ const MainMenu = ({ style = "", menus }) => {
 
   const currentPathName =
     pathname.split("/")[1] === "destinations" ? "/destinations" : pathname;
+
   return (
     <nav className="menu js-navList">
       <ul className={`menu__nav ${style} -is-active`}>
@@ -20,12 +21,13 @@ const MainMenu = ({ style = "", menus }) => {
             } menu-item-has-children`}
           >
             {menu?.children?.length > 0 ? (
-              <a href="#">
+              // Use Link for dropdown parents to make them crawlable
+              <Link href={menu.routePath || "#"} aria-label={menu.name}>
                 <span className="mr-10 fw-500">{menu.name}</span>
                 <i className="icon icon-chevron-sm-down" />
-              </a>
+              </Link>
             ) : (
-              <Link href={menu?.routePath}>
+              <Link href={menu?.routePath} aria-label={menu.name}>
                 <span className="mr-10 fw-500">{menu.name}</span>
               </Link>
             )}
@@ -38,7 +40,9 @@ const MainMenu = ({ style = "", menus }) => {
                       isActiveLink(item.routePath, pathname) ? "current" : ""
                     } menu-item-has-children fw-500`}
                   >
-                    <Link href={item.routePath}>{item.name}</Link>
+                    <Link href={item.routePath} aria-label={item.name}>
+                      {item.name}
+                    </Link>
                   </li>
                 ))}
               </ul>

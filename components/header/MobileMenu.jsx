@@ -19,7 +19,7 @@ const MobileMenu = ({ menus, logoUrl }) => {
   return (
     <>
       <div className="pro-header d-flex align-items-center justify-between border-bottom-light">
-        <Link href="/">
+        <div role="button" tabIndex={0} onClick={() => router.push("/")}>
           <Image
             style={{ width: "60px", height: "60px" }}
             src={logoUrl}
@@ -27,13 +27,15 @@ const MobileMenu = ({ menus, logoUrl }) => {
             height={128}
             alt="Dream Tourism SRLS"
           />
-        </Link>
+        </div>
         {/* End logo */}
 
         <div
           className="fix-icon"
           data-bs-dismiss="offcanvas"
           aria-label="Close"
+          role="button"
+          tabIndex={0}
         >
           <i className="icon icon-close"></i>
         </div>
@@ -56,7 +58,9 @@ const MobileMenu = ({ menus, logoUrl }) => {
                       : "fw-500"
                   }
                 >
-                  {menu.name}
+                  <span role="link" aria-label={`Navigate to ${menu.name}`}>
+                    {menu.name}
+                  </span>
                 </MenuItem>
               );
             } else {
@@ -67,7 +71,7 @@ const MobileMenu = ({ menus, logoUrl }) => {
                   className={
                     menu?.children?.some(
                       (item) =>
-                        item.routePath?.split("/")[1] ==
+                        item.routePath?.split("/")[1] ===
                         currentPathName.split("/")[1]
                     )
                       ? "menu-active-link fw-500"
@@ -76,16 +80,18 @@ const MobileMenu = ({ menus, logoUrl }) => {
                 >
                   {menu?.children?.map((item, i) => (
                     <MenuItem
-                      data-bs-dismiss="offcanvas"
                       key={item.id}
                       onClick={() => router.push(item.routePath)}
+                      data-bs-dismiss="offcanvas"
                       className={
                         isActiveLink(item.routePath, pathname)
                           ? "menu-active-link fw-400"
                           : "inactive-menu fw-400"
                       }
                     >
-                      {item.name}
+                      <span role="link" aria-label={`Navigate to ${item.name}`}>
+                        {item.name}
+                      </span>
                     </MenuItem>
                   ))}
                 </SubMenu>
@@ -100,9 +106,11 @@ const MobileMenu = ({ menus, logoUrl }) => {
               pathname === "/contact" ? "menu-active-link fw-500" : "fw-500"
             }
           >
-            Contact
+            <span role="link" aria-label="Navigate to Contact">
+              Contact
+            </span>
           </MenuItem>
-          {/* End Contact  Menu */}
+          {/* End Contact Menu */}
         </Menu>
       </Sidebar>
 
@@ -116,14 +124,6 @@ const MobileMenu = ({ menus, logoUrl }) => {
             <Social />
           </div>
         </div>
-        {/* <div className="mt-20">
-          <Link
-            className=" button -dark-1 px-30 fw-500 text-14 bg-blue-1 h-50 text-white"
-            href="/login"
-          >
-            Become An Expert
-          </Link>
-        </div> */}
       </div>
       {/* End pro-footer */}
     </>

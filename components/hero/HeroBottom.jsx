@@ -192,12 +192,12 @@ const HeroBottom = () => {
                                 activeDropdown === "destination" ? "active" : ""
                               }`}
                             >
-                              <label>Destination</label>
+                              <label htmlFor="destination">Destination</label>
                               <div className="undefined custom-select-dropdown">
                                 <div className="select-input">
                                   <input
+                                    id="destination"
                                     type="text"
-                                    readOnly=""
                                     value={destinationValue}
                                     onChange={(e) => {
                                       setDestinationValue(e.target.value);
@@ -218,7 +218,7 @@ const HeroBottom = () => {
                                       type="text"
                                       placeholder="Type Your Destination"
                                       value=""
-                                      readOnly=""
+                                      readOnly
                                     />
                                   </div>
                                   <ul className="option-list">
@@ -268,12 +268,13 @@ const HeroBottom = () => {
                                 activeDropdown === "tourType" ? "active" : ""
                               }`}
                             >
-                              <label>Tour Type</label>
+                              <label htmlFor="tourType">Tour Type</label>
                               <div className="custom-select-dropdown">
                                 <div className="select-input">
                                   <input
+                                    id="tourType"
                                     type="text"
-                                    readOnly=""
+                                    readOnly
                                     value={tourtypeValue}
                                   />
                                   <i className="icon-chevron-sm-down"></i>
@@ -324,12 +325,12 @@ const HeroBottom = () => {
                                 activeDropdown === "duration" ? "active" : ""
                               }`}
                             >
-                              <label>Duration</label>
+                              <label htmlFor="duration">Duration</label>
                               <div className="custom-select-dropdown">
                                 <div className="select-input">
                                   <input
+                                    id="duration"
                                     type="text"
-                                    readOnly=""
                                     value={durationValue}
                                     onChange={(e) => {
                                       setDurationValue(e.target.value);

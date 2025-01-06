@@ -52,9 +52,13 @@ const index = () => {
                     <h1>The World is Waiting For You.</h1>
                     <p>Discover amazing places at exclusive deals.</p>
                     <div className="banner-content-bottom">
-                      <a className="primary-btn1" href="/tours">
-                        Book A Trip
-                      </a>
+                      <Link
+                        className="primary-btn1"
+                        href="/tours"
+                        aria-label="Book A Trip"
+                      >
+                        <span>Book A Trip</span>
+                      </Link>
                       <div className="rating-area">
                         <div className="icon">
                           <div className="trip-advisor-icon-home mr-4">

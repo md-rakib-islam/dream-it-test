@@ -75,8 +75,8 @@ const TripReview = ({ title }) => {
     <div className="d-flex x-gap-5 items-center">
       <div className="trip-advisor-icon mr-4">
         <Image
-          height={860}
-          width={1920}
+          height={411}
+          width={640}
           priority={true}
           src="https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/c58745ac-f736-4a19-8692-edea09e1dc00/public"
           alt="review"

@@ -63,7 +63,11 @@ const CurrenctyMegaMenu = ({ textClass }) => {
             <div className="text-20 fw-500 lh-15">Select your currency</div>
             {/* End Title */}
 
-            <button className="pointer" onClick={handleCurrency}>
+            <button
+              className="pointer"
+              onClick={handleCurrency}
+              aria-label="Close"
+            >
               <i className="icon-close" />
             </button>
             {/* End colse button */}

@@ -45,6 +45,7 @@ const Tours = ({ destination, filterTour, tourType }) => {
   const settings = {
     dots: true,
     infinite: true,
+    accessibility: false,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 4,
@@ -54,6 +55,7 @@ const Tours = ({ destination, filterTour, tourType }) => {
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
+          accessibility: false,
         },
       },
       {
@@ -61,6 +63,7 @@ const Tours = ({ destination, filterTour, tourType }) => {
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
+          accessibility: false,
         },
       },
       {
@@ -68,6 +71,7 @@ const Tours = ({ destination, filterTour, tourType }) => {
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
+          accessibility: false,
         },
       },
 
@@ -78,6 +82,7 @@ const Tours = ({ destination, filterTour, tourType }) => {
           slidesToScroll: 1,
           centerMode: true,
           centerPadding: "35px",
+          accessibility: false,
         },
       },
     ],
@@ -88,6 +93,7 @@ const Tours = ({ destination, filterTour, tourType }) => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    accessibility: false,
   };
 
   // Custom navigation arrow component
@@ -108,7 +114,11 @@ const Tours = ({ destination, filterTour, tourType }) => {
         </>
       );
     return (
-      <button className={className} onClick={props.onClick}>
+      <button
+        className={className}
+        onClick={props.onClick}
+        aria-label={props.type === "next" ? "Next Slide" : "Previous Slide"}
+      >
         {char}
       </button>
     );
@@ -117,7 +127,7 @@ const Tours = ({ destination, filterTour, tourType }) => {
   return filteredtoursMainData?.length === 0 ? (
     <TourSkeleton />
   ) : filteredtoursMainData?.length < 4 ? (
-    filteredtoursMainData?.map((item) => {
+    filteredtoursMainData?.map((item, index) => {
       const slug = item?.slug?.endsWith("-1")
         ? item?.slug.slice(0, -2)
         : item?.slug;
@@ -128,6 +138,7 @@ const Tours = ({ destination, filterTour, tourType }) => {
             href={`/tour/${slug}`}
             style={{ cursor: "pointer" }}
             className="tourCard -type-1 rounded-4 hover-inside-slider"
+            aria-hidden={index <= 3 ? "true" : "false"}
           >
             <div className="tourCard__image position-relative">
               <div className="inside-slider">
@@ -146,7 +157,10 @@ const Tours = ({ destination, filterTour, tourType }) => {
                   </div>
                 ))}
 
-                <div className="cardImage__leftBadge cardImage-2__leftBadge sm:d-none">
+                <div
+                  className="cardImage__leftBadge cardImage-2__leftBadge sm:d-none"
+                  aria-hidden={index <= 3 ? "true" : "false"}
+                >
                   <div className="buttons-2">
                     <button
                       style={{
@@ -167,7 +181,10 @@ const Tours = ({ destination, filterTour, tourType }) => {
               </div>
             </div>
 
-            <div className="tourCard__content mt-10">
+            <div
+              className="tourCard__content mt-10"
+              aria-hidden={index <= 3 ? "true" : "false"}
+            >
               <div className="d-flex justify-content-between lh-14 mb-5">
                 <div className="text-14 md:text-12 text-light-1">
                   {isMobile ? `${item?.duration}` : `${item?.duration}`}
@@ -183,9 +200,9 @@ const Tours = ({ destination, filterTour, tourType }) => {
                   </div>
                 </div>
               </div>
-              <h4 className="tourCard__title text-dark-5 text-18 md:text-13 lh-16 fw-600">
+              <h3 className="tourCard__title text-dark-5 text-18 md:text-13 lh-16 fw-600">
                 <span>{item?.title}</span>
-              </h4>
+              </h3>
               <p className="text-light-1 lh-14 text-14 md:text-12 mt-5">
                 {item?.location}
               </p>
@@ -198,8 +215,12 @@ const Tours = ({ destination, filterTour, tourType }) => {
             }}
             className={`${item?.trip_url ? "text-hover-underline" : ""}`}
             target={item?.trip_url ? "_blank" : ""}
+            aria-hidden={index <= 3 ? "true" : "false"}
           >
-            <div className="row justify-between items-center pt-15 ">
+            <div
+              className="row justify-between items-center pt-15 "
+              aria-hidden={index <= 3 ? "true" : "false"}
+            >
               <div className="col-auto">
                 <div className="d-flex items-center">
                   <TripReview title={item?.title?.toLowerCase()} />
@@ -220,19 +241,24 @@ const Tours = ({ destination, filterTour, tourType }) => {
       nextArrow={<Arrow type="next" />}
       prevArrow={<Arrow type="prev" />}
     >
-      {filteredtoursMainData?.map((item) => {
+      {filteredtoursMainData?.map((item, index) => {
         const slug = item?.slug?.endsWith("-1")
           ? item?.slug.slice(0, -2)
           : item?.slug;
 
         return (
-          <div key={item?.id}>
+          <div key={item?.id} aria-hidden="true">
             <Link
               href={`/tour/${slug}`}
               style={{ cursor: "pointer" }}
               className="tourCard -type-1 rounded-4 hover-inside-slider"
+              tabIndex={index >= filteredtoursMainData.length ? -1 : 0}
+              aria-label={`View details of ${item.title}`}
             >
-              <div className="tourCard__image position-relative">
+              <div
+                className="tourCard__image position-relative"
+                aria-hidden={index <= 3 ? "true" : "false"}
+              >
                 <div className="inside-slider">
                   <Slider
                     {...itemSettings}
@@ -256,7 +282,10 @@ const Tours = ({ destination, filterTour, tourType }) => {
                     ))}
                   </Slider>
 
-                  <div className="cardImage__leftBadge cardImage-2__leftBadge">
+                  <div
+                    className="cardImage__leftBadge cardImage-2__leftBadge"
+                    aria-hidden={index <= 3 ? "true" : "false"}
+                  >
                     <div className="buttons-2">
                       <button
                         style={{
@@ -264,6 +293,7 @@ const Tours = ({ destination, filterTour, tourType }) => {
                           backgroundImage:
                             "linear-gradient(to right, #353537 , #0d0c0d)",
                         }}
+                        aria-hidden={index <= 3 ? "true" : "false"}
                       >
                         {`${selectedCurrency?.symbol} ${modifiedCurrency(
                           item.price,
@@ -271,13 +301,18 @@ const Tours = ({ destination, filterTour, tourType }) => {
                         )}`}{" "}
                         <span> PER PERSON</span>
                       </button>
-                      <button>No</button>
+                      <button aria-hidden={index <= 3 ? "true" : "false"}>
+                        No
+                      </button>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="tourCard__content mt-10">
+              <div
+                className="tourCard__content mt-10"
+                aria-hidden={index <= 3 ? "true" : "false"}
+              >
                 <div className="d-flex justify-content-between lh-14 mb-5">
                   <div className="text-14 text-light-1">
                     {isMobile ? `${item?.duration}` : `${item?.duration}`}
@@ -296,9 +331,9 @@ const Tours = ({ destination, filterTour, tourType }) => {
                     </div>
                   </div>
                 </div>
-                <h4 className="tourCard__title text-dark-5 text-18 lh-16 fw-600">
+                <h3 className="tourCard__title text-dark-5 text-18 lh-16 fw-600">
                   <span>{item?.title}</span>
-                </h4>
+                </h3>
                 <p className="text-light-1 lh-14 text-14 mt-5">
                   {item?.location}
                 </p>
@@ -311,6 +346,7 @@ const Tours = ({ destination, filterTour, tourType }) => {
               }}
               className={`${item?.trip_url ? "text-hover-underline" : ""}`}
               target={item?.trip_url ? "_blank" : ""}
+              aria-hidden={index <= 3 ? "true" : "false"}
             >
               <div className="row justify-between items-center pt-15 ">
                 <div className="col-auto">

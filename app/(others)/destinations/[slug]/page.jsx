@@ -154,8 +154,13 @@ const Destinations = async ({ params }) => {
                 <Link
                   href="/tours"
                   className="button -md -blue-1 bg-blue-1-05 text-blue-1"
+                  aria-label="Explore more tours"
                 >
-                  More <div className="icon-arrow-top-right ml-15" />
+                  <span>Explore More Tours</span>
+                  <div
+                    className="icon-arrow-top-right ml-15"
+                    aria-hidden="true"
+                  />
                 </Link>
               </div>
               {/* End .col */}

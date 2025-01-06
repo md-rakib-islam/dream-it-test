@@ -20,9 +20,12 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import AddBootstrap from "./AddBootstrap";
 
 if (typeof window !== "undefined") {
-  import("bootstrap/dist/js/bootstrap").then((bootstrap) => {});
+  import("bootstrap/dist/js/bootstrap.bundle.min.js").then(() => {
+    console.log("Bootstrap JS loaded");
+  });
 }
 
 const geistSans = Geist({
@@ -201,19 +204,17 @@ export default async function RootLayout({ children }) {
         ></script>
 
         {/* end*/}
-        <script
-          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-          integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-          crossOrigin="anonymous"
-        ></script>
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <LayoutProvider data={siteData}>
-          <Header />
-          <main>{children}</main>
-          <Footer />
-          <GoogleAnalytics gaId="G-TXJZSJCPCZ" />
-        </LayoutProvider>
+        <AddBootstrap />
+        <main>
+          <LayoutProvider data={siteData}>
+            <Header />
+            {children}
+            <Footer />
+            <GoogleAnalytics gaId="G-TXJZSJCPCZ" />
+          </LayoutProvider>
+        </main>
       </body>
     </html>
   );
