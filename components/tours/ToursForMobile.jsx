@@ -7,9 +7,10 @@ import TripReview from "../common/TripReview";
 import TourMobileSkeleton from "../skeleton/TourMobileSkeleton";
 import { useContext } from "react";
 import { LayoutContext } from "@/app/LayoutProvider";
+import { modifiedCurrency } from "@/utils/modifiedCurrency";
 
 const ToursForMobile = ({ destination, filterTour, tourType }) => {
-  const { toursMainData } = useContext(LayoutContext);
+  const { toursMainData, selectedCurrency } = useContext(LayoutContext);
 
   const filteredtoursMainData = filterTour
     ? toursMainData.filter((item) => item.title !== filterTour)
@@ -108,10 +109,10 @@ const ToursForMobile = ({ destination, filterTour, tourType }) => {
                 <div className="col-auto">
                   <div className="text-14 md:text-12 text-dark-1 fw-bold">
                     {/* From {currentCurrency?.symbol} */}
-                    From $
+                    From {selectedCurrency?.symbol}
                     <span className="text-16 md:text-13 fw-500 text-blue-1 fw-bold">
                       {" "}
-                      {item.price}
+                      {modifiedCurrency(item.price, selectedCurrency.currency)}
                     </span>
                   </div>
                 </div>
