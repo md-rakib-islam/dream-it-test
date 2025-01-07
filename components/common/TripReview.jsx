@@ -3,7 +3,7 @@ import Image from "next/image";
 const TripReview = ({ title }) => {
   const normalizedTitle = title?.toLowerCase();
 
-  const threeFiveStar = normalizedTitle?.includes("colosseum, roman forum,");
+  const fourStar = normalizedTitle?.includes("colosseum, roman forum,");
   const nullStar =
     normalizedTitle?.includes("visit europe in summer holiday") ||
     normalizedTitle?.includes("dream meets the blue") ||
@@ -15,8 +15,8 @@ const TripReview = ({ title }) => {
 
   let stars = 0;
 
-  if (threeFiveStar) {
-    stars = 3.5;
+  if (fourStar) {
+    stars = 4;
   } else if (oneStar) {
     stars = 1;
   } else if (nullStar) {
