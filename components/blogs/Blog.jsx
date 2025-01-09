@@ -4,10 +4,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import BlogPagination from "./BlogPagination";
+import { useSearchParams, useRouter } from "next/navigation";
 
 const Blog = ({ blogs, categories }) => {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const category = searchParams.get("category");
+
   const [filterOption, setFilterOption] = useState(
-    categories?.blog_categories[0].name
+    categories?.blog_categories[0]?.name
   );
   const [filteredItems, setFilteredItems] = useState(blogs.blogs);
 
@@ -19,6 +24,17 @@ const Blog = ({ blogs, categories }) => {
     );
   }, [filterOption, blogs]);
 
+  useEffect(() => {
+    if (category) {
+      setFilterOption(category);
+    }
+  }, [category]);
+
+  const handleCategoryChange = (option) => {
+    // Update the query params in the URL
+    router.push(`?category=${option}`);
+  };
+
   return (
     <>
       <div className="tabs -pills-3 pt-30 js-tabs">
@@ -29,7 +45,7 @@ const Blog = ({ blogs, categories }) => {
                 className={`tabs__button text-14 fw-500 px-20 py-10 rounded-4 bg-light-2 js-tabs-button ${
                   filterOption === option.name ? "is-tab-el-active" : ""
                 }`}
-                onClick={() => setFilterOption(option.name)}
+                onClick={() => handleCategoryChange(option.name)}
               >
                 {option.name}
               </button>

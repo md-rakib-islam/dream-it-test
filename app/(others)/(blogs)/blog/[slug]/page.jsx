@@ -56,7 +56,7 @@ const BlogSingleDynamic = async ({ params }) => {
                     className="mt-20"
                   ></Image>
                   <div>
-                    <div className="interweave-content">
+                    <div className=" blog-content">
                       <div
                         dangerouslySetInnerHTML={{
                           __html: contentData.description,

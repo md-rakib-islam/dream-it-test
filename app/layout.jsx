@@ -174,6 +174,10 @@ export default async function RootLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
           rel="stylesheet"
         ></link>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet"
+        ></link>
         {/* Google Analytics */}
         <script
           dangerouslySetInnerHTML={{

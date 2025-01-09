@@ -8,7 +8,7 @@ import { dataFetcher } from "@/utils/dataFetcher";
 
 const fetchMetadata = async () => {
   try {
-    const res = await fetch(`${GET_METADATA_BY_CONTENT_NAME}/blog`);
+    const res = await fetch(`${GET_METADATA_BY_CONTENT_NAME}/blogs`);
     if (!res.ok) {
       throw new Error("Failed to fetch metadata");
     }
@@ -64,8 +64,8 @@ const index = async () => {
 
   return (
     <>
-      <div className="header-margin"></div>
-      <section className="layout-pt-md layout-pb-lg">
+      <div className="header-margin "></div>
+      <section className="layout-pt-md layout-pb-lg blog-content">
         {categoryData?.blog_categories.length !== 0 ? (
           <div className="container">
             <div className="row justify-center text-center">
