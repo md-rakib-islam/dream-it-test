@@ -3829,6 +3829,17 @@
 .blog-content .blog-sidebar .category li {
   list-style-type: none;
 }
+.blog-content .blog-sidebar .category ul li {
+  // padding: 10px 15px;
+  padding-left: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effect */
+  border-radius: 5px; /* Optional: Makes it look more like a button */
+}
+
+.blog-content .blog-sidebar .category ul li:hover {
+  background-color: #d8d8d8; /* Change this to your desired hover background color */
+}
 .blog-content .blog-sidebar h5 {
   background: url("/img/blog/tag.png") no-repeat;
   background-size: contain;

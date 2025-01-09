@@ -16,26 +16,25 @@ const BlogsSide = ({ categories }) => {
         <div className="col-12">
           <div className="blog-sidebar">
             <div className="mb-20">
-              <h5> Featured Blogs </h5>
+              <h5> Featured </h5>
             </div>
 
             {featuredBlogs.map((blog) => (
-              // <div key={blog.id} className="d-flex justify-between mb-20">
-              //   <Image
-              //     src={blog.cloudflare_image}
-              //     width={150}
-              //     height={50}
-              //     alt={blog.image_alt}
-              //   ></Image>
-              //   <Link href={`/blog/${blog.slug}`}>
-              //     <div className="ml-10">
-              //       <h2 className="text-18 ">{blog.title} </h2>
-              //       <p>Read More</p>
-              //     </div>
-              //   </Link>
-              // </div>
-              <>
-                <div className="explore mb-20">
+              <div key={blog.id} className="d-flex justify-between mb-20">
+                <Image
+                  src={blog.cloudflare_image}
+                  width={150}
+                  height={50}
+                  alt={blog.image_alt}
+                ></Image>
+                <Link href={`/blog/${blog.slug}`}>
+                  <div className="ml-10">
+                    <h2 className="text-18 ">{blog.title} </h2>
+                    {/* <p>Read More</p> */}
+                  </div>
+                </Link>
+                {/* 
+             <div className="explore mb-20">
                   <div className="explore-contetn">
                     <div
                       className={`explore-bg`}
@@ -58,8 +57,10 @@ const BlogsSide = ({ categories }) => {
                       </button>
                     </Link>
                   </div>
-                </div>
+                </div> 
               </>
+              */}
+              </div>
             ))}
             {featuredBlogs.length === 0 && (
               <div className="text-center">
@@ -77,7 +78,9 @@ const BlogsSide = ({ categories }) => {
               <ul>
                 {categories?.blog_categories.map((option, idx) => (
                   <Link key={idx} href={`/blogs/?category=${option.name}`}>
-                    <li key={idx}>{option.name}</li>
+                    <li className="text-14" key={idx}>
+                      {option.name}
+                    </li>
                   </Link>
                 ))}
               </ul>

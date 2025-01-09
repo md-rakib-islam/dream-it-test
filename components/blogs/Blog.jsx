@@ -84,7 +84,7 @@ const Blog = ({ blogs, categories }) => {
         </div>
         {/* End .row */}
 
-        <BlogPagination />
+        {blogs.blogs.length >= 10 && <BlogPagination />}
       </div>
     </>
   );
