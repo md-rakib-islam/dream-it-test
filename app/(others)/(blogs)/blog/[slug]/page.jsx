@@ -67,7 +67,7 @@ const BlogSingleDynamic = async ({ params }) => {
                 </div>
               </div>
             </div>
-            <div className="col-md-4 mt-60">
+            <div className="col-md-4 mt-60 px-md-0">
               <BlogsSide categories={categoryData} />
             </div>
           </div>

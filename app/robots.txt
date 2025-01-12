@@ -2,6 +2,7 @@ User-Agent: *
 Allow: /
 Disallow: /private/
 Disallow: /https://dreamtourism.it/tour/contact/
+Disallow: /https://dreamtourism.it/destinations/
 Disallow: /https://dreamtourism.it/tour/home/
 Disallow: /https://dreamtourism.it/tour/tours/
 Disallow: /https://dreamtourism.it/tour/switzerland-by-bernina-express-&amp;-visit-milan-lake-como/
