@@ -73,7 +73,11 @@ const useMenus = (menus) => {
     }
     return {
       ...item,
-      routePath: `/${item?.name?.toLowerCase()}`,
+      routePath: `/${
+        item?.name?.toLowerCase() == "destinations"
+          ? "#"
+          : item?.name?.toLowerCase()
+      }`,
       children:
         item?.children?.length > 0
           ? item.children.map((subItem) => ({
