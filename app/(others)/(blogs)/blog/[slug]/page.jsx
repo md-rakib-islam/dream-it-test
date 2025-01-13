@@ -1,4 +1,5 @@
 import BlogsSide from "@/components/blogs/BlogsSide";
+import ExpandableFAQ from "@/components/common/ExpandableFAQ";
 import { BLOG_CATEGORIES, GET_CMS_BLOG_BY_TITLE } from "@/constant/constants";
 import { dataFetcher } from "@/utils/dataFetcher";
 import Image from "next/image";
@@ -35,7 +36,7 @@ const BlogSingleDynamic = async ({ params }) => {
     `${GET_CMS_BLOG_BY_TITLE}/${params.slug}`
   );
   const categoryData = await dataFetcher(`${BLOG_CATEGORIES}`);
-
+  const faqContent = contentData?.faq_content || "";
   return (
     <>
       <div className="header-margin"></div>
@@ -62,6 +63,15 @@ const BlogSingleDynamic = async ({ params }) => {
                           __html: contentData.description,
                         }}
                       ></div>
+                      {/* FAQ Section */}
+                      {faqContent && (
+                        <div className="faq-section mt-30">
+                          <h2 className="text-25 fw-600 mb-20">
+                            Frequently Asked Questions
+                          </h2>
+                          <ExpandableFAQ faqContent={faqContent} />
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>

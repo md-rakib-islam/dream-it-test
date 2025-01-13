@@ -3923,6 +3923,9 @@
   display: flex;
   align-items: center;
 }
+.blog-content .accordion p span {
+  font-size: 15px;
+}
 .image-overlay {
   position: absolute;
   top: 0;
@@ -3960,4 +3963,32 @@
   border-color: var(--hover);
   color: #000000;
   box-shadow: inset -4.5em 0 0 0 var(--hover), inset 4.5em 0 0 0 var(--hover);
+}
+
+.faq-section {
+  border-top: 1px solid #ddd;
+  padding-top: 20px;
+}
+
+.faq-item {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.faq-question {
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.faq-question p {
+  color: #000;
+}
+
+.faq-question:hover {
+  color: #007bff;
+}
+
+.faq-answer {
+  margin-top: 10px;
+  color: #555;
+  line-height: 1.6;
 }
