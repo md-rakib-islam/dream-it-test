@@ -48,8 +48,10 @@ const index = () => {
                       <i className="icon-location text-18 text-white "></i>
                       <span>Italy, Switzerland, France, Netherlands</span>
                     </div>
-                    <h1>The World is Waiting For You.</h1>
-                    <p>Discover amazing places at exclusive deals.</p>
+                    <h1>Discover the Best Things to Do in Rome.</h1>
+                    <p>
+                      Enjoy the Best of Rome with Special Access and Offers.
+                    </p>
                     <div className="banner-content-bottom">
                       <Link
                         className="primary-btn1"
