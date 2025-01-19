@@ -3756,8 +3756,13 @@
   color: #fff;
 }
 .blog-content {
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-family: var(--font-franklin);
   color: #1a1a1a !important;
+}
+.blog-content p {
+  color: #1a1a1a !important;
+
+  font-size: 20px;
 }
 .blog-content p span {
   color: #1a1a1a !important;
