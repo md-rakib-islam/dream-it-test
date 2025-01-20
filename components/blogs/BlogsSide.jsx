@@ -1,19 +1,176 @@
 "use client";
 
 import { LayoutContext } from "@/app/LayoutProvider";
+import Loading from "@/app/loading";
 import { timeAgo } from "@/utils/timeAgo";
 import Image from "next/image";
 import Link from "next/link";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import {
+  EmailIcon,
+  EmailShareButton,
+  FacebookIcon,
+  FacebookMessengerIcon,
+  FacebookMessengerShareButton,
+  FacebookShareButton,
+  WhatsappIcon,
+  WhatsappShareButton,
+} from "react-share";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const BlogsSide = ({ categories }) => {
+const BlogsSide = ({ categories, fullUrl }) => {
   const { blogs } = useContext(LayoutContext);
+  const [copied, setCopied] = useState(false);
+  const [isCopyLoading, setIsCopyLoading] = useState(false);
   const featuredBlogs = blogs?.blogs.blogs
     .filter((blog) => blog.is_featured == true)
     .slice(0, 3);
+
+  const copyToClipboard = () => {
+    setIsCopyLoading(true);
+
+    // Create a custom promise to handle the copying process
+    const copyingPromise = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        navigator?.clipboard
+          ?.writeText(window?.location?.href)
+          .then(() => {
+            setIsCopyLoading(false);
+            setCopied(true);
+            setTimeout(() => {
+              setCopied(false);
+            }, 1500);
+            resolve();
+          })
+          .catch(() => {
+            setIsCopyLoading(false);
+            reject();
+          });
+      }, 1500);
+    });
+
+    toast.promise(
+      copyingPromise,
+      {
+        pending: "Copying link to clipboard...", // Message to show while promise is pending
+        success: "Link copied successfully", // Message to show on success
+        error: "Failed to copy link to clipboard", // Message to show on error
+        pendingToastId: "pending-toast", // Custom ID for the pending toast
+        successToastId: "success-toast", // Custom ID for the success toast
+        errorToastId: "error-toast", // Custom ID for the error toast
+      },
+      {
+        position: "bottom-left",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      }
+    );
+  };
   return (
     <>
+      <ToastContainer />
       <div className="row x-gap-20 y-gap-20">
+        <div className="col-auto btn-group dropup">
+          <button
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            className="button px-10 py-10 -blue-1 "
+          >
+            <i className="icon-share mr-10"></i>
+            Share
+          </button>
+          <ul className="dropdown-menu">
+            <li className="d-flex my-2">
+              <FacebookShareButton className="me-2" url={fullUrl}>
+                <FacebookIcon size={32} round={true} />
+              </FacebookShareButton>
+              <FacebookMessengerShareButton className="me-2" url={fullUrl}>
+                <FacebookMessengerIcon size={32} round={true} />
+              </FacebookMessengerShareButton>
+              <WhatsappShareButton className="me-2" url={fullUrl}>
+                <WhatsappIcon size={32} round={true} />
+              </WhatsappShareButton>
+              <EmailShareButton
+                className="me-2"
+                url={fullUrl}
+                subject="Check out this amazing tour!"
+                body={`I found this great tour. Check it out here:`}
+              >
+                <EmailIcon size={32} round={true} />
+              </EmailShareButton>
+              {/* <LinkedinShareButton
+                         url={fullUrl}
+                      >
+                        <LinkedinIcon size={32} round={true} />
+                      </LinkedinShareButton> */}
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  marginLeft: "-15px",
+                }}
+                onClick={copyToClipboard}
+              >
+                {isCopyLoading ? (
+                  // <CircularProgress
+                  //   style={{ color: "#e02043", marginRight: "10px" }}
+                  //   size={20}
+                  // />
+                  <div
+                    // className="col-12 h-20 text-center"
+                    style={{
+                      marginLeft: "10px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Loading />
+                  </div>
+                ) : (
+                  <i
+                    className="icon-copy"
+                    style={{ height: 32, width: 32 }}
+                  ></i>
+                )}
+                {copied ? (
+                  <h6
+                    style={{
+                      marginLeft: "-15px",
+                    }}
+                  >
+                    copied!
+                  </h6>
+                ) : (
+                  // <i className="icon-files-o"></i>
+                  <>
+                    {!isCopyLoading && (
+                      <Image
+                        width={40}
+                        height={40}
+                        style={{
+                          // height: "32px",
+                          // width: "32px",
+                          // marginRight: "10px",
+                          cursor: "pointer",
+                        }}
+                        alt="images"
+                        src="https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/80bd75f3-6ddb-4c93-1acf-7b4fb358f200/public"
+                      />
+                    )}
+                  </>
+                )}
+              </div>
+            </li>
+          </ul>
+        </div>
         <div className="col-12">
           <div className="blog-sidebar">
             <div className="mb-15">

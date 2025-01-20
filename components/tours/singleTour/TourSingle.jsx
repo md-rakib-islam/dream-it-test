@@ -18,7 +18,7 @@ import {
   WhatsappIcon,
   WhatsappShareButton,
 } from "react-share";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import { LayoutContext } from "@/app/LayoutProvider";
@@ -134,6 +134,8 @@ const TourSingleV1Dynamic = ({ children, data, fullUrl, itenarayItems }) => {
   };
   return (
     <>
+      <ToastContainer />
+
       <div className="header-margin"></div>
       {/* header top margin */}
 

@@ -6,7 +6,9 @@ import Image from "next/image";
 import { load } from "cheerio";
 // Define the generateMetadata function
 export async function generateMetadata({ params }) {
-  const metadata = await dataFetcher(`${GET_CMS_BLOG_BY_TITLE}/${params.slug}`);
+  const { slug } = await params;
+
+  const metadata = await dataFetcher(`${GET_CMS_BLOG_BY_TITLE}/${slug}`);
   return {
     title: metadata.meta_title,
     description: metadata.meta_description,
@@ -31,10 +33,18 @@ export async function generateMetadata({ params }) {
   };
 }
 
+function getFullUrl(slug) {
+  const baseUrl =
+    typeof window !== "undefined"
+      ? window.location.origin
+      : "https://dreamtourism.it";
+  const fullPath = `${baseUrl}/blog/${slug}`;
+  return fullPath;
+}
 const BlogSingleDynamic = async ({ params }) => {
-  const contentData = await dataFetcher(
-    `${GET_CMS_BLOG_BY_TITLE}/${params.slug}`
-  );
+  const { slug } = await params;
+
+  const contentData = await dataFetcher(`${GET_CMS_BLOG_BY_TITLE}/${slug}`);
   const categoryData = await dataFetcher(`${BLOG_CATEGORIES}`);
   const faqContent = contentData?.faq_content || "";
   const descriptionHTML = contentData.description;
@@ -53,6 +63,7 @@ const BlogSingleDynamic = async ({ params }) => {
     return { headings, updatedHTML: $.html() };
   };
   const { headings, updatedHTML } = parseHeadings(descriptionHTML);
+  const fullUrl = getFullUrl(slug);
 
   return (
     <>
@@ -156,8 +167,8 @@ const BlogSingleDynamic = async ({ params }) => {
                 </div>
               </div>
             </div>
-            <div className="col-md-4 mt-60 px-md-0">
-              <BlogsSide categories={categoryData} />
+            <div className="col-md-4 mt-40 px-md-0">
+              <BlogsSide categories={categoryData} fullUrl={fullUrl} />
             </div>
           </div>
         </div>
