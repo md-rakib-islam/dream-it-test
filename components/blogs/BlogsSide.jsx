@@ -178,8 +178,6 @@ const BlogsSide = ({ categories, fullUrl }) => {
             </div>
 
             {featuredBlogs.map((blog) => {
-              console.log("blog", blog);
-
               return (
                 <div key={blog.id} className="d-flex  mb-20 featured-image">
                   <a href={`/blog/${blog.slug}`} className="image-wrapper">
