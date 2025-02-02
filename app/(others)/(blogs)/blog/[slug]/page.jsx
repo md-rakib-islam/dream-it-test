@@ -49,10 +49,12 @@ const BlogSingleDynamic = async ({ params }) => {
   const faqContent = contentData?.faq_content || "";
   const descriptionHTML = contentData.description;
 
-  // Parse the description for headings and add IDs using cheerio
-  const parseHeadings = (html) => {
+  // Modify the parseHeadings function to extract the first <p> tag
+  const parseHeadingsAndFirstParagraph = (html) => {
     const $ = load(html); // Load HTML into cheerio
     const headings = [];
+    let firstParagraph = $("p").first().html() || ""; // Get the first paragraph's HTML content
+
     $("h1, h2, h3").each((index, element) => {
       const level = $(element).prop("tagName");
       const text = $(element).text().trim();
@@ -60,9 +62,19 @@ const BlogSingleDynamic = async ({ params }) => {
       $(element).attr("id", id); // Add ID for anchor links
       headings.push({ id, text, level });
     });
-    return { headings, updatedHTML: $.html() };
+
+    // Remove the first paragraph from the content to avoid duplication
+    if (firstParagraph) {
+      $("p").first().remove();
+    }
+
+    return { headings, firstParagraph, updatedHTML: $.html() };
   };
-  const { headings, updatedHTML } = parseHeadings(descriptionHTML);
+
+  // Call the updated function
+  const { headings, firstParagraph, updatedHTML } =
+    parseHeadingsAndFirstParagraph(descriptionHTML);
+
   const fullUrl = getFullUrl(slug);
 
   return (
@@ -86,6 +98,9 @@ const BlogSingleDynamic = async ({ params }) => {
                     alt={contentData.image_alt}
                     className="mt-20"
                   ></Image>
+                  <div className="mt-20">
+                    <p dangerouslySetInnerHTML={{ __html: firstParagraph }}></p>{" "}
+                  </div>
                   <div>
                     {headings.length > 0 && (
                       <div className="table-of-contents mb-30 mt-30">
