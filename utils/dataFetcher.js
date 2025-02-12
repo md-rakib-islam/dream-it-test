@@ -1,3 +1,5 @@
+export const dynamic = "force-static";
+
 export async function dataFetcher(api) {
   try {
     const response = await fetch(api);

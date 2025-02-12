@@ -117,9 +117,9 @@ const ToursForMobile = ({ destination, filterTour, tourType }) => {
                   </div>
                 </div>
               </div>
-              <h4 className="tourCard__title text-dark-5 text-18 md:text-13 lh-16 fw-600">
+              <div className="tourCard__title text-dark-5 text-18 md:text-13 lh-16 fw-600">
                 <span>{item?.title}</span>
-              </h4>
+              </div>
               <p className="text-light-1 lh-14 text-14 md:text-12 mt-5">
                 {item?.location}
               </p>

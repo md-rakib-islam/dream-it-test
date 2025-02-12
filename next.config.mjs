@@ -15,6 +15,9 @@ const nextConfig = {
   sassOptions: {
     implementation: "sass",
   },
+  experimental: {
+    after: true,
+  },
 };
 
 export default nextConfig;

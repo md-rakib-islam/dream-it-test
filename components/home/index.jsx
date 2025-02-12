@@ -7,21 +7,25 @@ import TestimonialSection from "../section/Testimonial/TestimonialSection";
 import { useEffect, useState } from "react";
 const index = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [oneTimeShow, setOneTimeShow] = useState(false);
 
   useEffect(() => {
     // Button is displayed after scrolling for 500 pixels
-    const toggleVisibility = () => {
-      if (window.pageYOffset > 2) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
-    };
+    if (!oneTimeShow) {
+      const toggleVisibility = () => {
+        if (window.pageYOffset > 2) {
+          setIsVisible(true);
+          setOneTimeShow(true);
+        } else {
+          setIsVisible(false);
+        }
+      };
 
-    window.addEventListener("scroll", toggleVisibility);
+      window.addEventListener("scroll", toggleVisibility);
 
-    return () => window.removeEventListener("scroll", toggleVisibility);
-  }, []);
+      return () => window.removeEventListener("scroll", toggleVisibility);
+    }
+  }, [oneTimeShow]);
   return (
     <>
       <div className="header-margin"></div>

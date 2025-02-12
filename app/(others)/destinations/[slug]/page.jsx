@@ -86,12 +86,13 @@ const Destinations = async ({ params }) => {
               style={{ width: "fit-content" }}
             >
               <h1
-                className="text-50 fw-500 text-white lg:text-40 md:text-30"
+                className="text-40 fw-500 text-white lg:text-40 md:text-30"
                 style={{
                   textShadow: "2px 2px 4px rgba(0,0,0,0.5)",
                 }}
               >
-                Explore {slug.charAt(0).toUpperCase() + slug.slice(1)}
+                Explore {slug.charAt(0).toUpperCase() + slug.slice(1)} and
+                Beyond with Exclusive Tours
               </h1>
               <div
                 className="text-white"
