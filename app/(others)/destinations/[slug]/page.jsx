@@ -119,7 +119,7 @@ const Destinations = async ({ params }) => {
 
           <div className="row y-gap-20">
             <div className="col-12">
-              <h2 className="text-22 fw-500">Local weather</h2>
+              <span className="text-24 fw-600 text-black">Local weather</span>
             </div>
             {/* End. col-12 */}
 
@@ -142,7 +142,9 @@ const Destinations = async ({ params }) => {
             <div className="row y-gap-22 justify-between items-start">
               <div className="col-8 col-lg-auto">
                 <div className="sectionTitle -md">
-                  <h2 className="sectionTitle__title">Most Popular Tours</h2>
+                  <span className="sectionTitle__title fw-600">
+                    Most Popular Tours
+                  </span>
                   <p className=" sectionTitle__text mt-5 sm:mt-0">
                     Explore Our Best Sellers: Unmatched Experiences in Every
                     Journey
@@ -190,7 +192,7 @@ const Destinations = async ({ params }) => {
           <div className="row">
             <div className="col-auto">
               <div className="sectionTitle -md">
-                <h2 className="sectionTitle__title">
+                <span className="sectionTitle__title fw-600">
                   Top sights in{" "}
                   {slug
                     ?.split("_")
@@ -198,7 +200,7 @@ const Destinations = async ({ params }) => {
                       (word) => word?.charAt(0).toUpperCase() + word?.slice(1)
                     )
                     ?.join(" ")}
-                </h2>
+                </span>
                 <p className=" sectionTitle__text mt-5 sm:mt-0">
                   {slightContent[slug]?.title}
                 </p>
@@ -230,7 +232,7 @@ const Destinations = async ({ params }) => {
         <div className="container">
           <div className="row y-gap-20">
             <div className="col-lg-4">
-              <h2 className="text-30 fw-500">
+              <span className="text-30 fw-600">
                 FAQs about
                 <br />
                 {slug
@@ -239,7 +241,7 @@ const Destinations = async ({ params }) => {
                     (word) => word?.charAt(0).toUpperCase() + word?.slice(1)
                   )
                   ?.join(" ")}
-              </h2>
+              </span>
             </div>
             {/* End .col */}
 

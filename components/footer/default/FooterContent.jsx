@@ -6,7 +6,7 @@ const FooterContent = () => {
     <>
       {footerDataContent.map((item) => (
         <div className="col-xl-2 col-lg-2 col-sm-6" key={item.id}>
-          <h2 className="text-18 fw-500 mb-10  w-100">{item.title}</h2>
+          <span className="text-18 fw-500 mb-20  w-100">{item.title}</span>
           <div className="d-flex y-gap-0 flex-column w-100">
             {item.menuList.map((menu, i) => (
               <Link

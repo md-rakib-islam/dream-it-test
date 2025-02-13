@@ -84,7 +84,7 @@ const index = async () => {
           <div className="row justify-center text-center">
             <div className="col-auto">
               <div className="sectionTitle -md">
-                <h2 className="sectionTitle__title">Latest Blog Posts</h2>
+                <h1 className="sectionTitle__title">Latest Blog Posts</h1>
                 <p className=" sectionTitle__text mt-5 sm:mt-0">
                   There is no blogs
                 </p>

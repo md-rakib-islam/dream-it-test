@@ -230,7 +230,7 @@ const HeroBottom = () => {
                                         }
                                       >
                                         <div className="destination">
-                                          <h6>{item.name}</h6>
+                                          <span>{item.name}</span>
                                           {/* <p>Kabul, Herat, Mazar-i-Sharif</p> */}
                                         </div>
                                         {/* <div className="tour">
@@ -295,7 +295,7 @@ const HeroBottom = () => {
                                           handleOptionClick(item, "tourType")
                                         }
                                       >
-                                        <h6>{item.name}</h6>
+                                        <span>{item.name}</span>
                                       </li>
                                     ))}
                                   </ul>
@@ -354,7 +354,7 @@ const HeroBottom = () => {
                                           handleOptionClick(item, "duration")
                                         }
                                       >
-                                        <h6>{item.name}</h6>
+                                        <span>{item.name}</span>
                                       </li>
                                     ))}
                                   </ul>

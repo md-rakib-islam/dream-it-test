@@ -14,7 +14,7 @@ const Social = () => {
           rel="noopener noreferrer"
           key={item.id}
         >
-          <i className={`${item.icon} text-14`} />
+          <i className={`${item.icon} text-18`} />
         </a>
       ))}
     </>

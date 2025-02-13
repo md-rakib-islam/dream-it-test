@@ -2,15 +2,9 @@ import dynamic from "next/dynamic";
 import TermsConent from "@/components/terms/TermsConent";
 import { GET_METADATA_BY_CONTENT_NAME } from "@/constant/constants";
 
-const fetchMetadata = async (type) => {
+const fetchMetadata = async (params) => {
   try {
-    const res = await fetch(
-      `${GET_METADATA_BY_CONTENT_NAME}/${
-        type == "general_terms_of_use"
-          ? "terms-and-conditions"
-          : "privacy-policy"
-      }`
-    );
+    const res = await fetch(`${GET_METADATA_BY_CONTENT_NAME}/${params}`);
     if (!res.ok) {
       throw new Error("Failed to fetch metadata");
     }
@@ -28,9 +22,7 @@ const fetchMetadata = async (type) => {
   }
 };
 export async function generateMetadata({ params, searchParams }, parent) {
-  const { type } = searchParams;
-
-  const metadata = await fetchMetadata(type);
+  const metadata = await fetchMetadata(params);
   return {
     title: metadata.meta_title,
     description: metadata.meta_description,
@@ -55,8 +47,7 @@ export async function generateMetadata({ params, searchParams }, parent) {
   };
 }
 
-const Terms = ({ searchParams }) => {
-  const { type } = searchParams;
+const Terms = ({ params }) => {
   return (
     <>
       {/* End Page Title */}
@@ -69,16 +60,11 @@ const Terms = ({ searchParams }) => {
       <section className="layout-pt-lg layout-pb-lg">
         <div className="container">
           <div className="tabs js-tabs">
-            {type === "general_terms_of_use" ? (
-              <h1 className="text-30 fw-500 mb-15 text-center">
-                Terms and Conditions of Use
-              </h1>
-            ) : (
-              <h1 className="text-30 fw-500 mb-15 text-center">
-                Privacy Policy
-              </h1>
-            )}
-            <TermsConent />
+            <h1 className="text-30 fw-500 mb-15 text-center">
+              Terms and Conditions of Use
+            </h1>
+
+            <TermsConent params={params} />
           </div>
         </div>
       </section>

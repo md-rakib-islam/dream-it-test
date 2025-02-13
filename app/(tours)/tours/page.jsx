@@ -75,9 +75,9 @@ const index = () => {
                 id="listingSidebar"
               >
                 <div className="offcanvas-header">
-                  <h5 className="offcanvas-title" id="offcanvasLabel">
+                  <span className="offcanvas-title" id="offcanvasLabel">
                     Filter Tours
-                  </h5>
+                  </span>
                   <button
                     type="button"
                     className="btn-close"

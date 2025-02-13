@@ -29,7 +29,7 @@ const NotFound = () => {
               <div className="no-page__title">
                 40<span className="text-blue-1">4</span>
               </div>
-              <h2 className="text-30 fw-500">{data.title}</h2>
+              <h1 className="text-30 fw-500">{data.title}</h1>
               <div className="pr-30 mt-5">{data.description}</div>
               <div className="d-inline-block mt-40 md:mt-20">
                 <Link

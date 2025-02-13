@@ -196,3 +196,11 @@
     }
   }
 }
+
+.selected-tab {
+  background-color: #007bff; /* Blue background */
+  color: white !important; /* White text */
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 10px;
+}

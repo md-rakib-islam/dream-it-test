@@ -172,9 +172,9 @@ const Testimonial = () => {
                       style={{ textDecoration: "none", cursor: "pointer" }}
                     >
                       <div className=" d-flex items-center">
-                        <h4 className="text-14 fw-500 lh-14 link-hover">
+                        <span className="text-14 fw-500 lh-14 link-hover">
                           {item.reviewer_name.slice(0, 15)}
-                        </h4>
+                        </span>
 
                         <Image
                           unoptimized
@@ -197,7 +197,7 @@ const Testimonial = () => {
                   <div key={i} className="icon-star text-yellow-3 text-14" />
                 ))}
               </div>
-              <h4
+              <span
                 style={{
                   overflow: "hidden",
                   display: "-webkit-box",
@@ -207,7 +207,7 @@ const Testimonial = () => {
                 className="text-14 fw-500"
               >
                 {item.title}
-              </h4>
+              </span>
               <div className="border-top-light mt-5">
                 <p
                   ref={(el) => (textRefs.current[index] = el)}

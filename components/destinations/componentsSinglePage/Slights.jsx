@@ -28,9 +28,9 @@ const Slights = ({ slug }) => {
               </div>
               <div className="col">
                 <div className="d-flex flex-column justify-center h-full px-30">
-                  <h3 className="text-lg-start text-center text-18 fw-500">
+                  <span className="text-lg-start text-center text-18 fw-500">
                     {item.title}
-                  </h3>
+                  </span>
                   <p className="text-15">{item.text.split(/\r?\n|\. /)[0]}</p>
                   <p
                     id={`${item.collapseTarget}${idx}`}

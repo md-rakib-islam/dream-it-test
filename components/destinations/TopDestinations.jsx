@@ -82,9 +82,9 @@ const TopDestinations = ({ destination }) => {
                 />{" "}
               </div>
               <div className="citiesCard__content d-flex justify-content-center align-items-center px-30 py-30">
-                <h4 className="text-26 fw-500 text-white md:text-20 text-capitalize">
+                <span className="text-26 fw-500 text-white md:text-20 text-capitalize">
                   {item.name}
-                </h4>
+                </span>
                 {/* <div className="text-15 text-white">
                 {item.numberOfProperties} properties
               </div> */}

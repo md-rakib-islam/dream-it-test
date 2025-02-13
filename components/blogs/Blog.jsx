@@ -73,7 +73,7 @@ const Blog = ({ blogs, categories }) => {
                   </div>
                 </div>
                 <div className="pt-20">
-                  <h4 className="text-dark-1 text-18 fw-500">{item.title}</h4>
+                  <h3 className="text-dark-1 text-18 fw-500">{item.title}</h3>
                   <div className="text-light-1 text-15 lh-14 mt-5">
                     {item.date}
                   </div>

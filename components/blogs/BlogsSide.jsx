@@ -141,13 +141,13 @@ const BlogsSide = ({ categories, fullUrl }) => {
                   ></i>
                 )}
                 {copied ? (
-                  <h6
+                  <span
                     style={{
                       marginLeft: "-15px",
                     }}
                   >
                     copied!
-                  </h6>
+                  </span>
                 ) : (
                   // <i className="icon-files-o"></i>
                   <>
@@ -173,8 +173,8 @@ const BlogsSide = ({ categories, fullUrl }) => {
         </div>
         <div className="col-12">
           <div className="blog-sidebar">
-            <div className="mb-15">
-              <h5> Featured </h5>
+            <div className="mb-15 bg-img">
+              <span className="text-20 text-black fw-600"> Featured </span>
             </div>
 
             {featuredBlogs.map((blog) => {
@@ -206,7 +206,9 @@ const BlogsSide = ({ categories, fullUrl }) => {
                     </div>
 
                     <Link href={`/blog/${blog.slug}`}>
-                      <h2 className="text-18 ">{blog.title} </h2>
+                      <span className="text-18 text-black fw-600">
+                        {blog.title}{" "}
+                      </span>
                     </Link>
                     {/* <p className="text-clamp-short-des">{blog.short_des}</p> */}
                   </div>
@@ -223,7 +225,7 @@ const BlogsSide = ({ categories, fullUrl }) => {
                     </div>
                   </div>
                   <div className="explore-text-content">
-                    <h2 className="sm:text-20 text-white">{blog.title}</h2>
+                    <span className="sm:text-20 text-white">{blog.title}</span>
                     <Link href={`/blog/${blog.slug}`}>
                       <button
                         //   disabled={!email || isLoading}
@@ -249,8 +251,8 @@ const BlogsSide = ({ categories, fullUrl }) => {
         </div>
         <div className="col-12">
           <div className="blog-sidebar">
-            <div className="mb-30 mt-20">
-              <h5> Categories</h5>
+            <div className="mb-30 mt-20 bg-img">
+              <span className="text-20 text-black fw-600"> Categories</span>
             </div>
             <div className="category">
               <ul>
@@ -267,8 +269,8 @@ const BlogsSide = ({ categories, fullUrl }) => {
         </div>
         <div className="col-12">
           <div className="blog-sidebar">
-            <div className="mb-30 mt-20">
-              <h5> Sponsor</h5>
+            <div className="mb-30 mt-20 bg-img">
+              <span className="text-20 text-black fw-600"> Sponsor</span>
             </div>
             <div className="sponsor">
               <div className="sponsor-contetn">
@@ -283,14 +285,20 @@ const BlogsSide = ({ categories, fullUrl }) => {
                 </div>
               </div>
               <div className="sponsor-text-content">
-                <h2 className="sm:text-20"> Capri Island Day Trip </h2>
+                <span className="sm:text-20 text-white sm:text-20 text-24 fw-600">
+                  {" "}
+                  Capri Island Day Trip{" "}
+                </span>
+                <br></br>
                 <button
                   //   disabled={!email || isLoading}
                   //   onClick={handleSubmit}
                   // className="mt-15 px-20 py-10 fw-500 text-14 border-white -outline-white   text-white   pointer"
                   className="book-now "
                 >
-                  Book Now
+                  <Link href="/tour/capri-island-day-trip-from-rome">
+                    Book Now
+                  </Link>
                 </button>
               </div>
               <div className="sponsor-conter-text">
@@ -301,8 +309,8 @@ const BlogsSide = ({ categories, fullUrl }) => {
         </div>
         <div className="col-12">
           <div className="blog-sidebar">
-            <div className="mb-20 mt-20">
-              <h5> Explore</h5>
+            <div className="mb-20 mt-20 bg-img">
+              <span className="text-20 text-black fw-600"> Explore</span>
             </div>
             <div className="explore mb-20">
               <div className="explore-contetn">
@@ -317,16 +325,18 @@ const BlogsSide = ({ categories, fullUrl }) => {
                 </div>
               </div>
               <div className="explore-text-content">
-                <h2 className="sm:text-20 text-white">
+                <span className="sm:text-20 text-white sm:text-20 text-24 fw-600">
                   Colosseum Full Experience With Arena Ticket{" "}
-                </h2>
+                </span>
                 <button
                   //   disabled={!email || isLoading}
                   //   onClick={handleSubmit}
                   // className="mt-15 px-20 fw-500 text-14 border-white -outline-white h-50 text-white   pointer"
                   className="book-now "
                 >
-                  Book Now
+                  <Link href="/tour/rome-colosseum-hosted-entry-roman-forum-and-palatine-hills-with-arena-ticket">
+                    Book Now
+                  </Link>
                 </button>
               </div>
             </div>
@@ -343,14 +353,19 @@ const BlogsSide = ({ categories, fullUrl }) => {
                 </div>
               </div>
               <div className="explore-text-content">
-                <h2> Capri Island Tour With Blue Grotto </h2>
+                <span className="text-white sm:text-20 text-24 fw-600">
+                  Capri Island Tour With Blue Grotto
+                </span>
+                <br></br>
                 <button
                   //   disabled={!email || isLoading}
                   //   onClick={handleSubmit}
                   // className="mt-15 px-20 fw-500 text-14 border-white -outline-white h-50 text-white   pointer"
                   className="book-now "
                 >
-                  Book Now
+                  <Link href="/tour/capri-island-day-trip-from-rome-with-blue-grotto">
+                    Book Now
+                  </Link>
                 </button>
               </div>
             </div>

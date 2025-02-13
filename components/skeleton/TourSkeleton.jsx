@@ -242,9 +242,9 @@ const TourSkeleton = () => {
                   </div>
                 </div>
               </div>
-              <h4 className="tourCard__title text-dark-1 text-18 lh-16 fw-500 skeleton">
+              <span className="tourCard__title text-dark-1 text-18 lh-16 fw-500 skeleton">
                 <span>{item?.title}</span>
-              </h4>
+              </span>
               <p className="text-light-1 lh-14 text-14 mt-5 skeleton">
                 {item?.location}
               </p>

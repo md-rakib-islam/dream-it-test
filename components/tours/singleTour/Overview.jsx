@@ -16,7 +16,7 @@ const Overview = ({ data }) => {
     <>
       <div className="row x-gap-40 y-gap-40">
         <div className="col-12 text-dark-1 text-15">
-          <h3 className="text-22 fw-600 mb-40">Overview</h3>
+          <span className="text-22 fw-600 mb-40">Overview</span>
           <div className="interweave-content">
             <div
               dangerouslySetInnerHTML={{
@@ -48,14 +48,14 @@ const Overview = ({ data }) => {
 
         {data?.languages && (
           <div className="col-md-6">
-            <h5 className="text-16 fw-600">Available languages</h5>
+            <span className="text-16 fw-600">Available languages</span>
             <div className="text-15 mt-10">{data?.languages}</div>
           </div>
         )}
 
         {data?.value && (
           <div className="col-md-6">
-            <h5 className="text-16 fw-600">Cancellation policy</h5>
+            <span className="text-16 fw-600">Cancellation policy</span>
             <div className="interweave-content">
               <div
                 dangerouslySetInnerHTML={{

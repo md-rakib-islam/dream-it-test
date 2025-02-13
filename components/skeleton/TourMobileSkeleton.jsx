@@ -114,9 +114,9 @@ const TourMobileSkeleton = () => {
               </div>
             </div>
           </div>
-          <h4 className="tourCard__title text-dark-5 text-18 md:text-13 lh-16 fw-500 skeleton">
+          <span className="tourCard__title text-dark-5 text-18 md:text-13 lh-16 fw-500 skeleton">
             <span>{item?.title}</span>
-          </h4>
+          </span>
           <p className="text-light-1 lh-14 text-14 md:text-12 mt-5 skeleton">
             {item?.location}
           </p>

@@ -94,7 +94,7 @@ const WhyChoosePage = () => {
                 />
               </div>
               <div className="text-center mt-30">
-                <h4 className="text-18 fw-500">{item.title}</h4>
+                <span className="text-18 fw-500 text-black">{item.title}</span>
                 <p className="text-15 mt-10">{item.text}</p>
               </div>
             </div>

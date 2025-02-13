@@ -120,9 +120,9 @@ const index = () => {
             <div className="row y-gap-40">
               <div className="col-xl-4 col-lg-4 col-sm-6">
                 <div className="d-flex items-center">
-                  <h1 className="text-18 fw-500 mb-10 w-100">
+                  <span className="text-18 fw-500 mb-10 w-100">
                     Dream Tourism SRLS
-                  </h1>
+                  </span>
                   {/* End logo */}
                 </div>
 
@@ -136,7 +136,7 @@ const index = () => {
                 </div>
               </div>
               <div className="col-xl-3 col-lg-3 col-sm-6">
-                <h2 className="text-18 fw-500 mb-10 w-100">Contact Us</h2>
+                <span className="text-18 fw-500 mb-10 w-100">Contact Us</span>
                 <ContactInfo />
               </div>
               {/* End col */}
@@ -145,9 +145,9 @@ const index = () => {
               {/* End footer menu content */}
 
               <div className="col-xl-3 col-lg-3 col-sm-6 ">
-                <h2 className="text-18 fw-500 mb-10 w-100">
+                <span className="text-18 fw-500 mb-10 w-100">
                   Sign up to our newsletter
-                </h2>
+                </span>
                 {/* <AppButton /> */}
                 <div className="single-field w-100 d-flex flex-column y-gap-20 w-100">
                   <div>
@@ -176,7 +176,9 @@ const index = () => {
                   {/* End subscribe btn */}
                 </div>
 
-                <h2 className="text-16 fw-500 mb-10 mt-10 w-100">We Accept</h2>
+                <span className="text-16 fw-500 mb-10 mt-10 w-100">
+                  We Accept
+                </span>
                 <div className="payment-methods">
                   {paymentMethodImages.map((src, index) => {
                     return (

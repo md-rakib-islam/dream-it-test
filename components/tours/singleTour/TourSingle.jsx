@@ -215,13 +215,13 @@ const TourSingleV1Dynamic = ({ children, data, fullUrl, itenarayItems }) => {
                           ></i>
                         )}
                         {copied ? (
-                          <h6
+                          <span
                             style={{
                               marginLeft: "-15px",
                             }}
                           >
                             copied!
-                          </h6>
+                          </span>
                         ) : (
                           // <i className="icon-files-o"></i>
                           <>
@@ -271,7 +271,7 @@ const TourSingleV1Dynamic = ({ children, data, fullUrl, itenarayItems }) => {
           <div className="pt-40 border-top-light">
             <div className="row x-gap-40 y-gap-40">
               <div className="col-auto">
-                <h3 className="text-22 fw-600">Important information</h3>
+                <span className="text-22 fw-600">Important information</span>
               </div>
             </div>
             {/* End row */}
@@ -286,7 +286,7 @@ const TourSingleV1Dynamic = ({ children, data, fullUrl, itenarayItems }) => {
       {dataAvailable && itenarayItems?.length !== 0 && (
         <section className="border-top-light  mt-40 pt-40">
           <div className="container">
-            <h3 className="text-22 fw-600 mb-20">Itinerary</h3>
+            <span className="text-22 fw-600 mb-20">Itinerary</span>
             <Itinerary itenarayItems={itenarayItems} />
           </div>
         </section>
@@ -299,7 +299,9 @@ const TourSingleV1Dynamic = ({ children, data, fullUrl, itenarayItems }) => {
             <div className="row y-gap-20 justify-between items-end">
               <div className="col-auto">
                 <div className="sectionTitle -md">
-                  <h2 className="sectionTitle__title">Most Popular Tours</h2>
+                  <span className="sectionTitle__title fw-600">
+                    Most Popular Tours
+                  </span>
                   <p className=" sectionTitle__text mt-5 sm:mt-0">
                     Explore Our Best Sellers: Unmatched Experiences in Every
                     Journey

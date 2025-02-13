@@ -171,9 +171,9 @@ const BlogSingleDynamic = async ({ params }) => {
                       {/* FAQ Section */}
                       {faqContent && (
                         <div className="faq-section mt-30">
-                          <h2 className="text-25 fw-600 mb-20">
+                          <span className="text-25 fw-600 mb-20 text-black">
                             Frequently Asked Questions
-                          </h2>
+                          </span>
                           <ExpandableFAQ faqContent={faqContent} />
                         </div>
                       )}
