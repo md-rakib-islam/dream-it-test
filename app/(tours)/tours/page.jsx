@@ -62,11 +62,6 @@ const index = () => {
 
       <section className="layout-pt-md layout-pb-lg">
         <div className="container">
-          <div className="mb-20 text-center">
-            <h1 className="text-35 fw-600 lg:text-40 md:text-30 ">
-              Explore Italy and Beyond with Exclusive Tours
-            </h1>
-          </div>
           <div className="row y-gap-30">
             <div className="col-xl-3">
               <aside className="sidebar y-gap-40 xl:d-none">

@@ -10,6 +10,11 @@ const TopHeaderFilter = () => {
   const search = searchParams.get("location");
   return (
     <>
+      <div className="mb-20 ">
+        <h1 className="text-30 fw-600 lg:text-30 md:text-30 ">
+          Explore Italy and Beyond with Exclusive Tours
+        </h1>
+      </div>
       <div className="row y-gap-10 items-center justify-between">
         <div className="col-auto">
           <div className="text-18">
