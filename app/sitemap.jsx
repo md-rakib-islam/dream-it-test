@@ -78,13 +78,13 @@ export default async function Sitemap() {
       },
 
       {
-        url: `${BASE_URL}/terms?type=privacy_policy`,
+        url: `${BASE_URL}/privacy-policy`,
         lastModified: new Date().toISOString(),
         changeFrequency: "weekly",
         priority: 1,
       },
       {
-        url: `${BASE_URL}/terms?type=general_terms_of_use`,
+        url: `${BASE_URL}/terms-and-conditions`,
         lastModified: new Date().toISOString(),
         changeFrequency: "weekly",
         priority: 1,

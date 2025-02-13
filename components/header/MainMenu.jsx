@@ -22,7 +22,20 @@ const MainMenu = ({ style = "", menus }) => {
           >
             {menu?.children?.length > 0 ? (
               // Use Link for dropdown parents to make them crawlable
-              <Link href={menu.routePath || "#"} aria-label={menu.name}>
+              <Link
+                href={
+                  menu.name === "Destinations" ? "#" : menu.routePath || "#"
+                }
+                aria-label={menu.name}
+                onClick={(e) => {
+                  if (menu.name === "Destinations") {
+                    e.preventDefault(); // Prevent navigation
+                  }
+                }}
+                className={
+                  menu.name === "Destinations" ? "cursor-not-allowed " : ""
+                }
+              >
                 <span className="mr-10 fw-500">{menu.name}</span>
                 <i className="icon icon-chevron-sm-down" />
               </Link>

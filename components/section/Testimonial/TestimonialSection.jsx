@@ -12,9 +12,9 @@ const TestimonialSection = ({ title, des }) => {
           <div className="row justify-center text-center">
             <div className="col-auto">
               <div className="sectionTitle -md">
-                <span className="sectionTitle__title md:text-24 fw-600">
+                <h2 className="sectionTitle__title md:text-24 fw-600">
                   {title}
-                </span>
+                </h2>
                 <p className=" sectionTitle__text mt-5 sm:mt-0 md:text-13">
                   {des}
                 </p>

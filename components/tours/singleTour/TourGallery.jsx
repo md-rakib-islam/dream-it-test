@@ -82,7 +82,7 @@ export default function TourGallery({ tour }) {
 
               {/* slider gallery */}
 
-              <h3 className="text-22 fw-600 mt-40">Tour snapshot</h3>
+              <span className="text-22 fw-600 mt-40">Tour snapshot</span>
               <TourSnapShot data={tour} />
               {/* End toursnapshot */}
               <div className="border-top-light mt-40 mb-40"></div>

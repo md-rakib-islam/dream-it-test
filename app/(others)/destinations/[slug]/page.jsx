@@ -86,13 +86,12 @@ const Destinations = async ({ params }) => {
               style={{ width: "fit-content" }}
             >
               <h1
-                className="text-40 fw-500 text-white lg:text-40 md:text-30"
+                className="text-50 fw-600 text-white lg:text-40 md:text-30"
                 style={{
                   textShadow: "2px 2px 4px rgba(0,0,0,0.5)",
                 }}
               >
-                Explore {slug.charAt(0).toUpperCase() + slug.slice(1)} and
-                Beyond with Exclusive Tours
+                Explore {slug.charAt(0).toUpperCase() + slug.slice(1)}
               </h1>
               <div
                 className="text-white"
@@ -142,9 +141,9 @@ const Destinations = async ({ params }) => {
             <div className="row y-gap-22 justify-between items-start">
               <div className="col-8 col-lg-auto">
                 <div className="sectionTitle -md">
-                  <span className="sectionTitle__title fw-600">
+                  <h2 className="sectionTitle__title fw-600">
                     Most Popular Tours
-                  </span>
+                  </h2>
                   <p className=" sectionTitle__text mt-5 sm:mt-0">
                     Explore Our Best Sellers: Unmatched Experiences in Every
                     Journey

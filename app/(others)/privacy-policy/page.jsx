@@ -4,7 +4,7 @@ import { GET_METADATA_BY_CONTENT_NAME } from "@/constant/constants";
 
 const fetchMetadata = async (params) => {
   try {
-    const res = await fetch(`${GET_METADATA_BY_CONTENT_NAME}/${params}`);
+    const res = await fetch(`${GET_METADATA_BY_CONTENT_NAME}/privacy-policy`);
     if (!res.ok) {
       throw new Error("Failed to fetch metadata");
     }

@@ -9,9 +9,7 @@ const ToursSection = ({ title, des, tourType, isVisible }) => {
         <div className="row y-gap-22 justify-between items-start">
           <div className="col-8 col-lg-auto">
             <div className="sectionTitle -md">
-              <span className="sectionTitle__title md:text-22 fw-600">
-                {title}
-              </span>
+              <h2 className="sectionTitle__title md:text-22 fw-600">{title}</h2>
               <p className=" sectionTitle__text mt-5  bannar_mobile">{des}</p>
             </div>
           </div>
