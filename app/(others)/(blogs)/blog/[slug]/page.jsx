@@ -10,25 +10,32 @@ export async function generateMetadata({ params }) {
 
   const metadata = await dataFetcher(`${GET_CMS_BLOG_BY_TITLE}/${slug}`);
   return {
+    metadataBase: new URL("https://dreamtourism.it"),
     title: metadata.meta_title,
     description: metadata.meta_description,
     openGraph: {
-      title: metadata.fb_meta_title,
-      description: metadata.fb_meta_description,
+      title: metadata.meta_title,
+      description: metadata.meta_description,
       images: [
         {
-          url: metadata?.fb_meta_image_cloudflare,
-          width: 100,
-          height: 100,
-          alt: metadata?.fb_meta_title,
+          url: metadata?.cloudflare_image,
+          width: 800,
+          height: 600,
+          alt: metadata?.meta_title,
         },
       ],
+      url: `/blog/${slug}`, // Open Graph URL
+
       type: "website",
     },
     twitter: {
+      card: "summary_large_image",
       title: metadata.meta_title,
       description: metadata.meta_description,
-      image: metadata?.meta_image_cloudflare,
+      image: metadata?.cloudflare_image,
+    },
+    alternates: {
+      canonical: `/blog/${slug}`, // Canonical without query params
     },
   };
 }

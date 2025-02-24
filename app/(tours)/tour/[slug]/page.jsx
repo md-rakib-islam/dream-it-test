@@ -67,11 +67,12 @@ export async function generateMetadata({ params }) {
       images: [
         {
           url: metadata?.cloudflare_image,
-          width: 200,
-          height: 200,
+          width: 800,
+          height: 600,
           alt: metadata?.meta_title,
         },
       ],
+      url: `/tour/${slug}`, // Open Graph URL
       type: "website",
     },
     twitter: {
@@ -79,6 +80,9 @@ export async function generateMetadata({ params }) {
       title: metadata?.meta_title,
       description: metadata?.meta_description,
       image: metadata?.cloudflare_image,
+    },
+    alternates: {
+      canonical: `/tour/${slug}`, // Canonical without query params
     },
   };
 }

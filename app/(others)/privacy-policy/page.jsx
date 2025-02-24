@@ -24,6 +24,7 @@ const fetchMetadata = async (params) => {
 export async function generateMetadata({ params, searchParams }, parent) {
   const metadata = await fetchMetadata(params);
   return {
+    metadataBase: new URL("https://dreamtourism.it"),
     title: metadata.meta_title,
     description: metadata.meta_description,
     openGraph: {
@@ -32,17 +33,22 @@ export async function generateMetadata({ params, searchParams }, parent) {
       images: [
         {
           url: metadata?.cloudflare_image,
-          width: 100,
-          height: 100,
+          width: 800,
+          height: 600,
           alt: metadata?.meta_title,
         },
       ],
+      url: `/privacy-policy`, // Open Graph URL
       type: "website",
     },
     twitter: {
+      card: "summary_large_image",
       title: metadata.meta_title,
       description: metadata.meta_description,
       image: metadata?.cloudflare_image,
+    },
+    alternates: {
+      canonical: `/privacy-policy`, // Canonical without query params
     },
   };
 }

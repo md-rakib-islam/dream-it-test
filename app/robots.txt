@@ -1,14 +1,48 @@
-User-Agent: *
+User-agent: *
 Allow: /
+
 Disallow: /private/
-Disallow: /https://dreamtourism.it/tour/contact/
-Disallow: /https://dreamtourism.it/destinations/
-Disallow: /https://dreamtourism.it/tour/home/
-Disallow: /https://dreamtourism.it/tour/tours/
-Disallow: /https://dreamtourism.it/tour/switzerland-by-bernina-express-&amp;-visit-milan-lake-como/
-Disallow: /https://dreamtourism.it/tour/about/
-Disallow: /https://dreamtourism.it/tour/privacy-policy/
-Disallow: /https://dreamtourism.it/tour/terms-and-conditions/
-Disallow: /https://dreamtourism.it/blogs/
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /server-status/
+Disallow: /cart/
+Disallow: /checkout/
+Disallow: /my-account/
+Disallow: /order-received/
+Disallow: /st_tour_type/germany
+Disallow: /tours/makkah-city-ziarah-luxury-private-vehicle-with-guide-(10-person-group)
+Disallow: /apple-app-site-association
+Disallow: /.well-known/apple-app-site-association
+Disallow: /*?
+Disallow: /*?_rsc=
+Disallow: /*?location=
+Disallow: /tour/contact/
+Disallow: /tour/home/
+Disallow: /tour/tours/
+Disallow: /tour/about/
+Disallow: /tour/privacy-policy/
+Disallow: /tour/terms-and-conditions/
+Disallow: /privacy-and-cookies/feed
+Disallow: /comments/feed
+Disallow: /feed
+Disallow: /terms?type=general_terms_of_use/
+Disallow: /tour/switzerland-by-bernina-express-&-visit-milan-lake-como/
+Disallow: /terms?type=privacy_policy/
+Disallow: /tag/vulkan-vegas-de
+Disallow: /azerbaycanda-merc-oyunlari-shirketi-gorush-ve-reyler-583
+Disallow: /media/cms/ReviewImage/
+Disallow: /category/
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+User-agent: MegaIndex
+Disallow: /
 
 Sitemap: https://dreamtourism.it/sitemap.xml

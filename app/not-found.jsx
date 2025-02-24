@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import NotFound from "@/components/common/NotFound";
 import { GET_METADATA_BY_CONTENT_NAME } from "@/constant/constants";
+import { notFound } from "next/navigation";
 
 const fetchMetadata = async () => {
   try {
@@ -48,6 +49,7 @@ export async function generateMetadata() {
       description: metadata.meta_description,
       image: metadata?.cloudflare_image,
     },
+    robots: "noindex, follow",
   };
 }
 const index = () => {

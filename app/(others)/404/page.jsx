@@ -48,6 +48,7 @@ export async function generateMetadata() {
       description: metadata.meta_description,
       image: metadata?.cloudflare_image,
     },
+    robots: "noindex, follow",
   };
 }
 

@@ -6,11 +6,9 @@
 import Image from "next/image";
 import useWindowSize from "@/hooks/useWindowSize";
 import "../../../styles/weather.scss";
-import { useState } from "react";
 
 import TourSnapShot from "./TourSnapShot";
 import Overview from "./Overview";
-import OverviewSkeleton from "@/components/skeleton/OverviewSkeleton";
 import SidebarRight from "./SidebarRight";
 import Slider from "react-slick";
 
