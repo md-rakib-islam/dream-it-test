@@ -6,30 +6,36 @@ import AnchorLink from "react-anchor-link-smooth-scroll";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 
 const TermsConent = () => {
-  const [tabIndex, setTabIndex] = useState(0);
   const router = useRouter();
   const url = usePathname();
-  const params = url.split("/")[1];
-  console.log("params", params);
-  useEffect(() => {
-    if (params === "terms-and-conditions") {
-      setTabIndex(0);
-    }
-    if (params === "privacy-policy") {
-      setTabIndex(1);
-    }
-  }, []);
+
+  // Initialize tabIndex based on URL
+  const getInitialTab = () => {
+    if (url === "/privacy-policy") return 1;
+    return 0; // Default to Terms and Conditions
+  };
+
+  const [tabIndex, setTabIndex] = useState(getInitialTab);
 
   useEffect(() => {
-    if (tabIndex === 0) {
-      router.push("/terms-and-conditions");
+    // Update tabIndex when URL changes
+    if (url === "/terms-and-conditions" && tabIndex !== 0) {
+      setTabIndex(0);
+    } else if (url === "/privacy-policy" && tabIndex !== 1) {
+      setTabIndex(1);
     }
-    if (tabIndex === 1) {
+  }, [url]); // Only runs when URL changes
+
+  const handleTabChange = (index) => {
+    setTabIndex(index);
+    if (index === 0) {
+      router.push("/terms-and-conditions");
+    } else if (index === 1) {
       router.push("/privacy-policy");
     }
-  }, [tabIndex]);
+  };
   return (
-    <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
+    <Tabs selectedIndex={tabIndex} onSelect={handleTabChange}>
       <div className="row y-gap-30">
         <div className="col-lg-3">
           <div className="px-30 py-30 rounded-4 border-light">

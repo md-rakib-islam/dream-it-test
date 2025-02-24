@@ -51,9 +51,9 @@ export async function generateMetadata() {
       description: metadata.meta_description,
       image: metadata?.cloudflare_image,
     },
-    alternates: {
-      canonical: `/tours`, // Canonical without query params
-    },
+    // alternates: {
+    //   canonical: `/tours`, // Canonical without query params
+    // },
   };
 }
 

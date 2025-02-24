@@ -50,9 +50,9 @@ export async function generateMetadata({ params, searchParams }, parent) {
       description: metadata.meta_description,
       image: metadata?.cloudflare_image,
     },
-    alternates: {
-      canonical: `/terms-and-conditions`, // Canonical without query params
-    },
+    // alternates: {
+    //   canonical: `/terms-and-conditions`, // Canonical without query params
+    // },
   };
 }
 

@@ -34,9 +34,9 @@ export async function generateMetadata({ params }) {
       description: metadata.meta_description,
       image: metadata?.cloudflare_image,
     },
-    alternates: {
-      canonical: `/blog/${slug}`, // Canonical without query params
-    },
+    // alternates: {
+    //   canonical: `/blog/${slug}`, // Canonical without query params
+    // },
   };
 }
 

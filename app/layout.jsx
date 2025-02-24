@@ -158,6 +158,11 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+        {/* google search console */}
+        <meta
+          name="google-site-verification"
+          content="VfIPoE7rawdeEL2yng_KgkSMWi1LPMPxB1-KgFVutIA"
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="canonical" href="https://dreamtourism.it" />
 
@@ -178,6 +183,7 @@ export default async function RootLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap"
           rel="stylesheet"
         ></link>
+
         {/* Google Analytics */}
         <script
           dangerouslySetInnerHTML={{

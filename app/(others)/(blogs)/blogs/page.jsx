@@ -56,9 +56,9 @@ export async function generateMetadata() {
       description: metadata.meta_description,
       image: metadata?.cloudflare_image,
     },
-    alternates: {
-      canonical: `/blogs`, // Canonical without query params
-    },
+    // alternates: {
+    //   canonical: `/blogs`, // Canonical without query params
+    // },
   };
 }
 const index = async () => {
