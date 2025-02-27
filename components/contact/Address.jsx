@@ -1,33 +1,33 @@
 const Address = ({ uk }) => {
-  const addressContent = [
-    {
-      id: 1,
-      colClass: "col-lg-3",
-      title: "Uk Address:",
-      content: <>Unit-6, 736-740 Romford Road, London, E12 6BT.</>,
-    },
-    {
-      id: 2,
-      colClass: "col-auto",
-      title: "Customer Care",
-      content: (
-        <>
-          <a href="tel:+442071012544">+442071012544</a>
-        </>
-      ),
-    },
-    {
-      id: 3,
-      colClass: "col-auto",
-      title: "Need live support?",
-      content: (
-        <>
-          {" "}
-          <a href="mailto:info@dreamtourism.it">info@dreamtourism.co.uk</a>
-        </>
-      ),
-    },
-  ];
+  // const addressContent = [
+  //   {
+  //     id: 1,
+  //     colClass: "col-lg-3",
+  //     title: "Uk Address:",
+  //     content: <>Unit-6, 736-740 Romford Road, London, E12 6BT.</>,
+  //   },
+  //   {
+  //     id: 2,
+  //     colClass: "col-auto",
+  //     title: "Customer Care",
+  //     content: (
+  //       <>
+  //         <a href="tel:+442071012544">+442071012544</a>
+  //       </>
+  //     ),
+  //   },
+  //   {
+  //     id: 3,
+  //     colClass: "col-auto",
+  //     title: "Need live support?",
+  //     content: (
+  //       <>
+  //         {" "}
+  //         <a href="mailto:info@dreamtourism.it">info@dreamtourism.co.uk</a>
+  //       </>
+  //     ),
+  //   },
+  // ];
 
   const addressContent2 = [
     {
@@ -59,16 +59,16 @@ const Address = ({ uk }) => {
     },
   ];
 
-  const newAddressContent = uk ? addressContent : addressContent2;
+  const newAddressContent = addressContent2[0];
 
   return (
     <>
-      {newAddressContent.map((item) => (
-        <div className={`${item.colClass}`} key={item.id}>
-          <div className="text-14 text-light-1">{item.title}</div>
-          <div className="text-18 fw-500 mt-10">{item.content}</div>
-        </div>
-      ))}
+      {/* {addressContent2.map((item) => ( */}
+      <div className={`${newAddressContent.colClass}`}>
+        <div className="text-14 text-light-1">{newAddressContent.title}</div>
+        <div className="text-18 fw-500 mt-10">{newAddressContent.content}</div>
+      </div>
+      {/* ))} */}
     </>
   );
 };

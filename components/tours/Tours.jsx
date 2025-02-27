@@ -125,7 +125,7 @@ const Tours = ({ destination, filterTour, tourType }) => {
   }
 
   return filteredtoursMainData?.length === 0 ? (
-    <TourSkeleton />
+    <p>No tours available</p>
   ) : filteredtoursMainData?.length < 4 ? (
     filteredtoursMainData?.map((item, index) => {
       const slug = item?.slug?.endsWith("-1")

@@ -62,46 +62,77 @@ export async function generateMetadata() {
   };
 }
 const index = async () => {
-  const contentBlogData = await dataFetcher(`${GET_CMS_BLOGS}`, {
-    next: { revalidate: 60 },
-  });
-  const categoryData = await dataFetcher(`${BLOG_CATEGORIES}`, {
-    next: { revalidate: 60 },
-  });
+  try {
+    // Fetch blog and category data
+    const [contentBlogData, categoryData] = await Promise.all([
+      dataFetcher(`${GET_CMS_BLOGS}`, { next: { revalidate: 60 } }),
+      dataFetcher(`${BLOG_CATEGORIES}`, { next: { revalidate: 60 } }),
+    ]);
 
-  return (
-    <>
-      <div className="header-margin "></div>
-      <section className="layout-pt-md layout-pb-lg blog-content">
-        {contentBlogData?.blogs?.length !== 0 ? (
+    // Ensure blogs is always an array to prevent undefined errors
+    const blogs = Array.isArray(contentBlogData?.blogs)
+      ? contentBlogData.blogs
+      : [];
+
+    // Filter logic: If any blog includes "rakib", exclude it.
+    const filteredBlogs = blogs.filter((elm) => {
+      if (elm.title.toLowerCase().includes("things to do")) {
+        return false;
+      }
+      return true;
+    });
+
+    console.log("filteredBlogs", filteredBlogs);
+
+    return (
+      <>
+        <div className="header-margin"></div>
+        <section className="layout-pt-md layout-pb-lg blog-content">
           <div className="container">
             <div className="row justify-center text-center">
               <div className="col-auto">
                 <div className="sectionTitle -md">
                   <h1 className="sectionTitle__title">Latest Blog Posts</h1>
-                  {/* <p className=" sectionTitle__text mt-5 sm:mt-0">
-                    Lorem ipsum is placeholder text commonly used in site.
-                  </p> */}
+                  {filteredBlogs?.length === 0 ? (
+                    <p className="sectionTitle__text mt-5 sm:mt-0">
+                      There are no blog posts.
+                    </p>
+                  ) : null}
                 </div>
               </div>
             </div>
-            <Blog blogs={contentBlogData} categories={categoryData} />
+
+            {/* Show blog list only if filteredBlogs is not empty */}
+            {filteredBlogs && (
+              <Blog blogs={filteredBlogs} categories={categoryData} />
+            )}
           </div>
-        ) : (
-          <div className="row justify-center text-center">
-            <div className="col-auto">
-              <div className="sectionTitle -md">
-                <h1 className="sectionTitle__title">Latest Blog Posts</h1>
-                <p className=" sectionTitle__text mt-5 sm:mt-0">
-                  There is no blogs
-                </p>
+        </section>
+      </>
+    );
+  } catch (error) {
+    console.error("Error fetching blog data:", error);
+
+    return (
+      <>
+        <div className="header-margin"></div>
+        <section className="layout-pt-md layout-pb-lg blog-content">
+          <div className="container">
+            <div className="row justify-center text-center">
+              <div className="col-auto">
+                <div className="sectionTitle -md">
+                  <h1 className="sectionTitle__title">Latest Blog Posts</h1>
+                  <p className="sectionTitle__text mt-5 sm:mt-0">
+                    Something went wrong! Please try again.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
-        )}
-      </section>
-    </>
-  );
+        </section>
+      </>
+    );
+  }
 };
 
 export default index;

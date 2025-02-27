@@ -155,6 +155,7 @@ export default async function RootLayout({ children }) {
     blogs: blogData,
     imageContentsForTours: imageContentsForTours,
   };
+  console.log("topDestinations", topDestinations);
   return (
     <html lang="en">
       <head>

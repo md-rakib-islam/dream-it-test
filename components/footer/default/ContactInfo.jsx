@@ -1,3 +1,5 @@
+import Social from "@/components/common/social/Social";
+
 const ContactInfo = () => {
   const contactContent = [
     {
@@ -23,6 +25,14 @@ const ContactInfo = () => {
           </a>
         </div>
       ))}
+      <div className="col-auto">
+        <div className="text-14 text-light-1 text-white">
+          Follow us on social media
+        </div>
+        <div className="d-flex x-gap-20 items-center mt-10">
+          <Social />
+        </div>
+      </div>
     </>
   );
 };

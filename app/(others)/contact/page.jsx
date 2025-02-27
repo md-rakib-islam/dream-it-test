@@ -88,15 +88,15 @@ const Contact = () => {
               </div>
             </div>
             {/* End .col */}
-            <Address />
-            <div className="col-auto">
+            {/* <Address /> */}
+            {/* <div className="col-auto">
               <div className="text-14 text-light-1">
                 Follow us on social media
               </div>
               <div className="d-flex x-gap-20 items-center mt-10">
                 <Social />
               </div>
-            </div>
+            </div> */}
           </div>
           {/* End .row */}
         </div>

@@ -1,46 +1,9 @@
-import BlogsSide from "@/components/blogs/BlogsSide";
-import ExpandableFAQ from "@/components/common/ExpandableFAQ";
-import { BLOG_CATEGORIES, GET_CMS_BLOG_BY_TITLE } from "@/constant/constants";
-import { dataFetcher } from "@/utils/dataFetcher";
+import React from "react";
 import Image from "next/image";
-import { load } from "cheerio";
-// Define the generateMetadata function
-export async function generateMetadata({ params }) {
-  const { slug } = await params;
+import ExpandableFAQ from "@/components/common/ExpandableFAQ";
+import BlogsSide from "../BlogsSide";
 
-  const metadata = await dataFetcher(`${GET_CMS_BLOG_BY_TITLE}/${slug}`);
-  return {
-    metadataBase: new URL("https://dreamtourism.it"),
-    title: metadata.meta_title,
-    description: metadata.meta_description,
-    openGraph: {
-      title: metadata.meta_title,
-      description: metadata.meta_description,
-      images: [
-        {
-          url: metadata?.cloudflare_image,
-          width: 800,
-          height: 600,
-          alt: metadata?.meta_title,
-        },
-      ],
-      url: `/blog/${slug}`, // Open Graph URL
-
-      type: "website",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: metadata.meta_title,
-      description: metadata.meta_description,
-      image: metadata?.cloudflare_image,
-    },
-    // alternates: {
-    //   canonical: `/blog/${slug}`, // Canonical without query params
-    // },
-  };
-}
-
-function getFullUrl(slug) {
+export function getFullUrl(slug) {
   const baseUrl =
     typeof window !== "undefined"
       ? window.location.origin
@@ -48,14 +11,15 @@ function getFullUrl(slug) {
   const fullPath = `${baseUrl}/blog/${slug}`;
   return fullPath;
 }
-const BlogSingleDynamic = async ({ params }) => {
-  const { slug } = await params;
 
-  const contentData = await dataFetcher(`${GET_CMS_BLOG_BY_TITLE}/${slug}`);
-  const categoryData = await dataFetcher(`${BLOG_CATEGORIES}`);
-  const faqContent = contentData?.faq_content || "";
-  const descriptionHTML = contentData.description;
-
+const SingleBlogPage = ({
+  contentData,
+  categoryData,
+  faqContent,
+  descriptionHTML,
+  load,
+  slug,
+}) => {
   // Modify the parseHeadings function to extract the first <p> tag
   const parseHeadingsAndFirstParagraph = (html) => {
     const $ = load(html); // Load HTML into cheerio
@@ -85,9 +49,7 @@ const BlogSingleDynamic = async ({ params }) => {
   const fullUrl = getFullUrl(slug);
 
   return (
-    <>
-      <div className="header-margin"></div>
-
+    <div>
       <section className="layout-pt-md layout-pb-lg blog-content">
         <div className="container">
           <div className="row x-gap-80 y-gap-80 justify-between">
@@ -223,8 +185,8 @@ const BlogSingleDynamic = async ({ params }) => {
         `,
         }}
       ></script>
-    </>
+    </div>
   );
 };
 
-export default BlogSingleDynamic;
+export default SingleBlogPage;
