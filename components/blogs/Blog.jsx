@@ -35,7 +35,7 @@ const Blog = ({ blogs, categories }) => {
 
   return (
     <>
-      {filteredItems.length !== 0 && (
+      {blogs.length !== 0 && (
         <div className="tabs -pills-3 pt-30 js-tabs">
           <div className="tabs__controls row x-gap-10 justify-center js-tabs-controls">
             {categories.blog_categories.map((option) => (

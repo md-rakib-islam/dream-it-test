@@ -145,6 +145,7 @@ import DestinationSinglePage from "@/components/destinations/destinationSinglePa
 import notFound from "@/app/not-found";
 import { load } from "cheerio";
 import SingleBlogPage from "@/components/blogs/singleBlogPage/SingleBlogPage";
+import Head from "next/head";
 
 export async function generateMetadata({ params }) {
   const { slug } = params;
@@ -244,6 +245,13 @@ const Destinations = async ({ params }) => {
   if (blogContent && blogContent.title) {
     return (
       <>
+        <Head>
+          <link
+            rel="canonical"
+            href={`https://dreamtourism.it/${slug}`}
+            key="canonical"
+          />
+        </Head>
         <div className="header-margin"></div>
         <SingleBlogPage
           contentData={blogContent}

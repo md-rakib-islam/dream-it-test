@@ -58,6 +58,19 @@ const useMenus = (menus) => {
             : [],
       };
     }
+    if (item.name == "Things to do") {
+      return {
+        ...item,
+        routePath: "/things-to-do",
+        children:
+          item?.children?.length > 0
+            ? item.children.map((subItem) => ({
+                ...subItem,
+                routePath: `/${item.name.toLowerCase()}/${subItem.name.toLowerCase()}`,
+              }))
+            : [],
+      };
+    }
     if (item.name === "Tours") {
       return {
         ...item,
