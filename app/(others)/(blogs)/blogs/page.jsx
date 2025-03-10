@@ -82,8 +82,6 @@ const index = async () => {
       return true;
     });
 
-    console.log("filteredBlogs", filteredBlogs);
-
     return (
       <>
         <div className="header-margin"></div>

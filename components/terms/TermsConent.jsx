@@ -140,11 +140,11 @@ const TermsConent = () => {
               <p className="text-15 text-justify text-dark-1 mt-5 mb-35">
                 The materials appearing on Dream Tourism's Website may include
                 technical, typographical, or photographic errors.{" "}
-                <a href="#">Dream Tourism</a> will not promise that any of the
-                materials in this Website are accurate, complete, or current.
-                Dream Tourism may change the materials contained on its Website
-                at any time without notice. Dream Tourism does not make any
-                commitment to update the materials.
+                <a href="https://dreamtourism.it">Dream Tourism</a> will not
+                promise that any of the materials in this Website are accurate,
+                complete, or current. Dream Tourism may change the materials
+                contained on its Website at any time without notice. Dream
+                Tourism does not make any commitment to update the materials.
               </p>
               <span className="text-16 fw-500 mt-35">6. Links</span>
               <p className="text-15 text-justify text-dark-1 mt-5 mb-35">

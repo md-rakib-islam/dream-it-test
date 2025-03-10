@@ -1,6 +1,9 @@
 User-agent: *
 Allow: /
-
+Disallow: /?utm=
+Disallow: /?ref=
+Disallow: /?fbclid=
+Disallow: /search
 Disallow: /private/
 Disallow: /admin/
 Disallow: /dashboard/
@@ -9,17 +12,35 @@ Disallow: /cart/
 Disallow: /checkout/
 Disallow: /my-account/
 Disallow: /order-received/
-Disallow: /st_tour_type/germany
+Disallow: /st_tour_type/
 Disallow: /tours/makkah-city-ziarah-luxury-private-vehicle-with-guide-(10-person-group)
 Disallow: /apple-app-site-association
 Disallow: /.well-known/apple-app-site-association
 Disallow: /*?
 Disallow: /*?_rsc=
 Disallow: /*?location=
+Disallow: /*?location=
+Disallow: /it/
+Disallow: /fr/
+Disallow: /es/
+Disallow: /en/
+Disallow: /tours/day-trip-from-makkah-to-taif-luxury-private-vehicle-(10-person-group)/
+Disallow: /tours/madinah-city-ziarah-luxury-private-vehicle-with-guide-(15-person-large-group)
+Disallow: /tours/madinah-city-ziarah-luxury-private-vehicle-with-guide-(3-person-luxury)
+Disallow: /tours/makkah-city-ziarah-luxury-private-vehicle-without-guide-(3-person-luxury)
+Disallow: /tour/day-trip-from-makkah-to-jeddah-luxury-private-vehicle-(3-person-luxury)
+Disallow: /tour/day-trip-from-makkah-to-taif-luxury-private-vehicle-(15-person-large-group)
+Disallow: /tour/italy-city-tourism-luxury-private-vehicle-with-guide-(3-person-luxury)
+Disallow: /tours/day-trip-from-makkah-to-jeddah-luxury-private-vehicle-(10-person-group)
+Disallow: /tours/makkah-city-ziarah-luxury-private-vehicle-with-guide-(10-person-group)
 Disallow: /tour/contact/
+Disallow: /tour/
 Disallow: /tour/home/
 Disallow: /tour/tours/
 Disallow: /tour/about/
+Disallow: /st_tour/
+Disallow: /_next/static/
+Disallow: /destinations
 Disallow: /tour/privacy-policy/
 Disallow: /tour/terms-and-conditions/
 Disallow: /privacy-and-cookies/feed
@@ -32,6 +53,8 @@ Disallow: /tag/vulkan-vegas-de
 Disallow: /azerbaycanda-merc-oyunlari-shirketi-gorush-ve-reyler-583
 Disallow: /media/cms/ReviewImage/
 Disallow: /category/
+
+
 
 User-agent: MJ12bot
 Disallow: /

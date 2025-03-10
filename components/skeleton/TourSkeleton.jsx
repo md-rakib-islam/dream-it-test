@@ -90,7 +90,7 @@ const TourSkeleton = () => {
       id: 0,
       delayAnimation: 0,
       title:
-        "Italy City Tourism Luxury Private Vehicle With Guide (3 Person Luxury)",
+        "Rome: Colosseum, Roman Forum, and Palatine Hills Ticket with Hosted Entry",
       slideImg: [
         "https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/96e787f4-98cb-4a60-6cfc-c83e723dd900/public",
       ],
@@ -98,14 +98,14 @@ const TourSkeleton = () => {
       duration: "1",
       location: "Default Location",
       numberOfReviews: 0,
-      price: 1200,
+      price: 30,
       tourType: "Default Tour Type",
     },
     {
       id: 0,
       delayAnimation: 0,
       title:
-        "Italy City Tourism Luxury Private Vehicle With Guide (3 Person Luxury)",
+        "Rome: Colosseum, Roman Forum, and Palatine Hills Ticket with Hosted Entry",
       slideImg: [
         "https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/96e787f4-98cb-4a60-6cfc-c83e723dd900/public",
       ],
@@ -113,14 +113,14 @@ const TourSkeleton = () => {
       duration: "1",
       location: "Default Location",
       numberOfReviews: 0,
-      price: 1200,
+      price: 30,
       tourType: "Default Tour Type",
     },
     {
       id: 0,
       delayAnimation: 0,
       title:
-        "Italy City Tourism Luxury Private Vehicle With Guide (3 Person Luxury)",
+        "Rome: Colosseum, Roman Forum, and Palatine Hills Ticket with Hosted Entry",
       slideImg: [
         "https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/96e787f4-98cb-4a60-6cfc-c83e723dd900/public",
       ],
@@ -128,14 +128,14 @@ const TourSkeleton = () => {
       duration: "1",
       location: "Default Location",
       numberOfReviews: 0,
-      price: 1200,
+      price: 30,
       tourType: "Default Tour Type",
     },
     {
       id: 0,
       delayAnimation: 0,
       title:
-        "Italy City Tourism Luxury Private Vehicle With Guide (3 Person Luxury)",
+        "Rome: Colosseum, Roman Forum, and Palatine Hills Ticket with Hosted Entry",
       slideImg: [
         "https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/96e787f4-98cb-4a60-6cfc-c83e723dd900/public",
       ],
@@ -143,14 +143,14 @@ const TourSkeleton = () => {
       duration: "1",
       location: "Default Location",
       numberOfReviews: 0,
-      price: 1200,
+      price: 30,
       tourType: "Default Tour Type",
     },
     {
       id: 0,
       delayAnimation: 0,
       title:
-        "Italy City Tourism Luxury Private Vehicle With Guide (3 Person Luxury)",
+        "Rome: Colosseum, Roman Forum, and Palatine Hills Ticket with Hosted Entry",
       slideImg: [
         "https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/96e787f4-98cb-4a60-6cfc-c83e723dd900/public",
       ],
@@ -158,7 +158,7 @@ const TourSkeleton = () => {
       duration: "1",
       location: "Default Location",
       numberOfReviews: 0,
-      price: 1200,
+      price: 30,
       tourType: "Default Tour Type",
     },
   ];

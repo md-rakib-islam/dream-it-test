@@ -94,7 +94,7 @@
 //   contentImagesData = destinationContentImages;
 //   content = destinationContentData;
 
-//   console.log("content", content, contentImagesData);
+//
 //   if (content && content.value) {
 //     return (
 //       <>
@@ -179,6 +179,7 @@ export async function generateMetadata({ params }) {
         description: blogData.meta_description,
         image: blogData?.cloudflare_image,
       },
+      robots: "index, follow", // Allow indexing and following links on destination pages
     };
   }
 
@@ -206,13 +207,16 @@ export async function generateMetadata({ params }) {
         description: destinationData.meta_description,
         image: destinationData?.cloudflare_image,
       },
+      robots: "index, follow", // Allow indexing and following links on destination pages
     };
   }
 
-  return notFound();
+  return {
+    robots: "noindex, nofollow", // Prevent crawling and following on invalid pages
+  };
 }
 
-const Destinations = async ({ params }) => {
+const DestinationsAndBlog = async ({ params }) => {
   const { slug } = params;
 
   // Fetch data in parallel
@@ -223,9 +227,6 @@ const Destinations = async ({ params }) => {
       dataFetcher(`${GET_CMS_BLOG_BY_TITLE}/${slug}`),
       dataFetcher(`${BLOG_CATEGORIES}`),
     ]);
-
-  console.log("Destination Content:", destinationContent);
-  console.log("Blog Content:", blogContent);
 
   // Check if it's a destination page
   if (destinationContent && Object.keys(destinationContent).length > 0) {
@@ -268,4 +269,4 @@ const Destinations = async ({ params }) => {
   return notFound();
 };
 
-export default Destinations;
+export default DestinationsAndBlog;

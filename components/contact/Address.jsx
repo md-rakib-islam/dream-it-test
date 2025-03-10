@@ -42,7 +42,9 @@ const Address = ({ uk }) => {
       title: "Customer Care",
       content: (
         <>
-          <a href="tel:+39 388 774 8015">+39 388 774 8015</a>
+          <a href="tel:+39 388 774 8015" rel="nofollow">
+            +39 388 774 8015
+          </a>
         </>
       ),
     },
@@ -53,7 +55,9 @@ const Address = ({ uk }) => {
       content: (
         <>
           {" "}
-          <a href="ashiq@dreamtourism.it">ashiq@dreamtourism.it</a>
+          <a href="ashiq@dreamtourism.it" rel="nofollow">
+            ashiq@dreamtourism.it
+          </a>
         </>
       ),
     },

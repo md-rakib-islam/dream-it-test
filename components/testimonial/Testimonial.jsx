@@ -168,7 +168,7 @@ const Testimonial = () => {
                   <Link href={item.url} legacyBehavior>
                     <a
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel="noopener noreferrer nofollow"
                       style={{ textDecoration: "none", cursor: "pointer" }}
                     >
                       <div className=" d-flex items-center">

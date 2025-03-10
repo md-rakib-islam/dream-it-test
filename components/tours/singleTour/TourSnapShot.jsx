@@ -39,7 +39,11 @@ const TourSnapShot = ({ data }) => {
           <i className="icon-access-denied text-22 text-blue-1 mr-10"></i>
           <div className="text-15 lh-15">
             Free cancellation <br />
-            <a href="#cancle-section" className="text-blue-1 underline">
+            <a
+              href="#cancle-section"
+              className="text-blue-1 underline"
+              rel="nofollow"
+            >
               Learn more
             </a>
           </div>
