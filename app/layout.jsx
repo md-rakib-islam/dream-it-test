@@ -136,7 +136,7 @@ export default async function RootLayout({ children }) {
         ></link>
 
         {/* Google Analytics */}
-        {/* <script
+        <script
           dangerouslySetInnerHTML={{
             __html: `
                 window.dataLayer = window.dataLayer || [];
@@ -145,7 +145,7 @@ export default async function RootLayout({ children }) {
                 gtag('config', 'G-TXJZSJCPCZ');
               `,
           }}
-        ></script> */}
+        ></script>
 
         {/* Google Tag Manager */}
         <script
@@ -172,7 +172,7 @@ export default async function RootLayout({ children }) {
             <Header />
             {children}
             <Footer />
-            {/* <GoogleAnalytics gaId="G-TXJZSJCPCZ" /> */}
+            <GoogleAnalytics gaId="G-TXJZSJCPCZ" />
             {/* Google Tag Manager (noscript) */}
             <noscript
               dangerouslySetInnerHTML={{
