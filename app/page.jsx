@@ -58,7 +58,7 @@ export default function Home() {
   return (
     <div>
       <MainHome />
-      <GoogleAnalytics gaId="G-TXJZSJCPCZ" />
+      {/* <GoogleAnalytics gaId="G-TXJZSJCPCZ" /> */}
     </div>
   );
 }
