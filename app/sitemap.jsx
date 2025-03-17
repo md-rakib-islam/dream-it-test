@@ -63,6 +63,18 @@ export default async function Sitemap() {
 
     const otherXml = [
       {
+        url: `${BASE_URL}/blogs`,
+        lastModified: new Date().toISOString(),
+        changeFrequency: "weekly",
+        priority: 1,
+      },
+      {
+        url: `${BASE_URL}/things-to-do`,
+        lastModified: new Date().toISOString(),
+        changeFrequency: "weekly",
+        priority: 1,
+      },
+      {
         url: `${BASE_URL}/about`,
         lastModified: new Date().toISOString(),
         changeFrequency: "weekly",

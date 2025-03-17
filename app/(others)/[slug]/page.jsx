@@ -179,6 +179,9 @@ export async function generateMetadata({ params }) {
         description: blogData.meta_description,
         image: blogData?.cloudflare_image,
       },
+      alternates: {
+        canonical: `/${slug}`, // Canonical without query params
+      },
       robots: "index, follow", // Allow indexing and following links on destination pages
     };
   }
@@ -206,6 +209,9 @@ export async function generateMetadata({ params }) {
         title: destinationData.meta_title,
         description: destinationData.meta_description,
         image: destinationData?.cloudflare_image,
+      },
+      alternates: {
+        canonical: `/${slug}`, // Canonical without query params
       },
       robots: "index, follow", // Allow indexing and following links on destination pages
     };

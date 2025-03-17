@@ -46,7 +46,7 @@ export async function generateMetadata() {
           alt: metadata?.meta_title,
         },
       ],
-      url: `/blogs`, // Open Graph URL
+      url: `/things-to-do`, // Open Graph URL
 
       type: "website",
     },
@@ -56,9 +56,9 @@ export async function generateMetadata() {
       description: metadata.meta_description,
       image: metadata?.cloudflare_image,
     },
-    // alternates: {
-    //   canonical: `/blogs`, // Canonical without query params
-    // },
+    alternates: {
+      canonical: `/things-to-do`, // Canonical without query params
+    },
   };
 }
 const index = async () => {
