@@ -134,9 +134,7 @@ const Contact = () => {
           <div className="row justify-center text-center">
             <div className="col-auto">
               <div className="sectionTitle -md">
-                <span className="sectionTitle__title fw-600">
-                  Why Book With Us
-                </span>
+                <h2 className="sectionTitle__title fw-600">Why Book With Us</h2>
                 <p className=" sectionTitle__text mt-5 sm:mt-0">
                   Experience Quality and Excellence with DreamTourism
                 </p>

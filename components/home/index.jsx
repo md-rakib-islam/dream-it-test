@@ -34,7 +34,9 @@ const index = () => {
       <ToursSection
         // isVisible={isVisible}
         title={"Most Popular Tours"}
-        des={"Italy’s Best Experiences, Loved by Travelers."}
+        des={
+          "Discover the best tours in Italy for 2025, including small-group tours to Rome, the Vatican, Tuscany, and the Amalfi Coast. Visit famous landmarks like the Colosseum, Uffizi Gallery, Pompeii, and more. Book your Italy tour today and save!"
+        }
         tourType={"popular"}
       />
 
@@ -42,33 +44,43 @@ const index = () => {
       <>
         <ToursSection
           // isVisible={isVisible}
-          title={"Top Attraction Tours"}
-          des={"Experience Italy's Iconic Sights Like Never Before."}
+          title={"Skip-the-Line & Top Attraction Tours"}
+          des={
+            "Skip the lines and get priority access to Italy’s top attractions like the Vatican, Colosseum, and Milan Cathedral. Book your skip-the-line tour now and explore hidden spots with expert guides for a deeper experience."
+          }
           tourType={"attraction"}
         />
         <ToursSection
           // isVisible={isVisible}
-          title={"Top Day Tours"}
-          des={"Perfect Day Trips for Exploring Italy’s Highlights."}
+          title={"Best Day Trips from Rome & Beyond"}
+          des={
+            "Take the best day trips from Rome, including the Amalfi Coast, Pompeii, Sorrento, and Tuscany’s vineyards. Join our expert guides for a hassle-free day trip to Florence or beyond and enjoy unforgettable experiences."
+          }
           tourType={"day"}
         />
         <ToursSection
           // isVisible={isVisible}
-          title={"Top Multi-Day Tours"}
-          des={"Extended Escapes Through Europe’s Rich Heritage."}
+          title={"Multi-Day Italy Itineraries"}
+          des={
+            "Explore Italy with multi-day guided tours, traveling from Rome to Venice or Milan to Florence. Create your perfect Italy itinerary with custom tours and vacation packages. Book now for an unforgettable trip!"
+          }
           tourType={"multi"}
         />
         <DestinationSection
           title={"Top Destinations"}
-          des={"Explore Exciting Destinations, Tailored for Every Explorer"}
+          des={
+            "Explore Italy’s top destinations, from famous cities like Rome, Venice, and Florence to beautiful spots like the Amalfi Coast and Cinque Terre. Book your unforgettable Italy trip now and experience ancient ruins, coastal views, and more!"
+          }
         />
         <WhyChooseSection
           title={"Why Book With Us"}
           des={"Experience Quality and Excellence with DreamTourism"}
         />
         <TestimonialSection
-          title={"Overheard from travelers"}
-          des={"These popular destinations have a lot to offer"}
+          title={"Customer Reviews & Testimonials"}
+          des={
+            "Join thousands of happy travelers with Dream Tourism, Italy’s top-rated tour operator. Check our 5-star reviews on TripAdvisor, Viator, and Google to see why customers love our unforgettable tours. Book your Italy adventure today!"
+          }
         />
       </>
       {/* )} */}

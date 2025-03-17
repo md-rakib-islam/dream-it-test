@@ -121,7 +121,7 @@ const About = () => {
               <div className="about-content">
                 <div className="section-title2 mb-30">
                   <div className="eg-section-tag">
-                    <span>About Us</span>
+                    <h2>About Us</h2>
                   </div>
                   <h2>We provide the best tour facilities.</h2>
                   {paragraphsToShow}
@@ -209,9 +209,9 @@ const About = () => {
                   ></Image>
                 </div>
                 <div className="main-content text-left">
-                  <span className="mb-10 fw-600 text-left ">
+                  <h2 className="mb-10 fw-500 text-25 text-left ">
                     What Sets Us Apart?
-                  </span>
+                  </h2>
                   <p className="mb-10">
                     Dream Tourism is proud to be one of the{" "}
                     <b>largest suppliers of Colosseum and Vatican tickets,</b>{" "}
@@ -222,7 +222,7 @@ const About = () => {
                     line at the Colosseum or exploring the beauty of Capri, we
                     ensure a smooth, enriching experience.
                   </p>
-                  <span className="mb-10 fw-600">Our Popular Tours:</span>
+                  <h2 className="mb-10 fw-500 text-25">Our Popular Tours:</h2>
 
                   <p className="mb-10">
                     Our most sought-after offering is the Skip-the-Line
@@ -231,7 +231,7 @@ const About = () => {
                     Rome and its treasures, ensuring you experience the heart of
                     Italy with authenticity and ease.
                   </p>
-                  <span className="mb-10 fw-600">Our Values:</span>
+                  <h2 className="mb-10 fw-500 text-25">Our Values:</h2>
 
                   <p className="mb-10">
                     We believe in being an easy-to-reach, locally registered
@@ -240,7 +240,7 @@ const About = () => {
                     ensuring that we provide you with the best things to do in
                     Rome.
                   </p>
-                  <span className="mb-10 fw-600">Meet Our Team:</span>
+                  <h2 className="mb-10 fw-500 text-25">Meet Our Team:</h2>
 
                   <p className="mb-10">
                     Dream Tourism is powered by a team of professional customer
@@ -257,7 +257,9 @@ const About = () => {
                     But for us, it's not about accolades or awards – it's about
                     sharing our passion for travel with the world.
                   </p>
-                  <span className="mb-10 fw-600">Trusted Partnerships:</span>
+                  <h2 className="mb-10 fw-500 text-25">
+                    Trusted Partnerships:
+                  </h2>
 
                   <p className="mb-10">
                     We are proud partners of leading platforms like TripAdvisor,
@@ -265,7 +267,7 @@ const About = () => {
                     partnerships reflect our commitment to quality and
                     reliability in the global travel community.
                   </p>
-                  <span className="mb-10 fw-600">A Personal Promise:</span>
+                  <h2 className="mb-10 fw-500 text-25">A Personal Promise:</h2>
 
                   <p>
                     "If you book with us, you’re not just purchasing a

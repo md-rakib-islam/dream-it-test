@@ -60,7 +60,7 @@ const TermsConent = () => {
         <div className="col-lg-9">
           <TabPanel>
             <div className="tabs__content js-tabs-content" data-aos="fade">
-              <span className="text-16 fw-500">1. Terms</span>
+              <h2 className="text-17 fw-500">1. Terms</h2>
               <p className="text-15 text-justify text-dark-1 mt-5 mb-35">
                 By accessing this Website, accessible from{" "}
                 <a
@@ -77,7 +77,7 @@ const TermsConent = () => {
                 The materials contained in this Website are protected by
                 copyright and trade mark law.
               </p>
-              <span className="text-16 fw-500 mt-35">2. Use License</span>
+              <h2 className="text-17 fw-500 mt-35">2. Use License</h2>
               <p className="text-15 text-justify text-dark-1 mt-5 mb-35">
                 Permission is granted to temporarily download one copy of the
                 materials on Dream Tourism's Website for personal,
@@ -113,7 +113,7 @@ const TermsConent = () => {
                 format. These Terms of Service has been created with the help of
                 the Terms Of Service Generator.
               </p>
-              <span className="text-16 fw-500 mt-35">3. Disclaimer</span>
+              <h2 className="text-17 fw-500 mt-35">3. Disclaimer</h2>
               <p className="text-15 text-justify text-dark-1 mt-5 mb-35">
                 All the materials on Dream Tourism's Website are provided "as
                 is". Dream Tourism makes no warranties, may it be expressed or
@@ -123,7 +123,7 @@ const TermsConent = () => {
                 Website or otherwise relating to such materials or any sites
                 linked to this Website.
               </p>
-              <span className="text-16 fw-500 mt-35">4. Limitations</span>
+              <h2 className="text-17 fw-500 mt-35">4. Limitations</h2>
               <p className="text-15 text-justify text-dark-1 mt-5 mb-35">
                 Dream Tourism or its suppliers will not be held accountable for
                 any damages that will arise with the use or inability to use the
@@ -134,9 +134,7 @@ const TermsConent = () => {
                 limitations of liability for incidental damages, these
                 limitations may not apply to you.
               </p>
-              <span className="text-16 fw-500 mt-35">
-                5. Revisions and Errata
-              </span>
+              <h2 className="text-17 fw-500 mt-35">5. Revisions and Errata</h2>
               <p className="text-15 text-justify text-dark-1 mt-5 mb-35">
                 The materials appearing on Dream Tourism's Website may include
                 technical, typographical, or photographic errors.{" "}
@@ -146,7 +144,7 @@ const TermsConent = () => {
                 contained on its Website at any time without notice. Dream
                 Tourism does not make any commitment to update the materials.
               </p>
-              <span className="text-16 fw-500 mt-35">6. Links</span>
+              <h2 className="text-17 fw-500 mt-35">6. Links</h2>
               <p className="text-15 text-justify text-dark-1 mt-5 mb-35">
                 Dream Tourism has not reviewed all of the sites linked to its
                 Website and is not responsible for the contents of any such
@@ -154,16 +152,16 @@ const TermsConent = () => {
                 by Dream Tourism of the site. The use of any linked website is
                 at the user's own risk.
               </p>
-              <span className="text-16 fw-500 mt-35">
+              <h2 className="text-17 fw-500 mt-35">
                 7. Site Terms of Use Modifications
-              </span>
+              </h2>
               <p className="text-15 text-justify text-dark-1 mt-5 mb-35">
                 Dream Tourism may revise these Terms of Use for its Website at
                 any time without prior notice. By using this Website, you are
                 agreeing to be bound by the current version of these Terms and
                 Conditions of Use.
               </p>
-              <span className="text-16 fw-500 mt-35">8. Your Privacy</span>
+              <h2 className="text-17 fw-500 mt-35">8. Your Privacy</h2>
               <p className="text-15 text-justify text-dark-1 mt-5 mb-35">
                 Please read our{" "}
                 <span
@@ -174,7 +172,7 @@ const TermsConent = () => {
                 </span>
                 .
               </p>
-              <span className="text-16 fw-500 mt-35">9. Governing Law</span>
+              <h2 className="text-17 fw-500 mt-35">9. Governing Law</h2>
               <p className="text-15 text-justify text-dark-1 mt-5 mb-35">
                 Any claim related to Dream Tourism's Website shall be governed
                 by the laws of it without regards to its conflict of law
@@ -223,9 +221,7 @@ const TermsConent = () => {
                 </div>
               </div>
               <div className="mb-20">
-                <span className="text-30 fw-500 mb-15">
-                  SUMMARY OF KEY POINTS
-                </span>
+                <h2 className="text- fw-500 mb-15">SUMMARY OF KEY POINTS</h2>
                 <p className="text-15 text-dark-1 mt-5 mb-35 text-justify">
                   This summary provides key points from our privacy notice, but
                   you can find out more details about any of these topics by
@@ -298,7 +294,7 @@ const TermsConent = () => {
                 </p>
               </div>
               <div className="mb-20">
-                <span className="mb-20 text-24 fw-600">TABLE OF CONTENTS</span>
+                <span className="mb-20 text-25 fw-600">TABLE OF CONTENTS</span>
                 <ol className="text-primary">
                   <li className="questionItem">
                     <AnchorLink className="text-primary" href="#answer1">
@@ -375,13 +371,13 @@ const TermsConent = () => {
                 </ol>
               </div>
               <section id="answer1" className="answerContainer">
-                <span className="mb-20 text-24 fw-600">
+                <h2 className="mb-20 fw-500">
                   1. WHAT INFORMATION DO WE COLLECT?
-                </span>
+                </h2>
                 <br />
-                <span className="mb-20 fw-500">
+                <h3 className="mb-20 text-20 fw-500">
                   Personal information you disclose to us
-                </span>
+                </h3>
                 <div>
                   <i>
                     In Short: We collect personal information that you provide
@@ -427,9 +423,9 @@ const TermsConent = () => {
                 </div>
               </section>
               <section id="answer2" className="answerContainer">
-                <span className="mb-20 text-24 fw-600">
+                <h2 className="mb-20 fw-500">
                   2. HOW DO WE PROCESS YOUR INFORMATION?
-                </span>
+                </h2>
                 <div>
                   <i>
                     In Short: We process your information to provide, improve,
@@ -478,9 +474,9 @@ const TermsConent = () => {
                 </div>
               </section>
               <section id="answer3" className="answerContainer">
-                <span className="mb-20 text-24 fw-600">
+                <h2 className="mb-20 fw-500">
                   3. WHAT LEGAL BASES DO WE RELY ON TO PROCESS YOUR INFORMATION?
-                </span>
+                </h2>
                 <div>
                   <i>
                     In Short: We only process your personal information when we
@@ -548,9 +544,9 @@ const TermsConent = () => {
                 </div>
               </section>
               <section id="answer4" className="answerContainer">
-                <span className="mb-20 text-24 fw-600">
+                <h2 className="mb-20 fw-500">
                   4. WHEN AND WITH WHOM DO WE SHARE YOUR PERSONAL INFORMATION?
-                </span>
+                </h2>
                 <div>
                   <i>
                     In Short: We may share information in specific situations
@@ -578,9 +574,9 @@ const TermsConent = () => {
                 </div>
               </section>
               <section id="answer5" className="answerContainer">
-                <span className="mb-20 text-24 fw-600">
+                <h2 className="mb-20 fw-500">
                   5. DO WE USE COOKIES AND OTHER TRACKING TECHNOLOGIES?
-                </span>
+                </h2>
                 <div>
                   <i>
                     In Short: We may use cookies and other tracking technologies
@@ -596,9 +592,9 @@ const TermsConent = () => {
                 </div>
               </section>
               <section id="answer6" className="answerContainer">
-                <span className="mb-20 text-24 fw-600">
+                <h2 className="mb-20 fw-500">
                   6. HOW LONG DO WE KEEP YOUR INFORMATION?
-                </span>
+                </h2>
                 <div>
                   <i>
                     In Short: We keep your information for as long as necessary
@@ -625,9 +621,9 @@ const TermsConent = () => {
                 </div>
               </section>
               <section id="answer7" className="answerContainer">
-                <span className="mb-20 text-24 fw-600">
+                <h2 className="mb-20 fw-500">
                   7. HOW DO WE KEEP YOUR INFORMATION SAFE?
-                </span>
+                </h2>
                 <div>
                   <i>
                     In Short: We aim to protect your personal information
@@ -653,9 +649,9 @@ const TermsConent = () => {
                 </div>
               </section>
               <section id="answer8" className="answerContainer">
-                <span className="mb-20 text-24 fw-600">
+                <h2 className="mb-20 fw-500">
                   8. DO WE COLLECT INFORMATION FROM MINORS?
-                </span>
+                </h2>
                 <div>
                   <i>
                     In Short: We do not knowingly collect data from or market to
@@ -677,9 +673,9 @@ const TermsConent = () => {
                 </div>
               </section>
               <section id="answer9" className="answerContainer">
-                <span className="mb-20 text-24 fw-600">
+                <h2 className="mb-20 fw-500">
                   9. WHAT ARE YOUR PRIVACY RIGHTS?
-                </span>
+                </h2>
                 <div>
                   <i>
                     In Short: In some regions, such as the European Economic
@@ -757,9 +753,9 @@ const TermsConent = () => {
                 </div>
               </section>
               <section id="answer10" className="answerContainer">
-                <span className="mb-20 text-24 fw-600">
+                <h2 className="mb-20 fw-500">
                   10. CONTROLS FOR DO-NOT-TRACK FEATURES
-                </span>
+                </h2>
                 <div>
                   <p className="text-15 text-dark-1 mt-5 mb-35 text-justify">
                     Most web browsers and some mobile operating systems and
@@ -778,9 +774,9 @@ const TermsConent = () => {
                 </div>
               </section>
               <section id="answer11" className="answerContainer">
-                <span className="mb-20 text-24 fw-600">
+                <h2 className="mb-20 fw-500">
                   11. DO WE MAKE UPDATES TO THIS NOTICE?
-                </span>
+                </h2>
                 <div>
                   <i>
                     In Short: Yes, we will update this notice as necessary to
@@ -800,9 +796,9 @@ const TermsConent = () => {
                 </div>
               </section>
               <section id="answer12" className="answerContainer">
-                <span className="mb-20 text-24 fw-600">
+                <h2 className="mb-20 fw-500">
                   12. HOW CAN YOU CONTACT US ABOUT THIS NOTICE?
-                </span>
+                </h2>
                 <div>
                   <p className="text-15 text-dark-1 mt-5 mb-35 text-justify">
                     If you have questions or comments about this notice, you may
@@ -822,10 +818,10 @@ const TermsConent = () => {
                 </div>
               </section>
               <section id="answer13" className="answerContainer">
-                <span className="mb-20 text-24 fw-600">
+                <h2 className="mb-20 fw-500">
                   13. HOW CAN YOU REVIEW, UPDATE, OR DELETE THE DATA WE COLLECT
                   FROM YOU?
-                </span>
+                </h2>
                 <div>
                   <p className="text-15 text-dark-1 text-justify">
                     Based on the applicable laws of your country, you may have
@@ -849,7 +845,7 @@ const TermsConent = () => {
           {/* <TabPanel>
             <div className="tabs__content js-tabs-content" data-aos="fade">
               <h1 className="text-30 fw-500 mb-15"> Cookie Policy</h1>
-              <span className="text-16 fw-500">1. Your Agreement</span>
+              <span className="text-17 fw-500">1. Your Agreement</span>
               <p className="text-15 text-dark-1 mt-5 mb-35">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry. Lorem Ipsum has been the industry&apos;s standard
@@ -864,7 +860,7 @@ const TermsConent = () => {
                 desktop publishing software like Aldus PageMaker including
                 versions of Lorem Ipsum.
               </p>
-              <span className="text-16 fw-500 mt-35">
+              <span className="text-17 fw-500 mt-35">
                 2. Change of Terms of Use
               </span>
               <p className="text-15 text-dark-1 mt-5 mb-35">
@@ -881,7 +877,7 @@ const TermsConent = () => {
                 desktop publishing software like Aldus PageMaker including
                 versions of Lorem Ipsum.
               </p>
-              <span className="text-16 fw-500 mt-35">
+              <span className="text-17 fw-500 mt-35">
                 3. Access and Use of the Services
               </span>
               <p className="text-15 text-dark-1 mt-5 mb-35">
@@ -905,7 +901,7 @@ const TermsConent = () => {
           {/* <TabPanel>
             <div className="tabs__content js-tabs-content" data-aos="fade">
               <h1 className="text-30 fw-500 mb-15"> Best Price Guarantee</h1>
-              <span className="text-16 fw-500">1. Your Agreement</span>
+              <span className="text-17 fw-500">1. Your Agreement</span>
               <p className="text-15 text-dark-1 mt-5 mb-35">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry. Lorem Ipsum has been the industry&apos;s standard
@@ -920,7 +916,7 @@ const TermsConent = () => {
                 desktop publishing software like Aldus PageMaker including
                 versions of Lorem Ipsum.
               </p>
-              <span className="text-16 fw-500 mt-35">
+              <span className="text-17 fw-500 mt-35">
                 2. Change of Terms of Use
               </span>
               <p className="text-15 text-dark-1 mt-5 mb-35">
@@ -937,7 +933,7 @@ const TermsConent = () => {
                 desktop publishing software like Aldus PageMaker including
                 versions of Lorem Ipsum.
               </p>
-              <span className="text-16 fw-500 mt-35">
+              <span className="text-17 fw-500 mt-35">
                 3. Access and Use of the Services
               </span>
               <p className="text-15 text-dark-1 mt-5 mb-35">

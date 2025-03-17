@@ -7,14 +7,16 @@ const ToursSection = ({ title, des, tourType }) => {
     <section className="layout-pt-md layout-pb-md sm:mt-40">
       <div className="container">
         <div className="row y-gap-22 justify-between items-start">
-          <div className="col-8 col-lg-auto">
+          <div className="col-12 ">
             <div className="sectionTitle -md">
               <h2 className="sectionTitle__title md:text-22 fw-600">{title}</h2>
-              <p className=" sectionTitle__text mt-5  bannar_mobile">{des}</p>
+              {/*  old code 
+              <p className=" sectionTitle__text mt-5  bannar_mobile">{des}</p> */}
+              <p className=" sectionTitle__text mt-5  ">{des}</p>
             </div>
           </div>
 
-          <div className="col-4 col-lg-auto">
+          {/* <div className="col-4 col-lg-auto bannar_mobile">
             <Link
               href="/tours"
               className="button -md -blue-1 bg-blue-1-05 text-blue-1 py-10 px-10"
@@ -26,8 +28,8 @@ const ToursSection = ({ title, des, tourType }) => {
                 aria-hidden="true"
               />
             </Link>
-          </div>
-          <div className="col-12 col-lg-auto d-md-none">
+          </div> */}
+          {/* <div className="col-12 col-lg-auto d-md-none">
             <p className=" sectionTitle__text mt-5 sm:mt-0 md:text-13">
               {tourType == "popular"
                 ? "Italy’s Best Experiences, Loved by Travelers."
@@ -39,7 +41,7 @@ const ToursSection = ({ title, des, tourType }) => {
                 ? "Extended Escapes Through Europe’s Rich Heritage."
                 : ""}
             </p>
-          </div>
+          </div> */}
         </div>
 
         {/* {isVisible && ( */}

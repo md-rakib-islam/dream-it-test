@@ -42,7 +42,7 @@ export default async function Sitemap() {
         return true;
       })
       .map((item) => ({
-        url: `${BASE_URL}/tour/${item.slug}`,
+        url: `${BASE_URL}/tours/${item.slug}`,
         lastModified: new Date(item.updated_at).toISOString(),
         changeFrequency: "weekly",
         priority: 1,
@@ -54,9 +54,7 @@ export default async function Sitemap() {
         item.children
           .filter((child) => child.name !== "United States")
           .map((child) => ({
-            url: `${BASE_URL}/destinations/${encodeURIComponent(
-              child.name.toLowerCase()
-            )}`,
+            url: `${BASE_URL}/${encodeURIComponent(child.name.toLowerCase())}`,
             lastModified: new Date().toISOString(),
             changeFrequency: "weekly",
             priority: 1,

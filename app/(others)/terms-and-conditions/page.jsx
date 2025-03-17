@@ -69,7 +69,7 @@ const Terms = ({ params }) => {
       <section className="layout-pt-lg layout-pb-lg">
         <div className="container">
           <div className="tabs js-tabs">
-            <h1 className="text-30 fw-500 mb-15 text-center">
+            <h1 className="text-30 fw-600 mb-15 text-center">
               Terms and Conditions of Use
             </h1>
 
