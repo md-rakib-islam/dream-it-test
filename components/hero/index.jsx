@@ -48,9 +48,13 @@ const index = () => {
                       <i className="icon-location text-18 text-white "></i>
                       <span>Italy, Switzerland, France, Netherlands</span>
                     </div>
-                    <h1>Discover the Best Things to Do in Rome.</h1>
+                    <h1>
+                      Unforgettable Italy Tours & Experiences – Explore Rome and
+                      Beyond.
+                    </h1>
                     <p>
-                      Enjoy the Best of Rome with Special Access and Offers.
+                      Enjoy the Best of Italy's Iconic Destinations with Special
+                      Access and Offers
                     </p>
                     <div className="banner-content-bottom">
                       <Link
