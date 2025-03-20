@@ -72,7 +72,7 @@ export async function generateMetadata({ params }) {
           alt: metadata?.meta_title,
         },
       ],
-      url: `/tour/${slug}`, // Open Graph URL
+      url: `/tours/${slug}`, // Open Graph URL
       type: "website",
     },
     twitter: {
@@ -84,6 +84,7 @@ export async function generateMetadata({ params }) {
     alternates: {
       canonical: `/tours/${slug}`, // Canonical without query params
     },
+    robots: "index, follow", // Allow indexing and following links on destination pages
   };
 }
 
