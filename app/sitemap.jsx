@@ -45,7 +45,7 @@ export default async function Sitemap() {
         url: `${BASE_URL}/tours/${item.slug}`,
         lastModified: new Date(item.updated_at).toISOString(),
         changeFrequency: "weekly",
-        priority: 1,
+        priority: 0.9,
       }));
 
     const destinationsXml = destinationData.menus
@@ -57,51 +57,64 @@ export default async function Sitemap() {
             url: `${BASE_URL}/${encodeURIComponent(child.name.toLowerCase())}`,
             lastModified: new Date().toISOString(),
             changeFrequency: "weekly",
-            priority: 1,
+            priority: 0.9,
           }))
       );
-
-    const otherXml = [
+    const main = [
       {
-        url: `${BASE_URL}/blogs`,
-        lastModified: new Date().toISOString(),
-        changeFrequency: "weekly",
-        priority: 1,
-      },
-      {
-        url: `${BASE_URL}/things-to-do`,
-        lastModified: new Date().toISOString(),
-        changeFrequency: "weekly",
-        priority: 1,
-      },
-      {
-        url: `${BASE_URL}/about`,
-        lastModified: new Date().toISOString(),
-        changeFrequency: "weekly",
-        priority: 1,
-      },
-      {
-        url: `${BASE_URL}/contact`,
-        lastModified: new Date().toISOString(),
-        changeFrequency: "weekly",
-        priority: 1,
-      },
-
-      {
-        url: `${BASE_URL}/privacy-policy`,
-        lastModified: new Date().toISOString(),
-        changeFrequency: "weekly",
-        priority: 1,
-      },
-      {
-        url: `${BASE_URL}/terms-and-conditions`,
+        url: `${BASE_URL}/`,
         lastModified: new Date().toISOString(),
         changeFrequency: "weekly",
         priority: 1,
       },
     ];
 
-    const combinedXml = [...contentsXml, ...destinationsXml, ...otherXml];
+    const otherXml = [
+      {
+        url: `${BASE_URL}/blogs`,
+        lastModified: new Date().toISOString(),
+        changeFrequency: "weekly",
+        priority: 0.9,
+      },
+      {
+        url: `${BASE_URL}/things-to-do`,
+        lastModified: new Date().toISOString(),
+        changeFrequency: "weekly",
+        priority: 0.9,
+      },
+      {
+        url: `${BASE_URL}/about`,
+        lastModified: new Date().toISOString(),
+        changeFrequency: "weekly",
+        priority: 0.5,
+      },
+      {
+        url: `${BASE_URL}/contact`,
+        lastModified: new Date().toISOString(),
+        changeFrequency: "weekly",
+        priority: 0.5,
+      },
+
+      {
+        url: `${BASE_URL}/privacy-policy`,
+        lastModified: new Date().toISOString(),
+        changeFrequency: "weekly",
+        priority: 0.5,
+      },
+      {
+        url: `${BASE_URL}/terms-and-conditions`,
+        lastModified: new Date().toISOString(),
+        changeFrequency: "weekly",
+        priority: 0.5,
+      },
+    ];
+
+    const combinedXml = [
+      ...main,
+      ...destinationsXml,
+      ...contentsXml,
+      ...otherXml,
+    ];
 
     return combinedXml;
   } catch (error) {
