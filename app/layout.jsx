@@ -20,6 +20,7 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import AddBootstrap from "./AddBootstrap";
+import ScrollToTop from "@/components/common/ScrollTop";
 
 export default async function RootLayout({ children }) {
   const data = await dataFetcher(GET_MENUS_ALL_NESTED);
@@ -171,6 +172,8 @@ export default async function RootLayout({ children }) {
           <LayoutProvider data={siteData}>
             <Header />
             {children}
+            <ScrollToTop />
+
             <Footer />
             <GoogleAnalytics gaId="G-TXJZSJCPCZ" />
             {/* Google Tag Manager (noscript) */}
