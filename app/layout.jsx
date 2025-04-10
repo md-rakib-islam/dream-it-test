@@ -24,6 +24,7 @@ import ScrollToTop from "@/components/common/ScrollTop";
 import OrganizationSchema from "./organization-schema";
 import TourProductsSchema from "./tour-products-schema";
 import FAQSchema from "./faq-schema";
+import Script from "next/script";
 
 export default async function RootLayout({ children }) {
   const data = await dataFetcher(GET_MENUS_ALL_NESTED);
@@ -166,6 +167,16 @@ export default async function RootLayout({ children }) {
           }}
         />
         {/* End Google Tag Manager */}
+
+        <Script id="microsoft-clarity" strategy="afterInteractive">
+          {`
+            (function(c,l,a,r,i,t,y){
+                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+            })(window, document, "clarity", "script", "r1wiwwxv9l");
+          `}
+        </Script>
         <OrganizationSchema />
         <TourProductsSchema />
         <FAQSchema />
