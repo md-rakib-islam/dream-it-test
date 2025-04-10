@@ -20,7 +20,7 @@ const Banner = ({ slug, data }) => {
           height={860}
           width={1920}
           priority={true}
-          style={{ maxHeight: "448px" }}
+          style={{ maxHeight: "628px" }}
         />
 
         {/* <div className="absolute d-flex justify-end items-end col-12 h-full z-1 px-10 py-10">

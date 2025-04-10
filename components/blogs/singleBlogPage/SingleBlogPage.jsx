@@ -74,24 +74,7 @@ const SingleBlogPage = ({
                     {headings.length > 0 && (
                       <div className="table-of-contents mb-30 mt-30">
                         <h2 className="text-25 fw-600">Table of Contents</h2>
-                        {/* <ul>
-                          {headings.map((heading, index) => (
-                            <li
-                              key={index}
-                              className={`toc-item toc-${heading.level.toLowerCase()}`}
-                              style={{
-                                marginLeft:
-                                  heading.level === "H2"
-                                    ? "1rem"
-                                    : heading.level === "H3"
-                                    ? "2rem"
-                                    : "0rem",
-                              }}
-                            >
-                              <a href={`#${heading.id}`}>{heading.text}</a>
-                            </li>
-                          ))}
-                        </ul> */}
+
                         <ul>
                           {headings
                             .reduce((acc, heading, index) => {

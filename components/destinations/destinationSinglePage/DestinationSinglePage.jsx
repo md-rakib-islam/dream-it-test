@@ -15,7 +15,8 @@ const DestinationSinglePage = ({ slug, contentImagesData, content }) => {
       <section className="layout-pb-md">
         <div className="container">
           <div className="row">
-            <div
+            {/* old code  */}
+            {/* <div
               className="absolute z-2 px-50 py-30 md:py-20 md:px-30 "
               style={{ width: "fit-content" }}
             >
@@ -37,7 +38,7 @@ const DestinationSinglePage = ({ slug, contentImagesData, content }) => {
                 Explore deals, travel guides and things to do in{" "}
                 {slug.charAt(0).toUpperCase() + slug.slice(1)}
               </div>
-            </div>
+            </div> */}
             <Banner slug={slug} data={contentImagesData} />
           </div>
           {/* End .row */}
@@ -52,7 +53,7 @@ const DestinationSinglePage = ({ slug, contentImagesData, content }) => {
 
           <div className="row y-gap-20">
             <div className="col-12">
-              <span className="text-24 fw-600 text-black">Local weather</span>
+              <h2 className="text-24 fw-600 text-black">Local weather</h2>
             </div>
             {/* End. col-12 */}
 
@@ -73,20 +74,23 @@ const DestinationSinglePage = ({ slug, contentImagesData, content }) => {
         <section className="layout-pt-md layout-pb-md">
           <div className="container">
             <div className="row y-gap-22 justify-between items-start">
-              <div className="col-8 col-lg-auto">
+              <div className="col-12 ">
                 <div className="sectionTitle -md">
-                  <h2 className="sectionTitle__title fw-600">
+                  <h2 className="sectionTitle__title md:text-22 fw-600">
                     Most Popular Tours
                   </h2>
-                  <p className=" sectionTitle__text mt-5 sm:mt-0">
+                  {/*  old code 
+              <p className=" sectionTitle__text mt-5  bannar_mobile">{des}</p> */}
+                  <p className=" sectionTitle__text mt-5  ">
                     Explore Our Best Sellers: Unmatched Experiences in Every
                     Journey
                   </p>
                 </div>
               </div>
+
               {/* End .col */}
 
-              <div className="col-4 col-lg-auto">
+              {/* <div className="col-4 col-lg-auto">
                 <Link
                   href="/tours"
                   className="button -md -blue-1 bg-blue-1-05 text-blue-1"
@@ -98,7 +102,7 @@ const DestinationSinglePage = ({ slug, contentImagesData, content }) => {
                     aria-hidden="true"
                   />
                 </Link>
-              </div>
+              </div> */}
               {/* End .col */}
             </div>
             {/* End .row */}
@@ -123,7 +127,7 @@ const DestinationSinglePage = ({ slug, contentImagesData, content }) => {
       <section className="layout-pt-md layout-pb-lg">
         <div className="container">
           <div className="row">
-            <div className="col-auto">
+            <div className="col-12">
               <div className="sectionTitle -md">
                 <span className="sectionTitle__title fw-600">
                   Top sights in{" "}
@@ -161,7 +165,7 @@ const DestinationSinglePage = ({ slug, contentImagesData, content }) => {
         </div>
         {/* End .container */}
       </section>
-      <section className="layout-pt-lg layout-pb-md">
+      {/* <section className="layout-pt-lg layout-pb-md">
         <div className="container">
           <div className="row y-gap-20">
             <div className="col-lg-4">
@@ -176,21 +180,19 @@ const DestinationSinglePage = ({ slug, contentImagesData, content }) => {
                   ?.join(" ")}
               </span>
             </div>
-            {/* End .col */}
 
             <div className="col-lg-8">
               <div className="accordion -simple row y-gap-20 js-accordion">
                 <Faq slug={slug} />
               </div>
             </div>
-            {/* End .col-lg-8 */}
           </div>
-          {/* End .row */}
         </div>
-        {/* End .container */}
-      </section>
+      </section> */}
       <DestinationSection
-        title={`Destinations ${slug.charAt(0).toUpperCase() + slug.slice(1)}`}
+        // old code
+        // title={`Destinations ${slug.charAt(0).toUpperCase() + slug.slice(1)}`}
+        title={"Other Popular Destinations"}
         des={"These popular destinations have a lot to offer"}
         slug={slug}
       />

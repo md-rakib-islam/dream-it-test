@@ -1,56 +1,47 @@
 "use client";
 import { slightContent } from "@/data/desinations";
+import { load } from "cheerio";
 
 const IntroTown = ({ slug, data }) => {
-  let value = "";
+  let description = "";
   if (data) {
-    value = data[0]?.value;
+    description = data[0]?.description;
   }
 
+  // Modify the parseHeadings function to extract the first <p> tag
+  const parseHeadingsAndFirstParagraph = (html) => {
+    const $ = load(html); // Load HTML into cheerio
+    const headings = [];
+
+    $("h1, h2, h3").each((index, element) => {
+      const level = $(element).prop("tagName");
+      const text = $(element).text().trim();
+      const id = text.toLowerCase().replace(/\s+/g, "-");
+      $(element).attr("id", id); // Add ID for anchor links
+      headings.push({ id, text, level });
+    });
+
+    return { headings, updatedHTML: $.html() };
+  };
+
+  // Call the updated function
+  const { headings, updatedHTML } = parseHeadingsAndFirstParagraph(description);
   return (
     <>
       <div className="col-xl-8">
         <p className="text-15 text-dark-1">
-          {/* London is a shining example of a metropolis at the highest peak of
-          modernity and boasts an economy and cultural diversity that’s the envy
-          of other global superpowers.
-          <br />
-          <br />
-          Take the opportunity to acquaint yourself with its fascinating history
-          chronicled by institutions like the British Museum as well as see how
-          far it has come by simply riding the Tube and passing by celebrated
-          landmarks like Buckingham Palace, Westminster Abbey, and marvels like
-          Big Ben, the London Eye, and the Tower Bridge.
-          <br />
-          <br />
-          You can also immerse yourself in its ever-evolving and impactful
-          culture by visiting places like the National Gallery, the Tate Modern,
-          West End, Abbey Road, the Royal Albert Hall, Oxford Street and the
-          Westfield Shopping Centers, and areas referenced and seen in
-          literature and film. */}
-          {/* <Interweave
-            allowAttributes
-            allowElements
-            disableLineBreaks={false}
-            content={value}
-          /> */}
           <div
             dangerouslySetInnerHTML={{
-              __html: value || null,
+              __html: updatedHTML || null,
             }}
           ></div>
         </p>
-        {/* <a
-          href="#"
-          className="d-block text-14 fw-500 text-blue-1 underline mt-20"
-        >
-          Show More
-        </a> */}
       </div>
       {/* End .col */}
 
       <div className="col-xl-4">
-        <div className="relative d-flex ml-35 xl:ml-0">
+        {/* old code  */}
+        {/* <div className="relative d-flex ml-35 xl:ml-0">
           <iframe
             src={slightContent[slug]?.location}
             width="100%"
@@ -63,6 +54,50 @@ const IntroTown = ({ slug, data }) => {
               See popular activities on the map
             </button>
           </div>
+        </div> */}
+
+        <div className="relative d-flex ml-35 xl:ml-0">
+          {headings.length > 0 && (
+            <div className="table-of-contents mb-30 mt-30">
+              <h2 className="text-25 fw-600">Table of Contents</h2>
+
+              <ul>
+                {headings
+                  .reduce((acc, heading, index) => {
+                    const lastItem = acc[acc.length - 1];
+                    if (heading.level === "H2") {
+                      acc.push({
+                        text: `${acc.length + 1}. ${heading.text}`,
+                        id: heading.id,
+                        children: [],
+                      });
+                    } else if (heading.level === "H3" && lastItem) {
+                      lastItem.children.push({
+                        text: `${acc.length}.${lastItem.children.length + 1} ${
+                          heading.text
+                        }`,
+                        id: heading.id,
+                      });
+                    }
+                    return acc;
+                  }, [])
+                  .map((heading, idx) => (
+                    <li key={idx}>
+                      <a href={`#${heading.id}`}>{heading.text}</a>
+                      {heading.children.length > 0 && (
+                        <ul>
+                          {heading.children.map((child, childIdx) => (
+                            <li key={childIdx}>
+                              <a href={`#${child.id}`}>{child.text}</a>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </li>
+                  ))}
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </>
