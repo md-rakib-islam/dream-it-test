@@ -45,32 +45,6 @@ const Overview = ({ data }) => {
             {showFullDescription ? "See Less" : "See More"}
           </button>
         </div>
-
-        {data?.languages && (
-          <div className="col-md-6">
-            <span className="text-16 fw-600">Available languages</span>
-            <div className="text-15 mt-10">{data?.languages}</div>
-          </div>
-        )}
-
-        {data?.value && (
-          <div className="col-md-6">
-            <span className="text-16 fw-600">Cancellation policy</span>
-            <div className="interweave-content">
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: data.value,
-                }}
-              ></div>
-              {/* <Interweave
-                allowAttributes
-                allowElements
-                disableLineBreaks={true}
-                content={data?.value}
-              /> */}
-            </div>
-          </div>
-        )}
       </div>
     </>
   );

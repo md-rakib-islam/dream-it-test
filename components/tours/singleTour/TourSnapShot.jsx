@@ -1,55 +1,83 @@
 const TourSnapShot = ({ data }) => {
   return (
-    <div className="row y-gap-30 justify-between pt-20">
-      <div className="col-md-auto col-6">
-        <div className="d-flex">
-          <i className="icon-clock text-22 text-blue-1 mr-10"></i>
-          <div className="text-15 lh-15">
-            Duration:
-            <br /> {data?.duration}
+    <div className="aboutTour">
+      <div className="row y-gap-20">
+        <div className="col-12">
+          <div className="d-flex">
+            <div className="size-30 flex-center">
+              <i className="icon-calendar-2 text-22 text-blue-1"></i>
+            </div>
+            <div className="ml-10">
+              <div className="text-16 fw-500 text-dark-1">
+                Free cancellation
+              </div>
+              <div className="text-14 lh-16 text-light-1 mt-5">
+                Cancel up to 24 hours in advance for a full refund
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      {/* End .col */}
 
-      <div className="col-md-auto col-6">
-        <div className="d-flex">
-          <i className="icon-customer text-22 text-blue-1 mr-10"></i>
-          <div className="text-15 lh-15">
-            Group size:
-            <br /> {data?.group_size}
+        <div className="col-12">
+          <div className="d-flex">
+            <div className="size-30 flex-center">
+              <i className="icon-wallet text-22 text-blue-1"></i>
+            </div>
+            <div className="ml-10">
+              <div className="text-16 fw-500 text-dark-1">
+                Reserve now & pay later
+              </div>
+              <div className="text-14 lh-16 text-light-1 mt-5">
+                Keep your travel plans flexible — book your spot and pay nothing
+                today.
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      {/* End .col */}
 
-      <div className="col-md-auto col-6">
-        <div className="d-flex">
-          <i className="icon-route text-22 text-blue-1 mr-10"></i>
-          <div className="text-15 lh-15">
-            Near public
-            <br /> transportation
+        <div className="col-12">
+          <div className="d-flex">
+            <div className="size-30 flex-center">
+              <i className="icon-clock text-22 text-blue-1"></i>
+            </div>
+            <div className="ml-10">
+              <div className="text-16 fw-500 text-dark-1">
+                Duration {data?.duration}
+              </div>
+              <div className="text-14 lh-16 text-light-1 mt-5">
+                Check availability to see starting times.
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      {/* End .col */}
 
-      <div className="col-md-auto col-6">
-        <div className="d-flex">
-          <i className="icon-access-denied text-22 text-blue-1 mr-10"></i>
-          <div className="text-15 lh-15">
-            Free cancellation <br />
-            <a
-              href="#cancle-section"
-              className="text-blue-1 underline"
-              rel="nofollow"
-            >
-              Learn more
-            </a>
+        <div className="col-12">
+          <div className="d-flex">
+            <div className="size-30 flex-center">
+              <i className="icon-ticket text-22 text-blue-1"></i>
+            </div>
+            <div className="ml-10">
+              <div className="text-16 fw-500 text-dark-1">
+                Skip the ticket line
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="col-12">
+          <div className="d-flex">
+            <div className="size-30 flex-center">
+              <i className="icon-customer text-22 text-blue-1"></i>
+            </div>
+            <div className="ml-10">
+              <div className="text-16 fw-500 text-dark-1">Live tour guide</div>
+              <div className="text-14 lh-16 text-light-1 mt-5">
+                {data?.languages || "English"}
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      {/* End .col */}
     </div>
   );
 };

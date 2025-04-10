@@ -12,83 +12,106 @@ const ImportantInfo = ({ data }) => {
   if (!hydratedData) {
     return null; // or a loading spinner
   }
+
+  // Styles to ensure horizontal layout
+  const containerStyle = {
+    display: "table",
+    width: "100%",
+    borderCollapse: "collapse",
+  };
+
+  const rowStyle = {
+    display: "table-row",
+    borderBottom: "1px solid #e5e7eb",
+    marginBottom: "2rem",
+  };
+
+  const titleCellStyle = {
+    display: "table-cell",
+    width: "25%",
+    paddingRight: "1rem",
+    paddingBottom: "2rem",
+    verticalAlign: "top",
+  };
+
+  const contentCellStyle = {
+    display: "table-cell",
+    width: "75%",
+    paddingBottom: "2rem",
+    verticalAlign: "top",
+  };
+
   return (
-    <div className="row x-gap-40 y-gap-40 justify-between pt-20">
-      <div className="col-lg-4 col-md-6">
-        <div className="fw-600 mb-10">Inclusions</div>
-        <div className="interweave-content">
-          {/* <Interweave
-            allowAttributes
-            allowElements
-            disableLineBreaks={false}
-            content={hydratedData.inclution}
-          /> */}
-          <div
-            dangerouslySetInnerHTML={{
-              __html: hydratedData.inclution,
-            }}
-          ></div>
-        </div>
+    <div className="pt-20">
+      <div style={containerStyle}>
+        {hydratedData.inclution && (
+          <div style={rowStyle}>
+            <div style={titleCellStyle}>
+              <div className="fw-600 mb-10">Inclusions</div>
+            </div>
+            <div style={contentCellStyle}>
+              <div className="interweave-content">
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: hydratedData.inclution,
+                  }}
+                ></div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {hydratedData.knw_before_go && (
+          <div style={rowStyle}>
+            <div style={titleCellStyle}>
+              <div className="fw-600 mb-10">Know before you go</div>
+            </div>
+            <div style={contentCellStyle}>
+              <div className="interweave-content">
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: hydratedData.knw_before_go,
+                  }}
+                ></div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {hydratedData.exclusion && (
+          <div style={rowStyle}>
+            <div style={titleCellStyle}>
+              <div className="fw-600 mb-10">Exclusions</div>
+            </div>
+            <div style={contentCellStyle}>
+              <div className="interweave-content">
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: hydratedData.exclusion,
+                  }}
+                ></div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {hydratedData.additional_info && (
+          <div style={rowStyle}>
+            <div style={titleCellStyle}>
+              <div className="fw-600 mb-10">Additional information</div>
+            </div>
+            <div style={contentCellStyle}>
+              <div className="interweave-content">
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: hydratedData.additional_info,
+                  }}
+                ></div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
-
-      {hydratedData.knw_before_go && (
-        <div className="col-lg-5 col-md-6">
-          <div className="fw-600 mb-10">Know before you go</div>
-          <div className="interweave-content">
-            {/* <Interweave
-              allowAttributes
-              allowElements
-              disableLineBreaks={false}
-              content={hydratedData.knw_before_go}
-            /> */}
-            <div
-              dangerouslySetInnerHTML={{
-                __html: hydratedData.knw_before_go,
-              }}
-            ></div>
-          </div>
-        </div>
-      )}
-
-      {hydratedData.exclusion && (
-        <div className="col-lg-3 col-md-6">
-          <div className="fw-600 mb-10">Exclusions</div>
-
-          <div className="interweave-content">
-            {/* <Interweave
-              allowAttributes
-              allowElements
-              disableLineBreaks={false}
-              conte
-              nt={hydratedData.exclusion}
-            /> */}
-            <div
-              dangerouslySetInnerHTML={{
-                __html: hydratedData.exclusion,
-              }}
-            ></div>
-          </div>
-        </div>
-      )}
-
-      {hydratedData.additional_info && (
-        <div className="col-12">
-          <div className="fw-600 mb-10">Additional information</div>
-          <div className="interweave-content">
-            {/* <Interweave
-              allowAttributes
-              allowElements
-              disableLineBreaks={false}
-              content={hydratedData.additional_info}
-            /> */}
-            <div
-              dangerouslySetInnerHTML={{
-                __html: hydratedData.additional_info,
-              }}
-            ></div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
