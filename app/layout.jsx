@@ -21,6 +21,9 @@ import "swiper/css/scrollbar";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import AddBootstrap from "./AddBootstrap";
 import ScrollToTop from "@/components/common/ScrollTop";
+import OrganizationSchema from "./organization-schema";
+import TourProductsSchema from "./tour-products-schema";
+import FAQSchema from "./faq-schema";
 
 export default async function RootLayout({ children }) {
   const data = await dataFetcher(GET_MENUS_ALL_NESTED);
@@ -163,6 +166,9 @@ export default async function RootLayout({ children }) {
           }}
         />
         {/* End Google Tag Manager */}
+        <OrganizationSchema />
+        <TourProductsSchema />
+        <FAQSchema />
 
         {/* end*/}
       </head>
