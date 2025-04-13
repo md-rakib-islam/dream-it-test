@@ -151,3 +151,6 @@ export const GET_LOCATION_BY_COORDS = `https://api.opencagedata.com/geocode/v1/j
 // get meta data
 
 export const GET_METADATA_BY_CONTENT_NAME = `${BASE_URL}/cms_meta_data/api/v1/cms_meta_data/get_meta_data_by_cms_content_name`;
+
+// get all countries
+export const GET_ALL_COUNTRIES = `${BASE_URL}/country/api/v1/country/without_pagination/all/`;
