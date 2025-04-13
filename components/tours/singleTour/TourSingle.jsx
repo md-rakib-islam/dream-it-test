@@ -270,7 +270,7 @@ const TourSingleV1Dynamic = ({ children, data, fullUrl, itenarayItems }) => {
       {dataAvailable && itenarayItems?.length !== 0 && (
         <section className="border-top-light  mt-40 pt-40">
           <div className="container">
-            <span className="text-22 fw-600 mb-20">Itinerary</span>
+            <h2 className="text-22 fw-600 mb-20">Itinerary</h2>
             <Itinerary itenarayItems={itenarayItems} />
           </div>
         </section>
