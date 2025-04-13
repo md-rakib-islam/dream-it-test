@@ -301,12 +301,14 @@ const TourSingleV1Dynamic = ({ children, data, fullUrl, itenarayItems }) => {
         <section className="layout-pt-lg layout-pb-lg mt-50 border-top-light">
           <div className="container">
             <div className="row y-gap-20 justify-between items-end">
-              <div className="col-auto">
+              <div className="col-12">
                 <div className="sectionTitle -md">
-                  <h2 className="sectionTitle__title fw-600">
+                  <h2 className="sectionTitle__title md:text-22 fw-600">
                     You might also like...
                   </h2>
-                  <p className=" sectionTitle__text mt-5 sm:mt-0">
+
+                  <p className=" sectionTitle__text mt-5  ">
+                    {" "}
                     Explore Our Best Sellers: Unmatched Experiences in Every
                     Journey
                   </p>
@@ -314,14 +316,6 @@ const TourSingleV1Dynamic = ({ children, data, fullUrl, itenarayItems }) => {
               </div>
               {/* End .col */}
 
-              <div className="col-auto">
-                <Link
-                  href="#"
-                  className="button -md -blue-1 bg-blue-1-05 text-blue-1"
-                >
-                  More <div className="icon-arrow-top-right ml-15" />
-                </Link>
-              </div>
               {/* End .col */}
             </div>
             {/* End .row */}
