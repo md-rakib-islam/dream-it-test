@@ -352,7 +352,7 @@ export default function TourGallery({ tour }) {
         <div className="container">
           <div className="row y-gap-30">
             <div className="col-xl-8">
-              <h2 className="text-22 fw-600">About This Tour</h2>
+              <h2 className="text-24 fw-600">About This Tour</h2>
               <TourSnapShot data={tour} />
 
               {!isMobile && <Overview data={tour} />}

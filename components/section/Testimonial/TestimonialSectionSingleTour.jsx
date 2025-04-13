@@ -8,7 +8,7 @@ const TestimonialSectionSingleTour = ({ title }) => {
         <div className="row">
           <div className="col-auto">
             <div className="">
-              <span className="text-22 fw-600 mb-40">{title}</span>
+              <span className="text-24 fw-600 mb-40">{title}</span>
             </div>
           </div>
         </div>
