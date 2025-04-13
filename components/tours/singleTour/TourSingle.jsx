@@ -279,26 +279,23 @@ const TourSingleV1Dynamic = ({ children, data, fullUrl, itenarayItems }) => {
 
       <section className="pt-40">
         <div className="container">
-          <div className="pt-40 border-top-light">
-            <div className="row x-gap-40 y-gap-40">
-              <div className="col-auto">
-                {/* <span className="text-22 fw-600">Important information</span> */}
-              </div>
+          <div className="row x-gap-40 y-gap-40">
+            <div className="col-auto">
+              {/* <span className="text-22 fw-600">Important information</span> */}
             </div>
-            {/* End row */}
-            <ImportantInfo data={tour} />
           </div>
+          {/* End row */}
+          <ImportantInfo data={tour} />
+
           {/* End pt-40 */}
         </div>
         {/* End .container */}
       </section>
       {/* End important info */}
 
-      <section className="border-top-light  mt-40 pt-40">
-        <div className="container">
-          <CustomerReviewSection data={data} />
-        </div>
-      </section>
+      <div className="container">
+        <CustomerReviewSection data={data} />
+      </div>
 
       {dataAvailable && (
         <section className="layout-pt-lg layout-pb-lg mt-50 border-top-light">
