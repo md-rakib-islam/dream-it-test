@@ -1,14 +1,16 @@
 import Blog from "@/components/blogs/Blog";
+import ThingsToDoPage from "@/components/blogs/ThingsToDoPage";
 import {
   BLOG_CATEGORIES,
-  GET_CMS_BLOGS,
+  GET_ALL_COUNTRIES,
+  GET_CMS_BLOG_WITHOUT_PAGINATION,
   GET_METADATA_BY_CONTENT_NAME,
 } from "@/constant/constants";
 import { dataFetcher } from "@/utils/dataFetcher";
 
 const fetchMetadata = async () => {
   try {
-    const res = await fetch(`${GET_METADATA_BY_CONTENT_NAME}/blogs`);
+    const res = await fetch(`${GET_METADATA_BY_CONTENT_NAME}/things-to-do`);
     if (!res.ok) {
       throw new Error("Failed to fetch metadata");
     }
@@ -64,9 +66,12 @@ export async function generateMetadata() {
 const index = async () => {
   try {
     // Fetch blog and category data
-    const [contentBlogData, categoryData] = await Promise.all([
-      dataFetcher(`${GET_CMS_BLOGS}`, { next: { revalidate: 60 } }),
+    const [contentBlogData, categoryData, getAllCountries] = await Promise.all([
+      dataFetcher(`${GET_CMS_BLOG_WITHOUT_PAGINATION}`, {
+        next: { revalidate: 60 },
+      }),
       dataFetcher(`${BLOG_CATEGORIES}`, { next: { revalidate: 60 } }),
+      dataFetcher(`${GET_ALL_COUNTRIES}`, { next: { revalidate: 60 } }),
     ]);
 
     // Ensure blogs is always an array to prevent undefined errors
@@ -90,7 +95,7 @@ const index = async () => {
             <div className="row justify-center text-center">
               <div className="col-auto">
                 <div className="sectionTitle -md">
-                  <h1 className="sectionTitle__title">Latest Blog Posts</h1>
+                  <h1 className="sectionTitle__title">Things to do</h1>
                   {filteredBlogs?.length === 0 ? (
                     <p className="sectionTitle__text mt-5 sm:mt-0">
                       There are no blog posts.
@@ -102,7 +107,11 @@ const index = async () => {
 
             {/* Show blog list only if filteredBlogs is not empty */}
             {filteredBlogs && (
-              <Blog blogs={filteredBlogs} categories={categoryData} />
+              <ThingsToDoPage
+                blogs={filteredBlogs}
+                categories={categoryData?.blog_categories}
+                countries={getAllCountries?.countries}
+              />
             )}
           </div>
         </section>

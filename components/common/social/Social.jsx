@@ -16,20 +16,11 @@ const Social = () => {
       icon: "icon-linkedin",
       link: "https://www.linkedin.com/company/dreamtourismit/",
     },
-    // {
-    //   id: 5,
-    //   icon: "icon-linkedin",
-    //   link: "https://www.linkedin.com/company/dreamtourismit/",
-    // },
+
     {
-      id: 6,
+      id: 5,
       icon: "icon-pinterest",
       link: "https://www.pinterest.com/dreamtourismit/",
-    },
-    {
-      id: 7,
-      icon: "icon-youtube",
-      link: "https://www.youtube.com/@dreamtourismit",
     },
   ];
   return (
