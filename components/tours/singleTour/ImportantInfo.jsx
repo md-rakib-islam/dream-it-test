@@ -170,6 +170,46 @@ const ImportantInfo = ({ data }) => {
                       __html: hydratedData.additional_info,
                     }}
                   ></div>
+
+                  <div className=" pt-40">
+                    <div className="row y-gap-30">
+                      <div className="col-12">
+                        <div className="row justify-between">
+                          {/* Available languages section */}
+                          {data?.languages && (
+                            <div className="col-md-6">
+                              <div className="d-flex flex-column">
+                                <span className="text-16 fw-600">
+                                  Available languages
+                                </span>
+                                <div className="text-15 mt-10">
+                                  {data.languages}
+                                </div>
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Cancellation policy section */}
+                          {data?.value && (
+                            <div className="col-md-6">
+                              <div className="d-flex flex-column">
+                                <span className="text-16 fw-600">
+                                  Cancellation policy
+                                </span>
+                                <div className="interweave-content text-15 mt-10">
+                                  <div
+                                    dangerouslySetInnerHTML={{
+                                      __html: hydratedData.value,
+                                    }}
+                                  ></div>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -326,6 +366,45 @@ const ImportantInfo = ({ data }) => {
                     __html: hydratedData.additional_info,
                   }}
                 ></div>
+                <div className="pt-20">
+                  <div className="row y-gap-30">
+                    <div className="col-12">
+                      <div className="row justify-between">
+                        {/* Available languages section */}
+                        {data?.languages && (
+                          <div className="col-md-6">
+                            <div className="d-flex flex-column">
+                              <span className="text-16 fw-600">
+                                Available languages
+                              </span>
+                              <div className="text-15 mt-10">
+                                {data.languages}
+                              </div>
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Cancellation policy section */}
+                        {data?.value && (
+                          <div className="col-md-6">
+                            <div className="d-flex flex-column">
+                              <span className="text-16 fw-600">
+                                Cancellation policy
+                              </span>
+                              <div className="interweave-content text-15 mt-10">
+                                <div
+                                  dangerouslySetInnerHTML={{
+                                    __html: hydratedData.value,
+                                  }}
+                                ></div>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           )}
