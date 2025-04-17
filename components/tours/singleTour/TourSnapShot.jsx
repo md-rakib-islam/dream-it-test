@@ -1,7 +1,7 @@
 const TourSnapShot = ({ data }) => {
   return (
-    <div className="aboutTour">
-      <div className="row y-gap-20">
+    <div className="aboutTour mt-20">
+      <div className="row y-gap-25">
         <div className="col-12">
           <div className="d-flex">
             <div className="size-30 flex-center">
@@ -18,7 +18,7 @@ const TourSnapShot = ({ data }) => {
           </div>
         </div>
 
-        <div className="col-12">
+        {/* <div className="col-12">
           <div className="d-flex">
             <div className="size-30 flex-center">
               <i className="icon-wallet text-22 text-blue-1"></i>
@@ -33,7 +33,7 @@ const TourSnapShot = ({ data }) => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="col-12">
           <div className="d-flex">
@@ -51,7 +51,7 @@ const TourSnapShot = ({ data }) => {
           </div>
         </div>
 
-        <div className="col-12">
+        {/* <div className="col-12">
           <div className="d-flex">
             <div className="size-30 flex-center">
               <i className="icon-ticket text-22 text-blue-1"></i>
@@ -62,7 +62,7 @@ const TourSnapShot = ({ data }) => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="col-12">
           <div className="d-flex">

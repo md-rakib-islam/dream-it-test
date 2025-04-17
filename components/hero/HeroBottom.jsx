@@ -46,7 +46,7 @@ const HeroBottom = () => {
   };
   return (
     <>
-      <div className="home1-banner-bottom mb-120">
+      <div className="home1-banner-bottom mb-20">
         <div className="container-fluid">
           <div className="filter-wrapper">
             <div className="nav-buttons">

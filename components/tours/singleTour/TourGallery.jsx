@@ -427,28 +427,29 @@ export default function TourGallery({ tour }) {
         <div className="container">
           <div className="row y-gap-30">
             <div className="col-xl-8">
-              <span className="text-22 fw-600">About This Tour</span>
-              <TourSnapShot data={tour} />
+              <h2 className="text-22 sm:text-18 fw-600">About</h2>
+              <div className="mb-8">
+                <Overview data={tour} />
+              </div>
 
-              {!isMobile && <Overview data={tour} />}
+              {!isMobile && <TourSnapShot data={tour} />}
 
-              {!isMobile && (
-                <TestimonialSectionSingleTour
-                  title={"Highlighted reviews from other travelers"}
-                />
-              )}
+              {!isMobile && <TestimonialSectionSingleTour title={"Reviews"} />}
             </div>
 
-            <div className="col-xl-4">
-              <SidebarRight data={tour} />
-            </div>
+            {!isMobile && (
+              <div className="col-xl-4">
+                <SidebarRight data={tour} />
+              </div>
+            )}
           </div>
           {isMobile && (
             <div style={{ marginTop: "" }}>
-              <Overview data={tour} />
-              <TestimonialSectionSingleTour
-                title={"Highlighted reviews from other travelers"}
-              />
+              <div className="col-xl-4 mt-20">
+                <SidebarRight data={tour} />
+              </div>
+              <TourSnapShot data={tour} />
+              <TestimonialSectionSingleTour title={"Reviews"} />
             </div>
           )}
           {/* End .col-xl-4 */}

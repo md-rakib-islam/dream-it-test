@@ -43,6 +43,7 @@ const TourSingleV1Dynamic = ({ children, data, fullUrl, itenarayItems }) => {
   // if (isItenariesSuccess) {
   //   dispatch(addItenarayItems(itenarayItems));
   // }
+
   let tour = {};
   if (data && imageContentsForTours) {
     tour = {
@@ -68,6 +69,10 @@ const TourSingleV1Dynamic = ({ children, data, fullUrl, itenarayItems }) => {
       tourType: "Attractions & Museums",
       delayAnimation: "200",
       languages: data?.languages,
+      about_ticket: data?.about_ticket,
+      faq: data?.faq,
+      help_center: data?.help_center,
+      meetup_point: data?.meetup_point,
     };
 
     // dispatch(addtourItem(data));
@@ -267,16 +272,6 @@ const TourSingleV1Dynamic = ({ children, data, fullUrl, itenarayItems }) => {
 
       {/* End single page content */}
 
-      {dataAvailable && itenarayItems?.length !== 0 && (
-        <section className="border-top-light  mt-40 pt-40">
-          <div className="container">
-            <h2 className="text-24 fw-600 mb-20">Itinerary</h2>
-            <Itinerary itenarayItems={itenarayItems} />
-          </div>
-        </section>
-      )}
-      {/* End Itinerary */}
-
       <section className="pt-40">
         <div className="container">
           <div className="row x-gap-40 y-gap-40">
@@ -293,11 +288,21 @@ const TourSingleV1Dynamic = ({ children, data, fullUrl, itenarayItems }) => {
       </section>
       {/* End important info */}
 
-      {data?.reviews > 0 && (
+      {/* {data?.reviews > 0 && (
         <div className="container">
           <CustomerReviewSection data={data} />
         </div>
+      )} */}
+
+      {dataAvailable && itenarayItems?.length !== 0 && (
+        <section className="mt-40">
+          <div className="container">
+            <h2 className="text-22 sm:text-18 fw-600 mb-20">Itinerary</h2>
+            <Itinerary itenarayItems={itenarayItems} />
+          </div>
+        </section>
       )}
+      {/* End Itinerary */}
 
       {dataAvailable && (
         <section className="layout-pt-lg layout-pb-lg mt-50">
@@ -305,7 +310,7 @@ const TourSingleV1Dynamic = ({ children, data, fullUrl, itenarayItems }) => {
             <div className="row y-gap-20 justify-between items-end">
               <div className="col-12">
                 <div className="sectionTitle -md">
-                  <h2 className="sectionTitle__title md:text-22 fw-600">
+                  <h2 className="sectionTitle__title text-22 sm:text-18 fw-600">
                     You might also like...
                   </h2>
                   <p className=" sectionTitle__text mt-5 sm:mt-0">
