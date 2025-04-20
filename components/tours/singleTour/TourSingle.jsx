@@ -1,13 +1,9 @@
 "use client";
 
-// import ImportantInfo from "@/components/tour-single/ImportantInfo";
-// import TourGallery from "@/components/tour-single/TourGallery";
-import Tours from "@/components/tours/Tours";
-// import { useGetImagesByMenuIdQuery } from "@/features/image/imageApi";
-// import { addItenarayItems, addtourItem } from "@/features/tour/tourSlice";
-import Loading from "@/app/loading";
+import { useContext, useEffect, useState, useRef } from "react";
 import Link from "next/link";
-// import { useDispatch, useSelector } from "react-redux";
+import Image from "next/image";
+import { toast, ToastContainer } from "react-toastify";
 import {
   EmailIcon,
   EmailShareButton,
@@ -18,31 +14,26 @@ import {
   WhatsappIcon,
   WhatsappShareButton,
 } from "react-share";
-import { toast, ToastContainer } from "react-toastify";
-import { useContext, useEffect, useState } from "react";
-import Image from "next/image";
+
+import Loading from "@/app/loading";
 import { LayoutContext } from "@/app/LayoutProvider";
-import TourGallery from "./TourGallery";
+import TourSinglePage from "./TourSinglePage";
 import ImportantInfo from "./ImportantInfo";
 import Itinerary from "./itinerary/index";
-import CustomerReviewSection from "./customer-review-section";
+import Tours from "@/components/tours/Tours";
 
-const TourSingleV1Dynamic = ({ children, data, fullUrl, itenarayItems }) => {
+const TourSingle = ({ children, data, fullUrl, itenarayItems }) => {
   const { imageContentsForTours } = useContext(LayoutContext);
+  const [dataAvailable, setDataAvailable] = useState(false);
 
-  // const { menuItems } = useSelector((state) => state.menus);
-  // const tourId = menuItems.find((item) => item.name === "Tours")?.id;
-  // const slug = params?.name?.endsWith("-1")
-  //   ? params?.name.slice(0, -2)
-  //   : params?.name;
+  // Refs for scrolling to sections
+  const aboutRef = useRef(null);
+  const detailsRef = useRef(null);
+  const itineraryRef = useRef(null);
+  const relatedToursRef = useRef(null);
 
   const [copied, setCopied] = useState(false);
   const [isCopyLoading, setIsCopyLoading] = useState(false);
-  const [dataAvailable, setDataAvailable] = useState(false);
-
-  // if (isItenariesSuccess) {
-  //   dispatch(addItenarayItems(itenarayItems));
-  // }
 
   let tour = {};
   if (data && imageContentsForTours) {
@@ -69,13 +60,7 @@ const TourSingleV1Dynamic = ({ children, data, fullUrl, itenarayItems }) => {
       tourType: "Attractions & Museums",
       delayAnimation: "200",
       languages: data?.languages,
-      about_ticket: data?.about_ticket,
-      faq: data?.faq,
-      help_center: data?.help_center,
-      meetup_point: data?.meetup_point,
     };
-
-    // dispatch(addtourItem(data));
   }
 
   useEffect(() => {
@@ -90,8 +75,11 @@ const TourSingleV1Dynamic = ({ children, data, fullUrl, itenarayItems }) => {
 
     window.addEventListener("scroll", toggleVisibility);
 
-    return () => window.removeEventListener("scroll", toggleVisibility);
+    return () => {
+      window.removeEventListener("scroll", toggleVisibility);
+    };
   }, []);
+
   //copy link
   const copyToClipboard = () => {
     setIsCopyLoading(true);
@@ -138,6 +126,7 @@ const TourSingleV1Dynamic = ({ children, data, fullUrl, itenarayItems }) => {
       }
     );
   };
+
   return (
     <>
       <ToastContainer />
@@ -185,11 +174,6 @@ const TourSingleV1Dynamic = ({ children, data, fullUrl, itenarayItems }) => {
                       >
                         <EmailIcon size={32} round={true} />
                       </EmailShareButton>
-                      {/* <LinkedinShareButton
-                         url={fullUrl}
-                      >
-                        <LinkedinIcon size={32} round={true} />
-                      </LinkedinShareButton> */}
                       <div
                         style={{
                           display: "flex",
@@ -199,12 +183,7 @@ const TourSingleV1Dynamic = ({ children, data, fullUrl, itenarayItems }) => {
                         onClick={copyToClipboard}
                       >
                         {isCopyLoading ? (
-                          // <CircularProgress
-                          //   style={{ color: "#e02043", marginRight: "10px" }}
-                          //   size={20}
-                          // />
                           <div
-                            // className="col-12 h-20 text-center"
                             style={{
                               marginLeft: "10px",
                               display: "flex",
@@ -229,16 +208,12 @@ const TourSingleV1Dynamic = ({ children, data, fullUrl, itenarayItems }) => {
                             copied!
                           </span>
                         ) : (
-                          // <i className="icon-files-o"></i>
                           <>
                             {!isCopyLoading && (
                               <Image
                                 width={40}
                                 height={40}
                                 style={{
-                                  // height: "32px",
-                                  // width: "32px",
-                                  // marginRight: "10px",
                                   cursor: "pointer",
                                 }}
                                 alt="images"
@@ -268,74 +243,9 @@ const TourSingleV1Dynamic = ({ children, data, fullUrl, itenarayItems }) => {
       </section>
       {/* End gallery grid wrapper */}
 
-      <TourGallery tour={tour} />
-
-      {/* End single page content */}
-
-      <section className="pt-40">
-        <div className="container">
-          <div className="row x-gap-40 y-gap-40">
-            <div className="col-auto">
-              {/* <span className="text-22 fw-600">Important information</span> */}
-            </div>
-          </div>
-          {/* End row */}
-          <ImportantInfo data={tour} />
-
-          {/* End pt-40 */}
-        </div>
-        {/* End .container */}
-      </section>
-      {/* End important info */}
-
-      {/* {data?.reviews > 0 && (
-        <div className="container">
-          <CustomerReviewSection data={data} />
-        </div>
-      )} */}
-
-      {dataAvailable && itenarayItems?.length !== 0 && (
-        <section className="mt-40">
-          <div className="container">
-            <h2 className="text-22 sm:text-18 fw-600 mb-20">Itinerary</h2>
-            <Itinerary itenarayItems={itenarayItems} />
-          </div>
-        </section>
-      )}
-      {/* End Itinerary */}
-
-      {dataAvailable && (
-        <section className="layout-pt-lg layout-pb-lg mt-50">
-          <div className="container">
-            <div className="row y-gap-20 justify-between items-end">
-              <div className="col-12">
-                <div className="sectionTitle -md">
-                  <h2 className="sectionTitle__title text-22 sm:text-18 fw-600">
-                    You might also like...
-                  </h2>
-                  <p className=" sectionTitle__text mt-5 sm:mt-0">
-                    Explore Our Best Sellers: Unmatched Experiences in Every
-                    Journey
-                  </p>
-                </div>
-              </div>
-              {/* End .col */}
-
-              {/* End .col */}
-            </div>
-            {/* End .row */}
-
-            <div className="row y-gap-30 pt-40 sm:pt-20 item_gap-x30">
-              <Tours filterTour={data?.name} />
-            </div>
-            {/* End .row */}
-          </div>
-          {/* End .container */}
-        </section>
-      )}
-      {/* End Tours Sections */}
+      <TourSinglePage tour={tour} itenarayItems={itenarayItems} />
     </>
   );
 };
 
-export default TourSingleV1Dynamic;
+export default TourSingle;
