@@ -60,6 +60,10 @@ const TourSingle = ({ children, data, fullUrl, itenarayItems }) => {
       tourType: "Attractions & Museums",
       delayAnimation: "200",
       languages: data?.languages,
+      meetup_point: data?.meetup_point,
+      about_ticket: data?.about_ticket,
+      help_center: data?.help_center,
+      faq: data?.faq,
     };
   }
 
