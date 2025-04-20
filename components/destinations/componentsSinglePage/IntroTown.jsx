@@ -9,7 +9,7 @@ const IntroTown = ({ slug, data }) => {
   let description = "";
 
   if (data) {
-    description = data[0]?.description;
+    description = data[0]?.value;
   }
 
   // Modify the parseHeadings function to extract the first <p> tag

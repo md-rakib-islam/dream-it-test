@@ -25,7 +25,7 @@ import OrganizationSchema from "./organization-schema";
 import TourProductsSchema from "./tour-products-schema";
 import FAQSchema from "./faq-schema";
 import Script from "next/script";
-import ChatWidget from "@/components/common/whyChoose/ChatWidget";
+import ChatWidget from "@/components/common/ChatWidget";
 
 export default async function RootLayout({ children }) {
   const data = await dataFetcher(GET_MENUS_ALL_NESTED);
@@ -192,7 +192,7 @@ export default async function RootLayout({ children }) {
             {children}
 
             <ScrollToTop />
-            {/* <ChatWidget /> */}
+            <ChatWidget />
 
             <Footer />
             <GoogleAnalytics gaId="G-TXJZSJCPCZ" />

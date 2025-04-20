@@ -1,5 +1,5 @@
 //base url
-export const BASE_URL = "http://192.168.68.118:8002";
+export const BASE_URL = "http://192.168.68.127:8000";
 
 // export const BASE_URL = "https://api.dreamtourism.it";
 
