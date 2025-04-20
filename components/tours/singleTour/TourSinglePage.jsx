@@ -4,7 +4,6 @@ import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import useWindowSize from "@/hooks/useWindowSize";
 import "../../../styles/weather.scss";
-import Slider from "react-slick";
 
 import TourSnapShot from "./TourSnapShot";
 import Overview from "./Overview";
@@ -13,6 +12,7 @@ import TestimonialSectionSingleTour from "../../section/Testimonial/TestimonialS
 import ImportantInfo from "./ImportantInfo";
 import Itinerary from "./itinerary/index";
 import Tours from "@/components/tours/Tours";
+import TourGallery from "./TourGallery";
 
 export default function TourSinglePage({ tour, itenarayItems }) {
   const width = useWindowSize();
@@ -53,57 +53,6 @@ export default function TourSinglePage({ tour, itenarayItems }) {
       setActiveImageIndex(newIndex);
     }
   };
-
-  // Function to chunk array into groups
-  const chunkArray = (arr, chunkSize) => {
-    const chunks = [];
-    for (let i = 0; i < arr.length; i += chunkSize) {
-      chunks.push(arr.slice(i, i + chunkSize));
-    }
-    return chunks;
-  };
-
-  // Create image groups for mobile slider (3 images per slide)
-  const mobileImageGroups = tour?.slideImg ? chunkArray(tour.slideImg, 3) : [];
-
-  // Slider settings for mobile
-  const sliderSettings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: true,
-    nextArrow: <Arrow type="next" />,
-    prevArrow: <Arrow type="prev" />,
-  };
-
-  // Custom arrow component for slider
-  function Arrow(props) {
-    let className =
-      props.type === "next"
-        ? "section-slider-nav -next flex-center button -blue-1 shadow-1 size-40 rounded-full sm:d-none"
-        : "section-slider-nav -prev flex-center button -blue-1 shadow-1 size-40 rounded-full sm:d-none ";
-    className += " arrow";
-    const char =
-      props.type === "next" ? (
-        <>
-          <i className="icon icon-chevron-right text-12 text-light"></i>
-        </>
-      ) : (
-        <>
-          <span className="icon icon-chevron-left text-12 text-light"></span>
-        </>
-      );
-    return (
-      <button className={className} onClick={props.onClick}>
-        {char}
-      </button>
-    );
-  }
-
-  // Check if there's only one image
-  const hasSingleImage = tour?.slideImg?.length === 1;
 
   // Function to scroll to section
   const scrollToSection = (sectionRef, tabName) => {
@@ -260,281 +209,8 @@ export default function TourSinglePage({ tour, itenarayItems }) {
 
   return (
     <>
-      {/* Image Gallery - Grid for Desktop, Grid Slider for Mobile */}
-      <section className="pt-40 js-pin-container">
-        <div className="container">
-          {!isMobile ? (
-            // Desktop Grid Layout
-            <div className="gallery-grid">
-              {tour?.slideImg?.length > 0 && (
-                <div
-                  className={`gallery-grid-container ${
-                    hasSingleImage ? "single-image-grid" : ""
-                  }`}
-                >
-                  {/* First large image (left) */}
-                  <div
-                    className="gallery-item gallery-item-large-left"
-                    onClick={() => openLightbox(0)}
-                  >
-                    <Image
-                      src={tour.slideImg[0] || "/placeholder.svg"}
-                      alt={`${tour?.title} - Image 1`}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      className="object-cover rounded-4"
-                      priority={true}
-                    />
-                  </div>
-
-                  {/* Center large image */}
-                  {tour?.slideImg?.length > 1 ? (
-                    <div
-                      className="gallery-item gallery-item-large-center"
-                      onClick={() => openLightbox(1)}
-                    >
-                      <Image
-                        src={tour.slideImg[1] || "/placeholder.svg"}
-                        alt={`${tour?.title} - Image 2`}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                        className="object-cover rounded-4"
-                        priority={true}
-                      />
-                    </div>
-                  ) : (
-                    hasSingleImage && (
-                      <div
-                        className="gallery-item gallery-item-large-center"
-                        onClick={() => openLightbox(0)}
-                      >
-                        <Image
-                          src={tour.slideImg[0] || "/placeholder.svg"}
-                          alt={`${tour?.title} - Image 1`}
-                          fill
-                          sizes="(max-width: 768px) 100vw, 50vw"
-                          className="object-cover rounded-4"
-                          priority={true}
-                        />
-                      </div>
-                    )
-                  )}
-
-                  {/* Top right image */}
-                  {tour?.slideImg?.length > 2 ? (
-                    <div
-                      className="gallery-item gallery-item-small-top-right"
-                      onClick={() => openLightbox(2)}
-                    >
-                      <Image
-                        src={tour.slideImg[2] || "/placeholder.svg"}
-                        alt={`${tour?.title} - Image 3`}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 25vw"
-                        className="object-cover rounded-4"
-                      />
-                    </div>
-                  ) : (
-                    hasSingleImage && (
-                      <div
-                        className="gallery-item gallery-item-small-top-right"
-                        onClick={() => openLightbox(0)}
-                      >
-                        <Image
-                          src={tour.slideImg[0] || "/placeholder.svg"}
-                          alt={`${tour?.title} - Image 1`}
-                          fill
-                          sizes="(max-width: 768px) 100vw, 25vw"
-                          className="object-cover rounded-4"
-                        />
-                      </div>
-                    )
-                  )}
-
-                  {/* Bottom right image */}
-                  {tour?.slideImg?.length > 3 ? (
-                    <div
-                      className="gallery-item gallery-item-small-bottom-right"
-                      onClick={() => openLightbox(3)}
-                    >
-                      <Image
-                        src={tour.slideImg[3] || "/placeholder.svg"}
-                        alt={`${tour?.title} - Image 4`}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 25vw"
-                        className="object-cover rounded-4"
-                      />
-                      {tour?.slideImg?.length > 4 && (
-                        <div className="more-photos-overlay rounded-4">
-                          <span>+{tour.slideImg.length - 4}</span>
-                        </div>
-                      )}
-                    </div>
-                  ) : (
-                    hasSingleImage && (
-                      <div
-                        className="gallery-item gallery-item-small-bottom-right"
-                        onClick={() => openLightbox(0)}
-                      >
-                        <Image
-                          src={tour.slideImg[0] || "/placeholder.svg"}
-                          alt={`${tour?.title} - Image 1`}
-                          fill
-                          sizes="(max-width: 768px) 100vw, 25vw"
-                          className="object-cover rounded-4"
-                        />
-                      </div>
-                    )
-                  )}
-                </div>
-              )}
-            </div>
-          ) : (
-            // Mobile View
-            <div className="mobile-slider-container">
-              {hasSingleImage ? (
-                // Single image for mobile - no grid, no slider
-                <div
-                  className="mobile-single-image"
-                  onClick={() => openLightbox(0)}
-                >
-                  <Image
-                    src={tour.slideImg[0] || "/placeholder.svg"}
-                    alt={`${tour?.title} - Image 1`}
-                    width={800}
-                    height={500}
-                    style={{ width: "100%", height: "auto" }}
-                    sizes="100vw"
-                    className="object-cover rounded-4"
-                    priority={true}
-                  />
-                </div>
-              ) : (
-                // Multiple images - use grid slider
-                <Slider {...sliderSettings}>
-                  {mobileImageGroups.map((group, groupIndex) => (
-                    <div key={groupIndex}>
-                      <div className="mobile-grid-slide">
-                        {group.length === 3 ? (
-                          // 3 images layout (1 large + 2 small)
-                          <>
-                            <div
-                              className="mobile-grid-large"
-                              onClick={() => openLightbox(groupIndex * 3)}
-                            >
-                              <Image
-                                src={group[0] || "/placeholder.svg"}
-                                alt={`${tour?.title} - Image ${
-                                  groupIndex * 3 + 1
-                                }`}
-                                width={600}
-                                height={600}
-                                style={{ height: "auto" }}
-                                sizes="60vw"
-                                className="object-cover w-full h-full rounded-4"
-                              />
-                            </div>
-                            <div className="mobile-grid-small-container">
-                              <div
-                                className="mobile-grid-small"
-                                onClick={() => openLightbox(groupIndex * 3 + 1)}
-                              >
-                                <Image
-                                  src={group[1] || "/placeholder.svg"}
-                                  alt={`${tour?.title} - Image ${
-                                    groupIndex * 3 + 2
-                                  }`}
-                                  width={300}
-                                  height={200}
-                                  style={{ height: "auto" }}
-                                  sizes="40vw"
-                                  className="object-cover w-full h-full rounded-4"
-                                />
-                              </div>
-                              <div
-                                className="mobile-grid-small"
-                                onClick={() => openLightbox(groupIndex * 3 + 2)}
-                              >
-                                <Image
-                                  src={group[2] || "/placeholder.svg"}
-                                  alt={`${tour?.title} - Image ${
-                                    groupIndex * 3 + 3
-                                  }`}
-                                  width={300}
-                                  height={200}
-                                  style={{ height: "auto" }}
-                                  sizes="40vw"
-                                  className="object-cover w-full h-full rounded-4"
-                                />
-                              </div>
-                            </div>
-                          </>
-                        ) : group.length === 2 ? (
-                          // 2 images layout (1 large + 1 small)
-                          <>
-                            <div
-                              className="mobile-grid-large"
-                              onClick={() => openLightbox(groupIndex * 3)}
-                            >
-                              <Image
-                                src={group[0] || "/placeholder.svg"}
-                                alt={`${tour?.title} - Image ${
-                                  groupIndex * 3 + 1
-                                }`}
-                                width={600}
-                                height={600}
-                                style={{ height: "auto" }}
-                                sizes="60vw"
-                                className="object-cover w-full h-full rounded-4"
-                              />
-                            </div>
-                            <div className="mobile-grid-small-container">
-                              <div
-                                className="mobile-grid-small"
-                                onClick={() => openLightbox(groupIndex * 3 + 1)}
-                              >
-                                <Image
-                                  src={group[1] || "/placeholder.svg"}
-                                  alt={`${tour?.title} - Image ${
-                                    groupIndex * 3 + 2
-                                  }`}
-                                  width={300}
-                                  height={200}
-                                  style={{ height: "auto" }}
-                                  sizes="40vw"
-                                  className="object-cover w-full h-full rounded-4"
-                                />
-                              </div>
-                            </div>
-                          </>
-                        ) : (
-                          // 1 image layout (just large)
-                          <div
-                            className="mobile-grid-full"
-                            onClick={() => openLightbox(groupIndex * 3)}
-                          >
-                            <Image
-                              src={group[0] || "/placeholder.svg"}
-                              alt={`${tour?.title} - Image ${
-                                groupIndex * 3 + 1
-                              }`}
-                              width={600}
-                              height={400}
-                              style={{ height: "auto" }}
-                              sizes="100vw"
-                              className="object-cover w-full h-full rounded-4"
-                            />
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </Slider>
-              )}
-            </div>
-          )}
-        </div>
-      </section>
+      {/* Image Gallery with Skeleton Loading */}
+      <TourGallery tour={tour} openLightbox={openLightbox} />
 
       {/* Navigation Tabs */}
       <div
@@ -766,133 +442,8 @@ export default function TourSinglePage({ tour, itenarayItems }) {
       </section>
       {/* End You might also like Section */}
 
-      {/* CSS for the gallery grid, mobile slider, lightbox, and tabs */}
+      {/* CSS for the lightbox and tabs */}
       <style jsx global>{`
-        /* Desktop Grid Layout */
-        .gallery-grid {
-          width: 100%;
-          overflow: hidden;
-        }
-
-        .gallery-grid-container {
-          display: grid;
-          grid-template-columns: 1fr 2fr 1fr;
-          grid-template-rows: repeat(2, 250px);
-          grid-gap: 10px;
-          height: 510px;
-        }
-
-        .gallery-grid-container.single-image-grid {
-          /* Special styling for single image grid */
-          position: relative;
-        }
-
-        .gallery-item {
-          position: relative;
-          overflow: hidden;
-          cursor: pointer;
-        }
-
-        .gallery-item:hover::after {
-          content: "";
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: rgba(0, 0, 0, 0.2);
-          z-index: 1;
-          border-radius: 8px;
-        }
-
-        .gallery-item-large-left {
-          grid-column: 1 / 2;
-          grid-row: 1 / 3;
-        }
-
-        .gallery-item-large-center {
-          grid-column: 2 / 3;
-          grid-row: 1 / 3;
-        }
-
-        .gallery-item-small-top-right {
-          grid-column: 3 / 4;
-          grid-row: 1 / 2;
-        }
-
-        .gallery-item-small-bottom-right {
-          grid-column: 3 / 4;
-          grid-row: 2 / 3;
-          position: relative;
-        }
-
-        .more-photos-overlay {
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background: rgba(0, 0, 0, 0.5);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          z-index: 2;
-        }
-
-        .more-photos-overlay span {
-          color: white;
-          font-size: 24px;
-          font-weight: bold;
-        }
-
-        /* Mobile Styles */
-        .mobile-slider-container {
-          margin-bottom: 20px;
-        }
-
-        .mobile-single-image {
-          width: 100%;
-          cursor: pointer;
-          border-radius: 8px;
-          overflow: hidden;
-        }
-
-        .mobile-grid-slide {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 4px;
-          height: 400px;
-        }
-
-        .mobile-grid-large {
-          width: 60%;
-          height: 100%;
-          position: relative;
-          cursor: pointer;
-        }
-
-        .mobile-grid-small-container {
-          width: calc(40% - 4px);
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-          gap: 4px;
-        }
-
-        .mobile-grid-small {
-          width: 100%;
-          height: calc(50% - 2px);
-          position: relative;
-          cursor: pointer;
-        }
-
-        .mobile-grid-full {
-          width: 100%;
-          height: 100%;
-          position: relative;
-          cursor: pointer;
-        }
-
         /* Centered Lightbox Styles */
         .centered-lightbox {
           position: fixed;
@@ -1013,7 +564,7 @@ export default function TourSinglePage({ tour, itenarayItems }) {
 
         .sticky-tabs-container.is-sticky {
           position: fixed;
-          top: 80px; /* Moved down 16px to avoid blocking the main menu */
+          top: 80px; /* Adjusted to match your layout */
           left: 0;
           right: 0;
           z-index: 1000;
@@ -1107,14 +658,6 @@ export default function TourSinglePage({ tour, itenarayItems }) {
 
         /* Responsive adjustments */
         @media (max-width: 768px) {
-          .gallery-grid-container {
-            display: none;
-          }
-
-          .mobile-grid-slide {
-            height: 350px;
-          }
-
           .lightbox-content {
             max-width: 90%;
           }
@@ -1144,10 +687,6 @@ export default function TourSinglePage({ tour, itenarayItems }) {
         }
 
         @media (max-width: 480px) {
-          .mobile-grid-slide {
-            height: 300px;
-          }
-
           .tourTabs__button {
             font-size: 14px;
             padding: 0 3px 10px;

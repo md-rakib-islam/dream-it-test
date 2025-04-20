@@ -12,7 +12,11 @@ const TourSnapShot = ({ data }) => {
                 Free cancellation
               </div>
               <div className="text-14 lh-16 text-light-1 mt-5">
-                Cancel up to 24 hours in advance for a full refund
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: data?.value || "Free cancellation",
+                  }}
+                ></div>
               </div>
             </div>
           </div>
