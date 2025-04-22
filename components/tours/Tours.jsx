@@ -39,7 +39,7 @@ const Tours = ({ destination, filterTour, tourType }) => {
         (item) => item.location && item.location.includes(destination)
       )
     : toursMainData;
-
+  console.log("filteredtoursMainData", filteredtoursMainData);
   const width = useWindowSize();
   const isMobile = width < 768;
   const settings = {
@@ -142,20 +142,26 @@ const Tours = ({ destination, filterTour, tourType }) => {
           >
             <div className="tourCard__image position-relative">
               <div className="inside-slider">
-                {item?.slideImg?.map((slide, i) => (
-                  <div className="cardImage ratio ratio-1:1" key={i}>
-                    <div className="cardImage__content ">
-                      <Image
-                        width={300}
-                        height={300}
-                        priority
-                        className="col-12 js-lazy"
-                        src={slide}
-                        alt={item?.title}
-                      />
-                    </div>
-                  </div>
-                ))}
+                {/* {item?.slideImg
+                  ? item?.slideImg?.map((slide, i) => (
+                      <div className="cardImage ratio ratio-1:1" key={i}>
+                        <div className="cardImage__content ">
+                          <Image
+                            width={300}
+                            height={300}
+                            priority
+                            className="col-12 js-lazy"
+                            src={
+                              slide
+                                ? slide
+                                : "https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/3e876a3d-c5c3-42ab-85b9-d7f25526b300/v1"
+                            }
+                            alt={item?.title}
+                          />
+                        </div>
+                      </div>
+                    ))
+                  : ""} */}
 
                 <div
                   className="cardImage__leftBadge cardImage-2__leftBadge sm:d-none"
@@ -266,20 +272,26 @@ const Tours = ({ destination, filterTour, tourType }) => {
                     nextArrow={<Arrow type="next" />}
                     prevArrow={<Arrow type="prev" />}
                   >
-                    {item?.slideImg?.map((slide, i) => (
-                      <div className="cardImage ratio ratio-1:1" key={i}>
-                        <div className="cardImage__content ">
-                          <Image
-                            width={300}
-                            height={300}
-                            priority
-                            className="col-12 js-lazy"
-                            src={slide}
-                            alt={item?.title}
-                          />
-                        </div>
-                      </div>
-                    ))}
+                    {/* {item?.slideImg
+                      ? item?.slideImg?.map((slide, i) => (
+                          <div className="cardImage ratio ratio-1:1" key={i}>
+                            <div className="cardImage__content ">
+                              <Image
+                                width={300}
+                                height={300}
+                                priority
+                                className="col-12 js-lazy"
+                                src={
+                                  slide
+                                    ? slide
+                                    : "https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/3e876a3d-c5c3-42ab-85b9-d7f25526b300/v1"
+                                }
+                                alt={item?.title}
+                              />
+                            </div>
+                          </div>
+                        ))
+                      : ""} */}
                   </Slider>
 
                   <div

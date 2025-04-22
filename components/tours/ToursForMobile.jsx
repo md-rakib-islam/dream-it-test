@@ -64,20 +64,26 @@ const ToursForMobile = ({ destination, filterTour, tourType }) => {
                 nextArrow={<Arrow type="next" />}
                 prevArrow={<Arrow type="prev" />}
               > */}
-                {item?.slideImg?.map((slide, i) => (
-                  <div className="cardImage ratio ratio-1:1" key={i}>
-                    <div className="cardImage__content ">
-                      <Image
-                        width={300}
-                        height={300}
-                        priority
-                        className="col-12 js-lazy"
-                        src={slide}
-                        alt={item?.title}
-                      />
-                    </div>
-                  </div>
-                ))}
+                {/* {item?.slideImg
+                  ? item?.slideImg?.map((slide, i) => (
+                      <div className="cardImage ratio ratio-1:1" key={i}>
+                        <div className="cardImage__content ">
+                          <Image
+                            width={300}
+                            height={300}
+                            priority
+                            className="col-12 js-lazy"
+                            src={
+                              slide
+                                ? slide
+                                : "https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/3e876a3d-c5c3-42ab-85b9-d7f25526b300/v1"
+                            }
+                            alt={item?.title}
+                          />
+                        </div>
+                      </div>
+                    ))
+                  : ""} */}
                 {/* </Slider> */}
 
                 {/* <div className="cardImage__leftBadge cardImage-2__leftBadge md:d-none">
