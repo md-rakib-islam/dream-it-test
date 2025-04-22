@@ -3762,17 +3762,17 @@
 .blog-content p {
   color: #1a1a1a !important;
 
-  font-size: 20px;
+  font-size: 18px;
 }
 .blog-content p span {
   color: #1a1a1a !important;
 
-  font-size: 20px;
+  font-size: 18px;
 }
 .blog-content p strong {
   color: #1a1a1a !important;
 
-  font-size: 20px;
+  font-size: 18px;
 }
 .blog-content h1 {
   color: #1a1a1a !important;
@@ -3780,7 +3780,14 @@
   font-size: 35px !important;
 }
 .blog-content h2 {
+  margin-top: 10px;
+  margin-bottom: 10px;
   font-size: 25px;
+}
+.blog-content h3 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 22px;
 }
 .blog-content td p span {
   font-size: 15px;
@@ -3798,7 +3805,7 @@
   list-style-position: inside; // margin-left: 20px; /* optional, to add some spacing */
   margin-left: 5px;
   color: #1a1a1a;
-  font-size: 20px;
+  font-size: 18px;
   padding: 0;
 }
 .blog-content li span {
