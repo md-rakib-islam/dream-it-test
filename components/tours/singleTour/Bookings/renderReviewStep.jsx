@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 // import styles from "./CheckoutModal.module.css";
-import { BASE_URL_AGENT_BOOKING } from "@/constant/constants";
+// import { BASE_URL_AGENT_BOOKING } from "@/constant/constants";
 
 const RenderReviewStep = ({
   handleBack,
@@ -183,7 +183,7 @@ const RenderReviewStep = ({
           <div className="bookingDetails">
             <h2 className="bookingTitle">You're booking</h2>
 
-            <div className="tourCard">
+            <div className="tourCardR">
               <div className="tourImage">
                 <Image
                   src={tourImage || "/placeholder.svg"}

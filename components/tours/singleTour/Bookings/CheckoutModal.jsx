@@ -6,7 +6,7 @@ import Link from "next/link";
 // import styles from "./CheckoutModal.module.css";
 import { countries } from "./countries";
 import RenderReviewStep from "./renderReviewStep";
-import { BASE_URL_AGENT_BOOKING } from "@/constant/constants";
+// import { BASE_URL_AGENT_BOOKING } from "@/constant/constants";
 
 const CheckoutModal = ({
   isOpen,
