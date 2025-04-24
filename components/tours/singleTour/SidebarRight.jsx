@@ -1,9 +1,30 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import AgentCalendar from "./Bookings/AgentCalendar";
+import { BASE_URL_AGENT_BOOKING } from "@/constant/constants";
 
 const SidebarRight = ({ data }) => {
+  //busdata
+  const [busdata, setBusdata] = useState([]);
+
+  useEffect(() => {
+    const fetchBusData = async () => {
+      try {
+        const response = await fetch(
+          `${BASE_URL_AGENT_BOOKING}/bus/api/v1/bus/35`
+        );
+        const data = await response.json();
+        setBusdata(data);
+      } catch (error) {
+        console.error("Error fetching bus data:", error);
+      }
+    };
+
+    fetchBusData();
+  }, []);
+
   useEffect(() => {
     const script = document.createElement("script");
     script.src =
@@ -29,7 +50,8 @@ const SidebarRight = ({ data }) => {
 
           <span className="fw-500 ml-20">Book now, pay in 3 installments</span>
         </div>
-        <div className="bokunWidget" data-src={data?.url}></div>
+        {/* <div className="bokunWidget" data-src={data?.url}></div> */}
+        <AgentCalendar tourdata={data} busdata={busdata} />
       </div>
     </div>
   );
