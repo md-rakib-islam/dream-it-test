@@ -9,6 +9,8 @@ import BookingSummary from "./BookingSummary";
 import { LayoutContext } from "@/app/LayoutProvider";
 
 const AgentCalendar = ({ tourdata, busdata }) => {
+  const data = useContext(LayoutContext);
+  const logoUrl = data?.logo ? data?.logo[0]?.cloudflare_favicon : "";
   const searchParams = useSearchParams();
   const search = searchParams.get("location");
   const agentRef = searchParams.get("agentRef");
@@ -93,19 +95,19 @@ const AgentCalendar = ({ tourdata, busdata }) => {
     );
 
     // Debug logging
-    console.log("Validation in AgentCalendar:", {
-      isMinParticipantsMet,
-      isMaxParticipantsExceeded,
-      hasValidDate,
-      hasValidTime,
-      hasValidPrice,
-      isValidBooking:
-        isMinParticipantsMet &&
-        !isMaxParticipantsExceeded &&
-        hasValidDate &&
-        hasValidTime &&
-        hasValidPrice,
-    });
+    // console.log("Validation in AgentCalendar:", {
+    //   isMinParticipantsMet,
+    //   isMaxParticipantsExceeded,
+    //   hasValidDate,
+    //   hasValidTime,
+    //   hasValidPrice,
+    //   isValidBooking:
+    //     isMinParticipantsMet &&
+    //     !isMaxParticipantsExceeded &&
+    //     hasValidDate &&
+    //     hasValidTime &&
+    //     hasValidPrice,
+    // });
   }, [selectedDate, selectedTime, participants, minRequired, maxAllowed]);
 
   return (
@@ -118,6 +120,8 @@ const AgentCalendar = ({ tourdata, busdata }) => {
                 onCountChange={handleParticipantChange}
                 pricingList={pricingList}
                 currentCurrency={selectedCurrency}
+                minRequired={minRequired}
+                maxAllowed={maxAllowed}
               />
             </div>
             <div className="Agentsection">
@@ -146,6 +150,7 @@ const AgentCalendar = ({ tourdata, busdata }) => {
                 isValidBooking={isValidBooking}
                 minRequired={minRequired}
                 maxAllowed={maxAllowed}
+                logoUrl={logoUrl}
               />
             </div>
           </div>

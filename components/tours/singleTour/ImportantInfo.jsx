@@ -366,7 +366,7 @@ const ImportantInfo = ({ data }) => {
             <div
               style={{
                 display: "table-row",
-                borderBottom: "1px solid #e5e7eb",
+                // borderBottom: "1px solid #e5e7eb",
                 marginBottom: "2rem",
               }}
             >

@@ -90,7 +90,11 @@ const index = async () => {
     return (
       <>
         <div className="header-margin"></div>
-        <section className="layout-pt-md layout-pb-lg blog-content">
+        <section
+          className={`layout-pt-md layout-pb-lg blog-content ${
+            filteredBlogs?.length === 0 ? "vh-100" : ""
+          }`}
+        >
           <div className="container">
             <div className="row justify-center text-center">
               <div className="col-auto">

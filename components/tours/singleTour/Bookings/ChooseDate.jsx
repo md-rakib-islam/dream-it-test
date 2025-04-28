@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-// import styles from "./calendar.module.css";
 import clsx from "clsx";
 
 const ChooseDate = ({
@@ -15,25 +14,85 @@ const ChooseDate = ({
 }) => {
   // Initialize calendar to show the month of the first available date
   const getInitialDate = () => {
-    if (availableDates && availableDates.length > 0) {
-      // Sort dates to get the earliest one
-      const sortedDates = [...availableDates].sort((a, b) => a - b);
-      // Create a new date with the same month and year as the first available date
-      return new Date(
-        sortedDates[0].getFullYear(),
-        sortedDates[0].getMonth(),
-        1
-      );
+    // console.log("Getting initial date, availableDates:", availableDates);
+
+    // Default to current month
+    const defaultDate = new Date();
+    defaultDate.setDate(1); // First day of current month
+
+    // If no available dates, return default
+    if (
+      !availableDates ||
+      !Array.isArray(availableDates) ||
+      availableDates.length === 0
+    ) {
+      // console.log("No available dates, using default:", defaultDate);
+      return defaultDate;
     }
-    // Default to current month if no available dates
-    return new Date();
+
+    try {
+      // Get today for comparison
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      // Find the earliest future date
+      let earliestFutureDate = null;
+
+      for (let i = 0; i < availableDates.length; i++) {
+        const date = availableDates[i];
+        if (date && date instanceof Date) {
+          // Create a clean date for comparison (no time)
+          const cleanDate = new Date(
+            date.getFullYear(),
+            date.getMonth(),
+            date.getDate()
+          );
+          const cleanToday = new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            today.getDate()
+          );
+
+          if (cleanDate >= cleanToday) {
+            if (!earliestFutureDate || cleanDate < earliestFutureDate) {
+              earliestFutureDate = cleanDate;
+            }
+          }
+        }
+      }
+
+      if (earliestFutureDate) {
+        // Create a date for the first day of the month of the earliest future date
+        const result = new Date(
+          earliestFutureDate.getFullYear(),
+          earliestFutureDate.getMonth(),
+          1
+        );
+        // console.log("Using earliest future date's month:", result);
+        return result;
+      }
+    } catch (error) {
+      console.error("Error finding earliest future date:", error);
+    }
+
+    console.log("Falling back to default date:", defaultDate);
+    return defaultDate;
   };
 
+  // State initialization
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const [showTimeSelection, setShowTimeSelection] = useState(false);
-  const [currentDate, setCurrentDate] = useState(getInitialDate);
+  const [currentDate, setCurrentDate] = useState(new Date()); // Start with current month
   const [showMonthDropdown, setShowMonthDropdown] = useState(false);
+
+  // Set the initial date once availableDates is available
+  useEffect(() => {
+    if (availableDates && availableDates.length > 0) {
+      console.log("Setting initial date based on available dates");
+      setCurrentDate(getInitialDate());
+    }
+  }, [availableDates]); // Only run when availableDates changes
 
   const timeSlots = ["07:30 AM"];
 
@@ -204,26 +263,106 @@ const ChooseDate = ({
   const isDateAvailable = (date) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    return (
-      date >= today &&
-      availableDates.some(
-        (availableDate) =>
-          availableDate.getDate() === date.getDate() &&
-          availableDate.getMonth() === date.getMonth() &&
-          availableDate.getFullYear() === date.getFullYear()
-      )
+
+    // Create clean date objects for comparison (no time component)
+    const cleanDate = new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate()
     );
+    const cleanToday = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate()
+    );
+
+    if (cleanDate < cleanToday) return false;
+
+    return availableDates.some((availableDate) => {
+      // Ensure availableDate is a Date object
+      const availableDateObj =
+        availableDate instanceof Date ? availableDate : new Date(availableDate);
+
+      return (
+        availableDateObj.getDate() === date.getDate() &&
+        availableDateObj.getMonth() === date.getMonth() &&
+        availableDateObj.getFullYear() === date.getFullYear()
+      );
+    });
   };
 
   // Check if there are any available dates in the current month
   const hasAvailableDatesInMonth = () => {
-    if (!availableDates || availableDates.length === 0) return false;
+    if (
+      !availableDates ||
+      !Array.isArray(availableDates) ||
+      availableDates.length === 0
+    )
+      return false;
 
-    return availableDates.some(
-      (date) =>
-        date.getMonth() === currentDate.getMonth() &&
-        date.getFullYear() === currentDate.getFullYear()
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const cleanToday = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate()
     );
+
+    return availableDates.some((date) => {
+      // Ensure date is a Date object
+      const dateObj = date instanceof Date ? date : new Date(date);
+
+      // Create clean date for comparison
+      const cleanDate = new Date(
+        dateObj.getFullYear(),
+        dateObj.getMonth(),
+        dateObj.getDate()
+      );
+
+      return (
+        dateObj.getMonth() === currentDate.getMonth() &&
+        dateObj.getFullYear() === currentDate.getFullYear() &&
+        cleanDate >= cleanToday
+      );
+    });
+  };
+
+  // Check if a specific month has available dates
+  const hasAvailableDatesInSpecificMonth = (year, month) => {
+    if (
+      !availableDates ||
+      !Array.isArray(availableDates) ||
+      availableDates.length === 0
+    )
+      return false;
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const cleanToday = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate()
+    );
+
+    return availableDates.some((date) => {
+      // Ensure date is a Date object
+      const dateObj = date instanceof Date ? date : new Date(date);
+
+      // Create clean date for comparison
+      const cleanDate = new Date(
+        dateObj.getFullYear(),
+        dateObj.getMonth(),
+        dateObj.getDate()
+      );
+
+      return (
+        dateObj.getMonth() === month &&
+        dateObj.getFullYear() === year &&
+        cleanDate >= cleanToday
+      );
+    });
   };
 
   // Format price with currency symbol
@@ -231,10 +370,6 @@ const ChooseDate = ({
     if (!price) return "";
     return `${currentCurrency?.symbol || ""}${price}`;
   };
-
-  // Debug logging to help diagnose issues
-  console.log("Participants in ChooseDate:", participants);
-  console.log("Has valid price in ChooseDate:", hasValidPrice);
 
   return (
     <>
@@ -257,30 +392,39 @@ const ChooseDate = ({
                   year: "numeric",
                 })}
               </span>
-              <i className={`icon-chevron-sm-down text-12 ml-10 text-dark`}></i>
+              <i className="icon-chevron-sm-down text-12 text-dark"></i>
             </div>
 
             {showMonthDropdown && (
               <div className="monthDropdown">
-                {getMonthsToShow().map((date, index) => (
-                  <div
-                    key={index}
-                    className={clsx("monthOption", {
-                      ["activeMonth"]:
-                        date.getMonth() === currentDate.getMonth() &&
-                        date.getFullYear() === currentDate.getFullYear(),
-                    })}
-                    onClick={() => {
-                      setCurrentDate(date);
-                      setShowMonthDropdown(false);
-                    }}
-                  >
-                    {date.toLocaleString("default", {
-                      month: "long",
-                      year: "numeric",
-                    })}
-                  </div>
-                ))}
+                {getMonthsToShow().map((date, index) => {
+                  const hasAvailableDates = hasAvailableDatesInSpecificMonth(
+                    date.getFullYear(),
+                    date.getMonth()
+                  );
+                  return (
+                    <div
+                      key={index}
+                      className={clsx("monthOption", {
+                        ["activeMonth"]:
+                          date.getMonth() === currentDate.getMonth() &&
+                          date.getFullYear() === currentDate.getFullYear(),
+                      })}
+                      onClick={() => {
+                        setCurrentDate(date);
+                        setShowMonthDropdown(false);
+                      }}
+                    >
+                      {date.toLocaleString("default", {
+                        month: "long",
+                        year: "numeric",
+                      })}
+                      {hasAvailableDates && (
+                        <span className="monthAvailabilityDot"></span>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             )}
           </div>

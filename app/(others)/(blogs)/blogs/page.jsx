@@ -62,75 +62,55 @@ export async function generateMetadata() {
   };
 }
 const index = async () => {
-  try {
-    // Fetch blog and category data
-    const [contentBlogData, categoryData] = await Promise.all([
-      dataFetcher(`${GET_CMS_BLOGS}`, { next: { revalidate: 60 } }),
-      dataFetcher(`${BLOG_CATEGORIES}`, { next: { revalidate: 60 } }),
-    ]);
+  // Fetch blog and category data
+  const [contentBlogData, categoryData] = await Promise.all([
+    dataFetcher(`${GET_CMS_BLOGS}`, { next: { revalidate: 60 } }),
+    dataFetcher(`${BLOG_CATEGORIES}`, { next: { revalidate: 60 } }),
+  ]);
 
-    // Ensure blogs is always an array to prevent undefined errors
-    const blogs = Array.isArray(contentBlogData?.blogs)
-      ? contentBlogData.blogs
-      : [];
+  // Ensure blogs is always an array to prevent undefined errors
+  const blogs = Array.isArray(contentBlogData?.blogs)
+    ? contentBlogData.blogs
+    : [];
 
-    // Filter logic: If any blog includes "things to do", exclude it.
-    const filteredBlogs = blogs.filter((elm) => {
-      if (elm.title.toLowerCase().includes("things to do")) {
-        return false;
-      }
-      return true;
-    });
+  // Filter logic: If any blog includes "things to do", exclude it.
+  const filteredBlogs = blogs.filter((elm) => {
+    if (elm.title.toLowerCase().includes("things to do")) {
+      return false;
+    }
+    return true;
+  });
 
-    return (
-      <>
-        <div className="header-margin"></div>
-        <section className="layout-pt-md layout-pb-lg blog-content">
-          <div className="container">
-            <div className="row justify-center text-center">
-              <div className="col-auto">
-                <div className="sectionTitle -md">
-                  <h1 className="sectionTitle__title">Latest Blog Posts</h1>
-                  {filteredBlogs?.length === 0 ? (
-                    <p className="sectionTitle__text mt-5 sm:mt-0">
-                      There are no blog posts.
-                    </p>
-                  ) : null}
-                </div>
-              </div>
-            </div>
-
-            {/* Show blog list only if filteredBlogs is not empty */}
-            {filteredBlogs && (
-              <Blog blogs={filteredBlogs} categories={categoryData} />
-            )}
-          </div>
-        </section>
-      </>
-    );
-  } catch (error) {
-    console.error("Error fetching blog data:", error);
-
-    return (
-      <>
-        <div className="header-margin"></div>
-        <section className="layout-pt-md layout-pb-lg blog-content">
-          <div className="container">
-            <div className="row justify-center text-center">
-              <div className="col-auto">
-                <div className="sectionTitle -md">
-                  <h1 className="sectionTitle__title">Latest Blog Posts</h1>
+  return (
+    <>
+      <div className="header-margin"></div>
+      <section
+        className={`layout-pt-md layout-pb-lg blog-content ${
+          filteredBlogs?.length === 0 ? "vh-100" : ""
+        }`}
+      >
+        <div className="container">
+          <div className="row justify-center text-center">
+            <div className="col-auto">
+              <div className="sectionTitle -md">
+                <h1 className="sectionTitle__title">Latest Blog Posts</h1>
+                {filteredBlogs?.length === 0 && (
                   <p className="sectionTitle__text mt-5 sm:mt-0">
-                    Something went wrong! Please try again.
+                    There are no blog posts.
                   </p>
-                </div>
+                )}
               </div>
             </div>
           </div>
-        </section>
-      </>
-    );
-  }
+
+          {/* Show blog list only if filteredBlogs is not empty */}
+          {filteredBlogs && (
+            <Blog blogs={filteredBlogs} categories={categoryData} />
+          )}
+        </div>
+      </section>
+    </>
+  );
 };
 
 export default index;

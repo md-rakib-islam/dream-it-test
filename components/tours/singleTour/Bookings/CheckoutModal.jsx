@@ -6,7 +6,7 @@ import Link from "next/link";
 // import styles from "./CheckoutModal.module.css";
 import { countries } from "./countries";
 import RenderReviewStep from "./renderReviewStep";
-// import { BASE_URL_AGENT_BOOKING } from "@/constant/constants";
+import { BASE_URL_AGENT_BOOKING } from "@/constant/constants";
 
 const CheckoutModal = ({
   isOpen,
@@ -21,6 +21,7 @@ const CheckoutModal = ({
   tourImage,
   agentRef,
   currentCurrency,
+  logoUrl,
 }) => {
   const searchParams = new URLSearchParams(window.location.search);
   const agentCup = searchParams.get("agentCup");
@@ -192,10 +193,14 @@ const CheckoutModal = ({
         <div className="modalHeader">
           <div className="headerContent">
             <Image
-              src="/img/Logo_150_px-01.webp"
-              width={120}
-              height={50}
-              alt="Dream Tourism"
+              unoptimized
+              quality={100}
+              style={{ width: "60px", height: "60px" }}
+              src={logoUrl}
+              width={128}
+              height={128}
+              alt="Dream Tourism SRLS"
+              priority={true}
             />
             <div className="progressContainer">
               <div className="progressBar">
@@ -415,9 +420,7 @@ const CheckoutModal = ({
                   </p>
                   <div className="orderTotal">
                     <div className="totalRow">
-                      <span>
-                        Group of {participants?.count || 0} participants
-                      </span>
+                      <span>Total {participants?.count || 0} participants</span>
                       <span>
                         {currentCurrency?.symbol}
                         {total.toFixed(2)}
@@ -454,6 +457,7 @@ const CheckoutModal = ({
               is_agent={is_agent}
               payWithStripe={payWithStripe}
               tourID={tourID}
+              logoUrl={logoUrl}
             />
           )}
         </div>

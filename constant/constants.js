@@ -1,7 +1,10 @@
 //base url
-export const BASE_URL = "http://192.168.68.127:8000";
+// export const BASE_URL = "http://192.168.68.127:8000";
 
-// export const BASE_URL = "https://api.dreamtourism.it";
+export const BASE_URL = "https://api.dreamtourism.it";
+
+//base url for agents
+export const BASE_URL_AGENT_BOOKING = "http://192.168.68.127:8003";
 
 // slidersettings
 export const CREATE_SLIDERSETTING = `${BASE_URL}/homepage_slider/api/v1/homepage_slider/create/`;

@@ -3,7 +3,13 @@
 import { useState, useEffect } from "react";
 // import styles from "./calendar.module.css";
 
-const Participants = ({ onCountChange, pricingList, currentCurrency }) => {
+const Participants = ({
+  onCountChange,
+  pricingList,
+  currentCurrency,
+  minRequired,
+  maxAllowed,
+}) => {
   const [participantCount, setParticipantCount] = useState(1);
   const [hasValidPrice, setHasValidPrice] = useState(false);
 
@@ -59,13 +65,13 @@ const Participants = ({ onCountChange, pricingList, currentCurrency }) => {
   // Get available participant counts
   const availableCounts = getAvailableParticipantCounts();
 
-  // Get minimum required participants
-  const minRequired =
-    availableCounts.length > 0 ? Math.min(...availableCounts) : null;
+  // // Get minimum required participants
+  // const minRequired =
+  //   availableCounts.length > 0 ? Math.min(...availableCounts) : null;
 
-  // Get maximum allowed participants
-  const maxAllowed =
-    availableCounts.length > 0 ? Math.max(...availableCounts) : null;
+  // // Get maximum allowed participants
+  // const maxAllowed =
+  //   availableCounts.length > 0 ? Math.max(...availableCounts) : null;
 
   const updateCount = (increment) => {
     setParticipantCount((prevCount) => {
@@ -92,12 +98,12 @@ const Participants = ({ onCountChange, pricingList, currentCurrency }) => {
   };
 
   // Debug logging to help diagnose issues
-  console.log("Participant count:", participantCount);
-  console.log("Has valid price:", hasValidPrice);
-  console.log("Current price:", getCurrentPrice());
-  console.log("Available counts:", availableCounts);
-  console.log("Min required:", minRequired);
-  console.log("Max allowed:", maxAllowed);
+  // console.log("Participant count:", participantCount);
+  // console.log("Has valid price:", hasValidPrice);
+  // console.log("Current price:", getCurrentPrice());
+  // console.log("Available counts:", availableCounts);
+  // console.log("Min required:", minRequired);
+  // console.log("Max allowed:", maxAllowed);
 
   return (
     <>

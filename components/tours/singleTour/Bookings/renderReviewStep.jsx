@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 // import styles from "./CheckoutModal.module.css";
-// import { BASE_URL_AGENT_BOOKING } from "@/constant/constants";
+import { BASE_URL_AGENT_BOOKING } from "@/constant/constants";
 
 const RenderReviewStep = ({
   handleBack,
@@ -25,6 +25,7 @@ const RenderReviewStep = ({
   is_agent,
   payWithStripe,
   tourID,
+  logoUrl,
 }) => {
   const [couponCode, setCouponCode] = useState("");
   const [couponMessage, setCouponMessage] = useState("");
@@ -199,7 +200,7 @@ const RenderReviewStep = ({
                   <div className="detailColumn">
                     <div className="columnHeader">Travellers</div>
                     <div className="columnValue">
-                      Group of {participants?.count || 0} participants
+                      Total {participants?.count || 0} participants
                     </div>
                   </div>
                   <div className="detailColumn">
@@ -231,7 +232,7 @@ const RenderReviewStep = ({
             {showDetails && (
               <div className="priceBreakdown">
                 <div className="priceRow">
-                  <span>Group of {participants?.count || 0} participants</span>
+                  <span>Total {participants?.count || 0} participants</span>
                   <span>
                     {currentCurrency?.symbol}
                     {total.toFixed(2)}

@@ -18,6 +18,7 @@ const BookingSummary = ({
   isValidBooking,
   minRequired,
   maxAllowed,
+  logoUrl,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMinParticipantsMet, setIsMinParticipantsMet] = useState(false);
@@ -148,6 +149,7 @@ const BookingSummary = ({
         tourID={tourID}
         agentRef={agentRef}
         currentCurrency={currentCurrency}
+        logoUrl={logoUrl}
       />
     </>
   );
