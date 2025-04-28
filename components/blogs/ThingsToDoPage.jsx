@@ -9,7 +9,7 @@
 //   const searchParams = useSearchParams();
 //   const router = useRouter();
 //   const country = searchParams.get("country");
-//   console.log("categories", categories);
+
 //   const [filterOption, setFilterOption] = useState(countries[0]?.id);
 //   const [filteredItems, setFilteredItems] = useState(blogs);
 

@@ -60,7 +60,6 @@ const AgentCalendar = ({ tourdata, busdata }) => {
   }, [matchedTour]);
 
   const handleParticipantChange = (participantData) => {
-    console.log("Participant data changed:", participantData);
     setParticipants(participantData);
   };
 

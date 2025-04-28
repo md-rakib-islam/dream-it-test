@@ -14,8 +14,6 @@ const ChooseDate = ({
 }) => {
   // Initialize calendar to show the month of the first available date
   const getInitialDate = () => {
-    // console.log("Getting initial date, availableDates:", availableDates);
-
     // Default to current month
     const defaultDate = new Date();
     defaultDate.setDate(1); // First day of current month
@@ -26,7 +24,6 @@ const ChooseDate = ({
       !Array.isArray(availableDates) ||
       availableDates.length === 0
     ) {
-      // console.log("No available dates, using default:", defaultDate);
       return defaultDate;
     }
 
@@ -68,14 +65,13 @@ const ChooseDate = ({
           earliestFutureDate.getMonth(),
           1
         );
-        // console.log("Using earliest future date's month:", result);
+
         return result;
       }
     } catch (error) {
       console.error("Error finding earliest future date:", error);
     }
 
-    console.log("Falling back to default date:", defaultDate);
     return defaultDate;
   };
 
@@ -89,7 +85,6 @@ const ChooseDate = ({
   // Set the initial date once availableDates is available
   useEffect(() => {
     if (availableDates && availableDates.length > 0) {
-      console.log("Setting initial date based on available dates");
       setCurrentDate(getInitialDate());
     }
   }, [availableDates]); // Only run when availableDates changes

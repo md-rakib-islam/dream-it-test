@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 
 const ImportantInfo = ({ data }) => {
-  console.log("ImportantInfo data", data);
   const [hydratedData, setHydratedData] = useState({});
   const [openSection, setOpenSection] = useState(null);
   const [isMobile, setIsMobile] = useState(false);

@@ -118,14 +118,10 @@ const TourGallery = ({ tour, openLightbox: externalOpenLightbox }) => {
     // This ensures we always transition to the actual images
     const timer = setTimeout(() => {
       setIsLoading(false);
-      console.log("Loading complete");
     }, 1500);
 
     return () => clearTimeout(timer);
   }, [tour]);
-
-  console.log("TourGalleryWithSkeletonFixed - isLoading:", isLoading);
-  console.log("Tour data:", normalizedImages.length, "normalized images");
 
   if (isLoading) {
     return <TourGalleryGridSkeleton />;

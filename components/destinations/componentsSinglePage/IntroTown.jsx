@@ -30,7 +30,7 @@ const IntroTown = ({ slug, data }) => {
 
   // Call the updated function
   const { headings, updatedHTML } = parseHeadingsAndFirstParagraph(description);
-  console.log("updatedHTML", updatedHTML);
+
   // Content section component
   const ContentSection = () => (
     <div className="col-xl-8">

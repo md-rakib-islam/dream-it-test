@@ -125,7 +125,6 @@ const CheckoutModal = ({
       coupon_discount: coupon_discount === "" ? null : coupon_discount, // Set to null if empty
       payWithCash,
     };
-    console.log("Proceeding to secure checkout", { checkoutData });
 
     try {
       const response = await fetch(
@@ -144,7 +143,6 @@ const CheckoutModal = ({
       }
 
       const result = await response.json();
-      console.log("Checkout response:", result);
 
       if (result.session_url) {
         window.open(result.session_url, "_blank");

@@ -98,12 +98,6 @@ const Participants = ({
   };
 
   // Debug logging to help diagnose issues
-  // console.log("Participant count:", participantCount);
-  // console.log("Has valid price:", hasValidPrice);
-  // console.log("Current price:", getCurrentPrice());
-  // console.log("Available counts:", availableCounts);
-  // console.log("Min required:", minRequired);
-  // console.log("Max allowed:", maxAllowed);
 
   return (
     <>
