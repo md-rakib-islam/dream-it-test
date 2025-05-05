@@ -2,19 +2,24 @@
 
 import { useState, useEffect, useContext } from "react";
 import { useSearchParams } from "next/navigation";
-import Participants from "./Participants";
-import ChooseDate from "./ChooseDate";
-import BookingSummary from "./BookingSummary";
+import ParticipantsForDailyTour from "./ParticipantsForDailyTour";
+import ChooseDateForDailyTour from "./ChooseDateForDailyTour";
+import BookingSummaryForDailyTour from "./BookingSummaryForDailyTour";
+import ParticipantsForRegularTour from "./ParticipantsForRegularTour";
+import ChooseDateForRegularTour from "./ChooseDateForRegularTour";
+import BookingSummaryForRegularTour from "./BookingSummaryForRegularTour";
 // import styles from "./calendar.module.css";
 import { LayoutContext } from "@/app/LayoutProvider";
 
 const AgentCalendar = ({ tourdata, busdata }) => {
+  // Get context data and URL parameters
   const data = useContext(LayoutContext);
   const logoUrl = data?.logo ? data?.logo[0]?.cloudflare_favicon : "";
   const searchParams = useSearchParams();
   const search = searchParams.get("location");
   const agentRef = searchParams.get("agentRef");
 
+  // State for booking selections
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const [participants, setParticipants] = useState({
@@ -26,6 +31,9 @@ const AgentCalendar = ({ tourdata, busdata }) => {
   const { toursMainData, selectedCurrency } = useContext(LayoutContext);
   const [matchedTourData, setMatchedTourData] = useState(null);
   const [isValidBooking, setIsValidBooking] = useState(false);
+
+  // Determine tour type
+  const tourType = busdata?.tour_type || "regular_tour"; // Default to day_tour if not specified
 
   // Find the matched tour from toursMainData
   const matchedTour = toursMainData.find((tour) => tour.id === tourdata?.id);
@@ -109,50 +117,105 @@ const AgentCalendar = ({ tourdata, busdata }) => {
     // });
   }, [selectedDate, selectedTime, participants, minRequired, maxAllowed]);
 
+  // Render components based on tour type
+  const renderTourComponents = () => {
+    if (tourType == "day_tour") {
+      return (
+        <>
+          <div className="Agentsection">
+            <ParticipantsForDailyTour
+              onCountChange={handleParticipantChange}
+              pricingList={pricingList}
+              currentCurrency={selectedCurrency}
+              minRequired={minRequired}
+              maxAllowed={maxAllowed}
+            />
+          </div>
+          <div className="Agentsection">
+            <ChooseDateForDailyTour
+              onSelectionComplete={handleDateSelection}
+              availableDates={parsedAvailableDates}
+              currentCurrency={selectedCurrency}
+              currentPrice={participants.price}
+              participants={participants}
+              minRequired={minRequired}
+              maxAllowed={maxAllowed}
+            />
+          </div>
+          <div className="Agentsection">
+            <BookingSummaryForDailyTour
+              selectedDate={isValidBooking ? selectedDate : null}
+              selectedTime={isValidBooking ? selectedTime : null}
+              participants={participants}
+              tourName={tourName}
+              busId={busdata?.id}
+              duration={tourdata?.duration}
+              tourImage={tourImage}
+              tourID={tourdata?.id}
+              agentRef={agentRef}
+              currentCurrency={selectedCurrency}
+              isValidBooking={isValidBooking}
+              minRequired={minRequired}
+              maxAllowed={maxAllowed}
+              logoUrl={logoUrl}
+              tourType={tourType}
+            />
+          </div>
+        </>
+      );
+    } else {
+      // Default to regular_tour components
+      return (
+        <>
+          <div className="Agentsection">
+            <ParticipantsForRegularTour
+              onCountChange={handleParticipantChange}
+              adultPrice={busdata?.adult_seat_price}
+              childPrice={busdata?.child_seat_price}
+              youthPrice={busdata?.youth_seat_price}
+              currentCurrency={selectedCurrency}
+            />
+          </div>
+          <div className="Agentsection">
+            <ChooseDateForRegularTour
+              onSelectionComplete={handleDateSelection}
+              availableDates={parsedAvailableDates}
+              currentCurrency={selectedCurrency}
+              price={busdata?.price}
+            />
+          </div>
+          <div className="Agentsection">
+            <BookingSummaryForRegularTour
+              selectedDate={selectedDate}
+              selectedTime={selectedTime}
+              participants={participants}
+              tourName={tourName}
+              busId={busdata?.id}
+              duration={tourdata?.duration}
+              tourImage={tourImage}
+              tourID={tourdata?.id}
+              agentRef={agentRef}
+              currentCurrency={selectedCurrency}
+              isValidBooking={isValidBooking}
+              minRequired={minRequired}
+              maxAllowed={maxAllowed}
+              logoUrl={logoUrl}
+              adultPrice={busdata?.adult_seat_price}
+              childPrice={busdata?.child_seat_price}
+              youthPrice={busdata?.youth_seat_price}
+              tourType={tourType}
+            />
+          </div>
+        </>
+      );
+    }
+  };
+
   return (
     <div className="container">
       <div className="row justify-content-center">
         <div className="col px-0">
-          <div className="bookingColumn">
-            <div className="Agentsection">
-              <Participants
-                onCountChange={handleParticipantChange}
-                pricingList={pricingList}
-                currentCurrency={selectedCurrency}
-                minRequired={minRequired}
-                maxAllowed={maxAllowed}
-              />
-            </div>
-            <div className="Agentsection">
-              <ChooseDate
-                onSelectionComplete={handleDateSelection}
-                availableDates={parsedAvailableDates}
-                currentCurrency={selectedCurrency}
-                currentPrice={participants.price}
-                participants={participants}
-                minRequired={minRequired}
-                maxAllowed={maxAllowed}
-              />
-            </div>
-            <div className="Agentsection">
-              <BookingSummary
-                selectedDate={isValidBooking ? selectedDate : null}
-                selectedTime={isValidBooking ? selectedTime : null}
-                participants={participants}
-                tourName={tourName}
-                busId={busdata?.id}
-                duration={tourdata?.duration}
-                tourImage={tourImage}
-                tourID={tourdata?.id}
-                agentRef={agentRef}
-                currentCurrency={selectedCurrency}
-                isValidBooking={isValidBooking}
-                minRequired={minRequired}
-                maxAllowed={maxAllowed}
-                logoUrl={logoUrl}
-              />
-            </div>
-          </div>
+          <div className="bookingColumn">{renderTourComponents()}</div>
         </div>
       </div>
     </div>

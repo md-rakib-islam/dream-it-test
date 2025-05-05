@@ -552,6 +552,15 @@ export default function TourSinglePage({ tour, itenarayItems }) {
         }
 
         /* Sticky Navigation Tabs Styles */
+        .sticky-tabs-container.is-sticky {
+          position: fixed;
+          top: 80px; /* Adjusted to match your layout */
+          left: 0;
+          right: 0;
+          z-index: 50; /* Lowered z-index to ensure it's below dropdowns and popups */
+          background-color: white;
+          border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
         .sticky-tabs-wrapper {
           height: auto;
           width: 100%;
@@ -567,7 +576,7 @@ export default function TourSinglePage({ tour, itenarayItems }) {
           top: 80px; /* Adjusted to match your layout */
           left: 0;
           right: 0;
-          z-index: 1000;
+          z-index: 50; /* Lowered z-index to ensure it's below dropdowns and popups */
           background-color: white;
           border-top: 1px solid rgba(0, 0, 0, 0.1); /* Light border on top instead of shadow */
         }

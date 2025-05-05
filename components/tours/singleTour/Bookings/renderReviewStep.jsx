@@ -26,6 +26,10 @@ const RenderReviewStep = ({
   payWithStripe,
   tourID,
   logoUrl,
+  tourType,
+  adultPrice,
+  childPrice,
+  youthPrice,
 }) => {
   const [couponCode, setCouponCode] = useState("");
   const [couponMessage, setCouponMessage] = useState("");
@@ -172,6 +176,50 @@ const RenderReviewStep = ({
   const finalTotal =
     discountedFinalPrice !== null ? discountedFinalPrice : total;
 
+  // Render price breakdown based on tour type
+  const renderPriceBreakdown = () => {
+    if (tourType === "regular_tour") {
+      return (
+        <>
+          {participants?.adult > 0 && (
+            <div className="columnValue">
+              <span>Adult {participants?.adult}×</span>
+              <span>
+                {(participants.adult * Number(adultPrice)).toFixed(2)}
+                {currentCurrency?.symbol}
+              </span>
+            </div>
+          )}
+          {participants?.youth > 0 && (
+            <div className="columnValue">
+              <span>Youth {participants?.youth}×</span>
+              <span>
+                {(participants.youth * Number(youthPrice)).toFixed(2)}
+                {currentCurrency?.symbol}
+              </span>
+            </div>
+          )}
+          {participants?.child > 0 && (
+            <div className="columnValue">
+              <span>Child {participants?.child} ×</span>
+              <span>
+                {(participants.child * Number(childPrice)).toFixed(2)}
+                {currentCurrency?.symbol}
+              </span>
+            </div>
+          )}
+        </>
+      );
+    } else {
+      // Default to day_tour
+      return (
+        <div className="columnValue">
+          <span>Total {participants?.count || 0} participants</span>
+        </div>
+      );
+    }
+  };
+
   return (
     <div className="reviewStep">
       <button onClick={handleBack} className="backButton">
@@ -199,9 +247,7 @@ const RenderReviewStep = ({
                 <div className="tourDetailsTable">
                   <div className="detailColumn">
                     <div className="columnHeader">Travellers</div>
-                    <div className="columnValue">
-                      Total {participants?.count || 0} participants
-                    </div>
+                    <div className="colomnValue">{renderPriceBreakdown()}</div>
                   </div>
                   <div className="detailColumn">
                     <div className="columnHeader">Departure</div>
@@ -231,8 +277,8 @@ const RenderReviewStep = ({
 
             {showDetails && (
               <div className="priceBreakdown">
-                <div className="priceRow">
-                  <span>Total {participants?.count || 0} participants</span>
+                <div className="columnHeader">
+                  {renderPriceBreakdown()}
                   <span>
                     {currentCurrency?.symbol}
                     {total.toFixed(2)}

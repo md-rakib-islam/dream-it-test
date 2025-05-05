@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 // import styles from "./BookingSummary.module.css";
 import CheckoutModal from "./CheckoutModal";
 
-const BookingSummary = ({
+const BookingSummaryForDailyTour = ({
   selectedDate,
   selectedTime,
   participants,
@@ -19,6 +19,7 @@ const BookingSummary = ({
   minRequired,
   maxAllowed,
   logoUrl,
+  tourType,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMinParticipantsMet, setIsMinParticipantsMet] = useState(false);
@@ -150,9 +151,10 @@ const BookingSummary = ({
         agentRef={agentRef}
         currentCurrency={currentCurrency}
         logoUrl={logoUrl}
+        tourType={tourType}
       />
     </>
   );
 };
 
-export default BookingSummary;
+export default BookingSummaryForDailyTour;

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import clsx from "clsx";
 
-const ChooseDate = ({
+const ChooseDateForDailyTour = ({
   onSelectionComplete,
   availableDates,
   currentCurrency,
@@ -508,4 +508,4 @@ const ChooseDate = ({
   );
 };
 
-export default ChooseDate;
+export default ChooseDateForDailyTour;

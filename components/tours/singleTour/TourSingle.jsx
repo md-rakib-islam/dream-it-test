@@ -64,9 +64,10 @@ const TourSingle = ({ children, data, fullUrl, itenarayItems }) => {
       about_ticket: data?.about_ticket,
       help_center: data?.help_center,
       faq: data?.faq,
+      select_bus: data?.select_bus,
     };
   }
-
+  console.log("tour", tour);
   useEffect(() => {
     // Button is displayed after scrolling for 500 pixels
     const toggleVisibility = () => {

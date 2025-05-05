@@ -22,6 +22,10 @@ const CheckoutModal = ({
   agentRef,
   currentCurrency,
   logoUrl,
+  tourType,
+  adultPrice,
+  childPrice,
+  youthPrice,
 }) => {
   const searchParams = new URLSearchParams(window.location.search);
   const agentCup = searchParams.get("agentCup");
@@ -124,6 +128,10 @@ const CheckoutModal = ({
       coupon_text: coupon_text === "" ? null : coupon_text, // Set to null if empty
       coupon_discount: coupon_discount === "" ? null : coupon_discount, // Set to null if empty
       payWithCash,
+      tourType,
+      adultPrice,
+      childPrice,
+      youthPrice,
     };
 
     try {
@@ -184,6 +192,55 @@ const CheckoutModal = ({
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() - 18);
   const maxDateString = maxDate.toISOString().split("T")[0];
+  console.log("Max date:", participants);
+
+  // Render price breakdown based on tour type
+  const renderPriceBreakdown = () => {
+    if (tourType === "regular_tour") {
+      return (
+        <>
+          {participants?.adult > 0 && (
+            <div className="totalRow">
+              <span>Adult×{participants?.adult}</span>
+              <span>
+                {currentCurrency?.symbol}
+                {(participants.adult * Number(adultPrice)).toFixed(2)}
+              </span>
+            </div>
+          )}
+          {participants?.youth > 0 && (
+            <div className="totalRow">
+              <span>Youth×{participants?.youth}</span>
+              <span>
+                {currentCurrency?.symbol}
+                {(participants.youth * Number(youthPrice)).toFixed(2)}
+              </span>
+            </div>
+          )}
+          {participants?.child > 0 && (
+            <div className="totalRow">
+              <span>Child×{participants?.child}</span>
+              <span>
+                {currentCurrency?.symbol}
+                {(participants.child * Number(childPrice)).toFixed(2)}
+              </span>
+            </div>
+          )}
+        </>
+      );
+    } else {
+      // Default to day_tour
+      return (
+        <div className="totalRow">
+          <span>Total {participants?.count || 0} participants</span>
+          <span>
+            {currentCurrency?.symbol}
+            {total.toFixed(2)}
+          </span>
+        </div>
+      );
+    }
+  };
 
   return (
     <div className="modalOverlay">
@@ -417,15 +474,9 @@ const CheckoutModal = ({
                     {formatDate(selectedDate)} - {formatTime(selectedTime)}
                   </p>
                   <div className="orderTotal">
+                    {renderPriceBreakdown()}
                     <div className="totalRow">
-                      <span>Total {participants?.count || 0} participants</span>
-                      <span>
-                        {currentCurrency?.symbol}
-                        {total.toFixed(2)}
-                      </span>
-                    </div>
-                    <div className="totalRow">
-                      <span>Total (GBP)</span>
+                      <span>Total ({currentCurrency?.name || "GBP"})</span>
                       <span>
                         {currentCurrency?.symbol}
                         {total.toFixed(2)}
@@ -456,6 +507,10 @@ const CheckoutModal = ({
               payWithStripe={payWithStripe}
               tourID={tourID}
               logoUrl={logoUrl}
+              tourType={tourType}
+              adultPrice={adultPrice}
+              childPrice={childPrice}
+              youthPrice={youthPrice}
             />
           )}
         </div>

@@ -60,7 +60,7 @@ const TestimonialSingleTour = () => {
           // If months and years are equal, compare by day (descending)
           return dateB.getDate() - dateA.getDate();
         })
-        .slice(0, 3) // Only take the first 3 reviews
+        .slice(0, 6) // Only take the first 3 reviews
     : [];
 
   return (

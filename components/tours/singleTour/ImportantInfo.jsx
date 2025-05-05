@@ -6,6 +6,7 @@ const ImportantInfo = ({ data }) => {
   const [hydratedData, setHydratedData] = useState({});
   const [openSection, setOpenSection] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [openFaqItems, setOpenFaqItems] = useState([0]);
 
   useEffect(() => {
     setHydratedData(data);
@@ -35,9 +36,131 @@ const ImportantInfo = ({ data }) => {
     }
   };
 
+  const toggleFaqItem = (index) => {
+    if (openFaqItems.includes(index)) {
+      setOpenFaqItems([]);
+    } else {
+      setOpenFaqItems([index]); // Only keep the current item open
+    }
+  };
+
+  // Function to parse FAQ content from different formats
+  const parseFaqContent = (htmlContent) => {
+    try {
+      const tempDiv = document.createElement("div");
+      tempDiv.innerHTML = htmlContent;
+
+      const faqItems = [];
+
+      // Check if content is in ordered list format
+      const orderedList = tempDiv.querySelector("ol");
+
+      if (orderedList) {
+        // Process list items
+        const listItems = Array.from(orderedList.querySelectorAll("li"));
+
+        listItems.forEach((li) => {
+          const strong = li.querySelector("strong");
+
+          if (strong) {
+            const questionText = strong.textContent.trim();
+            let answerHtml = "";
+
+            // Clone the li element to work with
+            const liClone = li.cloneNode(true);
+
+            // Remove the strong tag from the clone
+            const strongInClone = liClone.querySelector("strong");
+            if (strongInClone) {
+              strongInClone.remove();
+            }
+
+            // The remaining content is the answer
+            answerHtml = liClone.innerHTML.trim();
+
+            // Clean up the answer - remove leading <br> if present
+            if (answerHtml.startsWith("<br>")) {
+              answerHtml = answerHtml.substring(4).trim();
+            }
+
+            faqItems.push({
+              question: questionText,
+              answer: answerHtml,
+            });
+          }
+        });
+      } else {
+        // Fallback to paragraph-based parsing
+        const paragraphs = Array.from(tempDiv.querySelectorAll("p"));
+
+        for (let i = 0; i < paragraphs.length; i++) {
+          const p = paragraphs[i];
+
+          // Skip empty paragraphs
+          if (p.innerHTML === "&nbsp;" || !p.textContent.trim()) continue;
+
+          // Check if this paragraph contains a question (strong tag)
+          const strong = p.querySelector("strong");
+          if (strong) {
+            // This is a question paragraph
+            const questionText = strong.textContent.trim();
+
+            // Look for the next non-empty paragraph which should contain the answer
+            let answerHtml = "";
+            if (i + 1 < paragraphs.length) {
+              const nextP = paragraphs[i + 1];
+              if (
+                nextP &&
+                nextP.textContent.trim() &&
+                !nextP.querySelector("strong")
+              ) {
+                answerHtml = nextP.innerHTML;
+                i++; // Skip the answer paragraph in the next iteration
+              }
+            }
+
+            faqItems.push({
+              question: questionText,
+              answer: answerHtml,
+            });
+          }
+        }
+      }
+
+      return faqItems;
+    } catch (error) {
+      console.error("Error parsing FAQ HTML:", error);
+      return [];
+    }
+  };
+
+  // CSS for the counter button
+  const styles = `
+    .counterButton {
+      width: 32px;
+      height: 32px;
+      min-width: 32px; /* Add this to prevent shrinking */
+      min-height: 32px; /* Add this to prevent shrinking */
+      border: 1px solid #e5e7eb;
+      border-radius: 50%;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      padding: 0;
+      margin-right: 10px;
+      flex-shrink: 0; /* Add this to prevent shrinking */
+      font-size: 16px; /* Add consistent font size */
+      line-height: 1; /* Add consistent line height */
+    }
+  `;
+
   // Desktop layout
   const desktopLayout = (
     <div className="pt-20">
+      <style>{styles}</style>
       <div className="border-top-light">
         <div
           style={{
@@ -365,7 +488,6 @@ const ImportantInfo = ({ data }) => {
             <div
               style={{
                 display: "table-row",
-                // borderBottom: "1px solid #e5e7eb",
                 marginBottom: "2rem",
               }}
             >
@@ -394,11 +516,78 @@ const ImportantInfo = ({ data }) => {
                 }}
               >
                 <div className="interweave-content">
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: hydratedData.faq,
-                    }}
-                  ></div>
+                  {(() => {
+                    try {
+                      const faqItems = parseFaqContent(hydratedData.faq);
+
+                      return (
+                        <div className="space-y-0">
+                          {faqItems.map((item, index) => (
+                            <div
+                              key={index}
+                              // className="border-t border-b border-gray-200 border-bottom-light"
+                              className={`border-t border-b border-gray-200 ${
+                                openFaqItems.includes(index)
+                                  ? "border-bottom-light"
+                                  : ""
+                              }`}
+                              style={{ borderColor: "#e5e7eb" }}
+                            >
+                              <div
+                                className="cursor-pointer py-4"
+                                onClick={() => toggleFaqItem(index)}
+                              >
+                                <div
+                                  className="flex items-center"
+                                  style={{ display: "flex" }}
+                                >
+                                  <button
+                                    className="counterButton"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      toggleFaqItem(index);
+                                    }}
+                                  >
+                                    {openFaqItems.includes(index) ? "-" : "+"}
+                                  </button>
+                                  <div className="fw-600">{item.question}</div>
+                                </div>
+                              </div>
+                              {openFaqItems.includes(index) && (
+                                <div
+                                  className="pb-4 flex items-center"
+                                  style={{ display: "flex" }}
+                                >
+                                  <button
+                                    className="counterButton"
+                                    style={{
+                                      visibility: "hidden",
+                                      marginRight: "25px",
+                                    }}
+                                  >
+                                    {openFaqItems.includes(index) ? "-" : "+"}
+                                  </button>
+                                  <div
+                                    dangerouslySetInnerHTML={{
+                                      __html: item.answer,
+                                    }}
+                                  ></div>
+                                </div>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      );
+                    } catch (error) {
+                      console.error("Error parsing FAQ HTML:", error);
+                      // Fallback to original rendering if parsing fails
+                      return (
+                        <div
+                          dangerouslySetInnerHTML={{ __html: hydratedData.faq }}
+                        ></div>
+                      );
+                    }
+                  })()}
                 </div>
               </div>
             </div>
@@ -411,6 +600,7 @@ const ImportantInfo = ({ data }) => {
   // Mobile accordion layout
   const mobileLayout = (
     <div className="pt-20">
+      <style>{styles}</style>
       {hydratedData.inclution && (
         <div
           style={{
@@ -776,11 +966,77 @@ const ImportantInfo = ({ data }) => {
           {openSection === "faq" && (
             <div className="pb-4">
               <div className="interweave-content">
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: hydratedData.faq,
-                  }}
-                ></div>
+                {(() => {
+                  try {
+                    const faqItems = parseFaqContent(hydratedData.faq);
+
+                    return (
+                      <div className="space-y-0">
+                        {faqItems.map((item, index) => (
+                          <div
+                            key={index}
+                            className={`border-t border-b border-gray-200 ${
+                              openFaqItems.includes(index)
+                                ? "border-bottom-light"
+                                : ""
+                            }`}
+                            style={{ borderColor: "#e5e7eb" }}
+                          >
+                            <div
+                              className="cursor-pointer py-4"
+                              onClick={() => toggleFaqItem(index)}
+                            >
+                              <div
+                                className="items-center"
+                                style={{ display: "flex" }}
+                              >
+                                <button
+                                  className="counterButton"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    toggleFaqItem(index);
+                                  }}
+                                >
+                                  {openFaqItems.includes(index) ? "-" : "+"}
+                                </button>
+                                <div className="fw-600">{item.question}</div>
+                              </div>
+                            </div>
+                            {openFaqItems.includes(index) && (
+                              <div
+                                className="pb-4 flex items-center"
+                                style={{ display: "flex" }}
+                              >
+                                <button
+                                  className="counterButton"
+                                  style={{
+                                    visibility: "hidden",
+                                    marginRight: "25px",
+                                  }}
+                                >
+                                  {openFaqItems.includes(index) ? "-" : "+"}
+                                </button>
+                                <div
+                                  dangerouslySetInnerHTML={{
+                                    __html: item.answer,
+                                  }}
+                                ></div>
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    );
+                  } catch (error) {
+                    console.error("Error parsing FAQ HTML:", error);
+                    // Fallback to original rendering if parsing fails
+                    return (
+                      <div
+                        dangerouslySetInnerHTML={{ __html: hydratedData.faq }}
+                      ></div>
+                    );
+                  }
+                })()}
               </div>
             </div>
           )}

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 // import styles from "./calendar.module.css";
 
-const Participants = ({
+const ParticipantsForDailyTour = ({
   onCountChange,
   pricingList,
   currentCurrency,
@@ -136,4 +136,4 @@ const Participants = ({
   );
 };
 
-export default Participants;
+export default ParticipantsForDailyTour;
