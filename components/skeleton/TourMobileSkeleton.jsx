@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import AgentLink from "../AgentLink/AgentLink";
 
 const TourMobileSkeleton = () => {
   const defaultTourItem = [
@@ -55,7 +56,7 @@ const TourMobileSkeleton = () => {
 
   return defaultTourItem?.map((item) => (
     <div className="col-lg-3 col-md-3 col-6" key={item?.id}>
-      <Link
+      <AgentLink
         href={`/tour/${item?.title
           ?.replace(/[,.-]/g, "")
           ?.toLowerCase()
@@ -136,7 +137,7 @@ const TourMobileSkeleton = () => {
             </div>
           </div>
         </div>
-      </Link>
+      </AgentLink>
     </div>
   ));
 };

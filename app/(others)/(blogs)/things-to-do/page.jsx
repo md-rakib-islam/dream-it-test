@@ -81,7 +81,7 @@ const index = async () => {
 
     // Filter logic: If any blog includes "things to do", exclude it.
     const filteredBlogs = blogs.filter((elm) => {
-      if (!elm.title.toLowerCase().includes("things to do")) {
+      if (elm.title.toLowerCase().includes("things to do")) {
         return false;
       }
       return true;

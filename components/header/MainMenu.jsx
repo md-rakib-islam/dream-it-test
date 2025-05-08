@@ -2,6 +2,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { isActiveLink } from "../../utils/linkActiveChecker";
 import useMenus from "@/hooks/useMenus";
+import AgentLink from "../AgentLink/AgentLink";
 
 const MainMenu = ({ style = "", menus }) => {
   const pathname = usePathname();
@@ -22,7 +23,7 @@ const MainMenu = ({ style = "", menus }) => {
           >
             {menu?.children?.length > 0 ? (
               // Use Link for dropdown parents to make them crawlable
-              <Link
+              <AgentLink
                 href={
                   menu.name === "Destinations" ? "#" : menu.routePath || "#"
                 }
@@ -38,11 +39,11 @@ const MainMenu = ({ style = "", menus }) => {
               >
                 <span className="mr-10 fw-500">{menu.name}</span>
                 <i className="icon icon-chevron-sm-down" />
-              </Link>
+              </AgentLink>
             ) : (
-              <Link href={menu?.routePath} aria-label={menu.name}>
+              <AgentLink href={menu?.routePath} aria-label={menu.name}>
                 <span className="mr-10 fw-500">{menu.name}</span>
-              </Link>
+              </AgentLink>
             )}
             {menu.children.length > 0 && (
               <ul className="subnav">
@@ -53,9 +54,9 @@ const MainMenu = ({ style = "", menus }) => {
                       isActiveLink(item.routePath, pathname) ? "current" : ""
                     } menu-item-has-children fw-500`}
                   >
-                    <Link href={item.routePath} aria-label={item.name}>
+                    <AgentLink href={item.routePath} aria-label={item.name}>
                       {item.name}
-                    </Link>
+                    </AgentLink>
                   </li>
                 ))}
               </ul>

@@ -1,6 +1,7 @@
 import { slightContent } from "@/data/desinations";
 import Image from "next/image";
 import Link from "next/link";
+import AgentLink from "@/components/AgentLink/AgentLink";
 
 const Slights = ({ slug }) => {
   return (
@@ -41,14 +42,14 @@ const Slights = ({ slug }) => {
                       ?.slice(1)
                       .join(" ")}
                   </p>
-                  <Link
+                  <AgentLink
                     href="#"
                     data-bs-toggle="collapse"
                     data-bs-target={`#${item.collapseTarget}${idx}`}
                     className="d-block text-14 text-blue-1 fw-500 underline mt-5"
                   >
                     See More
-                  </Link>
+                  </AgentLink>
                 </div>
               </div>
             </div>

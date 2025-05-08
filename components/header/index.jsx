@@ -8,6 +8,7 @@ import { LayoutContext } from "@/app/LayoutProvider";
 import CurrenctyMegaMenu from "./CurrenctyMegaMenu";
 import MobileCurrencyMenu from "./MobileCurrencyMenu";
 import MobileMenu from "./MobileMenu";
+import AgentLink from "../AgentLink/AgentLink";
 // import CurrenctyMegaMenu from "../CurrenctyMegaMenu";
 // import MainMenu from "../MainMenu";
 // import MobileCurrencyMenu from "../MobileCurrencyMenu";
@@ -36,7 +37,7 @@ const Header = () => {
           <div className="row justify-between items-center">
             <div className="col-auto header_logo_left_space">
               <div className="d-flex items-center">
-                <Link href="/" className="header-logo mr-20">
+                <AgentLink href="/" className="header-logo mr-20">
                   <Image
                     unoptimized
                     quality={100}
@@ -47,7 +48,7 @@ const Header = () => {
                     alt="Dream Tourism SRLS"
                     priority={true}
                   />
-                </Link>
+                </AgentLink>
                 <div className="header-menu">
                   <div className="header-menu__content">
                     <MainMenu style="text-dark-1" menus={data?.menus} />

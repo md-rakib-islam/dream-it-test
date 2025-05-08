@@ -18,6 +18,7 @@ import {
 } from "react-share";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AgentLink from "../AgentLink/AgentLink";
 
 const BlogsSide = ({ categories, fullUrl }) => {
   const { blogs } = useContext(LayoutContext);
@@ -205,11 +206,11 @@ const BlogsSide = ({ categories, fullUrl }) => {
                       </p>
                     </div>
 
-                    <Link href={`/blog/${blog.slug}`}>
+                    <AgentLink href={`/blog/${blog.slug}`}>
                       <span className="text-18 text-black fw-600">
                         {blog.title}{" "}
                       </span>
-                    </Link>
+                    </AgentLink>
                     {/* <p className="text-clamp-short-des">{blog.short_des}</p> */}
                   </div>
                   {/* 
@@ -257,11 +258,11 @@ const BlogsSide = ({ categories, fullUrl }) => {
             <div className="category">
               <ul>
                 {categories?.blog_categories.map((option, idx) => (
-                  <Link key={idx} href={`/blogs/?category=${option.name}`}>
+                  <AgentLink key={idx} href={`/blogs/?category=${option.name}`}>
                     <li className="text-18" key={idx}>
                       {option.name}
                     </li>
-                  </Link>
+                  </AgentLink>
                 ))}
               </ul>
             </div>
@@ -296,9 +297,9 @@ const BlogsSide = ({ categories, fullUrl }) => {
                   // className="mt-15 px-20 py-10 fw-500 text-14 border-white -outline-white   text-white   pointer"
                   className="book-now "
                 >
-                  <Link href="/tour/capri-island-day-trip-from-rome">
+                  <AgentLink href="/tour/capri-island-day-trip-from-rome">
                     Book Now
-                  </Link>
+                  </AgentLink>
                 </button>
               </div>
               <div className="sponsor-conter-text">
@@ -334,9 +335,9 @@ const BlogsSide = ({ categories, fullUrl }) => {
                   // className="mt-15 px-20 fw-500 text-14 border-white -outline-white h-50 text-white   pointer"
                   className="book-now "
                 >
-                  <Link href="/tour/rome-colosseum-hosted-entry-roman-forum-and-palatine-hills-with-arena-ticket">
+                  <AgentLink href="/tour/rome-colosseum-hosted-entry-roman-forum-and-palatine-hills-with-arena-ticket">
                     Book Now
-                  </Link>
+                  </AgentLink>
                 </button>
               </div>
             </div>
@@ -363,9 +364,9 @@ const BlogsSide = ({ categories, fullUrl }) => {
                   // className="mt-15 px-20 fw-500 text-14 border-white -outline-white h-50 text-white   pointer"
                   className="book-now "
                 >
-                  <Link href="/tour/capri-island-day-trip-from-rome-with-blue-grotto">
+                  <AgentLink href="/tour/capri-island-day-trip-from-rome-with-blue-grotto">
                     Book Now
-                  </Link>
+                  </AgentLink>
                 </button>
               </div>
             </div>

@@ -1,17 +1,58 @@
 "use client";
 import Image from "next/image";
-import Link from "next/link";
 import useMenus from "@/hooks/useMenus";
 import { usePathname, useRouter } from "next/navigation";
 import { Menu, MenuItem, Sidebar, SubMenu } from "react-pro-sidebar";
 import { isActiveLink } from "../../utils/linkActiveChecker";
 import ContactInfo from "../footer/default/ContactInfo";
 import Social from "../common/social/Social";
+import { useEffect, useState } from "react";
 
 const MobileMenu = ({ menus, logoUrl }) => {
   const pathname = usePathname();
   const router = useRouter();
   const menuItems = useMenus(menus);
+  const [agentRef, setAgentRef] = useState(null);
+  const [agentCup, setAgentCup] = useState(null);
+
+  useEffect(() => {
+    // Extract agent parameters from URL
+    if (typeof window !== "undefined") {
+      const urlParams = new URLSearchParams(window.location.search);
+      setAgentRef(urlParams.get("agentRef"));
+      setAgentCup(urlParams.get("agentCup"));
+    }
+  }, []);
+
+  // Function to append agent parameters to a path
+  const getPathWithParams = (path) => {
+    if ((!agentRef && !agentCup) || path === "#") return path;
+
+    const hasParams = path.includes("?");
+    const separator = hasParams ? "&" : "?";
+    let newPath = path;
+
+    // Add agentRef if it exists
+    if (agentRef) {
+      newPath = `${newPath}${separator}agentRef=${agentRef}`;
+      // If we've added agentRef, any subsequent params need to use & instead of ?
+      if (agentCup) {
+        newPath = `${newPath}&agentCup=${agentCup}`;
+      }
+    }
+    // If only agentCup exists (no agentRef)
+    else if (agentCup) {
+      newPath = `${newPath}${separator}agentCup=${agentCup}`;
+    }
+
+    return newPath;
+  };
+
+  // Custom navigation handler that preserves agent parameters
+  const navigateTo = (path) => {
+    const fullPath = getPathWithParams(path);
+    router.push(fullPath);
+  };
 
   const currentPathName =
     pathname.split("/")[1] === "destinations" ? "/destinations" : pathname;
@@ -19,10 +60,10 @@ const MobileMenu = ({ menus, logoUrl }) => {
   return (
     <>
       <div className="pro-header d-flex align-items-center justify-between border-bottom-light">
-        <div role="button" tabIndex={0} onClick={() => router.push("/")}>
+        <div role="button" tabIndex={0} onClick={() => navigateTo("/")}>
           <Image
             style={{ width: "60px", height: "60px" }}
-            src={logoUrl}
+            src={logoUrl || "/placeholder.svg"}
             width={128}
             height={128}
             alt="Dream Tourism SRLS"
@@ -50,7 +91,7 @@ const MobileMenu = ({ menus, logoUrl }) => {
               return (
                 <MenuItem
                   key={menu.id}
-                  onClick={() => router.push(menu?.routePath)}
+                  onClick={() => navigateTo(menu?.routePath)}
                   data-bs-dismiss="offcanvas"
                   className={
                     pathname === menu?.routePath
@@ -81,7 +122,7 @@ const MobileMenu = ({ menus, logoUrl }) => {
                   {menu?.children?.map((item, i) => (
                     <MenuItem
                       key={item.id}
-                      onClick={() => router.push(item.routePath)}
+                      onClick={() => navigateTo(item.routePath)}
                       data-bs-dismiss="offcanvas"
                       className={
                         isActiveLink(item.routePath, pathname)
@@ -101,7 +142,7 @@ const MobileMenu = ({ menus, logoUrl }) => {
 
           <MenuItem
             data-bs-dismiss="offcanvas"
-            onClick={() => router.push("/contact")}
+            onClick={() => navigateTo("/contact")}
             className={
               pathname === "/contact" ? "menu-active-link fw-500" : "fw-500"
             }

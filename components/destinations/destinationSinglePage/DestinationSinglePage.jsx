@@ -8,6 +8,7 @@ import Link from "next/link";
 import Weather from "../componentsSinglePage/Weather";
 import IntroTown from "../componentsSinglePage/IntroTown";
 import Banner from "../componentsSinglePage/Banner";
+import AgentLink from "@/components/AgentLink/AgentLink";
 
 const DestinationSinglePage = ({ slug, contentImagesData, content }) => {
   return (
@@ -153,12 +154,12 @@ const DestinationSinglePage = ({ slug, contentImagesData, content }) => {
 
           <div className="row justify-center mt-40">
             <div className="col-auto">
-              <Link
+              <AgentLink
                 href="#"
                 className="button h-50 w-250 -outline-blue-1 text-blue-1"
               >
                 Explore more <div className="icon-arrow-top-right ml-15" />
-              </Link>
+              </AgentLink>
             </div>
           </div>
           {/* End .row */}

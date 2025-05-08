@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import BlogPagination from "./BlogPagination";
 import { useSearchParams, useRouter } from "next/navigation";
-
+import AgentLink from "../AgentLink/AgentLink";
 const Blog = ({ blogs, categories }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -56,7 +56,7 @@ const Blog = ({ blogs, categories }) => {
           <div className="row y-gap-30 pt-30">
             {filteredItems?.slice(0, 9).map((item, idx) => (
               <div className="col-lg-4 col-sm-6" key={idx}>
-                <Link
+                <AgentLink
                   href={`/blog/${item.slug}`}
                   className="blogCard -type-1 d-block "
                 >
@@ -77,7 +77,7 @@ const Blog = ({ blogs, categories }) => {
                       {item.date}
                     </div>
                   </div>
-                </Link>
+                </AgentLink>
               </div>
             ))}
           </div>

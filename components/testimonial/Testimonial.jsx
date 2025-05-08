@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useContext, useEffect, useRef, useState } from "react";
 import Slider from "react-slick";
 import Link from "next/link";
+
 import { LayoutContext } from "@/app/LayoutProvider";
 
 const Testimonial = () => {

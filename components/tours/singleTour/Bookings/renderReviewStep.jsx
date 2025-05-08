@@ -42,6 +42,7 @@ const RenderReviewStep = ({
   const [couponApplied, setCouponApplied] = useState(true);
   const [couponText, setCouponText] = useState("");
   const [couponDiscount, setCouponDiscount] = useState(0);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   useEffect(() => {
     // Check for agentCup parameter in URL
@@ -163,14 +164,22 @@ const RenderReviewStep = ({
     }
   };
 
-  const handleCheckoutWithDiscount = () => {
-    handleSecureCheckout(
-      discountedFinalPrice,
-      couponPercentage,
-      couponApplied,
-      couponText,
-      couponDiscount
-    );
+  const handleCheckoutWithDiscount = async () => {
+    setIsProcessing(true);
+
+    try {
+      await handleSecureCheckout(
+        discountedFinalPrice,
+        couponPercentage,
+        couponApplied,
+        couponText,
+        couponDiscount
+      );
+    } catch (error) {
+      console.error("Checkout error:", error);
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   const finalTotal =
@@ -323,10 +332,10 @@ const RenderReviewStep = ({
                   />
                   <button
                     onClick={applyCoupon}
-                    disabled={isApplying}
+                    disabled={isApplying || !couponCode.trim()}
                     className="couponButton"
                   >
-                    {isApplying ? "Applying..." : "Apply"}
+                    {isApplying ? "Applying..." : "Add Coupon"}
                   </button>
                 </div>
 
@@ -336,7 +345,7 @@ const RenderReviewStep = ({
                   </div>
                 )}
 
-                {discountAmount > 0 && (
+                {/* {discountAmount > 0 && (
                   <div className="priceRow">
                     <span>Discount</span>
                     <span className="discountAmount">
@@ -344,7 +353,7 @@ const RenderReviewStep = ({
                       {discountAmount.toFixed(3)}
                     </span>
                   </div>
-                )}
+                )} */}
               </div>
             </div>
           </div>
@@ -377,9 +386,9 @@ const RenderReviewStep = ({
             <button
               className="checkoutButton"
               onClick={handleCheckoutWithDiscount}
-              disabled={!formData.acceptTerms}
+              disabled={!formData.acceptTerms || isProcessing}
             >
-              Go to secure checkout
+              {isProcessing ? "Processing..." : "Proceed with Online Payment"}
             </button>
           </div>
         </div>

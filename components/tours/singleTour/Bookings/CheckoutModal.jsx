@@ -192,7 +192,7 @@ const CheckoutModal = ({
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() - 18);
   const maxDateString = maxDate.toISOString().split("T")[0];
-  console.log("Max date:", participants);
+  // console.log("Max date:", participants);
 
   // Render price breakdown based on tour type
   const renderPriceBreakdown = () => {

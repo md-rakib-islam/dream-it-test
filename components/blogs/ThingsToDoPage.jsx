@@ -91,6 +91,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState, useMemo } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import AgentLink from "../AgentLink/AgentLink";
 
 const ThingsToDoPage = ({ blogs, categories, countries }) => {
   const searchParams = useSearchParams();
@@ -198,7 +199,7 @@ const ThingsToDoPage = ({ blogs, categories, countries }) => {
                 <div className="row y-gap-30">
                   {category.blogs.slice(0, visibleCount).map((item, idx) => (
                     <div className="col-lg-4 col-md-6 col-12" key={idx}>
-                      <Link
+                      <AgentLink
                         href={`/blog/${item.slug}`}
                         className="blogCard -type-1 d-block h-full"
                       >
@@ -222,7 +223,7 @@ const ThingsToDoPage = ({ blogs, categories, countries }) => {
                             {item.date}
                           </div>
                         </div>
-                      </Link>
+                      </AgentLink>
                     </div>
                   ))}
                 </div>

@@ -488,7 +488,7 @@ const ChooseDateForDailyTour = ({
                       <span>{date.getDate()}</span>
                       {isAvailable && currentPrice && (
                         <span className="datePrice">
-                          {formatPrice(currentPrice)}
+                          {formatPrice(participants?.count * currentPrice)}
                         </span>
                       )}
                       {isAvailable && <span className="availabilityDot"></span>}

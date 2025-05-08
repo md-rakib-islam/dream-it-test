@@ -44,8 +44,8 @@ const SidebarRight = ({ data }) => {
     fetchBusData();
   }, [data]);
 
-  console.log("busdata", busdata);
-  console.log("selectbus", data?.select_bus);
+  // console.log("busdata", busdata);
+  // console.log("selectbus", data?.select_bus);
 
   useEffect(() => {
     // Check if script already exists to prevent duplicates

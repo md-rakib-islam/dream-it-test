@@ -1,7 +1,7 @@
 import TripReview from "@/components/common/TripReview";
 import { GET_CONTENT_BY_TITLE } from "@/constant/constants";
 import Link from "next/link";
-
+import AgentLink from "@/components/AgentLink/AgentLink";
 const TourHeading = async ({ data }) => {
   // const name = params?.name;
 
@@ -16,7 +16,7 @@ const TourHeading = async ({ data }) => {
       <h1 className="text-25 fw-600">{data?.name}</h1>
       <div className="row x-gap-10 y-gap-10 items-center pt-10">
         <div className="col-auto">
-          <Link
+          <AgentLink
             href={data?.trip_url ? data?.trip_url : "#"}
             style={{
               cursor: data?.trip_url ? "pointer" : "default",
@@ -31,7 +31,7 @@ const TourHeading = async ({ data }) => {
                 {data?.reviews} reviews
               </div>
             </div>
-          </Link>
+          </AgentLink>
         </div>
 
         <div className="col-auto">

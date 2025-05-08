@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useContext } from "react";
 import Slider from "react-slick";
+import AgentLink from "../AgentLink/AgentLink";
 
 const TopDestinations = ({ destination }) => {
   const { topDestinations } = useContext(LayoutContext);
@@ -63,7 +64,7 @@ const TopDestinations = ({ destination }) => {
             data-aos="fade"
             data-aos-delay={item.delayAnimation}
           >
-            <Link
+            <AgentLink
               href={`/destinations/${item?.name
                 ?.toLowerCase()
                 ?.split(" ")
@@ -89,7 +90,7 @@ const TopDestinations = ({ destination }) => {
                 {item.numberOfProperties} properties
               </div> */}
               </div>
-            </Link>
+            </AgentLink>
           </div>
         ))}
       </Slider>

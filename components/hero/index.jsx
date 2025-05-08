@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import HeroBottom from "./HeroBottom";
+import AgentLink from "../AgentLink/AgentLink";
 const index = () => {
   return (
     <>
@@ -54,13 +55,13 @@ const index = () => {
                       Access and Offers
                     </p>
                     <div className="banner-content-bottom">
-                      <Link
+                      <AgentLink
                         className="primary-btn1"
                         href="/tours"
                         aria-label="Book A Trip"
                       >
                         <span>Book A Trip</span>
-                      </Link>
+                      </AgentLink>
                       <div className="rating-area">
                         <div className="icon">
                           <div className="trip-advisor-icon-home mr-4">
@@ -73,7 +74,7 @@ const index = () => {
                             />
                           </div>
                         </div>
-                        <Link
+                        <AgentLink
                           href={
                             "https://www.tripadvisor.co.uk/Attraction_Review-g187791-d17374998-Reviews-Dream_Tourism-Rome_Lazio.html"
                           }
@@ -111,7 +112,7 @@ const index = () => {
                               <span>4.0/5.0</span>
                             </div>
                           </div>
-                        </Link>
+                        </AgentLink>
                       </div>
                     </div>
                   </div>

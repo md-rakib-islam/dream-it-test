@@ -72,7 +72,7 @@ const ChooseDateForRegularTour = ({
 
     return defaultDate;
   };
-  console.log("availableDates", availableDates);
+  // console.log("availableDates", availableDates);
   // State initialization
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);

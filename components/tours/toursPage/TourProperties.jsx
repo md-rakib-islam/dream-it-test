@@ -9,6 +9,7 @@ import TripReview from "@/components/common/TripReview";
 import { useContext, useEffect, useMemo } from "react";
 import { LayoutContext } from "@/app/LayoutProvider";
 import { modifiedCurrency } from "@/utils/modifiedCurrency";
+import AgentLink from "@/components/AgentLink/AgentLink";
 
 const TourProperties = () => {
   const { toursMainData, filteredTours, setFilteredTours, selectedCurrency } =
@@ -126,7 +127,7 @@ const TourProperties = () => {
 
         return (
           <div key={idx}>
-            <Link
+            <AgentLink
               href={`/tour/${slug}`}
               style={{ cursor: "pointer" }}
               className="tourCard -type-1 rounded-4 hover-inside-slider"
@@ -221,8 +222,8 @@ const TourProperties = () => {
                   {item?.location}
                 </p>
               </div>
-            </Link>
-            <Link
+            </AgentLink>
+            <AgentLink
               href={item?.trip_url ? item?.trip_url : "#"}
               style={{
                 cursor: item?.trip_url ? "pointer" : "default",
@@ -240,7 +241,7 @@ const TourProperties = () => {
                   </div>
                 </div>
               </div>
-            </Link>
+            </AgentLink>
 
             {/* {isMobile && (
               <Link href={`/tour/${slug}`} style={{ cursor: "pointer" }}>

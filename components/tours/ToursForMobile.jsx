@@ -8,6 +8,7 @@ import TourMobileSkeleton from "../skeleton/TourMobileSkeleton";
 import { useContext } from "react";
 import { LayoutContext } from "@/app/LayoutProvider";
 import { modifiedCurrency } from "@/utils/modifiedCurrency";
+import AgentLink from "../AgentLink/AgentLink";
 
 const ToursForMobile = ({ destination, filterTour, tourType }) => {
   const { toursMainData, selectedCurrency } = useContext(LayoutContext);
@@ -51,7 +52,7 @@ const ToursForMobile = ({ destination, filterTour, tourType }) => {
 
       return (
         <div className="col-lg-3 col-md-4 col-6" key={item?.id}>
-          <Link
+          <AgentLink
             href={`/tour/${slug}`}
             style={{ cursor: "pointer" }}
             className="tourCard -type-1 rounded-4 hover-inside-slider"
@@ -124,8 +125,8 @@ const ToursForMobile = ({ destination, filterTour, tourType }) => {
                 {item?.location}
               </p>
             </div>
-          </Link>
-          <Link
+          </AgentLink>
+          <AgentLink
             href={item?.trip_url ? item?.trip_url : "#"}
             style={{
               cursor: item?.trip_url ? "pointer" : "default",
@@ -143,7 +144,7 @@ const ToursForMobile = ({ destination, filterTour, tourType }) => {
                 </div>
               </div>
             </div>
-          </Link>
+          </AgentLink>
         </div>
       );
     })

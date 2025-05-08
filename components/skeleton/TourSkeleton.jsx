@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Slider from "react-slick";
+import AgentLink from "../AgentLink/AgentLink";
 
 const TourSkeleton = () => {
   //   const width = useWindowSize();
@@ -178,7 +179,7 @@ const TourSkeleton = () => {
           //   data-aos="fade"
           //   data-aos-delay={item?.delayAnimation}
         >
-          <Link
+          <AgentLink
             href={`/tour/${item?.title?.toLowerCase()?.split(" ")?.join("-")}`}
             style={{ cursor: "pointer" }}
             className="tourCard -type-1 rounded-4 hover-inside-slider"
@@ -278,7 +279,7 @@ const TourSkeleton = () => {
               </div> */}
               </div>
             </div>
-          </Link>
+          </AgentLink>
         </div>
       ))}
     </Slider>
