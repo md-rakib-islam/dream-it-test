@@ -134,6 +134,7 @@
 // export default Destinations;
 import {
   BLOG_CATEGORIES,
+  GET_ALL_COUNTRIES,
   GET_CMS_BLOG_BY_TITLE,
   GET_CONTENT_BY_MENU_NAME,
   GET_IMAGE_BY_MENU_NAME,
@@ -226,13 +227,19 @@ const DestinationsAndBlog = async ({ params }) => {
   const { slug } = params;
 
   // Fetch data in parallel
-  const [destinationContent, destinationImages, blogContent, categoryData] =
-    await Promise.all([
-      dataFetcher(`${GET_CONTENT_BY_MENU_NAME}/${slug}`),
-      dataFetcher(`${GET_IMAGE_BY_MENU_NAME}/${slug}`),
-      dataFetcher(`${GET_CMS_BLOG_BY_TITLE}/${slug}`),
-      dataFetcher(`${BLOG_CATEGORIES}`),
-    ]);
+  const [
+    destinationContent,
+    destinationImages,
+    blogContent,
+    categoryData,
+    countriesData,
+  ] = await Promise.all([
+    dataFetcher(`${GET_CONTENT_BY_MENU_NAME}/${slug}`),
+    dataFetcher(`${GET_IMAGE_BY_MENU_NAME}/${slug}`),
+    dataFetcher(`${GET_CMS_BLOG_BY_TITLE}/${slug}`),
+    dataFetcher(`${BLOG_CATEGORIES}`),
+    dataFetcher(`${GET_ALL_COUNTRIES}`),
+  ]);
 
   // Check if it's a destination page
   if (destinationContent && Object.keys(destinationContent).length > 0) {
@@ -263,6 +270,7 @@ const DestinationsAndBlog = async ({ params }) => {
         <SingleBlogPage
           contentData={blogContent}
           categoryData={categoryData}
+          countriesData={countriesData?.countries}
           faqContent={blogContent.faq_content || ""}
           descriptionHTML={blogContent.description}
           load={load}

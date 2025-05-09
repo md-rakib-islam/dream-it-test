@@ -20,7 +20,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AgentLink from "../AgentLink/AgentLink";
 
-const BlogsSide = ({ categories, fullUrl }) => {
+const BlogsSide = ({ categories, fullUrl, countriesData }) => {
   const { blogs } = useContext(LayoutContext);
   const [copied, setCopied] = useState(false);
   const [isCopyLoading, setIsCopyLoading] = useState(false);
@@ -194,10 +194,10 @@ const BlogsSide = ({ categories, fullUrl }) => {
                     <div className="featured-content">
                       <p className="d-flex text-15 text-gray-1 align-center fw-600">
                         <a
-                          href={`/blogs?category=${blog.blog_category.name}`}
-                          className="text-gray-1"
+                          href={`/blogs?country=${blog.blog_country.id}`}
+                          className="text-gray-1 "
                         >
-                          {blog.blog_category.name}
+                          {blog.blog_country.name}
                         </a>{" "}
                         <span className="text-15 character"></span>{" "}
                         <span className="text-15 date text-gray-1">
@@ -257,9 +257,9 @@ const BlogsSide = ({ categories, fullUrl }) => {
             </div>
             <div className="category">
               <ul>
-                {categories?.blog_categories.map((option, idx) => (
-                  <AgentLink key={idx} href={`/blogs/?category=${option.name}`}>
-                    <li className="text-18" key={idx}>
+                {countriesData.map((option, idx) => (
+                  <AgentLink key={idx} href={`/blogs/?country=${option.id}`}>
+                    <li className="text-18 fw-500" key={idx}>
                       {option.name}
                     </li>
                   </AgentLink>
@@ -297,7 +297,7 @@ const BlogsSide = ({ categories, fullUrl }) => {
                   // className="mt-15 px-20 py-10 fw-500 text-14 border-white -outline-white   text-white   pointer"
                   className="book-now "
                 >
-                  <AgentLink href="/tour/capri-island-day-trip-from-rome">
+                  <AgentLink href="/tours/capri-island-day-trip-from-rome">
                     Book Now
                   </AgentLink>
                 </button>
@@ -335,7 +335,7 @@ const BlogsSide = ({ categories, fullUrl }) => {
                   // className="mt-15 px-20 fw-500 text-14 border-white -outline-white h-50 text-white   pointer"
                   className="book-now "
                 >
-                  <AgentLink href="/tour/rome-colosseum-hosted-entry-roman-forum-and-palatine-hills-with-arena-ticket">
+                  <AgentLink href="/tours/rome-colosseum-hosted-entry-roman-forum-and-palatine-hills-with-arena-ticket">
                     Book Now
                   </AgentLink>
                 </button>
@@ -364,7 +364,7 @@ const BlogsSide = ({ categories, fullUrl }) => {
                   // className="mt-15 px-20 fw-500 text-14 border-white -outline-white h-50 text-white   pointer"
                   className="book-now "
                 >
-                  <AgentLink href="/tour/capri-island-day-trip-from-rome-with-blue-grotto">
+                  <AgentLink href="/tours/capri-island-day-trip-from-rome-with-blue-grotto">
                     Book Now
                   </AgentLink>
                 </button>

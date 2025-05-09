@@ -110,7 +110,7 @@ const ThingsToDoPage = ({ blogs, categories, countries }) => {
 
   // Filter blogs by country - using useMemo to avoid recalculation on every render
   const filteredItems = useMemo(() => {
-    return blogs.filter((elm) => elm?.blog_country == filterOption);
+    return blogs.filter((elm) => elm?.blog_country.id == filterOption);
   }, [blogs, filterOption]);
 
   // Reset visible counts when country changes

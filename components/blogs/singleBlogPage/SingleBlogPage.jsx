@@ -15,6 +15,7 @@ export function getFullUrl(slug) {
 const SingleBlogPage = ({
   contentData,
   categoryData,
+  countriesData,
   faqContent,
   descriptionHTML,
   load,
@@ -135,7 +136,11 @@ const SingleBlogPage = ({
               </div>
             </div>
             <div className="col-md-4 mt-40 px-md-0">
-              <BlogsSide categories={categoryData} fullUrl={fullUrl} />
+              <BlogsSide
+                categories={categoryData}
+                countriesData={countriesData}
+                fullUrl={fullUrl}
+              />
             </div>
           </div>
         </div>

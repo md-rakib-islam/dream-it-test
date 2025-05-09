@@ -1,7 +1,7 @@
 import Blog from "@/components/blogs/Blog";
 import {
-  BLOG_CATEGORIES,
-  GET_CMS_BLOGS,
+  GET_ALL_COUNTRIES,
+  GET_CMS_BLOG_WITHOUT_PAGINATION,
   GET_METADATA_BY_CONTENT_NAME,
 } from "@/constant/constants";
 import { dataFetcher } from "@/utils/dataFetcher";
@@ -64,8 +64,10 @@ export async function generateMetadata() {
 const index = async () => {
   // Fetch blog and category data
   const [contentBlogData, categoryData] = await Promise.all([
-    dataFetcher(`${GET_CMS_BLOGS}`, { next: { revalidate: 60 } }),
-    dataFetcher(`${BLOG_CATEGORIES}`, { next: { revalidate: 60 } }),
+    dataFetcher(`${GET_CMS_BLOG_WITHOUT_PAGINATION}`, {
+      next: { revalidate: 60 },
+    }),
+    dataFetcher(`${GET_ALL_COUNTRIES}`, { next: { revalidate: 60 } }),
   ]);
 
   // Ensure blogs is always an array to prevent undefined errors
@@ -105,7 +107,7 @@ const index = async () => {
 
           {/* Show blog list only if filteredBlogs is not empty */}
           {filteredBlogs && (
-            <Blog blogs={filteredBlogs} categories={categoryData} />
+            <Blog blogs={filteredBlogs} categories={categoryData?.countries} />
           )}
         </div>
       </section>

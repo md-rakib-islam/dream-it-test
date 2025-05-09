@@ -3759,33 +3759,27 @@
   font-family: var(--font-franklin);
   // color: #1a1a1a !important;
 }
-.blog-content  a{
-
-
+// .blog-content a {
+//   color: var(--color-blue-1) !important;
+//   text-decoration: underline !important;
+// }
+.blog-content li a {
+  color: var(--color-blue-1) !important;
+  text-decoration: none !important;
+}
+.blog-content p a {
   color: var(--color-blue-1) !important;
   text-decoration: underline !important;
 }
-.blog-content p a{
-
-
+.blog-content p span a {
   color: var(--color-blue-1) !important;
   text-decoration: underline !important;
 }
-.blog-content p span a{
-
-
+.blog-content p span a strong {
   color: var(--color-blue-1) !important;
   text-decoration: underline !important;
 }
-.blog-content p span a strong{
-
-
-  color: var(--color-blue-1) !important;
-  text-decoration: underline !important;
-}
-.blog-content p a strong{
-
-
+.blog-content p a strong {
   color: var(--color-blue-1) !important;
   text-decoration: underline !important;
 }
@@ -3862,6 +3856,13 @@
 .blog-content span {
   color: rgb(126, 126, 126);
   // font-style: italic;
+}
+.blog-content .blog-sidebar p {
+  margin: 0;
+}
+.blog-content .blog-sidebar p a {
+  color: var(--color-light-1) !important;
+  text-decoration: none !important;
 }
 .blog-content .blog-sidebar .category ul {
   list-style-type: none;

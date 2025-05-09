@@ -9,28 +9,27 @@ import AgentLink from "../AgentLink/AgentLink";
 const Blog = ({ blogs, categories }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const category = searchParams.get("category");
+  const country = searchParams.get("country");
 
-  const [filterOption, setFilterOption] = useState(
-    categories?.blog_categories[0]?.name
-  );
+  const [filterOption, setFilterOption] = useState(categories[0]?.id);
   const [filteredItems, setFilteredItems] = useState(blogs);
 
   useEffect(() => {
     setFilteredItems(
-      blogs.filter((elm) => elm?.blog_category?.name?.includes(filterOption))
+      blogs.filter((elm) => elm?.blog_country?.id == filterOption)
     );
   }, [filterOption, blogs]);
 
   useEffect(() => {
-    if (category) {
-      setFilterOption(category);
+    if (country) {
+      setFilterOption(country);
     }
-  }, [category]);
+  }, [country]);
 
   const handleCategoryChange = (option) => {
     // Update the query params in the URL
-    router.push(`?category=${option}`);
+    router.push(`?country=${option}`);
+    setFilterOption(option);
   };
 
   return (
@@ -38,13 +37,13 @@ const Blog = ({ blogs, categories }) => {
       {blogs.length !== 0 && (
         <div className="tabs -pills-3 pt-30 js-tabs">
           <div className="tabs__controls row x-gap-10 justify-center js-tabs-controls">
-            {categories.blog_categories.map((option) => (
-              <div className="col-auto" key={option.name}>
+            {categories.map((option) => (
+              <div className="col-auto" key={option.id}>
                 <button
                   className={`tabs__button text-14 fw-500 px-20 py-10 rounded-4 bg-light-2 js-tabs-button ${
-                    filterOption === option.name ? "is-tab-el-active" : ""
+                    filterOption == option.id ? "is-tab-el-active" : ""
                   }`}
-                  onClick={() => handleCategoryChange(option.name)}
+                  onClick={() => handleCategoryChange(option.id)}
                 >
                   {option.name}
                 </button>
