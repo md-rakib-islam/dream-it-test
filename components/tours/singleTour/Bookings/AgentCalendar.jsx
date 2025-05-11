@@ -10,6 +10,9 @@ import ChooseDateForRegularTour from "./ChooseDateForRegularTour";
 import BookingSummaryForRegularTour from "./BookingSummaryForRegularTour";
 // import styles from "./calendar.module.css";
 import { LayoutContext } from "@/app/LayoutProvider";
+import ParticipantsForBusTour from "./ParticipantsForBusTour";
+import BookingSummaryForBusTour from "./BookingSummaryForBusTour";
+import ChooseDateForBusTour from "./ChooseDateForBusTour";
 
 const AgentCalendar = ({ tourdata, busdata }) => {
   // Get context data and URL parameters
@@ -33,7 +36,7 @@ const AgentCalendar = ({ tourdata, busdata }) => {
   const [isValidBooking, setIsValidBooking] = useState(false);
 
   // Determine tour type
-  const tourType = busdata?.tour_type || "regular_tour"; // Default to day_tour if not specified
+  const tourType = busdata?.tour_type || "regular_tour"; // Default to regular_tour if not specified
 
   // Find the matched tour from toursMainData
   const matchedTour = toursMainData.find((tour) => tour.id === tourdata?.id);
@@ -158,6 +161,50 @@ const AgentCalendar = ({ tourdata, busdata }) => {
               minRequired={minRequired}
               maxAllowed={maxAllowed}
               logoUrl={logoUrl}
+              tourType={tourType}
+            />
+          </div>
+        </>
+      );
+    } else if (tourType == "bus_tour") {
+      return (
+        <>
+          <div className="Agentsection">
+            <ParticipantsForBusTour
+              onCountChange={handleParticipantChange}
+              adultPrice={busdata?.adult_seat_price}
+              childPrice={busdata?.child_seat_price}
+              youthPrice={busdata?.youth_seat_price}
+              currentCurrency={selectedCurrency}
+            />
+          </div>
+          <div className="Agentsection">
+            <ChooseDateForBusTour
+              onSelectionComplete={handleDateSelection}
+              availableDates={parsedAvailableDates}
+              currentCurrency={selectedCurrency}
+              price={busdata?.price}
+            />
+          </div>
+          <div className="Agentsection">
+            <BookingSummaryForBusTour
+              selectedDate={selectedDate}
+              selectedTime={selectedTime}
+              participants={participants}
+              tourName={tourName}
+              busId={busdata?.id}
+              duration={tourdata?.duration}
+              tourImage={tourImage}
+              tourID={tourdata?.id}
+              agentRef={agentRef}
+              currentCurrency={selectedCurrency}
+              isValidBooking={isValidBooking}
+              minRequired={minRequired}
+              maxAllowed={maxAllowed}
+              logoUrl={logoUrl}
+              adultPrice={busdata?.adult_seat_price}
+              childPrice={busdata?.child_seat_price}
+              youthPrice={busdata?.youth_seat_price}
               tourType={tourType}
             />
           </div>

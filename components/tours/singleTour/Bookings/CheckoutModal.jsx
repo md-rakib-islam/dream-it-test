@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-// import styles from "./CheckoutModal.module.css";
 import { countries } from "./countries";
-import RenderReviewStep from "./renderReviewStep";
+
 import { BASE_URL_AGENT_BOOKING } from "@/constant/constants";
+import RenderReviewStep from "./renderReviewStep";
 
 const CheckoutModal = ({
   isOpen,
@@ -27,7 +27,10 @@ const CheckoutModal = ({
   childPrice,
   youthPrice,
 }) => {
-  const searchParams = new URLSearchParams(window.location.search);
+  const searchParams =
+    typeof window !== "undefined"
+      ? new URLSearchParams(window.location.search)
+      : new URLSearchParams();
   const agentCup = searchParams.get("agentCup");
   const payWithStripe = true;
   const payWithCash = false;
@@ -39,6 +42,7 @@ const CheckoutModal = ({
     flag: "gb",
     name: "United Kingdom",
     label: "United Kingdom",
+    value: "+44",
   });
   const [formData, setFormData] = useState({
     firstName: "",
@@ -53,6 +57,35 @@ const CheckoutModal = ({
     acceptTerms: false,
   });
   const [showDetails, setShowDetails] = useState(false);
+  const [phoneError, setPhoneError] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
+
+  // Define validatePhone function before using it in useEffect
+  const validatePhone = (phoneNumber) => {
+    // Very basic validation - just make sure there are digits after the country code
+    // This is a simplified approach that should work for most cases
+    const hasCountryCode = phoneNumber.startsWith("+");
+    const digitsAfterCode = phoneNumber.replace(/[^0-9]/g, "").length;
+
+    // Phone is valid if it has a country code and at least 5 digits total
+    const isValid = hasCountryCode && digitsAfterCode >= 5;
+
+    setPhoneError(!isValid);
+    return isValid;
+  };
+
+  // Validate form whenever relevant fields change
+  useEffect(() => {
+    const isPhoneValid = validatePhone(formData.phone);
+    const areRequiredFieldsFilled =
+      formData.firstName.trim() !== "" &&
+      formData.lastName.trim() !== "" &&
+      formData.email.trim() !== "" &&
+      formData.phone.trim() !== "" &&
+      formData.gender !== "";
+
+    setIsFormValid(isPhoneValid && areRequiredFieldsFilled);
+  }, [formData]);
 
   if (!isOpen) return null;
 
@@ -70,10 +103,16 @@ const CheckoutModal = ({
       }));
       return;
     }
+
     setFormData((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
+
+    // Validate phone when it changes
+    if (name === "phone") {
+      validatePhone(value);
+    }
   };
 
   const handleCountryChange = (e) => {
@@ -82,15 +121,33 @@ const CheckoutModal = ({
       ...country,
       label: country.label,
     });
+
+    // Update phone with new country code but keep the rest of the number if possible
+    const currentPhone = formData.phone;
+    const newPhone =
+      currentPhone.length > 3
+        ? country.value +
+          currentPhone.substring(
+            currentPhone.indexOf(" ") !== -1 ? currentPhone.indexOf(" ") : 3
+          )
+        : country.value;
+
     setFormData((prev) => ({
       ...prev,
-      phone: country.value,
+      phone: newPhone,
     }));
+
+    // Validate phone with new country code
+    validatePhone(newPhone);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setStep(2);
+
+    // Double-check phone validation before proceeding
+    if (validatePhone(formData.phone)) {
+      setStep(2);
+    }
   };
 
   const handleBack = () => {
@@ -166,7 +223,7 @@ const CheckoutModal = ({
         }
 
         // Redirect to the constructed URL
-        window.location.href = url;
+        // window.location.href = url;
       } else {
         console.error("Unexpected response format: missing URL");
         alert("An error occurred during checkout. Please try again.");
@@ -192,7 +249,6 @@ const CheckoutModal = ({
   const maxDate = new Date();
   maxDate.setFullYear(maxDate.getFullYear() - 18);
   const maxDateString = maxDate.toISOString().split("T")[0];
-  // console.log("Max date:", participants);
 
   // Render price breakdown based on tour type
   const renderPriceBreakdown = () => {
@@ -251,7 +307,7 @@ const CheckoutModal = ({
               unoptimized
               quality={100}
               style={{ width: "60px", height: "60px" }}
-              src={logoUrl}
+              src={logoUrl || "/placeholder.svg"}
               width={128}
               height={128}
               alt="Dream Tourism SRLS"
@@ -381,8 +437,14 @@ const CheckoutModal = ({
                             onChange={handleInputChange}
                             required
                             placeholder="Phone number"
+                            className={phoneError ? "error" : ""}
                           />
                         </div>
+                        {phoneError && (
+                          <div className="errorMessage">
+                            Please enter a valid phone number with country code
+                          </div>
+                        )}
                       </div>
                     </div>
 
@@ -461,7 +523,11 @@ const CheckoutModal = ({
                         Cancellation Policy
                       </Link>
                     </div>
-                    <button type="submit" className="continueButton">
+                    <button
+                      type="submit"
+                      className="continueButton"
+                      disabled={!isFormValid}
+                    >
                       Continue
                     </button>
                   </div>
