@@ -98,8 +98,19 @@ const ThingsToDoPage = ({ blogs, categories, countries }) => {
   const router = useRouter();
   const country = searchParams.get("country");
 
-  const [filterOption, setFilterOption] = useState(countries?.[0]?.id);
   const [visibleCounts, setVisibleCounts] = useState({});
+  const desiredOrder = [
+    "Italy",
+    "Netherlands",
+    "Switzerland",
+    "Germany",
+    "France",
+    "Belgium",
+  ];
+  const orderedCountries = [...countries].sort(
+    (a, b) => desiredOrder.indexOf(a.name) - desiredOrder.indexOf(b.name)
+  );
+  const [filterOption, setFilterOption] = useState(orderedCountries[0]?.id);
 
   // Set country from URL parameter
   useEffect(() => {
@@ -165,7 +176,7 @@ const ThingsToDoPage = ({ blogs, categories, countries }) => {
       {blogs.length !== 0 && (
         <div className="tabs -pills-3 pt-30 js-tabs">
           <div className="tabs__controls row x-gap-10 justify-center js-tabs-controls">
-            {countries.map((option) => (
+            {orderedCountries.map((option) => (
               <div className="col-auto mt-10" key={option.id}>
                 <button
                   className={`tabs__button text-14 fw-500 px-20 py-10 rounded-4 bg-light-2 js-tabs-button ${

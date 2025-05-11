@@ -107,7 +107,7 @@ const index = async () => {
 
           {/* Show blog list only if filteredBlogs is not empty */}
           {filteredBlogs && (
-            <Blog blogs={filteredBlogs} categories={categoryData?.countries} />
+            <Blog blogs={filteredBlogs} countries={categoryData?.countries} />
           )}
         </div>
       </section>

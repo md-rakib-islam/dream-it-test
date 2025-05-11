@@ -28,6 +28,18 @@ const BlogsSide = ({ categories, fullUrl, countriesData }) => {
     .filter((blog) => blog.is_featured == true)
     .slice(0, 3);
 
+  const desiredOrder = [
+    "Italy",
+    "Netherlands",
+    "Switzerland",
+    "Germany",
+    "France",
+    "Belgium",
+  ];
+  const orderedCountries = [...countriesData].sort(
+    (a, b) => desiredOrder.indexOf(a.name) - desiredOrder.indexOf(b.name)
+  );
+
   const copyToClipboard = () => {
     setIsCopyLoading(true);
 
@@ -257,7 +269,7 @@ const BlogsSide = ({ categories, fullUrl, countriesData }) => {
             </div>
             <div className="category">
               <ul>
-                {countriesData.map((option, idx) => (
+                {orderedCountries.map((option, idx) => (
                   <AgentLink key={idx} href={`/blogs/?country=${option.id}`}>
                     <li className="text-18 fw-500" key={idx}>
                       {option.name}

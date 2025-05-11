@@ -6,13 +6,25 @@ import { useEffect, useState } from "react";
 import BlogPagination from "./BlogPagination";
 import { useSearchParams, useRouter } from "next/navigation";
 import AgentLink from "../AgentLink/AgentLink";
-const Blog = ({ blogs, categories }) => {
+const Blog = ({ blogs, countries }) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const country = searchParams.get("country");
 
-  const [filterOption, setFilterOption] = useState(categories[0]?.id);
   const [filteredItems, setFilteredItems] = useState(blogs);
+
+  const desiredOrder = [
+    "Italy",
+    "Netherlands",
+    "Switzerland",
+    "Germany",
+    "France",
+    "Belgium",
+  ];
+  const orderedCountries = [...countries].sort(
+    (a, b) => desiredOrder.indexOf(a.name) - desiredOrder.indexOf(b.name)
+  );
+  const [filterOption, setFilterOption] = useState(orderedCountries[0]?.id);
 
   useEffect(() => {
     setFilteredItems(
@@ -37,7 +49,7 @@ const Blog = ({ blogs, categories }) => {
       {blogs.length !== 0 && (
         <div className="tabs -pills-3 pt-30 js-tabs">
           <div className="tabs__controls row x-gap-10 justify-center js-tabs-controls">
-            {categories.map((option) => (
+            {orderedCountries.map((option) => (
               <div className="col-auto" key={option.id}>
                 <button
                   className={`tabs__button text-14 fw-500 px-20 py-10 rounded-4 bg-light-2 js-tabs-button ${
