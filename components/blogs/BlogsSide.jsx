@@ -206,10 +206,10 @@ const BlogsSide = ({ categories, fullUrl, countriesData }) => {
                     <div className="featured-content">
                       <p className="d-flex text-15 text-gray-1 align-center fw-600">
                         <a
-                          href={`/blogs?country=${blog.blog_country.id}`}
+                          href={`/blogs?country=${blog?.blog_country?.id}`}
                           className="text-gray-1 "
                         >
-                          {blog.blog_country.name}
+                          {blog?.blog_country?.name}
                         </a>{" "}
                         <span className="text-15 character"></span>{" "}
                         <span className="text-15 date text-gray-1">
