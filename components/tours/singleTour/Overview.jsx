@@ -2,7 +2,7 @@
 import { useState } from "react";
 // import { useSelector } from "react-redux";
 const Overview = ({ data }) => {
-  const [showFullDescription, setShowFullDescription] = useState(false);
+  const [showFullDescription, setShowFullDescription] = useState(true);
 
   // Function to toggle between showing full description or half of it
   const toggleDescription = () => {
