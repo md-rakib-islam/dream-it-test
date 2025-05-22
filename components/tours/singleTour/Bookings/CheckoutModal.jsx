@@ -1,12 +1,21 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { countries } from "./countries";
 
 import { BASE_URL_AGENT_BOOKING } from "@/constant/constants";
 import RenderReviewStep from "./renderReviewStep";
+
+// Add this CSS to ensure error messages are visible
+const errorMessageStyle = {
+  color: "#e53935",
+  fontSize: "12px",
+  fontWeight: "bold",
+  marginTop: "5px",
+  display: "block",
+};
 
 const CheckoutModal = ({
   isOpen,
@@ -26,6 +35,7 @@ const CheckoutModal = ({
   adultPrice,
   childPrice,
   youthPrice,
+  price,
 }) => {
   const searchParams =
     typeof window !== "undefined"
@@ -37,28 +47,34 @@ const CheckoutModal = ({
   const is_agent = false;
   const [step, setStep] = useState(1);
   const [selectedCountry, setSelectedCountry] = useState({
-    code: "GB",
-    dial_code: "+44",
-    flag: "gb",
-    name: "United Kingdom",
-    label: "United Kingdom",
-    value: "+44",
+    code: "IT",
+    dial_code: "+39",
+    flag: "it",
+    name: "Itlay",
+    label: "Italy",
+    value: "+39",
   });
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
-    phone: "+44", // Set the default country code
+    phone: "+39", // Set the default country code
     newsletter: false,
     gender: "",
-    nationality: "United Kingdom",
-    dateOfBirth: "",
-    passportId: "",
+    nationality: "Italy",
     acceptTerms: false,
   });
-  const [showDetails, setShowDetails] = useState(false);
+  const [showDetails, setShowDetails] = useState(true);
   const [phoneError, setPhoneError] = useState(false);
   const [isFormValid, setIsFormValid] = useState(false);
+
+  // Create refs for error message elements
+  const firstNameErrorRef = useRef(null);
+  const lastNameErrorRef = useRef(null);
+  const emailErrorRef = useRef(null);
+  const phoneErrorRef = useRef(null);
+  const genderErrorRef = useRef(null);
+  const nationalityErrorRef = useRef(null);
 
   // Define validatePhone function before using it in useEffect
   const validatePhone = (phoneNumber) => {
@@ -68,7 +84,7 @@ const CheckoutModal = ({
     const digitsAfterCode = phoneNumber.replace(/[^0-9]/g, "").length;
 
     // Phone is valid if it has a country code and at least 5 digits total
-    const isValid = hasCountryCode && digitsAfterCode >= 5;
+    const isValid = hasCountryCode && digitsAfterCode >= 9;
 
     setPhoneError(!isValid);
     return isValid;
@@ -109,9 +125,27 @@ const CheckoutModal = ({
       [name]: type === "checkbox" ? checked : value,
     }));
 
+    // Hide error message when user types
+    if (name === "firstName" && firstNameErrorRef.current) {
+      firstNameErrorRef.current.style.display = "none";
+    } else if (name === "lastName" && lastNameErrorRef.current) {
+      lastNameErrorRef.current.style.display = "none";
+    } else if (name === "email" && emailErrorRef.current) {
+      emailErrorRef.current.style.display = "none";
+    } else if (name === "gender" && genderErrorRef.current) {
+      genderErrorRef.current.style.display = "none";
+    } else if (name === "nationality" && nationalityErrorRef.current) {
+      nationalityErrorRef.current.style.display = "none";
+    }
+
     // Validate phone when it changes
     if (name === "phone") {
       validatePhone(value);
+      if (phoneErrorRef.current) {
+        phoneErrorRef.current.style.display = validatePhone(value)
+          ? "none"
+          : "block";
+      }
     }
   };
 
@@ -122,15 +156,35 @@ const CheckoutModal = ({
       label: country.label,
     });
 
-    // Update phone with new country code but keep the rest of the number if possible
+    // Update phone with new country code
     const currentPhone = formData.phone;
+    const oldCountryCode = selectedCountry.value;
+
+    // Extract just the phone number without the country code
+    let phoneWithoutCode = "";
+    if (currentPhone.startsWith(oldCountryCode)) {
+      phoneWithoutCode = currentPhone.substring(oldCountryCode.length).trim();
+    } else {
+      // If we can't find the old country code at the start, just use everything after the "+"
+      const plusIndex = currentPhone.indexOf("+");
+      if (plusIndex !== -1) {
+        phoneWithoutCode = currentPhone.substring(plusIndex + 1).trim();
+        // Remove any digits that might be part of the country code
+        phoneWithoutCode = phoneWithoutCode.replace(/^\d+\s*/, "");
+      }
+    }
+
+    // Construct new phone number with new country code
     const newPhone =
-      currentPhone.length > 3
-        ? country.value +
-          currentPhone.substring(
-            currentPhone.indexOf(" ") !== -1 ? currentPhone.indexOf(" ") : 3
-          )
-        : country.value;
+      country.value + (phoneWithoutCode ? " " + phoneWithoutCode : "");
+
+    console.log("Phone update:", {
+      oldPhone: currentPhone,
+      oldCountryCode,
+      phoneWithoutCode,
+      newPhone,
+      newCountryCode: country.value,
+    });
 
     setFormData((prev) => ({
       ...prev,
@@ -139,15 +193,75 @@ const CheckoutModal = ({
 
     // Validate phone with new country code
     validatePhone(newPhone);
+    if (phoneErrorRef.current) {
+      phoneErrorRef.current.style.display = validatePhone(newPhone)
+        ? "none"
+        : "block";
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Double-check phone validation before proceeding
-    if (validatePhone(formData.phone)) {
-      setStep(2);
+    // Check for empty required fields
+    const isFirstNameEmpty = formData.firstName.trim() === "";
+    const isLastNameEmpty = formData.lastName.trim() === "";
+    const isEmailEmpty = formData.email.trim() === "";
+    const isGenderEmpty = formData.gender === "";
+    const isNationalityEmpty = formData.nationality === "";
+    const isPhoneValid = validatePhone(formData.phone);
+
+    // Show/hide error messages using direct DOM manipulation
+    if (firstNameErrorRef.current) {
+      firstNameErrorRef.current.style.display = isFirstNameEmpty
+        ? "block"
+        : "none";
     }
+    if (lastNameErrorRef.current) {
+      lastNameErrorRef.current.style.display = isLastNameEmpty
+        ? "block"
+        : "none";
+    }
+    if (emailErrorRef.current) {
+      emailErrorRef.current.style.display = isEmailEmpty ? "block" : "none";
+    }
+    if (genderErrorRef.current) {
+      genderErrorRef.current.style.display = isGenderEmpty ? "block" : "none";
+    }
+    if (nationalityErrorRef.current) {
+      nationalityErrorRef.current.style.display = isNationalityEmpty
+        ? "block"
+        : "none";
+    }
+    if (phoneErrorRef.current) {
+      phoneErrorRef.current.style.display = !isPhoneValid ? "block" : "none";
+    }
+
+    console.log("Form validation:", {
+      isFirstNameEmpty,
+      isLastNameEmpty,
+      isEmailEmpty,
+      isGenderEmpty,
+      isNationalityEmpty,
+      isPhoneValid,
+    });
+
+    // If any required field is empty or phone is invalid, don't proceed
+    if (
+      isFirstNameEmpty ||
+      isLastNameEmpty ||
+      isEmailEmpty ||
+      isGenderEmpty ||
+      isNationalityEmpty ||
+      !isPhoneValid
+    ) {
+      console.log("Form validation failed");
+      return;
+    }
+
+    // All validation passed, proceed to next step
+    console.log("Form validation passed, proceeding to step 2");
+    setStep(2);
   };
 
   const handleBack = () => {
@@ -189,6 +303,7 @@ const CheckoutModal = ({
       adultPrice,
       childPrice,
       youthPrice,
+      price,
     };
 
     try {
@@ -210,7 +325,7 @@ const CheckoutModal = ({
       const result = await response.json();
 
       if (result.session_url) {
-        window.open(result.session_url, "_blank");
+        window.location.href = result.session_url;
 
         // Construct the URL with both agentRef and agentCup if they exist
         let url = "/";
@@ -252,50 +367,48 @@ const CheckoutModal = ({
 
   // Render price breakdown based on tour type
   const renderPriceBreakdown = () => {
-    if (tourType === "regular_tour") {
-      return (
-        <>
-          {participants?.adult > 0 && (
-            <div className="totalRow">
-              <span>Adult×{participants?.adult}</span>
-              <span>
-                {currentCurrency?.symbol}
-                {(participants.adult * Number(adultPrice)).toFixed(2)}
-              </span>
-            </div>
-          )}
-          {participants?.youth > 0 && (
-            <div className="totalRow">
-              <span>Youth×{participants?.youth}</span>
-              <span>
-                {currentCurrency?.symbol}
-                {(participants.youth * Number(youthPrice)).toFixed(2)}
-              </span>
-            </div>
-          )}
-          {participants?.child > 0 && (
-            <div className="totalRow">
-              <span>Child×{participants?.child}</span>
-              <span>
-                {currentCurrency?.symbol}
-                {(participants.child * Number(childPrice)).toFixed(2)}
-              </span>
-            </div>
-          )}
-        </>
-      );
-    } else {
-      // Default to day_tour
-      return (
-        <div className="totalRow">
-          <span>Total {participants?.count || 0} participants</span>
-          <span>
-            {currentCurrency?.symbol}
-            {total.toFixed(2)}
-          </span>
-        </div>
-      );
-    }
+    return (
+      <>
+        {showDetails && (
+          <>
+            {participants?.adult > 0 && (
+              <div className="totalRow">
+                <span>Adult × {participants?.adult}</span>
+                <span>
+                  {currentCurrency?.symbol}
+                  {(participants.adult * Number(adultPrice)).toFixed(2)}
+                </span>
+              </div>
+            )}
+            {participants?.youth > 0 && (
+              <div className="totalRow">
+                <span>Child × {participants?.youth}</span>
+                <span>
+                  {currentCurrency?.symbol}
+                  {(participants.youth * Number(youthPrice)).toFixed(2)}
+                </span>
+              </div>
+            )}
+            {participants?.child > 0 && (
+              <div className="totalRow">
+                <span>Infant × {participants?.child}</span>
+                <span>
+                  {currentCurrency?.symbol}
+                  {(participants.child * Number(childPrice)).toFixed(2)}
+                </span>
+              </div>
+            )}
+          </>
+        )}
+
+        <button
+          className="toggleButton"
+          onClick={() => setShowDetails(!showDetails)}
+        >
+          Show {showDetails ? "less" : "more"}
+        </button>
+      </>
+    );
   };
 
   return (
@@ -319,10 +432,7 @@ const CheckoutModal = ({
                   <span className={`stepText ${step >= 1 ? "active" : ""}`}>
                     Contact details
                   </span>
-                  <div
-                    className={`stepNumber ${step >= 1 ? "active" : ""}
-                    `}
-                  >
+                  <div className={`stepNumber ${step >= 1 ? "active" : ""}`}>
                     1
                   </div>
                 </div>
@@ -375,6 +485,13 @@ const CheckoutModal = ({
                           onChange={handleInputChange}
                           required
                         />
+                        <div
+                          ref={firstNameErrorRef}
+                          className="errorMessage"
+                          style={{ ...errorMessageStyle, display: "none" }}
+                        >
+                          First name is required
+                        </div>
                       </div>
                       <div className="formGroup">
                         <label>
@@ -387,6 +504,13 @@ const CheckoutModal = ({
                           onChange={handleInputChange}
                           required
                         />
+                        <div
+                          ref={lastNameErrorRef}
+                          className="errorMessage"
+                          style={{ ...errorMessageStyle, display: "none" }}
+                        >
+                          Last name is required
+                        </div>
                       </div>
                       <div className="formGroup">
                         <label>
@@ -399,6 +523,13 @@ const CheckoutModal = ({
                           onChange={handleInputChange}
                           required
                         />
+                        <div
+                          ref={emailErrorRef}
+                          className="errorMessage"
+                          style={{ ...errorMessageStyle, display: "none" }}
+                        >
+                          Email address is required
+                        </div>
                       </div>
                       <div className="formGroup">
                         <label>
@@ -440,11 +571,16 @@ const CheckoutModal = ({
                             className={phoneError ? "error" : ""}
                           />
                         </div>
-                        {phoneError && (
-                          <div className="errorMessage">
-                            Please enter a valid phone number with country code
-                          </div>
-                        )}
+                        <div
+                          ref={phoneErrorRef}
+                          className="errorMessage"
+                          style={{
+                            ...errorMessageStyle,
+                            display: phoneError ? "block" : "none",
+                          }}
+                        >
+                          Please enter a valid phone number with country code
+                        </div>
                       </div>
                     </div>
 
@@ -477,6 +613,13 @@ const CheckoutModal = ({
                           <option value="female">Female</option>
                           <option value="other">Other</option>
                         </select>
+                        <div
+                          ref={genderErrorRef}
+                          className="errorMessage"
+                          style={{ ...errorMessageStyle, display: "none" }}
+                        >
+                          Please select a gender
+                        </div>
                       </div>
                       <div className="formGroup">
                         <label>
@@ -484,15 +627,25 @@ const CheckoutModal = ({
                         </label>
                         <select
                           name="nationality"
-                          value={formData.nationality}
+                          value={formData.nationality || "Italy"} // Default to Italy if empty
                           onChange={handleInputChange}
                           required
                         >
-                          <option value="United Kingdom">United Kingdom</option>
-                          {/* Add more nationality options here */}
+                          {countries.map((country) => (
+                            <option key={country.label} value={country.label}>
+                              {country.label}
+                            </option>
+                          ))}
                         </select>
+                        <div
+                          ref={nationalityErrorRef}
+                          className="errorMessage"
+                          style={{ ...errorMessageStyle, display: "none" }}
+                        >
+                          Nationality is required
+                        </div>
                       </div>
-                      <div className="formGroup">
+                      {/* <div className="formGroup">
                         <label>Date of birth</label>
                         <input
                           type="date"
@@ -510,7 +663,7 @@ const CheckoutModal = ({
                           value={formData.passportId}
                           onChange={handleInputChange}
                         />
-                      </div>
+                      </div> */}
                     </div>
                   </div>
 
@@ -523,11 +676,7 @@ const CheckoutModal = ({
                         Cancellation Policy
                       </Link>
                     </div>
-                    <button
-                      type="submit"
-                      className="continueButton"
-                      disabled={!isFormValid}
-                    >
+                    <button type="submit" className="continueButton">
                       Continue
                     </button>
                   </div>
@@ -545,7 +694,7 @@ const CheckoutModal = ({
                       <span>Total ({currentCurrency?.name || "GBP"})</span>
                       <span>
                         {currentCurrency?.symbol}
-                        {total.toFixed(2)}
+                        {total}
                       </span>
                     </div>
                   </div>
@@ -577,6 +726,7 @@ const CheckoutModal = ({
               adultPrice={adultPrice}
               childPrice={childPrice}
               youthPrice={youthPrice}
+              price={price}
             />
           )}
         </div>

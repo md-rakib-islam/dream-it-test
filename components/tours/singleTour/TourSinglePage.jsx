@@ -380,7 +380,10 @@ export default function TourSinglePage({ tour, itenarayItems }) {
                 <SidebarRight data={tour} />
               </div>
               <TourSnapShot data={tour} />
-              <TestimonialSectionSingleTour title={"Reviews"} />
+
+              {/* 
+                /// old code  \\\
+              <TestimonialSectionSingleTour title={"Reviews"} /> */}
             </div>
           )}
           {/* End .col-xl-4 */}
@@ -404,10 +407,16 @@ export default function TourSinglePage({ tour, itenarayItems }) {
       {itenarayItems?.length > 0 && (
         <section className="border-top-light mt-40 pt-40" ref={itineraryRef}>
           <div className="container">
-            <h2 className="text-22 fw-600 mb-20">Itinerary</h2>
+            <h2 className="text-22 sm:text-18 fw-600 mb-20">Itinerary</h2>
             <Itinerary itenarayItems={itenarayItems} />
           </div>
         </section>
+      )}
+
+      {isMobile && (
+        <div className="container">
+          <TestimonialSectionSingleTour title={"Reviews"} />{" "}
+        </div>
       )}
       {/* End Itinerary Section */}
 

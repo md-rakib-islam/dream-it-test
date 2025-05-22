@@ -3,12 +3,16 @@
 import { useState, useEffect } from "react";
 // import styles from "./calendar.module.css";
 import clsx from "clsx";
+import { BASE_URL_AGENT_BOOKING } from "@/constant/constants";
+import { modifiedCurrency } from "@/utils/modifiedCurrency";
 
 const ChooseDateForRegularTour = ({
   onSelectionComplete,
   availableDates,
   price,
   currentCurrency,
+  tourID,
+  participants,
 }) => {
   // Initialize calendar to show the month of the first available date
   const getInitialDate = () => {
@@ -72,6 +76,124 @@ const ChooseDateForRegularTour = ({
 
     return defaultDate;
   };
+  const formatTotalPrice = (price) => {
+    if (!price) return "";
+    return `${currentCurrency?.symbol || ""}${modifiedCurrency(
+      price,
+      currentCurrency?.currency
+    )}`;
+  };
+  // Function to fetch participants for a selected date
+  const fetchParticipantsForDate = async (date) => {
+    if (!date || !tourID) return;
+
+    const formattedDate = `${date.getFullYear()}-${String(
+      date.getMonth() + 1
+    ).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+
+    setIsLoadingParticipants(true);
+    try {
+      const response = await fetch(
+        `${BASE_URL_AGENT_BOOKING}/tour_content/api/v1/tour_content/get_participants/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            tour_id: tourID,
+            date: formattedDate,
+          }),
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        // Update state with the fetched participants
+        setDateParticipants((prev) => ({
+          ...prev,
+          [formattedDate]: data.participants,
+        }));
+      } else {
+        console.error("Failed to fetch participants:", await response.text());
+      }
+    } catch (error) {
+      console.error("Error fetching participants:", error);
+    } finally {
+      setIsLoadingParticipants(false);
+    }
+  };
+
+  // Get actual available spots for a date
+  const getActualAvailableSpots = (date) => {
+    if (!date) return maxParticipantsAllowed;
+
+    const formattedDate = `${date.getFullYear()}-${String(
+      date.getMonth() + 1
+    ).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+
+    const bookedParticipants = dateParticipants[formattedDate] || 0;
+    return maxParticipantsAllowed - bookedParticipants;
+  };
+
+  // Get displayed available spots (with marketing logic)
+  const getDisplayedAvailableSpots = (date) => {
+    const actualSpots = getActualAvailableSpots(date);
+    console.log("Actual available spots:", actualSpots);
+
+    // If there are 0 spots available, show sold out
+    if (actualSpots <= 0) {
+      return {
+        spots: 0,
+        isLimited: false,
+        isUrgent: false,
+        isSoldOut: true,
+      };
+    }
+
+    // If there are between 1-5 spots available, show the actual number and mark as urgent
+    if (actualSpots <= 5) {
+      return {
+        spots: actualSpots,
+        isLimited: true,
+        isUrgent: true,
+        isSoldOut: false,
+      };
+    }
+
+    // If there are between 6-19 spots available, show the actual number
+    if (actualSpots < 20) {
+      return {
+        spots: actualSpots,
+        isLimited: false,
+        isUrgent: false,
+        isSoldOut: false,
+      };
+    }
+
+    // If spots are less than 30% of max, show "limited availability" with inflated number
+    if (actualSpots < maxParticipantsAllowed * 0.4) {
+      const inflatedSpots = Math.min(
+        actualSpots + 5,
+        maxParticipantsAllowed - 10
+      );
+      return {
+        spots: inflatedSpots,
+        isLimited: true,
+        isUrgent: false,
+        isSoldOut: false,
+      };
+    }
+
+    // For all other cases (30% or more of max available), just show the actual number
+    return {
+      spots: actualSpots,
+      isLimited: false,
+      isUrgent: false,
+      isSoldOut: false,
+    };
+  };
+
   // console.log("availableDates", availableDates);
   // State initialization
   const [selectedDate, setSelectedDate] = useState(null);
@@ -79,6 +201,9 @@ const ChooseDateForRegularTour = ({
   const [showTimeSelection, setShowTimeSelection] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date()); // Start with current month
   const [showMonthDropdown, setShowMonthDropdown] = useState(false);
+  const [dateParticipants, setDateParticipants] = useState({});
+  const [isLoadingParticipants, setIsLoadingParticipants] = useState(false);
+  const [maxParticipantsAllowed, setMaxParticipantsAllowed] = useState(50); // Default max participants
 
   // Set the initial date once availableDates is available
   useEffect(() => {
@@ -100,6 +225,9 @@ const ChooseDateForRegularTour = ({
     setSelectedDate(localDate);
     setShowTimeSelection(true);
 
+    // Fetch participants for the selected date
+    fetchParticipantsForDate(localDate);
+
     if (timeSlots.length === 1) {
       setSelectedTime(timeSlots[0]);
     } else {
@@ -107,15 +235,52 @@ const ChooseDateForRegularTour = ({
     }
   };
 
+  // Calculate total number of participants
+  const getTotalParticipants = () => {
+    if (!participants) return 0;
+
+    // If participants is an object with child, adult, youth properties
+    if (
+      participants.child !== undefined ||
+      participants.adult !== undefined ||
+      participants.youth !== undefined
+    ) {
+      return (
+        (participants.child || 0) +
+        (participants.adult || 0) +
+        (participants.youth || 0)
+      );
+    }
+
+    // If participants has a count property
+    if (participants.count !== undefined) {
+      return participants.count;
+    }
+
+    return 0;
+  };
+
   useEffect(() => {
     if (selectedDate) {
+      const actualAvailableSpots = getActualAvailableSpots(selectedDate);
+
       onSelectionComplete({
         date: selectedDate,
         time: selectedTime, // This can be null
         price: price,
+        availableSpots: actualAvailableSpots,
+        canBook: participants
+          ? actualAvailableSpots >= getTotalParticipants()
+          : true,
       });
     }
-  }, [selectedDate, selectedTime, price, onSelectionComplete]);
+  }, [
+    selectedDate,
+    selectedTime,
+    price,
+    onSelectionComplete,
+    dateParticipants,
+  ]);
 
   const handleTimeClick = (time) => {
     setSelectedTime(time);
@@ -182,6 +347,12 @@ const ChooseDateForRegularTour = ({
   }, [showMonthDropdown]);
 
   if (showTimeSelection) {
+    const availabilityInfo = getDisplayedAvailableSpots(selectedDate);
+    const formattedDate = selectedDate
+      ? `${selectedDate.getFullYear()}-${String(
+          selectedDate.getMonth() + 1
+        ).padStart(2, "0")}-${String(selectedDate.getDate()).padStart(2, "0")}`
+      : "";
     return (
       <>
         <h2 className="CalendarsectionTitle">
@@ -196,21 +367,102 @@ const ChooseDateForRegularTour = ({
             {timeSlots.length === 1 ? "Selected time" : "Choose a time"}
           </h3>
 
-          <div className="timeGrid">
-            {timeSlots.map((time) => (
-              <button
-                key={time}
-                className={clsx("timeSlot", {
-                  ["timeSlotSelected"]: selectedTime === time,
-                })}
-                onClick={() => handleTimeClick(time)}
-                disabled={timeSlots.length === 1}
-              >
-                <span className={"availabilityIndicator"}></span>
-                {time}
-              </button>
-            ))}
-          </div>
+          {isLoadingParticipants ? (
+            <div className="loadingIndicator">Loading availability...</div>
+          ) : (
+            <>
+              <div className="availabilityInfo">
+                {availabilityInfo.isSoldOut ? (
+                  <span
+                    className="availableSpots"
+                    style={{
+                      color: "#e53935",
+                      fontWeight: "bold",
+                      textAlign: "center",
+                    }}
+                  >
+                    Sold out for this date!
+                  </span>
+                ) : availabilityInfo.isUrgent ? (
+                  <span
+                    className="availableSpots"
+                    style={{
+                      color: "#e53935",
+                      fontWeight: "bold",
+                      textAlign: "center",
+                    }}
+                  >
+                    Only {availabilityInfo.spots} spots left! Book now to secure
+                    your place.
+                  </span>
+                ) : availabilityInfo.isLimited ? (
+                  <span
+                    className="availableSpots"
+                    style={{
+                      color: "#ff9800",
+                      fontWeight: "bold",
+                      textAlign: "center",
+                    }}
+                  >
+                    Limited availability! Only {availabilityInfo.spots} spots
+                    left.
+                  </span>
+                ) : (
+                  <span
+                    className="availableSpots"
+                    style={{ color: "#4caf50", textAlign: "center" }}
+                  >
+                    {availabilityInfo.spots} spots available out of{" "}
+                    {maxParticipantsAllowed}
+                  </span>
+                )}
+
+                {dateParticipants[formattedDate] > 0 &&
+                  !availabilityInfo.isSoldOut && (
+                    <span
+                      className="bookedSpots"
+                      style={{
+                        color: "#666",
+                        marginTop: "4px",
+                        display: "block",
+                        textAlign: "center",
+                      }}
+                    >
+                      {availabilityInfo.isUrgent || availabilityInfo.isLimited
+                        ? "Booking quickly - don't miss out!"
+                        : `${dateParticipants[formattedDate]} already booked`}
+                    </span>
+                  )}
+              </div>
+
+              <div className="timeGrid">
+                {timeSlots.map((time) => (
+                  <button
+                    key={time}
+                    className={clsx("timeSlot", {
+                      ["timeSlotSelected"]: selectedTime === time,
+                    })}
+                    onClick={() => handleTimeClick(time)}
+                    disabled={
+                      timeSlots.length === 1 || availabilityInfo.isSoldOut
+                    }
+                  >
+                    <span
+                      className="availabilityIndicator"
+                      style={{
+                        backgroundColor: availabilityInfo.isSoldOut
+                          ? "#e53935"
+                          : availabilityInfo.isUrgent
+                          ? "#ff9800"
+                          : "#4caf50",
+                      }}
+                    ></span>
+                    {time}
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
 
           <button className="backToCalendarLink" onClick={handleBackToCalendar}>
             Back to calendar
@@ -453,7 +705,9 @@ const ChooseDateForRegularTour = ({
                     >
                       <span>{date.getDate()}</span>
                       {isAvailable && price && (
-                        <span className="datePrice">{formatPrice(price)}</span>
+                        <span className="datePrice">
+                          {formatTotalPrice(price)}
+                        </span>
                       )}
                       {isAvailable && <span className="availabilityDot"></span>}
                     </button>

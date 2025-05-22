@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import Image from "next/image";
 import AgentCalendar from "./Bookings/AgentCalendar";
-import { BASE_URL_AGENT_BOOKING } from "@/constant/constants";
+import { tour_content_id } from "@/constant/constants";
 
 const SidebarRight = ({ data }) => {
   // State for bus data
@@ -11,42 +11,74 @@ const SidebarRight = ({ data }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  // Use ref to track if component is mounted
+  const isMounted = useRef(true);
+
+  // Use ref to prevent multiple data fetches
+  const dataFetchedRef = useRef(false);
+
+  // Memoize the data dependency to prevent unnecessary effect triggers
+  const dataDependency = useMemo(() => {
+    return data?.select_bus;
+  }, [data?.select_bus]);
+
   useEffect(() => {
-    // Skip if data or select_bus is missinging
-    if (!data || !data.select_bus) {
+    // Set mounted flag
+    isMounted.current = true;
+
+    // Cleanup function to set mounted flag to false when unmounting
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    // Skip if data or select_bus is missing
+    if (!data || !dataDependency) {
       console.warn("Missing data or select_bus for fetching bus data");
+      return;
+    }
+
+    // Skip if we've already fetched this data
+    if (dataFetchedRef.current) {
       return;
     }
 
     const fetchBusData = async () => {
       setLoading(true);
       try {
-        const response = await fetch(
-          `${BASE_URL_AGENT_BOOKING}/bus/api/v1/bus/${data.select_bus}`
-        );
+        const response = await fetch(`${tour_content_id}${dataDependency}`);
 
         if (!response.ok) {
           throw new Error(`API error: ${response.status}`);
         }
 
         const busData = await response.json();
-        setBusdata(busData);
-        setError(null);
+
+        // Only update state if component is still mounted
+        if (isMounted.current) {
+          setBusdata(busData);
+          setError(null);
+          // Mark data as fetched
+          dataFetchedRef.current = true;
+        }
       } catch (error) {
         console.error("Error fetching bus data:", error);
-        setError(error.message);
-        setBusdata([]);
+        if (isMounted.current) {
+          setError(error.message);
+          setBusdata([]);
+        }
       } finally {
-        setLoading(false);
+        if (isMounted.current) {
+          setLoading(false);
+        }
       }
     };
 
     fetchBusData();
-  }, [data]);
+  }, [dataDependency]); // Only depend on memoized dataDependency
 
-  // console.log("busdata", busdata);
-  // console.log("selectbus", data?.select_bus);
-
+  // Memoize the Bokun script loading to prevent it from running on every render
   useEffect(() => {
     // Check if script already exists to prevent duplicates
     const existingScript = document.querySelector(
@@ -71,8 +103,26 @@ const SidebarRight = ({ data }) => {
     };
   }, []); // Empty dependency array means this runs once on mount
 
+  // Memoize the AgentCalendar component to prevent unnecessary re-renders
+  const agentCalendarComponent = useMemo(() => {
+    if (loading || error || data?.is_bokun_url !== false) {
+      return null;
+    }
+
+    return <AgentCalendar tourdata={data} busdata={busdata} />;
+  }, [data, busdata, loading, error]);
+
+  // Memoize the Bokun widget component
+  const bokunWidgetComponent = useMemo(() => {
+    if (data?.is_bokun_url !== true) {
+      return null;
+    }
+
+    return <div className="bokunWidget" data-src={data?.url}></div>;
+  }, [data?.is_bokun_url, data?.url]);
+
   return (
-    <div className="d-flex js-pin-content" style={{ height: "fit-content" }}>
+    <div className="d-flex" style={{ height: "fit-content" }}>
       <div className="w-360 lg:w-full d-flex flex-column">
         <div className="d-flex items-center gradient-text">
           <Image
@@ -94,11 +144,9 @@ const SidebarRight = ({ data }) => {
 
         {!loading && !error && (
           <>
-            {!data?.select_bus ? (
-              <div className="bokunWidget" data-src={data?.url}></div>
-            ) : (
-              <AgentCalendar tourdata={data} busdata={busdata} />
-            )}
+            {data?.is_bokun_url === false
+              ? agentCalendarComponent
+              : bokunWidgetComponent}
           </>
         )}
       </div>
@@ -106,4 +154,5 @@ const SidebarRight = ({ data }) => {
   );
 };
 
+// Export with React.memo to prevent unnecessary re-renders
 export default SidebarRight;

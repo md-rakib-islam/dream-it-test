@@ -138,7 +138,7 @@
 .BookingcheckoutButton {
   width: 100%;
   padding: 14px;
-  background: #111827;
+  background: #3554d1;
   color: white;
   border: none;
   border-radius: 8px;
@@ -153,11 +153,11 @@
 }
 
 .BookingcheckoutButton:hover {
-  background: #1f2937;
+  background: #1743ef;
 }
 
 .BookingcheckoutButton:disabled {
-  background: #9ca3af;
+  background: #7e97fc;
   cursor: not-allowed;
 }
 
@@ -395,9 +395,9 @@
 }
 
 .timeSlotSelected {
-  background: #111827 !important;
+  background: #3554d1 !important;
   color: white;
-  border-color: #111827;
+  border-color: #3554d1;
 }
 
 .availabilityIndicator {
@@ -517,6 +517,25 @@
 }
 .calendarBtn.active .datePrice {
   color: white;
+}
+
+.availabilityInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.availableSpots {
+  font-weight: 600;
+  color: #333;
+}
+
+.bookedSpots {
+  color: #666;
+  font-size: 0.9rem;
 }
 /* Add these styles to your existing calendar.module.css file */
 
@@ -983,7 +1002,7 @@
 }
 
 .continueButton {
-  background: #111827;
+  background: #3554d1;
   color: white;
   padding: 12px 24px;
   border: none;
@@ -995,7 +1014,7 @@
 }
 
 .continueButton:hover {
-  background: #1f2937;
+  background: #1743ef;
 }
 
 .orderSummary {
@@ -1191,7 +1210,7 @@
 .checkoutButton {
   width: 50%;
   padding: 12px 24px;
-  background: #111827;
+  background: #3554d1;
   color: white;
   border: none;
   border-radius: 4px;
@@ -1204,11 +1223,11 @@
 }
 
 .checkoutButton:hover {
-  background: #1f2937;
+  background: #1743ef;
 }
 
 .checkoutButton:disabled {
-  background: #9ca3af;
+  background: #7e97fc;
   cursor: not-allowed;
 }
 
@@ -1603,7 +1622,7 @@
 }
 
 .couponButton {
-  background: #111827;
+  background: #3554d1;
   color: white;
   border: none;
   border-radius: 4px;
@@ -1614,11 +1633,11 @@
 }
 
 .couponButton:hover:not(:disabled) {
-  background: #1f2937;
+  background: #1743ef;
 }
 
 .couponButton:disabled {
-  background: #9ca3af;
+  background: #7e97fc;
   cursor: not-allowed;
 }
 

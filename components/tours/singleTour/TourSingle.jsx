@@ -65,6 +65,7 @@ const TourSingle = ({ children, data, fullUrl, itenarayItems }) => {
       help_center: data?.help_center,
       faq: data?.faq,
       select_bus: data?.select_bus,
+      ...data,
     };
   }
   // console.log("tour", tour);

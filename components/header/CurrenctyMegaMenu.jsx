@@ -1,35 +1,105 @@
 "use client";
 
 import { LayoutContext } from "@/app/LayoutProvider";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 const CurrenctyMegaMenu = ({ textClass }) => {
   const { selectedCurrency, updateCurrency } = useContext(LayoutContext);
 
   const [click, setClick] = useState(false);
   const handleCurrency = () => setClick((prevState) => !prevState);
+  const [oneTimeCall, setOnetimeCall] = useState(false);
 
   const currencyContent = [
-    { id: 1, name: "United States dollar", currency: "USD", symbol: "$" },
-    { id: 2, name: "Australian dollar", currency: "AUD", symbol: "$" },
-    // { id: 3, name: "Brazilian real", currency: "BRL", symbol: "R$" },
-    // { id: 4, name: "Bulgarian lev", currency: "BGN", symbol: "лв." },
-    { id: 5, name: "Canadian dollar", currency: "CAD", symbol: "$" },
-    // { id: 6, name: "Bangladeshi Taka", currency: "BDT", symbol: "৳" },
-    // { id: 7, name: "Azerbaijan Manat", currency: "AZN", symbol: "₼" },
-    // { id: 8, name: "Colombia Peso", currency: "COP", symbol: "$" },
-    // { id: 9, name: "Oman Rial", currency: "OMR", symbol: "﷼" },
-    { id: 10, name: "Euro", currency: "EUR", symbol: "€" },
-    // { id: 11, name: "Iran Rial", currency: "IRR", symbol: "﷼" },
-    // { id: 12, name: "Japan Yen", currency: "JPY", symbol: "£" },
-    { id: 13, name: "Great Britain Pound", currency: "GBP", symbol: "£" },
-    // { id: 14, name: "Korea (South) Won", currency: "KRW", symbol: "	₩" },
-    { id: 15, name: "Saudi riyal", currency: "SAR", symbol: "ريال" },
-    // { id: 16, name: "Liberia Dollar", currency: "LRD", symbol: "$" },
-    // { id: 17, name: "Malaysia Ringgit", currency: "MYR", symbol: "$" },
-    // { id: 18, name: "Mexico Peso", currency: "MXN", symbol: "$" },
-    // { id: 19, name: "Namibia Dollar", currency: "NAD", symbol: "R$" },
-    // { id: 20, name: "Nepal Rupee", currency: "NPR", symbol: "Nepal Rupee" },
+    {
+      id: 1,
+      name: "United States dollar",
+      currency: "USD",
+      symbol: "$",
+      country_code: [
+        "US",
+        "AS",
+        "EC",
+        "FM",
+        "GU",
+        "MH",
+        "MP",
+        "PW",
+        "PR",
+        "TC",
+        "TL",
+        "UM",
+        "VG",
+        "VI",
+        "BZ",
+        "SV",
+        "PA",
+        "ZM",
+      ],
+    },
+    {
+      id: 2,
+      name: "Australian dollar",
+      currency: "AUD",
+      symbol: "$",
+      country_code: ["AU", "CX", "CC", "HM", "KI", "NR", "NF", "TV"],
+    },
+
+    {
+      id: 5,
+      name: "Canadian dollar",
+      currency: "CAD",
+      symbol: "$",
+      country_code: ["CA"],
+    },
+
+    {
+      id: 10,
+      name: "Euro",
+      currency: "EUR",
+      symbol: "€",
+      country_code: [
+        "AD",
+        "AT",
+        "BE",
+        "CY",
+        "EE",
+        "FI",
+        "FR",
+        "DE",
+        "GR",
+        "IE",
+        "IT",
+        "LV",
+        "LT",
+        "LU",
+        "MT",
+        "MC",
+        "ME",
+        "NL",
+        "PT",
+        "SM",
+        "SK",
+        "SI",
+        "ES",
+        "VA",
+      ],
+    },
+
+    {
+      id: 13,
+      name: "Great Britain Pound",
+      currency: "GBP",
+      symbol: "£",
+      country_code: ["GB", "IM", "GG", "JE"],
+    },
+    {
+      id: 15,
+      name: "Saudi riyal",
+      currency: "SAR",
+      symbol: "ريال",
+      country_code: ["SA"],
+    },
   ];
 
   const handleItemClick = (item) => {
@@ -37,6 +107,42 @@ const CurrenctyMegaMenu = ({ textClass }) => {
     // dispatch(addCurrency(item));
     setClick(false);
   };
+
+  useEffect(() => {
+    if (!oneTimeCall) {
+      setOnetimeCall(true);
+      const fetchGeoData = async () => {
+        try {
+          const res = await fetch(
+            "https://ipinfo.io/json?token=baf431b7705663"
+          );
+          const data = await res.json();
+          console.log("Geo data:", data);
+
+          if (data && data.country) {
+            // updateCurrency(currencyObject);
+            currencyContent.forEach((item) => {
+              item.country_code.forEach((code) => {
+                if (code == data.country) {
+                  console.log("country code:", code, data.country);
+                  updateCurrency(item);
+                  setClick(false);
+                }
+              });
+              // if (item.country_code === data.country) {
+              //   updateCurrency(item);
+              // } else {
+              //   console.log("No match found for country code:", data.country);
+              // }
+            });
+          }
+        } catch (error) {
+          console.error("Geo error:", error);
+        }
+      };
+      fetchGeoData();
+    }
+  }, [updateCurrency, oneTimeCall, currencyContent]);
 
   return (
     <>

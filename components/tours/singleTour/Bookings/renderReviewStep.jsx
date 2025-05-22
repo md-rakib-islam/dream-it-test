@@ -30,6 +30,7 @@ const RenderReviewStep = ({
   adultPrice,
   childPrice,
   youthPrice,
+  price,
 }) => {
   const [couponCode, setCouponCode] = useState("");
   const [couponMessage, setCouponMessage] = useState("");
@@ -201,7 +202,7 @@ const RenderReviewStep = ({
           )}
           {participants?.youth > 0 && (
             <div className="columnValue">
-              <span>Youth {participants?.youth}×</span>
+              <span>Child {participants?.youth}×</span>
               <span>
                 {(participants.youth * Number(youthPrice)).toFixed(2)}
                 {currentCurrency?.symbol}
@@ -210,7 +211,7 @@ const RenderReviewStep = ({
           )}
           {participants?.child > 0 && (
             <div className="columnValue">
-              <span>Child {participants?.child} ×</span>
+              <span>Infant {participants?.child} ×</span>
               <span>
                 {(participants.child * Number(childPrice)).toFixed(2)}
                 {currentCurrency?.symbol}
@@ -290,7 +291,7 @@ const RenderReviewStep = ({
                   {renderPriceBreakdown()}
                   <span>
                     {currentCurrency?.symbol}
-                    {total.toFixed(2)}
+                    {total}
                   </span>
                 </div>
               </div>
@@ -308,7 +309,7 @@ const RenderReviewStep = ({
                 <span>Original Price</span>
                 <span>
                   {currentCurrency?.symbol}
-                  {total.toFixed(2)}
+                  {total}
                 </span>
               </div>
 
@@ -316,7 +317,7 @@ const RenderReviewStep = ({
                 <span>Total (GBP)</span>
                 <span>
                   {currentCurrency?.symbol}
-                  {finalTotal.toFixed(2)}
+                  {finalTotal}
                 </span>
               </div>
 

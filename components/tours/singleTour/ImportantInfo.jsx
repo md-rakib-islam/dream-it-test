@@ -190,7 +190,7 @@ const ImportantInfo = ({ data }) => {
                   className="fw-600 text-22 sm:text-18"
                   style={{ marginTop: "0.5rem" }}
                 >
-                  What's Included
+                  Inclusion
                 </div>
               </div>
               <div
@@ -234,7 +234,7 @@ const ImportantInfo = ({ data }) => {
                   className="fw-600 text-22 sm:text-18"
                   style={{ marginTop: "0.5rem" }}
                 >
-                  What's not included
+                  Exclusion
                 </div>
               </div>
               <div
@@ -473,7 +473,10 @@ const ImportantInfo = ({ data }) => {
                   verticalAlign: "top",
                 }}
               >
-                <div className="interweave-content">
+                <div
+                  className="interweave-content "
+                  style={{ paddingTop: "0.5rem" }}
+                >
                   <div
                     dangerouslySetInnerHTML={{
                       __html: hydratedData.help_center,
@@ -513,6 +516,7 @@ const ImportantInfo = ({ data }) => {
                   width: "75%",
                   paddingBottom: "2rem",
                   verticalAlign: "top",
+                  paddingTop: "0.5rem",
                 }}
               >
                 <div className="interweave-content">
@@ -619,7 +623,7 @@ const ImportantInfo = ({ data }) => {
               alignItems: "center",
             }}
           >
-            <div className="fw-600 text-22 sm:text-18">What's Included</div>
+            <div className="fw-600 text-22 sm:text-18">Inclusion</div>
             <div
               style={{
                 width: "5px",
@@ -664,7 +668,7 @@ const ImportantInfo = ({ data }) => {
               alignItems: "center",
             }}
           >
-            <div className="fw-600 text-22 sm:text-18">What's not included</div>
+            <div className="fw-600 text-22 sm:text-18">Exclusion</div>
             <div
               style={{
                 width: "5px",

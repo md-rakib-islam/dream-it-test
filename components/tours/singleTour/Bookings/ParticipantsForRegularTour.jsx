@@ -1,5 +1,6 @@
 "use client";
 
+import { modifiedCurrency } from "@/utils/modifiedCurrency";
 import { useState } from "react";
 // import styles from "./calendar.module.css";
 
@@ -9,6 +10,7 @@ const ParticipantsForRegularTour = ({
   childPrice,
   youthPrice,
   currentCurrency,
+  busdata,
 }) => {
   const [participants, setParticipants] = useState({
     child: 0,
@@ -32,6 +34,14 @@ const ParticipantsForRegularTour = ({
     setParticipants(newCounts);
     onCountChange(newCounts);
   };
+  // Format total price with currency symbol
+  const formatTotalPrice = (price) => {
+    if (!price) return "";
+    return `${currentCurrency?.symbol || ""}${modifiedCurrency(
+      price,
+      currentCurrency?.currency
+    )}`;
+  };
 
   return (
     <>
@@ -42,11 +52,8 @@ const ParticipantsForRegularTour = ({
         <div className="participantType">
           <div className="participantInfo">
             <div className="participantLabel">Adult</div>
-            <div className="ageRange">Age 18 - 65</div>
-            <div className="price">
-              {currentCurrency?.symbol}
-              {adultPrice}
-            </div>
+            <div className="ageRange">Age 18 - 99</div>
+            <div className="price">{formatTotalPrice(adultPrice)}</div>
           </div>
           <div className="counterControls">
             <button
@@ -67,15 +74,12 @@ const ParticipantsForRegularTour = ({
         </div>
 
         {/* Youth */}
-        {youthPrice > 0 && (
+        {youthPrice >= 0 && (
           <div className="participantType">
             <div className="participantInfo">
-              <div className="participantLabel">Youth</div>
-              <div className="ageRange">Age 13 - 17</div>
-              <div className="price">
-                {currentCurrency?.symbol}
-                {youthPrice}
-              </div>
+              <div className="participantLabel">Child</div>
+              <div className="ageRange">Age 04 - 17</div>
+              <div className="price">{formatTotalPrice(youthPrice)}</div>
             </div>
             <div className="counterControls">
               <button
@@ -97,15 +101,12 @@ const ParticipantsForRegularTour = ({
         )}
 
         {/* Child */}
-        {childPrice > 0 && (
+        {childPrice >= 0 && (
           <div className="participantType">
             <div className="participantInfo">
-              <div className="participantLabel">Child</div>
-              <div className="ageRange">Age 2 - 12</div>
-              <div className="price">
-                {currentCurrency?.symbol}
-                {childPrice}
-              </div>
+              <div className="participantLabel">Infant</div>
+              <div className="ageRange">Age 0 - 3</div>
+              <div className="price">{formatTotalPrice(childPrice)}</div>
             </div>
             <div className="counterControls">
               <button

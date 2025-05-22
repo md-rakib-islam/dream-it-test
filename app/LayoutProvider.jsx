@@ -11,6 +11,7 @@ export default function LayoutProvider({ data, children }) {
     name: "Euro",
     currency: "EUR",
     symbol: "€",
+    country_code: "EU",
   });
   const [filteredTours, setFilteredTours] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
