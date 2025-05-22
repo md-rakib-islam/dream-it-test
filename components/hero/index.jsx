@@ -20,18 +20,27 @@ const index = () => {
             {/* Optimized Hero Image */}
             <div className="bannar_mobile">
               <Image
-                src="https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/64130ed0-b661-4ba8-a599-a00367a46800/public"
+                src="https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/05544d7c-e074-4142-d37d-6965369ad600/public"
                 alt="Hero Banner"
                 layout="fill"
-                objectFit="cover"
+                objectFit="fill"
                 priority
                 placeholder="blur"
                 blurDataURL="/path-to-low-res-placeholder.jpg"
               />
             </div>
             <div className="d-md-none">
+              {/* <Image
+                src="https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/75ee5fb3-37f5-4ab1-6019-7fde755b2e00/public"
+                alt="Hero Banner"
+                layout="fill"
+                objectFit="cover"
+                priority
+                placeholder="blur"
+                blurDataURL="/path-to-low-res-placeholder.jpg"
+              /> */}
               <Image
-                src="https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/64bcaa3a-ccc8-489e-7e60-91271a64f600/public"
+                src="https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/05544d7c-e074-4142-d37d-6965369ad600/public"
                 alt="Hero Banner"
                 layout="fill"
                 objectFit="cover"

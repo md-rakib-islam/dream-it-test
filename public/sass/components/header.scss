@@ -596,7 +596,7 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50%;
-  border-radius: 30px 30px 0 0;
+  // border-radius: 30px 30px 0 0;
   position: relative;
 }
 
@@ -1070,7 +1070,7 @@
 }
 
 .home1-banner-bottom .filter-wrapper .filter-group {
-  border-radius: 0 0 30px 30px;
+  // border-radius: 0 0 30px 30px;
   background: #edf2de;
 }
 
@@ -2419,7 +2419,7 @@
   white-space: nowrap;
   background-color: #b8bcaa;
   padding: 30px 53px;
-  border-radius: 0 0 30px 0;
+  // border-radius: 0 0 30px 0;
   overflow: hidden;
   position: relative;
   z-index: 1;
@@ -2589,11 +2589,11 @@
   }
 }
 
-@media (max-width: 991px) {
-  .home1-banner-bottom.style-2 .filter-wrapper .filter-group {
-    border-radius: 0 0 30px 30px;
-  }
-}
+// @media (max-width: 991px) {
+//   .home1-banner-bottom.style-2 .filter-wrapper .filter-group {
+//     border-radius: 0 0 30px 30px;
+//   }
+// }
 
 @media (max-width: 767px) {
   .home1-banner-bottom.style-2 .filter-wrapper .filter-group {
