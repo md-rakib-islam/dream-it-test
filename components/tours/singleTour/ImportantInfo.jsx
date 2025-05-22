@@ -182,7 +182,7 @@ const ImportantInfo = ({ data }) => {
                   display: "table-cell",
                   width: "25%",
                   paddingRight: "1rem",
-                  paddingBottom: "2rem",
+                  paddingBottom: "0.5rem",
                   verticalAlign: "middle",
                 }}
               >
@@ -197,7 +197,7 @@ const ImportantInfo = ({ data }) => {
                 style={{
                   display: "table-cell",
                   width: "75%",
-                  paddingBottom: "2rem",
+                  paddingBottom: "0.5rem",
                   verticalAlign: "top",
                 }}
               >
@@ -226,7 +226,7 @@ const ImportantInfo = ({ data }) => {
                   display: "table-cell",
                   width: "25%",
                   paddingRight: "1rem",
-                  paddingBottom: "2rem",
+                  paddingBottom: "0.5rem",
                   verticalAlign: "middle",
                 }}
               >
@@ -241,7 +241,7 @@ const ImportantInfo = ({ data }) => {
                 style={{
                   display: "table-cell",
                   width: "75%",
-                  paddingBottom: "2rem",
+                  paddingBottom: "0.5rem",
                   verticalAlign: "top",
                 }}
               >
@@ -270,7 +270,7 @@ const ImportantInfo = ({ data }) => {
                   display: "table-cell",
                   width: "25%",
                   paddingRight: "1rem",
-                  paddingBottom: "2rem",
+                  paddingBottom: "0.5rem",
                   verticalAlign: "middle",
                 }}
               >
@@ -285,7 +285,7 @@ const ImportantInfo = ({ data }) => {
                 style={{
                   display: "table-cell",
                   width: "75%",
-                  paddingBottom: "2rem",
+                  paddingBottom: "0.5rem",
                   verticalAlign: "top",
                 }}
               >
@@ -316,7 +316,7 @@ const ImportantInfo = ({ data }) => {
                   display: "table-cell",
                   width: "25%",
                   paddingRight: "1rem",
-                  paddingBottom: "2rem",
+                  paddingBottom: "0.5rem",
                   verticalAlign: "middle",
                 }}
               >
@@ -331,7 +331,7 @@ const ImportantInfo = ({ data }) => {
                 style={{
                   display: "table-cell",
                   width: "75%",
-                  paddingBottom: "2rem",
+                  paddingBottom: "0.5rem",
                   verticalAlign: "top",
                 }}
               >
@@ -362,7 +362,7 @@ const ImportantInfo = ({ data }) => {
                   display: "table-cell",
                   width: "25%",
                   paddingRight: "1rem",
-                  paddingBottom: "2rem",
+                  paddingBottom: "0.5rem",
                   verticalAlign: "middle",
                 }}
               >
@@ -377,7 +377,7 @@ const ImportantInfo = ({ data }) => {
                 style={{
                   display: "table-cell",
                   width: "75%",
-                  paddingBottom: "2rem",
+                  paddingBottom: "0.5rem",
                   verticalAlign: "top",
                 }}
               >
@@ -408,7 +408,7 @@ const ImportantInfo = ({ data }) => {
                   display: "table-cell",
                   width: "25%",
                   paddingRight: "1rem",
-                  paddingBottom: "2rem",
+                  paddingBottom: "0.5rem",
                   verticalAlign: "middle",
                 }}
               >
@@ -423,7 +423,7 @@ const ImportantInfo = ({ data }) => {
                 style={{
                   display: "table-cell",
                   width: "75%",
-                  paddingBottom: "2rem",
+                  paddingBottom: "0.5rem",
                   verticalAlign: "top",
                 }}
               >
@@ -454,7 +454,7 @@ const ImportantInfo = ({ data }) => {
                   display: "table-cell",
                   width: "25%",
                   paddingRight: "1rem",
-                  paddingBottom: "2rem",
+                  paddingBottom: "0.5rem",
                   verticalAlign: "middle",
                 }}
               >
@@ -469,7 +469,7 @@ const ImportantInfo = ({ data }) => {
                 style={{
                   display: "table-cell",
                   width: "75%",
-                  paddingBottom: "2rem",
+                  paddingBottom: "0.5rem",
                   verticalAlign: "top",
                 }}
               >
@@ -499,7 +499,7 @@ const ImportantInfo = ({ data }) => {
                   display: "table-cell",
                   width: "25%",
                   paddingRight: "1rem",
-                  paddingBottom: "2rem",
+                  paddingBottom: "0.5rem",
                   verticalAlign: "middle",
                 }}
               >
@@ -514,7 +514,7 @@ const ImportantInfo = ({ data }) => {
                 style={{
                   display: "table-cell",
                   width: "75%",
-                  paddingBottom: "2rem",
+                  paddingBottom: "0.5rem",
                   verticalAlign: "top",
                   paddingTop: "0.5rem",
                 }}

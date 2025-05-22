@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { use, useState } from "react";
 // import { useSelector } from "react-redux";
 const Overview = ({ data }) => {
   const [showFullDescription, setShowFullDescription] = useState(true);
@@ -24,16 +24,6 @@ const Overview = ({ data }) => {
                   : data?.description.slice(0, halfLength),
               }}
             ></div>
-            {/* <Interweave
-              allowAttributes
-              allowElements
-              disableLineBreaks={true}
-              content={
-                showFullDescription
-                  ? data?.description
-                  : data?.description.slice(0, halfLength)
-              }
-            /> */}
           </div>
 
           <button

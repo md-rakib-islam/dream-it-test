@@ -10,15 +10,16 @@ const TripReview = ({ title }) => {
     normalizedTitle?.includes(
       "capri island day trip from rome with blue grotto"
     );
-  const oneStar =
-    normalizedTitle?.includes("capri island day trip from rome") && !nullStar;
+  const fiveStar =
+    normalizedTitle?.includes("capri island day trip from rome by bus") &&
+    !nullStar;
 
   let stars = 0;
 
   if (fourStar) {
     stars = 4;
-  } else if (oneStar) {
-    stars = 1;
+  } else if (fiveStar) {
+    stars = 5;
   } else if (nullStar) {
     stars = 0;
   }

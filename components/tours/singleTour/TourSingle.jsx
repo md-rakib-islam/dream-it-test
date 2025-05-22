@@ -146,7 +146,7 @@ const TourSingle = ({ children, data, fullUrl, itenarayItems }) => {
             {children}
             {/* End .col */}
 
-            <div className="col-xl-4 d-flex align-items-end">
+            <div className="col-xl-4 d-flex justify-content-end align-items-end">
               <div className="row ">
                 <div className="col-auto btn-group dropup">
                   <button
