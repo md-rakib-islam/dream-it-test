@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from "react";
 // import styles from "./BookingSummary.module.css";
 import CheckoutModal from "./CheckoutModal";
 import { modifiedCurrency } from "@/utils/modifiedCurrency";
-
 import { BASE_URL_AGENT_BOOKING } from "@/constant/constants";
 
 const BookingSummaryForRegularTour = ({
@@ -42,6 +41,11 @@ const BookingSummaryForRegularTour = ({
   const [apiMessage, setApiMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [spotsAvailable, setSpotsAvailable] = useState(null);
+
+  // Add a new state to track if there are enough spots
+  const [hasEnoughSpots, setHasEnoughSpots] = useState(true);
+  const [totalParticipantsRequested, setTotalParticipantsRequested] =
+    useState(0);
 
   // Refs to store previous values to prevent unnecessary updates
   const prevPropsRef = useRef({ selectedDate, selectedTime, participants });
@@ -81,6 +85,20 @@ const BookingSummaryForRegularTour = ({
       setSpotsAvailable(null);
     }
   }, [isValidBooking]);
+
+  // Add this useEffect to update hasEnoughSpots when availableSpots changes
+  useEffect(() => {
+    if (availableSpots !== null) {
+      // Calculate total participants
+      const totalParticipants =
+        (displayParticipants.adult || 0) +
+        (displayParticipants.youth || 0) +
+        (displayParticipants.child || 0);
+
+      setTotalParticipantsRequested(totalParticipants);
+      setHasEnoughSpots(availableSpots >= totalParticipants);
+    }
+  }, [availableSpots, displayParticipants]);
 
   const calculateTotal = () => {
     const childTotal =
@@ -205,6 +223,8 @@ const BookingSummaryForRegularTour = ({
       return "Checking availability...";
     } else if (spotsAvailable === false) {
       return "No spots available";
+    } else if (!hasEnoughSpots) {
+      return `Not enough spots (${availableSpots} available)`;
     } else {
       return "Checkout";
     }
@@ -222,7 +242,13 @@ const BookingSummaryForRegularTour = ({
     // 1. Currently loading
     // 2. Spots are explicitly not available (spotsAvailable === false)
     // 3. Total price is 0
-    return isLoading || spotsAvailable === false || calculateTotal() === 0;
+    // 4. Not enough spots for the requested participants
+    return (
+      isLoading ||
+      spotsAvailable === false ||
+      calculateTotal() === 0 ||
+      !hasEnoughSpots
+    );
   };
 
   // Always show adult section regardless of count
@@ -240,21 +266,20 @@ const BookingSummaryForRegularTour = ({
 
             {/* Always show adult section */}
             <div className="participantInfo">
-              Adult: {adultCount} x
-              {isValidBooking && formatTotalPrice(adultPrice)}
+              Adult: {adultCount} x{formatTotalPrice(adultPrice)}
             </div>
 
             {displayParticipants?.youth > 0 && (
               <div className="participantInfo">
-                Child: {displayParticipants.youth} x
-                {isValidBooking && formatTotalPrice(youthPrice)}
+                child: {displayParticipants.youth} x
+                {formatTotalPrice(youthPrice)}
               </div>
             )}
 
             {displayParticipants?.child > 0 && (
               <div className="participantInfo">
                 Infant: {displayParticipants.child} x
-                {isValidBooking && formatTotalPrice(childPrice)}
+                {formatTotalPrice(childPrice)}
               </div>
             )}
           </div>
@@ -277,6 +302,7 @@ const BookingSummaryForRegularTour = ({
             </div>
           </div>
         </div>
+
         {apiMessage && (
           <div
             className="availabilityInfo"
@@ -287,6 +313,20 @@ const BookingSummaryForRegularTour = ({
             }}
           >
             {apiMessage}
+          </div>
+        )}
+        {!hasEnoughSpots && isValidBooking && (
+          <div
+            className="availabilityInfo"
+            style={{
+              marginTop: "8px",
+              color: "#e53935",
+              fontWeight: "bold",
+            }}
+          >
+            Not enough spots available. You requested{" "}
+            {totalParticipantsRequested} spots, but only {availableSpots} are
+            available.
           </div>
         )}
 

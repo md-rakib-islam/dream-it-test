@@ -83,7 +83,9 @@ const ChooseDateForRegularTour = ({
       currentCurrency?.currency
     )}`;
   };
+
   // Function to fetch participants for a selected date
+  const [availabilityError, setAvailabilityError] = useState("");
   const fetchParticipantsForDate = async (date) => {
     if (!date || !tourID) return;
 
@@ -92,6 +94,8 @@ const ChooseDateForRegularTour = ({
     ).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
 
     setIsLoadingParticipants(true);
+    setAvailabilityError(""); // Clear any previous error
+
     try {
       const response = await fetch(
         `${BASE_URL_AGENT_BOOKING}/tour_content/api/v1/tour_content/get_participants/`,
@@ -103,6 +107,7 @@ const ChooseDateForRegularTour = ({
           body: JSON.stringify({
             tour_id: tourID,
             date: formattedDate,
+            participants_count: getTotalParticipants() || 0, // Include participants count
           }),
         }
       );
@@ -114,6 +119,16 @@ const ChooseDateForRegularTour = ({
           ...prev,
           [formattedDate]: data.participants,
         }));
+
+        // Check if there are enough spots available
+        const currentParticipants = data.participants || 0;
+        const actualSpots = maxParticipantsAllowed - currentParticipants;
+
+        if (participants && participants.count > actualSpots) {
+          setAvailabilityError(
+            `Not enough spots available. You requested ${participants.count} spots, but only ${actualSpots} are available.`
+          );
+        }
       } else {
         console.error("Failed to fetch participants:", await response.text());
       }
@@ -125,6 +140,7 @@ const ChooseDateForRegularTour = ({
   };
 
   // Get actual available spots for a date
+
   const getActualAvailableSpots = (date) => {
     if (!date) return maxParticipantsAllowed;
 
@@ -141,6 +157,10 @@ const ChooseDateForRegularTour = ({
     const actualSpots = getActualAvailableSpots(date);
     console.log("Actual available spots:", actualSpots);
 
+    // Get total participants requested
+    const totalParticipantsRequested = getTotalParticipants();
+    const hasEnoughSpots = actualSpots >= totalParticipantsRequested;
+
     // If there are 0 spots available, show sold out
     if (actualSpots <= 0) {
       return {
@@ -148,6 +168,8 @@ const ChooseDateForRegularTour = ({
         isLimited: false,
         isUrgent: false,
         isSoldOut: true,
+        hasEnoughSpots: false,
+        totalParticipantsRequested,
       };
     }
 
@@ -158,6 +180,8 @@ const ChooseDateForRegularTour = ({
         isLimited: true,
         isUrgent: true,
         isSoldOut: false,
+        hasEnoughSpots,
+        totalParticipantsRequested,
       };
     }
 
@@ -168,11 +192,13 @@ const ChooseDateForRegularTour = ({
         isLimited: false,
         isUrgent: false,
         isSoldOut: false,
+        hasEnoughSpots,
+        totalParticipantsRequested,
       };
     }
 
     // If spots are less than 30% of max, show "limited availability" with inflated number
-    if (actualSpots < maxParticipantsAllowed * 0.4) {
+    if (actualSpots < maxParticipantsAllowed * 0.3) {
       const inflatedSpots = Math.min(
         actualSpots + 5,
         maxParticipantsAllowed - 10
@@ -182,6 +208,8 @@ const ChooseDateForRegularTour = ({
         isLimited: true,
         isUrgent: false,
         isSoldOut: false,
+        hasEnoughSpots,
+        totalParticipantsRequested,
       };
     }
 
@@ -191,6 +219,8 @@ const ChooseDateForRegularTour = ({
       isLimited: false,
       isUrgent: false,
       isSoldOut: false,
+      hasEnoughSpots,
+      totalParticipantsRequested,
     };
   };
 
@@ -263,15 +293,17 @@ const ChooseDateForRegularTour = ({
   useEffect(() => {
     if (selectedDate) {
       const actualAvailableSpots = getActualAvailableSpots(selectedDate);
+      const totalParticipantsRequested = getTotalParticipants();
+      const hasEnoughSpots = actualAvailableSpots >= totalParticipantsRequested;
 
       onSelectionComplete({
         date: selectedDate,
         time: selectedTime, // This can be null
         price: price,
         availableSpots: actualAvailableSpots,
-        canBook: participants
-          ? actualAvailableSpots >= getTotalParticipants()
-          : true,
+        canBook: hasEnoughSpots,
+        hasEnoughSpots,
+        totalParticipantsRequested,
       });
     }
   }, [
@@ -434,6 +466,39 @@ const ChooseDateForRegularTour = ({
                     </span>
                   )}
               </div>
+
+              {availabilityError && (
+                <div
+                  className="availabilityError"
+                  style={{
+                    color: "#e53935",
+                    fontWeight: "bold",
+                    marginTop: "10px",
+                    padding: "8px",
+                    backgroundColor: "#ffebee",
+                    borderRadius: "4px",
+                  }}
+                >
+                  {availabilityError}
+                </div>
+              )}
+              {availabilityInfo.hasEnoughSpots === false && (
+                <div
+                  className="availabilityError"
+                  style={{
+                    color: "#e53935",
+                    fontWeight: "bold",
+                    marginTop: "10px",
+                    padding: "8px",
+                    backgroundColor: "#ffebee",
+                    borderRadius: "4px",
+                  }}
+                >
+                  Not enough spots available. You requested{" "}
+                  {availabilityInfo.totalParticipantsRequested} spots, but only{" "}
+                  {availabilityInfo.spots} are available.
+                </div>
+              )}
 
               <div className="timeGrid">
                 {timeSlots.map((time) => (
