@@ -573,38 +573,25 @@ const CheckoutModal = ({
                     </div>
 
                     <div className="formGrid">
-                      {/* <div className="formGroup">
-                        <label>
-                          Gender <span className="required">*</span>
-                        </label>
+                      <div className="formGroup">
+                        <label>Gender</label>
                         <select
                           name="gender"
                           value={formData.gender}
                           onChange={handleInputChange}
-                          required
                         >
                           <option value="">Select gender</option>
                           <option value="male">Male</option>
                           <option value="female">Female</option>
                           <option value="other">Other</option>
                         </select>
-                        <div
-                          ref={genderErrorRef}
-                          className="errorMessage"
-                          style={{ ...errorMessageStyle, display: "none" }}
-                        >
-                          Please select a gender
-                        </div>
                       </div>
                       <div className="formGroup">
-                        <label>
-                          Nationality <span className="required">*</span>
-                        </label>
+                        <label>Nationality</label>
                         <select
                           name="nationality"
                           value={formData.nationality || "Italy"} // Default to Italy if empty
                           onChange={handleInputChange}
-                          required
                         >
                           {countries.map((country) => (
                             <option key={country.label} value={country.label}>
@@ -612,14 +599,7 @@ const CheckoutModal = ({
                             </option>
                           ))}
                         </select>
-                        <div
-                          ref={nationalityErrorRef}
-                          className="errorMessage"
-                          style={{ ...errorMessageStyle, display: "none" }}
-                        >
-                          Nationality is required
-                        </div>
-                      </div> */}
+                      </div>
                       {/* <div className="formGroup">
                         <label>Date of birth</label>
                         <input
