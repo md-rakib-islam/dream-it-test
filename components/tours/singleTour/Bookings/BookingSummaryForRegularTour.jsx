@@ -266,20 +266,21 @@ const BookingSummaryForRegularTour = ({
 
             {/* Always show adult section */}
             <div className="participantInfo">
-              Adult: {adultCount} x{formatTotalPrice(adultPrice)}
+              Adult: {adultCount} x
+              {isValidBooking && formatTotalPrice(adultPrice)}
             </div>
 
             {displayParticipants?.youth > 0 && (
               <div className="participantInfo">
                 child: {displayParticipants.youth} x
-                {formatTotalPrice(youthPrice)}
+                {isValidBooking && formatTotalPrice(youthPrice)}
               </div>
             )}
 
             {displayParticipants?.child > 0 && (
               <div className="participantInfo">
                 Infant: {displayParticipants.child} x
-                {formatTotalPrice(childPrice)}
+                {isValidBooking && formatTotalPrice(childPrice)}
               </div>
             )}
           </div>
