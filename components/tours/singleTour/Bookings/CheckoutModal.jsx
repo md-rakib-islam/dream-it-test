@@ -61,7 +61,7 @@ const CheckoutModal = ({
     phone: "+39", // Set the default country code
     newsletter: false,
     gender: "",
-    nationality: "Italy",
+    nationality: "",
     acceptTerms: false,
   });
   const [showDetails, setShowDetails] = useState(true);
@@ -73,8 +73,6 @@ const CheckoutModal = ({
   const lastNameErrorRef = useRef(null);
   const emailErrorRef = useRef(null);
   const phoneErrorRef = useRef(null);
-  const genderErrorRef = useRef(null);
-  const nationalityErrorRef = useRef(null);
 
   // Define validatePhone function before using it in useEffect
   const validatePhone = (phoneNumber) => {
@@ -98,9 +96,7 @@ const CheckoutModal = ({
       formData.lastName.trim() !== "" &&
       formData.email.trim() !== "" &&
       formData.phone.trim() !== "" &&
-      formData.gender !== "";
-
-    setIsFormValid(isPhoneValid && areRequiredFieldsFilled);
+      setIsFormValid(isPhoneValid);
   }, [formData]);
 
   if (!isOpen) return null;
@@ -132,10 +128,6 @@ const CheckoutModal = ({
       lastNameErrorRef.current.style.display = "none";
     } else if (name === "email" && emailErrorRef.current) {
       emailErrorRef.current.style.display = "none";
-    } else if (name === "gender" && genderErrorRef.current) {
-      genderErrorRef.current.style.display = "none";
-    } else if (name === "nationality" && nationalityErrorRef.current) {
-      nationalityErrorRef.current.style.display = "none";
     }
 
     // Validate phone when it changes
@@ -207,8 +199,6 @@ const CheckoutModal = ({
     const isFirstNameEmpty = formData.firstName.trim() === "";
     const isLastNameEmpty = formData.lastName.trim() === "";
     const isEmailEmpty = formData.email.trim() === "";
-    const isGenderEmpty = formData.gender === "";
-    const isNationalityEmpty = formData.nationality === "";
     const isPhoneValid = validatePhone(formData.phone);
 
     // Show/hide error messages using direct DOM manipulation
@@ -225,14 +215,7 @@ const CheckoutModal = ({
     if (emailErrorRef.current) {
       emailErrorRef.current.style.display = isEmailEmpty ? "block" : "none";
     }
-    if (genderErrorRef.current) {
-      genderErrorRef.current.style.display = isGenderEmpty ? "block" : "none";
-    }
-    if (nationalityErrorRef.current) {
-      nationalityErrorRef.current.style.display = isNationalityEmpty
-        ? "block"
-        : "none";
-    }
+
     if (phoneErrorRef.current) {
       phoneErrorRef.current.style.display = !isPhoneValid ? "block" : "none";
     }
@@ -241,20 +224,12 @@ const CheckoutModal = ({
       isFirstNameEmpty,
       isLastNameEmpty,
       isEmailEmpty,
-      isGenderEmpty,
-      isNationalityEmpty,
+
       isPhoneValid,
     });
 
     // If any required field is empty or phone is invalid, don't proceed
-    if (
-      isFirstNameEmpty ||
-      isLastNameEmpty ||
-      isEmailEmpty ||
-      isGenderEmpty ||
-      isNationalityEmpty ||
-      !isPhoneValid
-    ) {
+    if (isFirstNameEmpty || isLastNameEmpty || isEmailEmpty || !isPhoneValid) {
       console.log("Form validation failed");
       return;
     }
@@ -598,7 +573,7 @@ const CheckoutModal = ({
                     </div>
 
                     <div className="formGrid">
-                      <div className="formGroup">
+                      {/* <div className="formGroup">
                         <label>
                           Gender <span className="required">*</span>
                         </label>
@@ -644,7 +619,7 @@ const CheckoutModal = ({
                         >
                           Nationality is required
                         </div>
-                      </div>
+                      </div> */}
                       {/* <div className="formGroup">
                         <label>Date of birth</label>
                         <input

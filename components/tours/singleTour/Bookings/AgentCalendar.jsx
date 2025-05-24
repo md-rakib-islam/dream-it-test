@@ -117,42 +117,42 @@ const AgentCalendar = ({ tourdata, busdata }) => {
     if (!busdata?.available_dates) return [];
 
     return busdata.available_dates.map((dateString) => {
-      // Handle date strings in format "DD/MM/YYYY"
+      // Handle date strings in format "MM/DD/YYYY"
       if (typeof dateString === "string" && dateString.includes("/")) {
-        const [day, month, year] = dateString.split("/");
-        // Create date with correct parts (month is 0-indexed in JS Date)
+        const [month, day, year] = dateString.split("/");
         return new Date(
           Number.parseInt(year),
-          Number.parseInt(month) - 1,
+          Number.parseInt(month) - 1, // JS months are 0-indexed
           Number.parseInt(day)
         );
       }
+
       // Handle if it's already an object with date property
       else if (
         dateString &&
         typeof dateString === "object" &&
         dateString.date
       ) {
-        // If it's in the format {date: "DD/MM/YYYY"}
         if (
           typeof dateString.date === "string" &&
           dateString.date.includes("/")
         ) {
-          const [day, month, year] = dateString.date.split("/");
+          const [month, day, year] = dateString.date.split("/");
           return new Date(
             Number.parseInt(year),
             Number.parseInt(month) - 1,
             Number.parseInt(day)
           );
         }
-        // If it's already in a format Date can parse
+
+        // If it's in a parseable format like ISO string
         return new Date(dateString.date);
       }
-      // Fallback - try to parse directly (will work for ISO dates)
+
+      // Fallback - try to parse directly
       return new Date(dateString);
     });
   }, [busdata?.available_dates]);
-
   // Only log on initial render, not on every scroll
   useEffect(() => {
     if (initialRenderRef.current) {
