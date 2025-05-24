@@ -1,31 +1,35 @@
 import {
   GET_CONTENTS_WITH_URL_BY_MENU_ID,
   GET_MENUS_ALL_NESTED,
+  GET_CMS_BLOG_WITHOUT_PAGINATION,
 } from "@/constant/constants";
 
 const BASE_URL = "https://dreamtourism.it";
 
 export default async function Sitemap() {
   try {
-    // Perform all fetch requests in parallel
-    const [contentRes, desRes] = await Promise.all([
+    // Fetch all data in parallel
+    const [contentRes, desRes, blogRes] = await Promise.all([
       fetch(`${GET_CONTENTS_WITH_URL_BY_MENU_ID}/1`),
       fetch(`${GET_MENUS_ALL_NESTED}`),
+      fetch(`${GET_CMS_BLOG_WITHOUT_PAGINATION}`),
     ]);
 
-    // Check if all fetch requests were successful
-    if (!contentRes.ok || !desRes.ok) {
+    // Check responses
+    if (!contentRes.ok || !desRes.ok || !blogRes.ok) {
       throw new Error(
-        `Failed to fetch data: ${contentRes.status} ${contentRes.statusText}, ${desRes.status} ${desRes.statusText}`
+        `Failed to fetch data: ${contentRes.status} ${contentRes.statusText}, ${desRes.status} ${desRes.statusText}, ${blogRes.status} ${blogRes.statusText}`
       );
     }
 
-    const [contentData, destinationData] = await Promise.all([
+    // Parse responses
+    const [contentData, destinationData, blogData] = await Promise.all([
       contentRes.json(),
       desRes.json(),
+      blogRes.json(),
     ]);
 
-    // Validate the fetched data
+    // Validate data
     if (!Array.isArray(contentData)) {
       throw new TypeError("Content data is not an array");
     }
@@ -34,13 +38,13 @@ export default async function Sitemap() {
       throw new TypeError("Destination data is not an array");
     }
 
-    // Generate sitemap URLs
+    if (!Array.isArray(blogData?.blogs)) {
+      throw new TypeError("Blog data is not an array");
+    }
 
+    // Tours
     const contentsXml = contentData
-      .filter((item) => {
-        if (item.type !== "Tours") return false;
-        return true;
-      })
+      .filter((item) => item.type === "Tours")
       .map((item) => ({
         url: `${BASE_URL}/tours/${item.slug}`,
         lastModified: new Date(item.updated_at).toISOString(),
@@ -48,6 +52,7 @@ export default async function Sitemap() {
         priority: 0.9,
       }));
 
+    // Destinations
     const destinationsXml = destinationData.menus
       .filter((item) => item.name === "Destinations")
       .flatMap((item) =>
@@ -60,6 +65,18 @@ export default async function Sitemap() {
             priority: 0.9,
           }))
       );
+
+    // Blogs
+    const blogsXml = blogData.blogs.map((blog) => ({
+      url: `${BASE_URL}/${blog.slug}`,
+      lastModified: new Date(
+        blog.updated_at || blog.created_at || new Date()
+      ).toISOString(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    }));
+
+    // Static pages
     const main = [
       {
         url: `${BASE_URL}/`,
@@ -94,7 +111,6 @@ export default async function Sitemap() {
         changeFrequency: "weekly",
         priority: 0.5,
       },
-
       {
         url: `${BASE_URL}/privacy-policy`,
         lastModified: new Date().toISOString(),
@@ -109,10 +125,12 @@ export default async function Sitemap() {
       },
     ];
 
+    // Combine all URLs
     const combinedXml = [
       ...main,
       ...destinationsXml,
       ...contentsXml,
+      ...blogsXml,
       ...otherXml,
     ];
 

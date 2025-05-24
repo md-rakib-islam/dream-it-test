@@ -54,10 +54,10 @@ const index = () => {
               <div className="row">
                 <div className="col-lg-12">
                   <div className="home1-banner-content">
-                    <div className="eg-tag">
+                    {/* <div className="eg-tag">
                       <i className="icon-location text-18 text-white "></i>
                       <span>Italy, Switzerland, France, Netherlands</span>
-                    </div>
+                    </div> */}
                     <h1>Unforgettable Italy Tours Explore Rome & Beyond.</h1>
                     <p>
                       Enjoy the Best of Italy's Iconic Destinations with Special

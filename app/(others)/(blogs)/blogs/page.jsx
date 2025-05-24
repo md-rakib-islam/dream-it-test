@@ -65,7 +65,7 @@ const index = async () => {
   // Fetch blog and category data
   const [contentBlogData, categoryData] = await Promise.all([
     dataFetcher(`${GET_CMS_BLOG_WITHOUT_PAGINATION}`, {
-      next: { revalidate: 60 },
+      next: { tags: ["blog-list"] }, // ← Add this tag
     }),
     dataFetcher(`${GET_ALL_COUNTRIES}`, { next: { revalidate: 60 } }),
   ]);
