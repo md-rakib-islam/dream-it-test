@@ -9,11 +9,8 @@ import { dataFetcher } from "@/utils/dataFetcher";
 const fetchMetadata = async () => {
   try {
     const res = await fetch(`${GET_METADATA_BY_CONTENT_NAME}/blogs`);
-    if (!res.ok) {
-      throw new Error("Failed to fetch metadata");
-    }
+    if (!res.ok) throw new Error("Failed to fetch metadata");
     const data = await res.json();
-
     return data;
   } catch (error) {
     console.error(error);
@@ -23,12 +20,11 @@ const fetchMetadata = async () => {
       meta_description:
         "Start your dream vacation with Dream Tourism SRLS. Explore fantastic destinations and enjoy unforgettable adventures. Your perfect getaway is just a click away!",
       image:
-        "https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/5dbac07d-cbd4-4694-9a38-615bf832f800/public", // Default image
+        "https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/5dbac07d-cbd4-4694-9a38-615bf832f800/public",
     };
   }
 };
 
-// Define the generateMetadata function
 export async function generateMetadata() {
   const metadata = await fetchMetadata();
   return {
@@ -40,48 +36,44 @@ export async function generateMetadata() {
       description: metadata.meta_description,
       images: [
         {
-          url: metadata?.cloudflare_image,
+          url: metadata?.cloudflare_image || metadata.image,
           width: 800,
           height: 600,
           alt: metadata?.meta_title,
         },
       ],
-      url: `/blogs`, // Open Graph URL
-
+      url: `/blogs`,
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
       title: metadata.meta_title,
       description: metadata.meta_description,
-      image: metadata?.cloudflare_image,
+      image: metadata?.cloudflare_image || metadata.image,
     },
     alternates: {
-      canonical: `/blogs`, // Canonical without query params
+      canonical: `/blogs`,
     },
   };
 }
-const index = async () => {
-  // Fetch blog and category data
+
+export default async function BlogsPage() {
   const [contentBlogData, categoryData] = await Promise.all([
     dataFetcher(`${GET_CMS_BLOG_WITHOUT_PAGINATION}`, {
-      next: { tags: ["blog-list"] }, // ← Add this tag
+      next: { tags: ["blog-list"] },
     }),
-    dataFetcher(`${GET_ALL_COUNTRIES}`, { next: { revalidate: 60 } }),
+    dataFetcher(`${GET_ALL_COUNTRIES}`, {
+      next: { revalidate: 60 },
+    }),
   ]);
 
-  // Ensure blogs is always an array to prevent undefined errors
   const blogs = Array.isArray(contentBlogData?.blogs)
     ? contentBlogData.blogs
     : [];
 
-  // Filter logic: If any blog includes "things to do", exclude it.
-  const filteredBlogs = blogs.filter((elm) => {
-    if (elm.title.toLowerCase().includes("things to do")) {
-      return false;
-    }
-    return true;
-  });
+  const filteredBlogs = blogs.filter(
+    (elm) => !elm.title.toLowerCase().includes("things to do")
+  );
 
   return (
     <>
@@ -96,7 +88,7 @@ const index = async () => {
             <div className="col-auto">
               <div className="sectionTitle -md">
                 <h1 className="sectionTitle__title">Latest Blog Posts</h1>
-                {filteredBlogs?.length === 0 && (
+                {filteredBlogs.length === 0 && (
                   <p className="sectionTitle__text mt-5 sm:mt-0">
                     There are no blog posts.
                   </p>
@@ -105,7 +97,6 @@ const index = async () => {
             </div>
           </div>
 
-          {/* Show blog list only if filteredBlogs is not empty */}
           {filteredBlogs && (
             <Blog blogs={filteredBlogs} countries={categoryData?.countries} />
           )}
@@ -113,6 +104,4 @@ const index = async () => {
       </section>
     </>
   );
-};
-
-export default index;
+}
