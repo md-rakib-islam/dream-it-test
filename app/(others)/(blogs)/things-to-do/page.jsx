@@ -1,4 +1,3 @@
-import Blog from "@/components/blogs/Blog";
 import ThingsToDoPage from "@/components/blogs/ThingsToDoPage";
 import {
   BLOG_CATEGORIES,
@@ -63,12 +62,12 @@ export async function generateMetadata() {
     },
   };
 }
-const index = async () => {
+export default async function BlogsPage() {
   try {
     // Fetch blog and category data
     const [contentBlogData, categoryData, getAllCountries] = await Promise.all([
       dataFetcher(`${GET_CMS_BLOG_WITHOUT_PAGINATION}`, {
-        next: { revalidate: 60 },
+        next: { tags: ["blog-list"] },
       }),
       dataFetcher(`${BLOG_CATEGORIES}`, { next: { revalidate: 60 } }),
       dataFetcher(`${GET_ALL_COUNTRIES}`, { next: { revalidate: 60 } }),
@@ -144,6 +143,4 @@ const index = async () => {
       </>
     );
   }
-};
-
-export default index;
+}

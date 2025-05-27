@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import {
   GET_CONTENTS_WITH_URL_BY_MENU_ID,
   GET_MENUS_ALL_NESTED,
@@ -10,9 +12,15 @@ export default async function Sitemap() {
   try {
     // Fetch all data in parallel
     const [contentRes, desRes, blogRes] = await Promise.all([
-      fetch(`${GET_CONTENTS_WITH_URL_BY_MENU_ID}/1`),
-      fetch(`${GET_MENUS_ALL_NESTED}`),
-      fetch(`${GET_CMS_BLOG_WITHOUT_PAGINATION}`),
+      fetch(`${GET_CONTENTS_WITH_URL_BY_MENU_ID}/1`, {
+        next: { tags: ["blog-list"] },
+      }),
+      fetch(`${GET_MENUS_ALL_NESTED}`, {
+        next: { tags: ["blog-list"] },
+      }),
+      fetch(`${GET_CMS_BLOG_WITHOUT_PAGINATION}`, {
+        next: { tags: ["blog-list"] },
+      }),
     ]);
 
     // Check responses
