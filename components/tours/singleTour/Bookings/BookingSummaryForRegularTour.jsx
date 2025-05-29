@@ -104,7 +104,7 @@ const BookingSummaryForRegularTour = ({
     const childTotal =
       (displayParticipants?.child || 0) * Number(childPrice || 0);
     const adultTotal =
-      (displayParticipants?.adult || 1) * Number(adultPrice || 0); // Default to 1 adult
+      (displayParticipants?.adult || 0) * Number(adultPrice || 0); // Default to 1 adult
     const youthTotal =
       (displayParticipants?.youth || 0) * Number(youthPrice || 0);
     return childTotal + adultTotal + youthTotal;
@@ -252,8 +252,8 @@ const BookingSummaryForRegularTour = ({
   };
 
   // Always show adult section regardless of count
-  const adultCount =
-    displayParticipants?.adult !== undefined ? displayParticipants.adult : 1;
+  // Always show adult section regardless of count
+  const adultCount = displayParticipants?.adult || 0;
 
   return (
     <>
@@ -360,9 +360,9 @@ const BookingSummaryForRegularTour = ({
           agentRef={agentRef}
           currentCurrency={currentCurrency}
           realPrice={realPrice}
-          realAdultPrice={realAdultPrice}
-          realChildPrice={realChildPrice}
-          realYouthPrice={realYouthPrice}
+          realAdultPrice={adultPrice}
+          realChildPrice={childPrice}
+          realYouthPrice={youthPrice}
           tourType={tourType}
           logoUrl={logoUrl}
         />

@@ -13,6 +13,7 @@ const ChooseDateForRegularTour = ({
   currentCurrency,
   tourID,
   participants,
+  available_times,
 }) => {
   // Initialize calendar to show the month of the first available date
   const getInitialDate = () => {
@@ -155,7 +156,7 @@ const ChooseDateForRegularTour = ({
   // Get displayed available spots (with marketing logic)
   const getDisplayedAvailableSpots = (date) => {
     const actualSpots = getActualAvailableSpots(date);
-    console.log("Actual available spots:", actualSpots);
+    // console.log("Actual available spots:", actualSpots);
 
     // Get total participants requested
     const totalParticipantsRequested = getTotalParticipants();
@@ -242,7 +243,7 @@ const ChooseDateForRegularTour = ({
     }
   }, [availableDates]); // Only run when availableDates changes
 
-  const timeSlots = ["07:30 AM"];
+  const timeSlots = available_times;
 
   const handleDateClick = (date) => {
     // Ensure the selected date is stored without any unintended timezone conversion

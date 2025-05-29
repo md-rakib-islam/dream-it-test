@@ -31,6 +31,9 @@ const RenderReviewStep = ({
   childPrice,
   youthPrice,
   price,
+  realAdultPrice,
+  realChildPrice,
+  realYouthPrice,
 }) => {
   const [couponCode, setCouponCode] = useState("");
   const [couponMessage, setCouponMessage] = useState("");
@@ -44,6 +47,20 @@ const RenderReviewStep = ({
   const [couponText, setCouponText] = useState("");
   const [couponDiscount, setCouponDiscount] = useState(0);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [agentRefs, setAgetRef] = useState("");
+  const [applied_coupon_type, setApplied_coupon_type] = useState("");
+  const [coupon_value, setCoupon_value] = useState("");
+  const [
+    discount_amount_of_client_for_value,
+    setDiscount_amount_of_client_for_value,
+  ] = useState(0);
+  const [
+    discount_amount_of_client_for_percentage,
+    setDiscount_amount_of_client_for_percentage,
+  ] = useState(0);
+  const [final_price_after_discount, setFinal_price_after_discount] =
+    useState(0);
+  const [member_id, setMember_id] = useState("");
 
   useEffect(() => {
     // Check for agentCup parameter in URL
@@ -63,7 +80,19 @@ const RenderReviewStep = ({
     setIsApplying(true);
     try {
       const response = await fetch(
-        `${BASE_URL_AGENT_BOOKING}/member/api/v1/member/apply_coupon/?coupon_text=${agentCupCode}&tourID=${tourID}&total_price=${total}&currency=${currentCurrency?.symbol}`
+        `${BASE_URL_AGENT_BOOKING}/member/api/v1/member/apply_coupon/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            coupon_text: agentCupCode,
+            tourID: tourID,
+            participants: participants, // sent as an object
+            currency: currentCurrency?.symbol,
+          }),
+        }
       );
 
       const data = await response.json();
@@ -72,18 +101,36 @@ const RenderReviewStep = ({
         setCouponStatus("success");
         setCouponMessage(`${data.message}`);
         setDiscountAmount(data.coupon_discount || 0);
-        setDiscountedFinalPrice(Number(data.final_price));
+        setDiscountedFinalPrice(Number(data.final_price_after_discount));
         setAppliedCouponType(data.applied_coupon_type || "");
         setCouponPercentage(data.coupon_percentage || 0);
         setCouponApplied(true);
         setCouponText(data.coupon_text || "");
         setCouponDiscount(data.coupon_discount || 0);
+        setAgetRef(data?.agent_ref_no);
+        setApplied_coupon_type(data.applied_coupon_type || "");
+        setCoupon_value(data.coupon_value || 0);
+        setDiscount_amount_of_client_for_percentage(
+          data.discount_amount_of_client_for_percentage || 0
+        );
+        setDiscount_amount_of_client_for_value(
+          data.discount_amount_of_client_for_value || 0
+        );
+        setFinal_price_after_discount(data.final_price_after_discount || 0);
+        setMember_id(data.member_id || "");
       } else {
         setCouponStatus("error");
         setCouponMessage(data.message || "Invalid coupon code");
         setDiscountAmount(0);
         setDiscountedFinalPrice(null);
         setCouponApplied(false);
+        setAgetRef(null);
+        setApplied_coupon_type("");
+        setCoupon_value(0);
+        setDiscount_amount_of_client_for_percentage(0);
+        setDiscount_amount_of_client_for_value(0);
+        setFinal_price_after_discount(0);
+        setMember_id("");
       }
     } catch (error) {
       console.error("Error applying coupon:", error);
@@ -92,6 +139,7 @@ const RenderReviewStep = ({
       setDiscountAmount(0);
       setDiscountedFinalPrice(null);
       setCouponApplied(false);
+      setAgetRef(null);
     } finally {
       setIsApplying(false);
     }
@@ -129,9 +177,22 @@ const RenderReviewStep = ({
     }
 
     setIsApplying(true);
+
     try {
       const response = await fetch(
-        `${BASE_URL_AGENT_BOOKING}/member/api/v1/member/apply_coupon/?coupon_text=${couponCode}&tourID=${tourID}&total_price=${total}&currency=${currentCurrency?.symbol}`
+        `${BASE_URL_AGENT_BOOKING}/member/api/v1/member/apply_coupon/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            coupon_text: couponCode,
+            tourID: tourID,
+            participants: participants, // sent as an object
+            currency: currentCurrency?.symbol,
+          }),
+        }
       );
 
       const data = await response.json();
@@ -140,18 +201,36 @@ const RenderReviewStep = ({
         setCouponStatus("success");
         setCouponMessage(`${data.message}`);
         setDiscountAmount(data.coupon_discount || 0);
-        setDiscountedFinalPrice(Number(data.final_price));
+        setDiscountedFinalPrice(Number(data.final_price_after_discount));
         setAppliedCouponType(data.applied_coupon_type || "");
         setCouponPercentage(data.coupon_percentage || 0);
         setCouponApplied(true);
         setCouponText(data.coupon_text || "");
         setCouponDiscount(data.coupon_discount || 0);
+        setAgetRef(data?.agent_ref_no);
+        setApplied_coupon_type(data.applied_coupon_type || "");
+        setCoupon_value(data.coupon_value || 0);
+        setDiscount_amount_of_client_for_percentage(
+          data.discount_amount_of_client_for_percentage || 0
+        );
+        setDiscount_amount_of_client_for_value(
+          data.discount_amount_of_client_for_value || 0
+        );
+        setFinal_price_after_discount(data.final_price_after_discount || 0);
+        setMember_id(data.member_id || "");
       } else {
         setCouponStatus("error");
         setCouponMessage(data.message || "Invalid coupon code");
         setDiscountAmount(0);
         setDiscountedFinalPrice(null);
         setCouponApplied(false);
+        setAgetRef(null);
+        setApplied_coupon_type("");
+        setCoupon_value(0);
+        setDiscount_amount_of_client_for_percentage(0);
+        setDiscount_amount_of_client_for_value(0);
+        setFinal_price_after_discount(0);
+        setMember_id("");
       }
     } catch (error) {
       console.error("Error applying coupon:", error);
@@ -160,6 +239,7 @@ const RenderReviewStep = ({
       setDiscountAmount(0);
       setDiscountedFinalPrice(null);
       setCouponApplied(false);
+      setAgetRef(null);
     } finally {
       setIsApplying(false);
     }
@@ -174,7 +254,14 @@ const RenderReviewStep = ({
         couponPercentage,
         couponApplied,
         couponText,
-        couponDiscount
+        couponDiscount,
+        agentRefs,
+        applied_coupon_type,
+        coupon_value,
+        discount_amount_of_client_for_percentage,
+        discount_amount_of_client_for_value,
+        final_price_after_discount,
+        member_id
       );
     } catch (error) {
       console.error("Checkout error:", error);
@@ -195,7 +282,7 @@ const RenderReviewStep = ({
             <div className="columnValue">
               <span>Adult {participants?.adult}×</span>
               <span>
-                {(participants.adult * Number(adultPrice)).toFixed(2)}
+                {Number(realAdultPrice).toFixed(2)}
                 {currentCurrency?.symbol}
               </span>
             </div>
@@ -204,7 +291,7 @@ const RenderReviewStep = ({
             <div className="columnValue">
               <span>Child {participants?.youth}×</span>
               <span>
-                {(participants.youth * Number(youthPrice)).toFixed(2)}
+                {Number(realYouthPrice).toFixed(2)}
                 {currentCurrency?.symbol}
               </span>
             </div>
@@ -212,6 +299,50 @@ const RenderReviewStep = ({
           {participants?.child > 0 && (
             <div className="columnValue">
               <span>Infant {participants?.child} ×</span>
+              <span>
+                {Number(realChildPrice).toFixed(2)}
+                {currentCurrency?.symbol}
+              </span>
+            </div>
+          )}
+        </>
+      );
+    } else {
+      // Default to day_tour
+      return (
+        <div className="columnValue">
+          <span>Total {participants?.count || 0} participants</span>
+        </div>
+      );
+    }
+  };
+
+  // Render price breakdown based on tour type
+  const renderPriceBreakdowns = () => {
+    if (tourType === "regular_tour") {
+      return (
+        <>
+          {participants?.adult > 0 && (
+            <div className="totalRow">
+              <span>Adult × {participants?.adult}</span>
+              <span>
+                {(participants.adult * Number(adultPrice)).toFixed(2)}
+                {currentCurrency?.symbol}
+              </span>
+            </div>
+          )}
+          {participants?.youth > 0 && (
+            <div className="totalRow">
+              <span>Child × {participants?.youth}</span>
+              <span>
+                {(participants.youth * Number(youthPrice)).toFixed(2)}
+                {currentCurrency?.symbol}
+              </span>
+            </div>
+          )}
+          {participants?.child > 0 && (
+            <div className="columnValue">
+              <span>Infant × {participants?.child} </span>
               <span>
                 {(participants.child * Number(childPrice)).toFixed(2)}
                 {currentCurrency?.symbol}
@@ -288,7 +419,7 @@ const RenderReviewStep = ({
             {showDetails && (
               <div className="priceBreakdown">
                 <div className="columnHeader">
-                  {renderPriceBreakdown()}
+                  {renderPriceBreakdowns()}
                   <span>
                     {currentCurrency?.symbol}
                     {total}
@@ -314,7 +445,7 @@ const RenderReviewStep = ({
               </div>
 
               <div className="priceRow finalTotal">
-                <span>Total (GBP)</span>
+                <span>Total ({currentCurrency?.name})</span>
                 <span>
                   {currentCurrency?.symbol}
                   {finalTotal}

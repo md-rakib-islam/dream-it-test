@@ -161,6 +161,29 @@ const AgentCalendar = ({ tourdata, busdata }) => {
     }
   }, [parsedAvailableDates]);
 
+  const parsedAvailableTimes = useMemo(() => {
+    if (!busdata?.available_times) return [];
+
+    return busdata.available_times.map((timeString) => {
+      // Handle time strings directly if they're already in correct format
+      if (typeof timeString === "string") {
+        return timeString;
+      }
+
+      // Handle if it's an object with time property
+      else if (
+        timeString &&
+        typeof timeString === "object" &&
+        timeString.time
+      ) {
+        return timeString.time;
+      }
+
+      // Fallback - convert to string
+      return String(timeString);
+    });
+  }, [busdata?.available_times]);
+
   // Effect to validate booking requirements
   useEffect(() => {
     const isMinParticipantsMet = minRequired
@@ -215,6 +238,7 @@ const AgentCalendar = ({ tourdata, busdata }) => {
               <ChooseDateForRegularTour
                 onSelectionComplete={handleDateSelection}
                 availableDates={parsedAvailableDates}
+                available_times={parsedAvailableTimes}
                 currentCurrency={selectedCurrency}
                 price={busdata?.price}
                 tourID={busdata?.id}

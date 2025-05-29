@@ -36,6 +36,9 @@ const CheckoutModal = ({
   childPrice,
   youthPrice,
   price,
+  realAdultPrice,
+  realChildPrice,
+  realYouthPrice,
 }) => {
   const searchParams =
     typeof window !== "undefined"
@@ -170,13 +173,13 @@ const CheckoutModal = ({
     const newPhone =
       country.value + (phoneWithoutCode ? " " + phoneWithoutCode : "");
 
-    console.log("Phone update:", {
-      oldPhone: currentPhone,
-      oldCountryCode,
-      phoneWithoutCode,
-      newPhone,
-      newCountryCode: country.value,
-    });
+    // console.log("Phone update:", {
+    //   oldPhone: currentPhone,
+    //   oldCountryCode,
+    //   phoneWithoutCode,
+    //   newPhone,
+    //   newCountryCode: country.value,
+    // });
 
     setFormData((prev) => ({
       ...prev,
@@ -220,13 +223,13 @@ const CheckoutModal = ({
       phoneErrorRef.current.style.display = !isPhoneValid ? "block" : "none";
     }
 
-    console.log("Form validation:", {
-      isFirstNameEmpty,
-      isLastNameEmpty,
-      isEmailEmpty,
+    // console.log("Form validation:", {
+    //   isFirstNameEmpty,
+    //   isLastNameEmpty,
+    //   isEmailEmpty,
 
-      isPhoneValid,
-    });
+    //   isPhoneValid,
+    // });
 
     // If any required field is empty or phone is invalid, don't proceed
     if (isFirstNameEmpty || isLastNameEmpty || isEmailEmpty || !isPhoneValid) {
@@ -235,7 +238,7 @@ const CheckoutModal = ({
     }
 
     // All validation passed, proceed to next step
-    console.log("Form validation passed, proceeding to step 2");
+    // console.log("Form validation passed, proceeding to step 2");
     setStep(2);
   };
 
@@ -248,7 +251,14 @@ const CheckoutModal = ({
     couponPercentage = 0,
     couponApplied = false,
     coupon_text = null,
-    coupon_discount = 0
+    coupon_discount = 0,
+    agentRefs = null,
+    applied_coupon_type = null,
+    coupon_value = null,
+    discount_amount_of_client_for_percentage = 0,
+    discount_amount_of_client_for_value = 0,
+    final_price_after_discount = null,
+    member_id = null
   ) => {
     const formattedDate = formatDate(selectedDate);
     const finalTotal = discountedFinalPrice;
@@ -258,27 +268,56 @@ const CheckoutModal = ({
       tourName,
       selectedDate: formattedDate,
       selectedTime,
-      discountedtotalprice: finalTotal, // Use the discounted price if available
+      discountedtotalprice: parseFloat(finalTotal).toFixed(2), // Use the discounted price if available
       total: total, // Keep the original total for reference
       participants,
       duration,
       selectedCountry,
       tourImage,
       tourID,
-      agentRef,
+      agentRef: couponApplied ? null : agentRef,
       currentCurrency,
       is_agent,
       payWithStripe,
       couponPercentage,
       couponApplied,
       coupon_text: coupon_text === "" ? null : coupon_text, // Set to null if empty
-      coupon_discount: coupon_discount === "" ? null : coupon_discount, // Set to null if empty
+      coupon_discount:
+        (discount_amount_of_client_for_percentage !== 0
+          ? discount_amount_of_client_for_percentage
+          : discount_amount_of_client_for_value !== 0
+          ? discount_amount_of_client_for_value
+          : coupon_discount === ""
+          ? null
+          : coupon_discount) !== null
+          ? parseFloat(
+              discount_amount_of_client_for_percentage !== 0
+                ? discount_amount_of_client_for_percentage
+                : discount_amount_of_client_for_value !== 0
+                ? discount_amount_of_client_for_value
+                : coupon_discount
+            ).toFixed(2)
+          : null,
+
       payWithCash,
       tourType,
       adultPrice,
       childPrice,
       youthPrice,
       price,
+      applied_coupon_type,
+      coupon_value,
+      discount_amount_of_client_for_percentage: parseFloat(
+        discount_amount_of_client_for_percentage
+      ).toFixed(2),
+      discount_amount_of_client_for_value: parseFloat(
+        discount_amount_of_client_for_value
+      ).toFixed(2),
+
+      final_price_after_discount: parseFloat(
+        final_price_after_discount
+      ).toFixed(2),
+      member_id,
     };
 
     try {
@@ -682,6 +721,10 @@ const CheckoutModal = ({
               childPrice={childPrice}
               youthPrice={youthPrice}
               price={price}
+              agentRef={agentRef}
+              realAdultPrice={realAdultPrice}
+              realChildPrice={realChildPrice}
+              realYouthPrice={realYouthPrice}
             />
           )}
         </div>
