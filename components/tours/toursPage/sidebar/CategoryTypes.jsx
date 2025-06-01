@@ -1,5 +1,6 @@
 "use client";
 import { LayoutContext } from "@/app/LayoutProvider";
+import { appendAgentParams } from "@/components/AgentLink/appendAgentParams";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useContext, useEffect } from "react";
 
@@ -31,19 +32,34 @@ const CategoryTypes = () => {
     { name: "Multi-Day Tours", count: multiDayTours.length },
   ];
 
+  // const handleCategoryChange = (categoryLabel) => {
+  //   // If the category is already selected, deselect it
+  //   const newCategory = selectedCategory === categoryLabel ? "" : categoryLabel;
+
+  //   // Update the Redux store
+  //   // dispatch(addCategory(newCategory));
+  //   setSelectedCategory(newCategory);
+  //   // Update the URL
+  //   const categoryParam = newCategory ? `&category=${newCategory}` : "";
+  //   router.push(
+  //     `/tours/?location=${location}${categoryParam}&min=${min}&max=${max}`
+  //   );
+  // };
+
   const handleCategoryChange = (categoryLabel) => {
     // If the category is already selected, deselect it
     const newCategory = selectedCategory === categoryLabel ? "" : categoryLabel;
-
     // Update the Redux store
     // dispatch(addCategory(newCategory));
     setSelectedCategory(newCategory);
     // Update the URL
     const categoryParam = newCategory ? `&category=${newCategory}` : "";
-    router.push(
-      `/tours/?location=${location}${categoryParam}&min=${min}&max=${max}`
-    );
+    const rawPath = `/tours/?location=${location}${categoryParam}&min=${min}&max=${max}`;
+    const fullPath = appendAgentParams(rawPath); // ✅ Use utility
+
+    router.push(fullPath);
   };
+
   useEffect(() => {
     setSelectedCategory(category);
   }, [category]);

@@ -341,7 +341,7 @@ const RenderReviewStep = ({
             </div>
           )}
           {participants?.child > 0 && (
-            <div className="columnValue">
+            <div className="totalRow">
               <span>Infant × {participants?.child} </span>
               <span>
                 {(participants.child * Number(childPrice)).toFixed(2)}
