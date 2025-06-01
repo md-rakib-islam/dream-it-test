@@ -79,8 +79,33 @@ const SidebarRight = ({ data }) => {
   }, [dataDependency]); // Only depend on memoized dataDependency
 
   // Memoize the Bokun script loading to prevent it from running on every render
+  // useEffect(() => {
+  //   // Check if script already exists to prevent duplicates
+  //   const existingScript = document.querySelector(
+  //     'script[src*="BokunWidgetsLoader.js"]'
+  //   );
+  //   if (existingScript) return;
+
+  //   const script = document.createElement("script");
+  //   script.src =
+  //     "https://widgets.bokun.io/assets/javascripts/apps/build/BokunWidgetsLoader.js?bookingChannelUUID=c8f2314b-0289-4a75-825c-37cb690a7c70";
+  //   script.async = true;
+  //   document.body.appendChild(script);
+
+  //   return () => {
+  //     // Only remove if it exists
+  //     const scriptToRemove = document.querySelector(
+  //       'script[src*="BokunWidgetsLoader.js"]'
+  //     );
+  //     if (scriptToRemove && scriptToRemove.parentNode) {
+  //       scriptToRemove.parentNode.removeChild(scriptToRemove);
+  //     }
+  //   };
+  // }, []); // Empty dependency array means this runs once on mount
+
   useEffect(() => {
-    // Check if script already exists to prevent duplicates
+    if (data?.is_bokun_url !== true) return;
+
     const existingScript = document.querySelector(
       'script[src*="BokunWidgetsLoader.js"]'
     );
@@ -93,15 +118,14 @@ const SidebarRight = ({ data }) => {
     document.body.appendChild(script);
 
     return () => {
-      // Only remove if it exists
       const scriptToRemove = document.querySelector(
         'script[src*="BokunWidgetsLoader.js"]'
       );
-      if (scriptToRemove && scriptToRemove.parentNode) {
+      if (scriptToRemove?.parentNode) {
         scriptToRemove.parentNode.removeChild(scriptToRemove);
       }
     };
-  }, []); // Empty dependency array means this runs once on mount
+  }, [data?.is_bokun_url]);
 
   // Memoize the AgentCalendar component to prevent unnecessary re-renders
   const agentCalendarComponent = useMemo(() => {
@@ -120,7 +144,8 @@ const SidebarRight = ({ data }) => {
 
     return <div className="bokunWidget" data-src={data?.url}></div>;
   }, [data?.is_bokun_url, data?.url]);
-  console.log("available times", busdata?.available_times);
+  // console.log("available times", busdata?.available_times);
+  // console.log("is_bokun_url value:", data?.is_bokun_url);
   return (
     <div className="d-flex" style={{ height: "fit-content" }}>
       <div className="w-360 lg:w-full d-flex flex-column">

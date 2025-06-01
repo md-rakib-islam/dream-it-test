@@ -138,10 +138,10 @@ const PaymentSuccess = () => {
                     <div className="row">
                       <div className="col-6 border-end">
                         <div className="text-muted small">
-                          Booking Reference
+                          Booking Invoice No.
                         </div>
                         <div className="fw-bold">
-                          {paymentDetails?.id || "N/A"}
+                          {paymentDetails?.invoice_no || "N/A"}
                         </div>
                       </div>
                       <div className="col-6">
