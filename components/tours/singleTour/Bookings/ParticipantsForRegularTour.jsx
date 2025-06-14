@@ -52,7 +52,7 @@ const ParticipantsForRegularTour = ({
         <div className="participantType">
           <div className="participantInfo">
             <div className="participantLabel">Adult</div>
-            <div className="ageRange">Age 18 - 99</div>
+            <div className="ageRange">Age 13 - 99</div>
             <div className="price">{formatTotalPrice(adultPrice)}</div>
           </div>
           <div className="counterControls">
@@ -78,7 +78,7 @@ const ParticipantsForRegularTour = ({
           <div className="participantType">
             <div className="participantInfo">
               <div className="participantLabel">Child</div>
-              <div className="ageRange">Age 04 - 17</div>
+              <div className="ageRange">Age 03 - 12</div>
               <div className="price">{formatTotalPrice(youthPrice)}</div>
             </div>
             <div className="counterControls">
@@ -105,7 +105,7 @@ const ParticipantsForRegularTour = ({
           <div className="participantType">
             <div className="participantInfo">
               <div className="participantLabel">Infant</div>
-              <div className="ageRange">Age 0 - 3</div>
+              <div className="ageRange">Age 0 - 2</div>
               <div className="price">{formatTotalPrice(childPrice)}</div>
             </div>
             <div className="counterControls">

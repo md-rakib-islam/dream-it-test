@@ -26,6 +26,7 @@ import TourProductsSchema from "./tour-products-schema";
 import FAQSchema from "./faq-schema";
 import Script from "next/script";
 import ChatWidget from "@/components/common/ChatWidget";
+import MetaPixel from "@/components/metaPixel/MetaPixel";
 
 export default async function RootLayout({ children }) {
   const data = await dataFetcher(GET_MENUS_ALL_NESTED);
@@ -50,9 +51,9 @@ export default async function RootLayout({ children }) {
     const contentImages = await contentFetcher(
       `${GET_IMAGE_BY_MENU_ID}/${tourId}`
     );
-
     imageContentsForTours = contentImages;
   }
+
   if (homeId) {
     const contentData = await contentFetcher(
       `${GET_CONTENTS_WITH_URL_BY_MENU_ID}/${homeId}`
@@ -60,17 +61,12 @@ export default async function RootLayout({ children }) {
     const contentImages = await contentFetcher(
       `${GET_IMAGE_BY_MENU_ID}/${homeId}`
     );
-
     tourContent = contentData;
     tourImages = contentImages;
 
     if (contentData) {
-      //for tours
       let tours = contentData
-        .filter((item) => {
-          if (item.published == false) return false;
-          return true;
-        })
+        .filter((item) => item.published !== false)
         .map((tour) => ({
           id: tour.id,
           tag: "",
@@ -78,7 +74,7 @@ export default async function RootLayout({ children }) {
           title: tour.name,
           location: tour?.location,
           duration: tour?.duration,
-          numberOfReviews: tour?.reviews ? tour?.reviews : "0",
+          numberOfReviews: tour?.reviews ?? "0",
           trip_url: tour?.trip_url,
           slug: tour?.slug,
           price: tour?.price,
@@ -87,12 +83,12 @@ export default async function RootLayout({ children }) {
           position: tour?.position,
         }));
 
-      tours?.sort((a, b) => a?.position - b?.position);
+      tours.sort((a, b) => a.position - b.position);
       toursMainData = tours;
-      // top destinations
     }
+
     if (destinations) {
-      topDestinations = destinations?.map((item, indx) => ({
+      topDestinations = destinations.map((item) => ({
         id: item.id,
         colClass: "col-xl-auto col-md-4 col-sm-6",
         img: `${contentImages?.content_images[item?.name]}`,
@@ -106,23 +102,24 @@ export default async function RootLayout({ children }) {
   const siteData = {
     menus: data?.menus,
     logo: siteSetting,
-    toursMainData: toursMainData,
-    topDestinations: topDestinations,
-    reviewsData: reviewsData,
+    toursMainData,
+    topDestinations,
+    reviewsData,
     blogs: blogData,
-    imageContentsForTours: imageContentsForTours,
+    imageContentsForTours,
   };
 
   return (
     <html lang="en">
       <head>
-        {/* google search console */}
+        {/* Google Site Verification */}
         <meta
           name="google-site-verification"
           content="VfIPoE7rawdeEL2yng_KgkSMWi1LPMPxB1-KgFVutIA"
         />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
 
+        {/* Fonts */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
           href="https://fonts.gstatic.com"
@@ -135,23 +132,23 @@ export default async function RootLayout({ children }) {
         <link
           href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
           rel="stylesheet"
-        ></link>
+        />
         <link
           href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap"
           rel="stylesheet"
-        ></link>
+        />
 
-        {/* Google Analytics */}
+        {/* Google Analytics (gtag.js) */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', 'G-TXJZSJCPCZ');
-              `,
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-TXJZSJCPCZ');
+            `,
           }}
-        ></script>
+        />
 
         {/* Google Tag Manager */}
         <script
@@ -159,16 +156,16 @@ export default async function RootLayout({ children }) {
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
-            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','AW-16851202879');
-          `,
+              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+              })(window,document,'script','dataLayer','AW-16851202879');
+            `,
           }}
         />
-        {/* End Google Tag Manager */}
 
+        {/* Microsoft Clarity */}
         <Script id="microsoft-clarity" strategy="afterInteractive">
           {`
             (function(c,l,a,r,i,t,y){
@@ -178,32 +175,60 @@ export default async function RootLayout({ children }) {
             })(window, document, "clarity", "script", "r1wiwwxv9l");
           `}
         </Script>
+
+        {/* Facebook Meta Pixel */}
+        <Script id="meta-pixel" strategy="afterInteractive">
+          {`
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '551593183083152');
+            fbq('track', 'PageView');
+          `}
+        </Script>
+
+        {/* Structured Data */}
         <OrganizationSchema />
         <TourProductsSchema />
         <FAQSchema />
-
-        {/* end*/}
       </head>
       <body>
+        {/* Facebook Pixel (noscript) */}
+        <noscript>
+          <img
+            height="1"
+            width="1"
+            style={{ display: "none" }}
+            src="https://www.facebook.com/tr?id=551593183083152&ev=PageView&noscript=1"
+            alt="fb-pixel"
+          />
+        </noscript>
+
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=AW-16851202879"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          ></iframe>
+        </noscript>
+
         <AddBootstrap />
         <main>
           <LayoutProvider data={siteData}>
             <Header />
             {children}
-
+            <MetaPixel />
             <ScrollToTop />
             <ChatWidget />
-
             <Footer />
             <GoogleAnalytics gaId="G-TXJZSJCPCZ" />
-            {/* Google Tag Manager (noscript) */}
-            <noscript
-              dangerouslySetInnerHTML={{
-                __html: `<iframe src="https://www.googletagmanager.com/ns.html?id=AW-16851202879"
-            height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
-              }}
-            />
-            {/* End Google Tag Manager (noscript) */}
           </LayoutProvider>
         </main>
       </body>
