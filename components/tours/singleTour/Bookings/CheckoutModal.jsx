@@ -245,7 +245,7 @@ const CheckoutModal = ({
   const handleBack = () => {
     setStep(1);
   };
-
+  const path_name = window.location.href;
   const handleSecureCheckout = async (
     discountedFinalPrice = null,
     couponPercentage = 0,
@@ -318,6 +318,7 @@ const CheckoutModal = ({
         final_price_after_discount
       ).toFixed(2),
       member_id,
+      path_name: path_name,
     };
 
     try {
