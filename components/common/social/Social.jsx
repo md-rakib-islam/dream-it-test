@@ -22,6 +22,11 @@ const Social = () => {
       icon: "icon-pinterest",
       link: "https://www.pinterest.com/dreamtourismit/",
     },
+    {
+      id: 6,
+      icon: "icon-play",
+      link: "https://www.youtube.com/@dreamtourismit",
+    },
   ];
   return (
     <>

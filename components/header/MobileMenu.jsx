@@ -159,12 +159,12 @@ const MobileMenu = ({ menus, logoUrl }) => {
 
       <div className="pro-footer">
         <ContactInfo />
-        <div className="mt-10">
+        {/* <div className="mt-10">
           <span className="text-14 mb-10">Follow us on social media</span>
           <div className="d-flex x-gap-20 items-center">
             <Social />
           </div>
-        </div>
+        </div> */}
       </div>
       {/* End pro-footer */}
     </>

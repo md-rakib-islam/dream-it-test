@@ -80,7 +80,7 @@ export default async function Sitemap() {
       lastModified: new Date(
         blog.updated_at || blog.created_at || new Date()
       ).toISOString(),
-      changeFrequency: "weekly",
+      changeFrequency: "daily",
       priority: 0.8,
     }));
 
@@ -98,13 +98,13 @@ export default async function Sitemap() {
       {
         url: `${BASE_URL}/blogs`,
         lastModified: new Date().toISOString(),
-        changeFrequency: "weekly",
+        changeFrequency: "daily",
         priority: 0.9,
       },
       {
         url: `${BASE_URL}/things-to-do`,
         lastModified: new Date().toISOString(),
-        changeFrequency: "weekly",
+        changeFrequency: "daily",
         priority: 0.9,
       },
       {
