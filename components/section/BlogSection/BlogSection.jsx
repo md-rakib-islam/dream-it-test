@@ -97,10 +97,10 @@ const BlogSection = ({ title }) => {
                         </div>
                       </div>
                       <div className="pt-20">
-                        <h3 className="text-dark-1 text-18 fw-500">
+                        <h3 className="text-dark-1 text-13 fw-500">
                           {item.title}
                         </h3>
-                        <div className="text-light-1 text-15 lh-14 mt-5">
+                        <div className="text-light-1 text-10 lh-14 mt-5">
                           {item.date}
                         </div>
                       </div>
@@ -128,7 +128,7 @@ const BlogSection = ({ title }) => {
                         </div>
                       </div>
                       <div className="pt-20">
-                        <h3 className="text-dark-1 text-18 fw-500">
+                        <h3 className="text-dark-1 text-18 fw-500 ">
                           {item.title}
                         </h3>
                         <div className="text-light-1 text-15 lh-14 mt-5">
@@ -141,10 +141,10 @@ const BlogSection = ({ title }) => {
               </div>
             )}
           </div>
-          <div className="pt-4 text-start">
+          <div className="pt-5 mt-3 text-center">
             <Link
               href="/blogs"
-              className="button -md -blue-1 bg-blue-1-05 text-blue-1 d-inline-block"
+              className="button -blue-1-05  -md -blue-1 bg-blue-1-06  text-white d-inline-block"
             >
               Discover More
             </Link>
