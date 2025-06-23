@@ -29,11 +29,21 @@ import ChatWidget from "@/components/common/ChatWidget";
 import MetaPixel from "@/components/metaPixel/MetaPixel";
 
 export default async function RootLayout({ children }) {
-  const data = await dataFetcher(GET_MENUS_ALL_NESTED);
-  const siteSetting = (await dataFetcher(GET_SITESETTINGS))?.general_settings;
-  const reviewsData = await dataFetcher(GET_ALL_REVIEWS);
-  const contentBlogData = await dataFetcher(`${GET_CMS_BLOGS}`);
-  const categoryData = await dataFetcher(`${BLOG_CATEGORIES}`);
+  const data = await dataFetcher(GET_MENUS_ALL_NESTED, {
+    next: { tags: ["blog-list"] },
+  });
+  const siteSetting = (
+    await dataFetcher(GET_SITESETTINGS, { next: { tags: ["blog-list"] } })
+  )?.general_settings;
+  const reviewsData = await dataFetcher(GET_ALL_REVIEWS, {
+    next: { tags: ["blog-list"] },
+  });
+  const contentBlogData = await dataFetcher(`${GET_CMS_BLOGS}`, {
+    next: { tags: ["blog-list"] },
+  });
+  const categoryData = await dataFetcher(`${BLOG_CATEGORIES}`, {
+    next: { tags: ["blog-list"] },
+  });
   const homeId = data?.menus?.find((menu) => menu?.name === "Home")?.id;
   const tourId = data?.menus?.find((item) => item.name === "Tours")?.id;
   const destinations = data?.menus?.find(
@@ -43,26 +53,39 @@ export default async function RootLayout({ children }) {
   let tourContent = null,
     tourImages = [],
     toursMainData = [],
+    toursFAQ = [],
     topDestinations = [],
     imageContentsForTours = {},
     blogData = { blogs: contentBlogData || [], categories: categoryData };
 
   if (tourId) {
     const contentImages = await contentFetcher(
-      `${GET_IMAGE_BY_MENU_ID}/${tourId}`
+      `${GET_IMAGE_BY_MENU_ID}/${tourId}`,
+      { next: { tags: ["blog-list"] } }
     );
     imageContentsForTours = contentImages;
   }
 
   if (homeId) {
     const contentData = await contentFetcher(
-      `${GET_CONTENTS_WITH_URL_BY_MENU_ID}/${homeId}`
+      `${GET_CONTENTS_WITH_URL_BY_MENU_ID}/${homeId}`,
+      { next: { tags: ["blog-list"] } }
     );
     const contentImages = await contentFetcher(
-      `${GET_IMAGE_BY_MENU_ID}/${homeId}`
+      `${GET_IMAGE_BY_MENU_ID}/${homeId}`,
+      { next: { tags: ["blog-list"] } }
     );
     tourContent = contentData;
     tourImages = contentImages;
+
+    if (contentData) {
+      let tours = contentData
+        .filter((item) => item.name === "FAQ")
+        .map((tour) => ({
+          description: tour?.description,
+        }));
+      toursFAQ = tours;
+    }
 
     if (contentData) {
       let tours = contentData
@@ -103,6 +126,7 @@ export default async function RootLayout({ children }) {
     menus: data?.menus,
     logo: siteSetting,
     toursMainData,
+    toursFAQ,
     topDestinations,
     reviewsData,
     blogs: blogData,

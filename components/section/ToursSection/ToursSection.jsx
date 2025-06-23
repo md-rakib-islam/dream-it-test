@@ -12,7 +12,7 @@ const ToursSection = ({ title, des, tourType }) => {
               <h2 className="sectionTitle__title md:text-22 fw-600">{title}</h2>
               {/*  old code 
               <p className=" sectionTitle__text mt-5  bannar_mobile">{des}</p> */}
-              <p className=" sectionTitle__text mt-5  ">{des}</p>
+              <p className=" sectionTitle__text mt-5  text-mobile-11">{des}</p>
             </div>
           </div>
 

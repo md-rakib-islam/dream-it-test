@@ -5,6 +5,10 @@ import DestinationSection from "../section/Destinations/DestinationSection";
 import WhyChooseSection from "../section/WhyChoose/WhyChooseSection";
 import TestimonialSection from "../section/Testimonial/TestimonialSection";
 import { useEffect, useState } from "react";
+import AboutSection from "../section/About/AboutSection";
+import FAQSection from "../section/FAQ/FAQSection";
+import BlogSection from "../section/BlogSection/BlogSection";
+
 const index = () => {
   // const [isVisible, setIsVisible] = useState(false);
   // const [oneTimeShow, setOneTimeShow] = useState(false);
@@ -72,15 +76,20 @@ const index = () => {
             "Explore Italy’s top destinations, from famous cities like Rome, Venice, and Florence to beautiful spots like the Amalfi Coast and Cinque Terre. Book your unforgettable Italy trip now and experience ancient ruins, coastal views, and more!"
           }
         />
+        <AboutSection />
         <WhyChooseSection
-          title={"Why Book With Us"}
+          title={"Why Choose Dream Tourism to Book Tour Tickets Online"}
           des={"Experience Quality and Excellence with DreamTourism"}
         />
         <TestimonialSection
-          title={"Customer Reviews & Testimonials"}
+          title={"See Why Travelers Recommend Us for Booking Tour Tickets"}
           des={
             "Join thousands of happy travelers with Dream Tourism, Italy’s top-rated tour operator. Check our 5-star reviews on TripAdvisor, Viator, and Google to see why customers love our unforgettable tours. Book your Italy adventure today!"
           }
+        />
+        <FAQSection />
+        <BlogSection
+          title={"Discover New Destinations and Travel Tips on Our Blog"}
         />
       </>
       {/* )} */}

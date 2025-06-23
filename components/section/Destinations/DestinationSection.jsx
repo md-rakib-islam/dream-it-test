@@ -10,7 +10,9 @@ const DestinationSection = ({ title, des, slug }) => {
             <div className="col-auto">
               <div className="sectionTitle -md">
                 <h2 className="sectionTitle__title fw-600">{title}</h2>
-                <p className=" sectionTitle__text mt-5 sm:mt-0">{des} </p>
+                <p className=" sectionTitle__text mt-5 sm:mt-0 text-mobile-11">
+                  {des}{" "}
+                </p>
               </div>
             </div>
           </div>

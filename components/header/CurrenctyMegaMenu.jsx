@@ -117,7 +117,7 @@ const CurrenctyMegaMenu = ({ textClass }) => {
             "https://ipinfo.io/json?token=baf431b7705663"
           );
           const data = await res.json();
-          console.log("Geo data:", data);
+          // console.log("Geo data:", data);
 
           if (data && data.country) {
             // updateCurrency(currencyObject);

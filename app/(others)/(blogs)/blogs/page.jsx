@@ -70,10 +70,13 @@ export default async function BlogsPage() {
   const blogs = Array.isArray(contentBlogData?.blogs)
     ? contentBlogData.blogs
     : [];
+  // console.log("blogs", blogs);
 
   const filteredBlogs = blogs.filter(
     (elm) => !elm.title.toLowerCase().includes("things to do")
   );
+
+  // console.log("filteredBlogs", filteredBlogs);
 
   return (
     <>

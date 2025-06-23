@@ -16,7 +16,7 @@
 export async function dataFetcher(api, options = {}) {
   try {
     const response = await fetch(api, options); // ✅ forward options
-    if (!response.ok) throw new Error("Failed to fetch data");
+    if (response.status !== 200) throw new Error("Failed to fetch data");
     return await response.json();
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -24,9 +24,9 @@ export async function dataFetcher(api, options = {}) {
   }
 }
 
-export async function contentFetcher(api) {
+export async function contentFetcher(api, options = {}) {
   try {
-    const response = await fetch(api);
+    const response = await fetch(api, options); // ✅ forward options
     if (response.status !== 200) {
       throw new Error("Failed to fetch data");
     }
