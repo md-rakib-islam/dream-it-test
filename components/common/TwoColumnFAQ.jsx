@@ -6,7 +6,6 @@ const TwoColumnFAQ = ({ faqContent }) => {
   const [rightColumnFAQs, setRightColumnFAQs] = useState([]);
   const [leftExpandedIndex, setLeftExpandedIndex] = useState(null);
   const [rightExpandedIndex, setRightExpandedIndex] = useState(null);
-  //   console.log("faqContent", faqContent);
 
   useEffect(() => {
     if (

@@ -156,7 +156,6 @@ const AgentCalendar = ({ tourdata, busdata }) => {
   // Only log on initial render, not on every scroll
   useEffect(() => {
     if (initialRenderRef.current) {
-      // console.log("Parsed available dates:", parsedAvailableDates);
       initialRenderRef.current = false;
     }
   }, [parsedAvailableDates]);
@@ -203,7 +202,6 @@ const AgentCalendar = ({ tourdata, busdata }) => {
     setIsValidBookingBus(hasValidDate && hasValidTime);
 
     // Debug logging
-    // console.log("Validation in AgentCalendar:", {
     //   isMinParticipantsMet,
     //   isMaxParticipantsExceeded,
     //   hasValidDate,

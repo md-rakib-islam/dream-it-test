@@ -117,14 +117,12 @@ const CurrenctyMegaMenu = ({ textClass }) => {
             "https://ipinfo.io/json?token=baf431b7705663"
           );
           const data = await res.json();
-          // console.log("Geo data:", data);
 
           if (data && data.country) {
             // updateCurrency(currencyObject);
             currencyContent.forEach((item) => {
               item.country_code.forEach((code) => {
                 if (code == data.country) {
-                  console.log("country code:", code, data.country);
                   updateCurrency(item);
                   setClick(false);
                 }
@@ -132,7 +130,6 @@ const CurrenctyMegaMenu = ({ textClass }) => {
               // if (item.country_code === data.country) {
               //   updateCurrency(item);
               // } else {
-              //   console.log("No match found for country code:", data.country);
               // }
             });
           }

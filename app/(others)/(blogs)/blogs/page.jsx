@@ -1,7 +1,7 @@
 import Blog from "@/components/blogs/Blog";
 import {
   GET_ALL_COUNTRIES,
-  GET_CMS_BLOG_WITHOUT_PAGINATION,
+  GET_CMS_BLOGS,
   GET_METADATA_BY_CONTENT_NAME,
 } from "@/constant/constants";
 import { dataFetcher } from "@/utils/dataFetcher";
@@ -16,7 +16,7 @@ const fetchMetadata = async () => {
     console.error(error);
     return {
       meta_title:
-        "Blogs  || Dream Tourism SRLS - Your Place for Amazing Travel Adventure",
+        "Blogs || Dream Tourism SRLS - Your Place for Amazing Travel Adventure",
       meta_description:
         "Start your dream vacation with Dream Tourism SRLS. Explore fantastic destinations and enjoy unforgettable adventures. Your perfect getaway is just a click away!",
       image:
@@ -57,33 +57,28 @@ export async function generateMetadata() {
   };
 }
 
-export default async function BlogsPage() {
+export default async function BlogsPage({ searchParams }) {
+  const page = parseInt(searchParams?.page || "1", 10);
+  const country = searchParams?.country || "";
+  let query = `page=${page}&size=9&things_to_do=false`;
+  if (country) {
+    query += `&country=${country}`;
+  }
   const [contentBlogData, categoryData] = await Promise.all([
-    dataFetcher(`${GET_CMS_BLOG_WITHOUT_PAGINATION}`, {
-      next: { tags: ["blog-list"] },
-    }),
-    dataFetcher(`${GET_ALL_COUNTRIES}`, {
-      next: { revalidate: 60 },
-    }),
+    dataFetcher(`${GET_CMS_BLOGS}?${query}`, { next: { tags: ["blog-list"] } }),
+    dataFetcher(`${GET_ALL_COUNTRIES}`, { next: { revalidate: 60 } }),
   ]);
 
   const blogs = Array.isArray(contentBlogData?.blogs)
     ? contentBlogData.blogs
     : [];
-  // console.log("blogs", blogs);
-
-  const filteredBlogs = blogs.filter(
-    (elm) => !elm.title.toLowerCase().includes("things to do")
-  );
-
-  // console.log("filteredBlogs", filteredBlogs);
 
   return (
     <>
       <div className="header-margin"></div>
       <section
         className={`layout-pt-md layout-pb-lg blog-content ${
-          filteredBlogs?.length === 0 ? "vh-100" : ""
+          blogs?.length === 0 ? "vh-100" : ""
         }`}
       >
         <div className="container">
@@ -91,18 +86,16 @@ export default async function BlogsPage() {
             <div className="col-auto">
               <div className="sectionTitle -md">
                 <h1 className="sectionTitle__title">Latest Blog Posts</h1>
-                {filteredBlogs.length === 0 && (
-                  <p className="sectionTitle__text mt-5 sm:mt-0">
-                    There are no blog posts.
-                  </p>
-                )}
               </div>
             </div>
           </div>
 
-          {filteredBlogs && (
-            <Blog blogs={filteredBlogs} countries={categoryData?.countries} />
-          )}
+          <Blog
+            blogs={blogs}
+            countries={categoryData?.countries}
+            currentPage={page}
+            totalPages={contentBlogData?.total_pages || 1}
+          />
         </div>
       </section>
     </>

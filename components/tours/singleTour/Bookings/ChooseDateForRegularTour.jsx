@@ -156,7 +156,6 @@ const ChooseDateForRegularTour = ({
   // Get displayed available spots (with marketing logic)
   const getDisplayedAvailableSpots = (date) => {
     const actualSpots = getActualAvailableSpots(date);
-    // console.log("Actual available spots:", actualSpots);
 
     // Get total participants requested
     const totalParticipantsRequested = getTotalParticipants();
@@ -225,7 +224,6 @@ const ChooseDateForRegularTour = ({
     };
   };
 
-  // console.log("availableDates", availableDates);
   // State initialization
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);

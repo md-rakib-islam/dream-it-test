@@ -68,7 +68,6 @@ const TourSingle = ({ children, data, fullUrl, itenarayItems }) => {
       ...data,
     };
   }
-  // console.log("tour", tour);
   useEffect(() => {
     // Button is displayed after scrolling for 500 pixels
     const toggleVisibility = () => {

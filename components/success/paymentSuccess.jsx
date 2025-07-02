@@ -33,7 +33,6 @@ const PaymentSuccess = () => {
           throw new Error("Failed to fetch payment details");
         }
         const data = await response.json();
-        // console.log(data);
         setPaymentDetails(data.payment_details);
         setMemberDetails(data.member_details);
       } catch (err) {

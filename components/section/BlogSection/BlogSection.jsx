@@ -21,7 +21,6 @@ const BlogSection = ({ title }) => {
   const width = useWindowSize();
   const isMobile = width > 768;
   const { blogs } = useContext(LayoutContext);
-  //   console.log("blogs", blogs.blogs.blogs);
 
   const sliderSettings = {
     speed: 500,

@@ -173,14 +173,6 @@ const CheckoutModal = ({
     const newPhone =
       country.value + (phoneWithoutCode ? " " + phoneWithoutCode : "");
 
-    // console.log("Phone update:", {
-    //   oldPhone: currentPhone,
-    //   oldCountryCode,
-    //   phoneWithoutCode,
-    //   newPhone,
-    //   newCountryCode: country.value,
-    // });
-
     setFormData((prev) => ({
       ...prev,
       phone: newPhone,
@@ -223,22 +215,12 @@ const CheckoutModal = ({
       phoneErrorRef.current.style.display = !isPhoneValid ? "block" : "none";
     }
 
-    // console.log("Form validation:", {
-    //   isFirstNameEmpty,
-    //   isLastNameEmpty,
-    //   isEmailEmpty,
-
-    //   isPhoneValid,
-    // });
-
     // If any required field is empty or phone is invalid, don't proceed
     if (isFirstNameEmpty || isLastNameEmpty || isEmailEmpty || !isPhoneValid) {
-      console.log("Form validation failed");
       return;
     }
 
     // All validation passed, proceed to next step
-    // console.log("Form validation passed, proceeding to step 2");
     setStep(2);
   };
 

@@ -144,8 +144,7 @@ const SidebarRight = ({ data }) => {
 
     return <div className="bokunWidget" data-src={data?.url}></div>;
   }, [data?.is_bokun_url, data?.url]);
-  // console.log("available times", busdata?.available_times);
-  // console.log("is_bokun_url value:", data?.is_bokun_url);
+
   return (
     <div className="d-flex" style={{ height: "fit-content" }}>
       <div className="w-360 lg:w-full d-flex flex-column">
