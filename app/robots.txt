@@ -1,5 +1,9 @@
 User-agent: *
 Allow: /
+Disallow: /media/
+Disallow: /img/
+Disallow: /wp-content/
+Disallow: /.well-known/
 Disallow: /?utm=
 Disallow: /?ref=
 Disallow: /?fbclid=
@@ -39,8 +43,6 @@ Disallow: /tour/home/
 Disallow: /tour/tours/
 Disallow: /tour/about/
 Disallow: /st_tour/
-Disallow: /_next/static/
-Disallow: /destinations
 Disallow: /tour/privacy-policy/
 Disallow: /tour/terms-and-conditions/
 Disallow: /privacy-and-cookies/feed
@@ -54,18 +56,5 @@ Disallow: /azerbaycanda-merc-oyunlari-shirketi-gorush-ve-reyler-583
 Disallow: /media/cms/ReviewImage/
 Disallow: /category/
 
-
-
-User-agent: MJ12bot
-Disallow: /
-
-User-agent: DotBot
-Disallow: /
-
-User-agent: PetalBot
-Disallow: /
-
-User-agent: MegaIndex
-Disallow: /
-
 Sitemap: https://dreamtourism.it/sitemap.xml
+

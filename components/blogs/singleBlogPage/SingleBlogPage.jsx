@@ -3,15 +3,6 @@ import Image from "next/image";
 import ExpandableFAQ from "@/components/common/ExpandableFAQ";
 import BlogsSide from "../BlogsSide";
 
-export function getFullUrl(slug) {
-  const baseUrl =
-    typeof window !== "undefined"
-      ? window.location.origin
-      : "https://dreamtourism.it";
-  const fullPath = `${baseUrl}/blog/${slug}`;
-  return fullPath;
-}
-
 const SingleBlogPage = ({
   contentData,
   categoryData,
@@ -19,7 +10,7 @@ const SingleBlogPage = ({
   faqContent,
   descriptionHTML,
   load,
-  slug,
+  fullUrl,
 }) => {
   // Modify the parseHeadings function to extract the first <p> tag
   const parseHeadingsAndFirstParagraph = (html) => {
@@ -46,8 +37,6 @@ const SingleBlogPage = ({
   // Call the updated function
   const { headings, firstParagraph, updatedHTML } =
     parseHeadingsAndFirstParagraph(descriptionHTML);
-
-  const fullUrl = getFullUrl(slug);
 
   return (
     <div>

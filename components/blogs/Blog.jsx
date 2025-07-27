@@ -73,7 +73,7 @@ const Blog = ({ blogs, countries, currentPage, totalPages }) => {
           {blogs?.map((item, idx) => (
             <div className="col-lg-4 col-sm-6" key={idx}>
               <AgentLink
-                href={`/blog/${item.slug}`}
+                href={`/blogs/${item.slug}`}
                 className="blogCard -type-1 d-block "
               >
                 <div className="blogCard__image">

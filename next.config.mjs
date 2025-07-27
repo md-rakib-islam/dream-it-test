@@ -21,16 +21,6 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: "/destinations/:slug",
-        destination: "/:slug",
-        permanent: true, // Use 301 redirect for SEO
-      },
-      {
-        source: "/blog/:slug",
-        destination: "/:slug",
-        permanent: true,
-      },
-      {
         source: "/tour/:slug",
         destination: "/tours/:slug",
         permanent: true, // 301 Redirect (permanent)

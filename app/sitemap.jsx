@@ -75,14 +75,22 @@ export default async function Sitemap() {
       );
 
     // Blogs
-    const blogsXml = blogData.blogs.map((blog) => ({
-      url: `${BASE_URL}/${blog.slug}`,
-      lastModified: new Date(
-        blog.updated_at || blog.created_at || new Date()
-      ).toISOString(),
-      changeFrequency: "daily",
-      priority: 0.8,
-    }));
+    const blogsXml = blogData.blogs.map((blog) => {
+      const isThingsToDo = blog.title.toLowerCase().includes("things to do");
+
+      const url = `${BASE_URL}/${isThingsToDo ? "things-to-do" : "blogs"}/${
+        blog.slug
+      }`;
+
+      return {
+        url,
+        lastModified: new Date(
+          blog.updated_at || blog.created_at || new Date()
+        ).toISOString(),
+        changeFrequency: "daily",
+        priority: 0.8,
+      };
+    });
 
     // Static pages
     const main = [

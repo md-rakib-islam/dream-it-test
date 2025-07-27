@@ -211,7 +211,7 @@ const ThingsToDoPage = ({ blogs, categories, countries }) => {
                   {category.blogs.slice(0, visibleCount).map((item, idx) => (
                     <div className="col-lg-4 col-md-6 col-12" key={idx}>
                       <AgentLink
-                        href={`/blog/${item.slug}`}
+                        href={`/things-to-do/${item.slug}`}
                         className="blogCard -type-1 d-block h-full"
                       >
                         <div className="blogCard__image">
