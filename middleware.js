@@ -7,7 +7,7 @@ export function middleware(req) {
   // Dynamically block patterns
   if (
     url.startsWith("/media/") ||
-    url.startsWith("/img/") ||
+    // url.startsWith("/img/") ||
     url.startsWith("/wp-content/") ||
     url.includes("/MetaImage/") ||
     url.includes("/BlogImage/") ||

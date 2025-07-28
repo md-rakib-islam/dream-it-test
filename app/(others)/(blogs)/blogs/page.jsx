@@ -5,6 +5,7 @@ import {
   GET_METADATA_BY_CONTENT_NAME,
 } from "@/constant/constants";
 import { dataFetcher } from "@/utils/dataFetcher";
+import { headers } from "next/headers";
 
 const fetchMetadata = async () => {
   try {
@@ -58,12 +59,21 @@ export async function generateMetadata() {
 }
 
 export default async function BlogsPage({ searchParams }) {
-  const page = parseInt(searchParams?.page || "1", 10);
-  const country = searchParams?.country || "";
+  const page =
+    typeof searchParams?.get === "function"
+      ? parseInt(searchParams.get("page") || "1", 10)
+      : parseInt(searchParams?.page || "1", 10);
+
+  const country =
+    typeof searchParams?.get === "function"
+      ? searchParams.get("country") || ""
+      : searchParams?.country || "";
+
   let query = `page=${page}&size=9&things_to_do=false`;
   if (country) {
     query += `&country=${country}`;
   }
+
   const [contentBlogData, categoryData] = await Promise.all([
     dataFetcher(`${GET_CMS_BLOGS}?${query}`, { next: { tags: ["blog-list"] } }),
     dataFetcher(`${GET_ALL_COUNTRIES}`, { next: { revalidate: 60 } }),

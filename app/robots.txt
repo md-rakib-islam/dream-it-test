@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
+Allow: /_next/static/
 Disallow: /media/
 Disallow: /img/
 Disallow: /wp-content/
