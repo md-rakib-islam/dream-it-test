@@ -169,6 +169,7 @@ const About = () => {
             alt="About Image"
             width={273.95}
             height={300.42}
+             priority
           ></Image>
         </div>
         <div className="simple-image-two">
@@ -177,6 +178,7 @@ const About = () => {
             alt="About Image"
             width={203.73}
             height={223.42}
+             priority
           ></Image>
         </div>
 
@@ -206,6 +208,7 @@ const About = () => {
                     alt="About Image"
                     width={844}
                     height={444}
+                     priority
                   ></Image>
                 </div>
                 <div className="main-content text-left">

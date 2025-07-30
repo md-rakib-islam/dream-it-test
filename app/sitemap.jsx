@@ -67,7 +67,9 @@ export default async function Sitemap() {
         item.children
           .filter((child) => child.name !== "United States")
           .map((child) => ({
-            url: `${BASE_URL}/${encodeURIComponent(child.name.toLowerCase())}`,
+            url: `${BASE_URL}/destinations/${encodeURIComponent(
+              child.name.toLowerCase()
+            )}`,
             lastModified: new Date().toISOString(),
             changeFrequency: "weekly",
             priority: 0.9,
