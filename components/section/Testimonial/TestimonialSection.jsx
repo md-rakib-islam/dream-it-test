@@ -3,7 +3,7 @@ import Counter from "@/components/counter/Counter";
 import Testimonial from "@/components/testimonial/Testimonial";
 import React from "react";
 
-const TestimonialSection = ({ title, des }) => {
+const TestimonialSection = ({ title, des, isVisible }) => {
   return (
     <div>
       <section className="section-bg layout-pt-lg layout-pb-lg bg-light-2">
@@ -23,9 +23,7 @@ const TestimonialSection = ({ title, des }) => {
           </div>
 
           <div className="overflow-hidden pt-40 js-section-slider">
-            <div className="item_gap-x30">
-              <Testimonial />
-            </div>
+            <div className="item_gap-x30">{isVisible && <Testimonial />}</div>
           </div>
 
           <div className="row y-gap-30 items-center pt-40 sm:pt-20">

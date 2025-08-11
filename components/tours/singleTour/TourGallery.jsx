@@ -3,7 +3,9 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import useWindowSize from "@/hooks/useWindowSize";
-import Slider from "react-slick";
+import dynamic from "next/dynamic";
+const Slider = dynamic(() => import("react-slick"), { ssr: false });
+
 import TourGalleryGridSkeleton from "./TourGridSkeleton";
 
 const TourGallery = ({ tour, openLightbox: externalOpenLightbox }) => {

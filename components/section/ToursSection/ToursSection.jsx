@@ -1,8 +1,10 @@
 import Tours from "@/components/tours/Tours";
 import ToursForMobile from "@/components/tours/ToursForMobile";
+import { useMobile } from "@/hooks/useMobile";
 import Link from "next/link";
 
 const ToursSection = ({ title, des, tourType }) => {
+  const isMobile = useMobile();
   return (
     <section className="layout-pt-md layout-pb-md sm:mt-40">
       <div className="container">
@@ -45,8 +47,12 @@ const ToursSection = ({ title, des, tourType }) => {
         </div>
 
         {/* {isVisible && ( */}
-        <div className="row y-gap-30 pt-40  bannar_mobile  sm:pt-20 item_gap-x30">
-          <Tours tourType={tourType} />
+        <div className="row y-gap-30 pt-40    sm:pt-20 item_gap-x30">
+          {!isMobile ? (
+            <Tours tourType={tourType} />
+          ) : (
+            <ToursForMobile tourType={tourType} />
+          )}
         </div>
         {/* )} */}
         {/* {!isVisible && (
@@ -60,9 +66,9 @@ const ToursSection = ({ title, des, tourType }) => {
           </div>
         )} */}
         {/* {isVisible && ( */}
-        <div className="row y-gap-30 pt-40 d-md-none sm:pt-20 item_gap-x30">
+        {/* <div className="row y-gap-30 pt-40 d-md-none sm:pt-20 item_gap-x30">
           <ToursForMobile tourType={tourType} />
-        </div>
+        </div> */}
         {/* )} */}
       </div>
     </section>

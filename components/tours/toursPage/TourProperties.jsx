@@ -4,7 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import useWindowSize from "@/hooks/useWindowSize";
-import Slider from "react-slick";
+import dynamic from "next/dynamic";
+const Slider = dynamic(() => import("react-slick"), { ssr: false });
+
 import TripReview from "@/components/common/TripReview";
 import { useContext, useEffect, useMemo } from "react";
 import { LayoutContext } from "@/app/LayoutProvider";
@@ -128,7 +130,7 @@ const TourProperties = () => {
         return (
           <div key={idx}>
             <AgentLink
-              href={`/tour/${slug}`}
+              href={`/tours/${slug}`}
               style={{ cursor: "pointer" }}
               className="tourCard -type-1 rounded-4 hover-inside-slider"
             >
@@ -147,7 +149,7 @@ const TourProperties = () => {
                             width={300}
                             height={300}
                             priority
-                            className="col-12 js-lazy"
+                            className="col-12 "
                             src={slide}
                             alt={item?.title}
                           />
@@ -162,7 +164,7 @@ const TourProperties = () => {
                         width={80}
                         height={80}
                         priority
-                        className="col-12 js-lazy"
+                        className="col-12 "
                         src={`https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/94088711-e642-4216-52ee-393e4c6a3c00/public`}
                         alt="price"
                       />

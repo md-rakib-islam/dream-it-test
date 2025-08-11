@@ -1,6 +1,8 @@
 "use client";
-import Image from "next/image";
-import Slider from "react-slick";
+import OptimizedImage from "../optimized/OptimizedImage";
+import dynamic from "next/dynamic";
+
+const Slider = dynamic(() => import("react-slick"), { ssr: false });
 
 const WhyChoosePage = () => {
   const blockContent = [
@@ -85,12 +87,13 @@ const WhyChoosePage = () => {
           >
             <div className="featureIcon -type-1 ">
               <div className="d-flex justify-center">
-                <Image
+                <OptimizedImage
                   width={70}
                   height={70}
                   src={item.icon}
                   alt="image"
-                  className="js-lazy"
+                  className=""
+                  quality={80}
                 />
               </div>
               <div className="text-center mt-30">

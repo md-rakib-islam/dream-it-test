@@ -10,26 +10,26 @@ import FAQSection from "../section/FAQ/FAQSection";
 import BlogSection from "../section/BlogSection/BlogSection";
 
 const index = () => {
-  // const [isVisible, setIsVisible] = useState(false);
-  // const [oneTimeShow, setOneTimeShow] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const [oneTimeShow, setOneTimeShow] = useState(false);
 
-  // useEffect(() => {
-  //   // Button is displayed after scrolling for 500 pixels
-  //   if (!oneTimeShow) {
-  //     const toggleVisibility = () => {
-  //       if (window.pageYOffset > 2) {
-  //         setIsVisible(true);
-  //         setOneTimeShow(true);
-  //       } else {
-  //         setIsVisible(false);
-  //       }
-  //     };
+  useEffect(() => {
+    // Button is displayed after scrolling for 500 pixels
+    if (!oneTimeShow) {
+      const toggleVisibility = () => {
+        if (window.pageYOffset > 2) {
+          setIsVisible(true);
+          setOneTimeShow(true);
+        } else {
+          setIsVisible(false);
+        }
+      };
 
-  //     window.addEventListener("scroll", toggleVisibility);
+      window.addEventListener("scroll", toggleVisibility);
 
-  //     return () => window.removeEventListener("scroll", toggleVisibility);
-  //   }
-  // }, [oneTimeShow]);
+      return () => window.removeEventListener("scroll", toggleVisibility);
+    }
+  }, [oneTimeShow]);
   return (
     <>
       <div className="header-margin"></div>
@@ -86,6 +86,7 @@ const index = () => {
           des={
             "Join thousands of happy travelers with Dream Tourism, Italy’s top-rated tour operator. Check our 5-star reviews on TripAdvisor, Viator, and Google to see why customers love our unforgettable tours. Book your Italy adventure today!"
           }
+          isVisible={isVisible}
         />
         <FAQSection />
         <BlogSection

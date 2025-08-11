@@ -1,11 +1,11 @@
 import { LayoutContext } from "@/app/LayoutProvider";
 import AgentLink from "@/components/AgentLink/AgentLink";
-import Blog from "@/components/blogs/Blog";
 import useWindowSize from "@/hooks/useWindowSize";
-import Image from "next/image";
+import OptimizedImage from "../../common/optimized/OptimizedImage";
 import Link from "next/link";
 import React, { useContext } from "react";
-import Slider from "react-slick";
+import dynamic from "next/dynamic";
+const Slider = dynamic(() => import("react-slick"), { ssr: false });
 
 const Arrow = ({ type, onClick }) => (
   <div
@@ -86,12 +86,13 @@ const BlogSection = ({ title }) => {
                     >
                       <div className="blogCard__image">
                         <div className="rounded-8">
-                          <Image
+                          <OptimizedImage
                             width={400}
                             height={300}
                             className="cover w-100 img-fluid"
                             src={item.cloudflare_image}
                             alt={item.image_alt || "Blog Image"}
+                            variant="thumbnail"
                           />
                         </div>
                       </div>
@@ -117,12 +118,13 @@ const BlogSection = ({ title }) => {
                     >
                       <div className="blogCard__image">
                         <div className="rounded-8">
-                          <Image
+                          <OptimizedImage
                             width={400}
                             height={300}
                             className="cover w-100 img-fluid"
                             src={item.cloudflare_image}
                             alt={item.image_alt || "Blog Image"}
+                            variant="thumbnail"
                           />
                         </div>
                       </div>

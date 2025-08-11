@@ -74,7 +74,7 @@ const TourMobileSkeleton = () => {
                     width={300}
                     height={300}
                     priority
-                    className="col-12 js-lazy"
+                    className="col-12 "
                     src={slide}
                     alt={item?.title}
                   />
@@ -88,7 +88,7 @@ const TourMobileSkeleton = () => {
                   width={80}
                   height={80}
                   priority
-                  className="col-12 js-lazy"
+                  className="col-12 "
                   src={`https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/94088711-e642-4216-52ee-393e4c6a3c00/public`}
                   alt="price"
                 />

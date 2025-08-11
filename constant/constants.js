@@ -1,11 +1,11 @@
 //base url
 // export const BASE_URL = "http://192.168.68.127:8000";
 
-export const BASE_URL = "https://api.dreamtourism.it";
+export const BASE_URL = "http://192.168.68.127:8003";
 
 //base url for agents
-// export const BASE_URL_AGENT_BOOKING = "http://192.168.68.127:8003";
-export const BASE_URL_AGENT_BOOKING = "https://apibustours.dreamtourism.it";
+export const BASE_URL_AGENT_BOOKING = "http://192.168.68.127:8003";
+// export const BASE_URL_AGENT_BOOKING = "https://apibustours.dreamtourism.it";
 
 //tour booking
 export const tour_content_id = `${BASE_URL_AGENT_BOOKING}/tour_content/api/v1/tour_content/`;

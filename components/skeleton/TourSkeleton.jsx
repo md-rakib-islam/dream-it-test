@@ -2,7 +2,9 @@
 // import useTours from "@/hooks/useTours";
 import Image from "next/image";
 import Link from "next/link";
-import Slider from "react-slick";
+import dynamic from "next/dynamic";
+const Slider = dynamic(() => import("react-slick"), { ssr: false });
+
 import AgentLink from "../AgentLink/AgentLink";
 
 const TourSkeleton = () => {
@@ -199,7 +201,7 @@ const TourSkeleton = () => {
                           width={300}
                           height={300}
                           priority
-                          className="col-12 js-lazy"
+                          className="col-12 "
                           src={slide}
                           alt={item?.title}
                         />

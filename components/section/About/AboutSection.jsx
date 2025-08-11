@@ -1,5 +1,5 @@
 import useWindowSize from "@/hooks/useWindowSize";
-import Image from "next/image";
+import OptimizedImage from "../../common/optimized/OptimizedImage";
 import React from "react";
 import Link from "next/link";
 
@@ -87,13 +87,15 @@ const AboutSection = () => {
               {/* Right side - Image */}
               <div className="col-lg-4 col-md-6 d-flex align-items-center">
                 <div className="w-100">
-                  <Image
+                  <OptimizedImage
                     src="/img/about/About Dream Tourism IT.png"
                     alt="European destinations including Paris, Rome, Amsterdam, and Swiss Alps"
                     width={325}
                     height={350}
                     className="img-fluid rounded-lg shadow-lg"
-                    style={{ objectFit: "contain" }}
+                    quality={80}
+                    priority
+                    variant="thumbnail"
                   />
                 </div>
               </div>

@@ -1,7 +1,8 @@
 "use client";
 
 import useWindowSize from "@/hooks/useWindowSize";
-import Slider from "react-slick";
+import dynamic from "next/dynamic";
+const Slider = dynamic(() => import("react-slick"), { ssr: false });
 
 const TourGalleryGridSkeleton = () => {
   const width = useWindowSize();

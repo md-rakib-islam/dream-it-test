@@ -1,8 +1,10 @@
 "use client";
 
-import Image from "next/image";
+import OptimizedImage from "../common/optimized/OptimizedImage";
 import { useContext, useEffect, useRef, useState } from "react";
-import Slider from "react-slick";
+import dynamic from "next/dynamic";
+const Slider = dynamic(() => import("react-slick"), { ssr: false });
+
 import Link from "next/link";
 
 import { LayoutContext } from "@/app/LayoutProvider";
@@ -156,7 +158,7 @@ const Testimonial = () => {
             >
               <div className="row x-gap-10 y-gap-10 items-center">
                 <div className="col-4">
-                  <Image
+                  <OptimizedImage
                     unoptimized
                     width={60}
                     height={60}
@@ -177,8 +179,7 @@ const Testimonial = () => {
                           {item.reviewer_name.slice(0, 15)}
                         </span>
 
-                        <Image
-                          unoptimized
+                        <OptimizedImage
                           width={20}
                           height={20}
                           src="/img/featureIcons/3/verified.svg"

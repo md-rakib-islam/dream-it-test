@@ -1,9 +1,11 @@
 "use client";
+import dynamic from "next/dynamic";
 import { LayoutContext } from "@/app/LayoutProvider";
-import Image from "next/image";
-import Link from "next/link";
+import OptimizedImage from "../common/optimized/OptimizedImage";
 import { useContext } from "react";
-import Slider from "react-slick";
+
+const Slider = dynamic(() => import("react-slick"), { ssr: false });
+
 import AgentLink from "../AgentLink/AgentLink";
 
 const TopDestinations = ({ destination }) => {
@@ -72,14 +74,15 @@ const TopDestinations = ({ destination }) => {
               className="citiesCard -type-3 d-block h-full rounded-4 "
             >
               <div className="citiesCard__image ratio ratio-3:2">
-                <Image
-                  className="col-12 js-lazy"
+                <OptimizedImage
+                  className="col-12 "
                   src={item?.img}
-                  width={800}
-                  height={600}
-                  quality={100}
+                  width={300}
+                  height={200}
+                  quality={80}
                   priority
                   alt={`${item?.name} Images`}
+                  variant="thumbnail"
                 />{" "}
               </div>
               <div className="citiesCard__content d-flex justify-content-center align-items-center px-30 py-30">
