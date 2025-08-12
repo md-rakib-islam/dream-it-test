@@ -34,13 +34,14 @@ const AboutSection = () => {
                     service, we make your European adventure stress-free and
                     unforgettable.
                   </p>
-                  {/* Learn More Button */}
+                  {/* About Dream Tourism Button */}
                   <div className="pt-4 text-center">
                     <Link
                       href="/about"
                       className="button -md -blue-1 bg-blue-1-05 text-blue-1 inline-block"
+                      aria-label="About Dream Tourism company and history"
                     >
-                      Learn More
+                      About Dream Tourism
                     </Link>
                   </div>
                 </div>
@@ -72,13 +73,14 @@ const AboutSection = () => {
                     flexible booking, and deep local knowledge, DreamTourism
                     turns your European holiday dreams into reality.
                   </p>
-                  {/* Learn More Button */}
+                  {/* About Dream Tourism Button */}
                   <div className="pt-4 text-start">
                     <Link
                       href="/about"
                       className="button -md -blue-1 bg-blue-1-05 text-blue-1 d-inline-block"
+                      aria-label="About Dream Tourism company and history"
                     >
-                      Learn More
+                      About Dream Tourism
                     </Link>
                   </div>
                 </div>

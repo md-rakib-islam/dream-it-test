@@ -1,66 +1,38 @@
 "use client";
+
 import Image from "next/image";
 import useMenus from "@/hooks/useMenus";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Menu, MenuItem, Sidebar, SubMenu } from "react-pro-sidebar";
 import { isActiveLink } from "../../utils/linkActiveChecker";
 import ContactInfo from "../footer/default/ContactInfo";
-import Social from "../common/social/Social";
-import { useEffect, useState } from "react";
+import AgentLink from "../AgentLink/AgentLink";
 
 const MobileMenu = ({ menus, logoUrl }) => {
   const pathname = usePathname();
-  const router = useRouter();
   const menuItems = useMenus(menus);
+
   const [agentRef, setAgentRef] = useState(null);
   const [agentCup, setAgentCup] = useState(null);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    // Extract agent parameters from URL
-    if (typeof window !== "undefined") {
-      const urlParams = new URLSearchParams(window.location.search);
-      setAgentRef(urlParams.get("agentRef"));
-      setAgentCup(urlParams.get("agentCup"));
-    }
+    const urlParams = new URLSearchParams(window.location.search);
+    setAgentRef(urlParams.get("agentRef"));
+    setAgentCup(urlParams.get("agentCup"));
+    setIsMounted(true);
   }, []);
 
-  // Function to append agent parameters to a path
-  const getPathWithParams = (path) => {
-    if ((!agentRef && !agentCup) || path === "#") return path;
-
-    const hasParams = path.includes("?");
-    const separator = hasParams ? "&" : "?";
-    let newPath = path;
-
-    // Add agentRef if it exists
-    if (agentRef) {
-      newPath = `${newPath}${separator}agentRef=${agentRef}`;
-      // If we've added agentRef, any subsequent params need to use & instead of ?
-      if (agentCup) {
-        newPath = `${newPath}&agentCup=${agentCup}`;
-      }
-    }
-    // If only agentCup exists (no agentRef)
-    else if (agentCup) {
-      newPath = `${newPath}${separator}agentCup=${agentCup}`;
-    }
-
-    return newPath;
-  };
-
-  // Custom navigation handler that preserves agent parameters
-  const navigateTo = (path) => {
-    const fullPath = getPathWithParams(path);
-    router.push(fullPath);
-  };
-
-  const currentPathName =
-    pathname.split("/")[1] === "destinations" ? "/destinations" : pathname;
+  if (!isMounted) {
+    return null; // or a loading skeleton
+  }
 
   return (
     <>
+      {/* Header with logo */}
       <div className="pro-header d-flex align-items-center justify-between border-bottom-light">
-        <div role="button" tabIndex={0} onClick={() => navigateTo("/")}>
+        <AgentLink href="/" aria-label="Go to homepage">
           <Image
             style={{ width: "60px", height: "60px" }}
             src={logoUrl || "/placeholder.svg"}
@@ -68,8 +40,7 @@ const MobileMenu = ({ menus, logoUrl }) => {
             height={128}
             alt="Dream Tourism SRLS"
           />
-        </div>
-        {/* End logo */}
+        </AgentLink>
 
         <div
           className="fix-icon"
@@ -80,93 +51,97 @@ const MobileMenu = ({ menus, logoUrl }) => {
         >
           <i className="icon icon-close"></i>
         </div>
-        {/* icon close */}
       </div>
-      {/* End pro-header */}
 
+      {/* Sidebar Menu */}
       <Sidebar width="400" backgroundColor="#fff">
         <Menu>
-          {menuItems?.map((menu) => {
-            if (menu?.children.length === 0) {
-              return (
-                <MenuItem
-                  key={menu.id}
-                  onClick={() => navigateTo(menu?.routePath)}
-                  data-bs-dismiss="offcanvas"
-                  className={
-                    pathname === menu?.routePath
-                      ? "menu-active-link fw-500"
-                      : "fw-500"
-                  }
-                >
-                  <span role="link" aria-label={`Navigate to ${menu.name}`}>
+          {menuItems?.map((menu, idx) =>
+            menu?.children.length === 0 ? (
+              <MenuItem
+                href={menu?.routePath}
+                key={menu.id}
+                className={
+                  pathname === menu?.routePath
+                    ? "menu-active-link fw-500"
+                    : "fw-500"
+                }
+                tabIndex={idx + 1}
+              >
+                {agentRef || agentCup ? (
+                  <AgentLink
+                    href={menu?.routePath}
+                    data-bs-dismiss="offcanvas"
+                    aria-label={menu.name}
+                  >
                     {menu.name}
-                  </span>
-                </MenuItem>
-              );
-            } else {
-              return (
-                <SubMenu
-                  key={menu.id}
-                  label={menu?.name}
-                  className={
-                    menu?.children?.some(
-                      (item) =>
-                        item.routePath?.split("/")[1] ===
-                        currentPathName.split("/")[1]
-                    )
-                      ? "menu-active-link fw-500"
-                      : "fw-500"
-                  }
-                >
-                  {menu?.children?.map((item, i) => (
-                    <MenuItem
-                      key={item.id}
-                      onClick={() => navigateTo(item.routePath)}
-                      data-bs-dismiss="offcanvas"
-                      className={
-                        isActiveLink(item.routePath, pathname)
-                          ? "menu-active-link fw-400"
-                          : "inactive-menu fw-400"
-                      }
-                    >
-                      <span role="link" aria-label={`Navigate to ${item.name}`}>
+                  </AgentLink>
+                ) : (
+                  menu.name
+                )}
+              </MenuItem>
+            ) : (
+              <SubMenu
+                key={menu.id}
+                label={menu?.name}
+                href={menu?.routePath}
+                className="fw-500"
+              >
+                {menu.children.map((item, index) => (
+                  <MenuItem
+                    tabIndex={index + 1}
+                    key={item.id}
+                    href={item.routePath}
+                    className={
+                      isActiveLink(item.routePath, pathname)
+                        ? "menu-active-link fw-400"
+                        : "inactive-menu fw-400"
+                    }
+                  >
+                    {agentRef || agentCup ? (
+                      <AgentLink
+                        href={item?.routePath || "/"}
+                        data-bs-dismiss="offcanvas"
+                        aria-label={item.name}
+                      >
                         {item.name}
-                      </span>
-                    </MenuItem>
-                  ))}
-                </SubMenu>
-              );
-            }
-          })}
+                      </AgentLink>
+                    ) : (
+                      item.name
+                    )}
+                  </MenuItem>
+                ))}
+              </SubMenu>
+            )
+          )}
 
+          {/* Contact Menu Item */}
           <MenuItem
-            data-bs-dismiss="offcanvas"
-            onClick={() => navigateTo("/contact")}
+            href="/contact"
             className={
               pathname === "/contact" ? "menu-active-link fw-500" : "fw-500"
             }
+            tabIndex={menuItems.length + 1}
           >
-            <span role="link" aria-label="Navigate to Contact">
-              Contact
-            </span>
+            {agentRef || agentCup ? (
+              <AgentLink
+                href={"/contact"}
+                data-bs-dismiss="offcanvas"
+                aria-label={"Contact"}
+              >
+                Contact
+              </AgentLink>
+            ) : (
+              <span> Contact</span>
+            )}
           </MenuItem>
-          {/* End Contact Menu */}
         </Menu>
       </Sidebar>
 
       <div className="mobile-footer px-20 py-5 border-top-light"></div>
-
       <div className="pro-footer">
         <ContactInfo />
-        {/* <div className="mt-10">
-          <span className="text-14 mb-10">Follow us on social media</span>
-          <div className="d-flex x-gap-20 items-center">
-            <Social />
-          </div>
-        </div> */}
       </div>
-      {/* End pro-footer */}
     </>
   );
 };

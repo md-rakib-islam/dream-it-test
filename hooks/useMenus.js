@@ -86,9 +86,12 @@ const useMenus = (menus) => {
     }
     return {
       ...item,
-      routePath: `/${
+      routePath: `${
         item?.name?.toLowerCase() == "destinations"
-          ? "#"
+          ? `/destinations/${item.children[0]?.name
+              ?.toLowerCase()
+              ?.split(" ")
+              ?.join("_")}`
           : item?.name?.toLowerCase()
       }`,
       children:

@@ -600,14 +600,28 @@ export default async function RootLayout({ children }) {
 
           {/* Optimized font loading - combined into single request */}
           <link
-            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Rubik:ital,wght@0,300..900;1,300..900&family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
             rel="stylesheet"
-            media="print"
-            // onLoad="this.media='all'"
+          />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+            rel="stylesheet"
+          />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap"
+            rel="stylesheet"
           />
           <noscript>
             <link
-              href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Rubik:ital,wght@0,300..900;1,300..900&family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap"
+              href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+              rel="stylesheet"
+            />
+            <link
+              href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+              rel="stylesheet"
+            />
+            <link
+              href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap"
               rel="stylesheet"
             />
           </noscript>

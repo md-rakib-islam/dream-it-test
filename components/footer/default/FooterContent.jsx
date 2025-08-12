@@ -14,6 +14,7 @@ const FooterContent = () => {
                 className="text-14 footer-link"
                 href={menu.routerPath}
                 key={i}
+                area-label={menu.areaLabel}
               >
                 {menu.name}
               </AgentLink>
