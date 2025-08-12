@@ -53,7 +53,7 @@ export async function generateMetadata() {
       image: metadata?.cloudflare_image,
     },
     alternates: {
-      canonical: `/things-to-do`, // Canonical without query params
+      canonical: `/about`, // Canonical without query params
     },
   };
 }
@@ -62,23 +62,8 @@ const About = () => {
   return (
     <>
       <div className="header-margin"></div>
-      {/* header top margin */}
-
-      {/* End About Banner Section */}
-
-      {/* <section className="layout-pt-md">
-        <div className="container">
-          <div className="row y-gap-30 ">
-            <h1 className="text-30 fw-500 pb-0">About Dream Tourism SRLS</h1>
-            <p className="pt-0 pb-0">
-              Where Journeys Become Spiritual Narratives
-            </p> */}
 
       <AboutPage />
-      {/* </div>
-        </div>
-      </section> */}
-      {/* End about block section */}
     </>
   );
 };

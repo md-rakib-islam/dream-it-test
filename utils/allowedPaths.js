@@ -25,7 +25,7 @@ const fetchSitemapUrls = async () => {
     JSON.stringify(urls, null, 2)
   );
 
-  console.log("✅ allowedPaths.json generated with", urls.length, "paths.");
+  // console.log("✅ allowedPaths.json generated with", urls.length, "paths.");
 };
 
 fetchSitemapUrls();

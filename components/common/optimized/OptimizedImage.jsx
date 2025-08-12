@@ -34,9 +34,9 @@ const OptimizedImage = ({
     </svg>`
   ).toString("base64")}`;
 
-  // const handleLoad = () => {
-  //   if (!priority) setIsLoading(false);
-  // };
+  const handleLoad = () => {
+    if (!priority) setIsLoading(false);
+  };
 
   const handleError = () => {
     setHasError(true);
@@ -88,7 +88,7 @@ const OptimizedImage = ({
     src: src || "/placeholder.svg",
     alt: alt || "Image",
     className: imageClass,
-    // onLoad: handleLoad,
+    onLoad: handleLoad,
     onError: handleError,
     quality,
     priority,

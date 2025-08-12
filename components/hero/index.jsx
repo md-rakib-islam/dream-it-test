@@ -148,8 +148,8 @@ const index = () => {
               layout="fill"
               objectFit="fill"
               priority
-              placeholder="blur"
-              blurDataURL="/path-to-low-res-placeholder.jpg"
+              // placeholder="blur"
+              // blurDataURL="/path-to-low-res-placeholder.jpg"
             />
             <div className="container">
               <div className="row">

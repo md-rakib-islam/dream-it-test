@@ -185,6 +185,7 @@ const TourSkeleton = () => {
             href={`/tour/${item?.title?.toLowerCase()?.split(" ")?.join("-")}`}
             style={{ cursor: "pointer" }}
             className="tourCard -type-1 rounded-4 hover-inside-slider"
+            aria-label={`View details of ${item.title}`}
           >
             <div className="tourCard__image position-relative">
               <div className="inside-slider">
@@ -209,12 +210,6 @@ const TourSkeleton = () => {
                     </div>
                   ))}
                 </Slider>
-
-                <div className="cardImage__wishlist">
-                  <button className="button -blue-1 bg-white size-30 rounded-full shadow-2">
-                    <i className="icon-heart text-12" />
-                  </button>
-                </div>
 
                 <div className="cardImage__leftBadge skeleton">
                   <div
