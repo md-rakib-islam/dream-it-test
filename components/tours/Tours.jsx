@@ -137,7 +137,7 @@ const Tours = ({ destination, filterTour, tourType }) => {
 
     return (
       <div
-        className={isInSlider ? "" : "col-lg-3 col-md-3 col-6"}
+        className={isInSlider ? "" : "col-lg-3 col-md-3 col-6 "}
         key={item?.id}
       >
         <AgentLink

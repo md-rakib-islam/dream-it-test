@@ -398,40 +398,39 @@ export default async function RootLayout({ children }) {
       fetchDataWithFallback(
         () =>
           dataFetcher(GET_MENUS_ALL_NESTED, {
-            next: { tags: ["menus"], revalidate: 3600 },
+            next: { tags: ["blog-list"], revalidate: 3600 },
           }),
         { menus: [] }
       ),
       fetchDataWithFallback(
         () =>
           dataFetcher(GET_SITESETTINGS, {
-            next: { tags: ["settings"], revalidate: 3600 },
+            next: { tags: ["blog-list"], revalidate: 3600 },
           }),
         { general_settings: null }
       ),
       fetchDataWithFallback(
         () =>
           dataFetcher(GET_ALL_REVIEWS, {
-            next: { tags: ["reviews"], revalidate: 1800 },
+            next: { tags: ["blog-list"], revalidate: 1800 },
           }),
         []
       ),
       fetchDataWithFallback(
         () =>
           dataFetcher(GET_CMS_BLOGS, {
-            next: { tags: ["blogs"], revalidate: 900 },
+            next: { tags: ["blog-list"], revalidate: 900 },
           }),
         []
       ),
       fetchDataWithFallback(
         () =>
           dataFetcher(BLOG_CATEGORIES, {
-            next: { tags: ["categories"], revalidate: 3600 },
+            next: { tags: ["blog-list"], revalidate: 3600 },
           }),
         []
       ),
     ]);
-
     // Extract data from Promise.allSettled results
     const extractData = (result) =>
       result.status === "fulfilled" ? result.value : null;
@@ -604,7 +603,7 @@ export default async function RootLayout({ children }) {
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Rubik:ital,wght@0,300..900;1,300..900&family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap"
             rel="stylesheet"
             media="print"
-            onLoad="this.media='all'"
+            // onLoad="this.media='all'"
           />
           <noscript>
             <link

@@ -193,7 +193,7 @@ const BlogsSide = ({ categories, fullUrl, countriesData }) => {
             {featuredBlogs.map((blog) => {
               return (
                 <div key={blog.id} className="d-flex  mb-20 featured-image">
-                  <a href={`/blog/${blog.slug}`} className="image-wrapper">
+                  <a href={`/blogs/${blog.slug}`} className="image-wrapper">
                     <Image
                       src={blog.cloudflare_image}
                       width={150}
@@ -218,7 +218,7 @@ const BlogsSide = ({ categories, fullUrl, countriesData }) => {
                       </p>
                     </div>
 
-                    <AgentLink href={`/blog/${blog.slug}`}>
+                    <AgentLink href={`/blogs/${blog.slug}`}>
                       <span className="text-18 text-black fw-600">
                         {blog.title}{" "}
                       </span>
@@ -239,7 +239,7 @@ const BlogsSide = ({ categories, fullUrl, countriesData }) => {
                   </div>
                   <div className="explore-text-content">
                     <span className="sm:text-20 text-white">{blog.title}</span>
-                    <Link href={`/blog/${blog.slug}`}>
+                    <Link href={`/blogs/${blog.slug}`}>
                       <button
                         //   disabled={!email || isLoading}
                         //   onClick={handleSubmit}

@@ -111,7 +111,6 @@ const ExpandableFAQ = ({ faqContent }) => {
   const toggleExpand = (index) => {
     setExpandedIndex(index === expandedIndex ? null : index);
   };
-  console.log("FAQ Content:", faqContent);
 
   return (
     <div className="accordion -simple row y-gap-20 js-accordion">

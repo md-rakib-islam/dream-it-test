@@ -4087,3 +4087,11 @@ h2,
 h3 {
   scroll-margin-top: 90px;
 }
+
+// /* ✅ Optimize for Core Web Vitals */
+// .tours-section img,
+// .destination-section img,
+// .blog-section img {
+//   content-visibility: auto; /* Only render when visible */
+//   contain-intrinsic-size: 300px 200px; /* Reserve space */
+// }

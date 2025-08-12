@@ -151,7 +151,7 @@ const Testimonial = () => {
           })
           .map((item, index) => (
             <div
-              className=" bg-white rounded-4 pt-20 pb-30 px-20"
+              className=" bg-white rounded-4 pt-20 pb-30 px-20 "
               key={item.id}
               data-aos="fade"
               data-aos-delay={item.dealyAnimation}

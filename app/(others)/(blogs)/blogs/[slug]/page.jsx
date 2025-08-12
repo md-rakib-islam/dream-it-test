@@ -34,7 +34,7 @@ export async function generateMetadata({ params }) {
             alt: blogData?.meta_title,
           },
         ],
-        url: `/blog/${slug}`,
+        url: `/blogs/${slug}`,
         type: "website",
       },
       twitter: {
@@ -43,7 +43,7 @@ export async function generateMetadata({ params }) {
         image: blogData?.cloudflare_image,
       },
       alternates: {
-        canonical: `/blog/${slug}`, // Canonical without query params
+        canonical: `/blogs/${slug}`, // Canonical without query params
       },
       robots: "index, follow", // Allow indexing and following links on destination pages
     };
@@ -71,7 +71,7 @@ const DestinationsAndBlog = async ({ params }) => {
         <Head>
           <link
             rel="canonical"
-            href={`https://dreamtourism.it/blog/${slug}`}
+            href={`https://dreamtourism.it/blogs/${slug}`}
             key="canonical"
           />
         </Head>
@@ -83,7 +83,7 @@ const DestinationsAndBlog = async ({ params }) => {
           faqContent={blogContent.faq_content || ""}
           descriptionHTML={blogContent.description}
           load={load}
-          fullUrl={`https://dreamtourism.it/blog/${slug}`}
+          fullUrl={`https://dreamtourism.it/blogs/${slug}`}
         />
       </>
     );
