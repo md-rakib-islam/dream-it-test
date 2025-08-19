@@ -1,22 +1,173 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // 🚀 PERFORMANCE: Enhanced image optimization
   images: {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "imagedelivery.net", // Previously in images.domains
-        pathname: "/**", // Match all image paths
+        hostname: "imagedelivery.net",
+        pathname: "/**",
       },
     ],
-    imageSizes: [16, 32, 48, 50, 64, 96, 128, 256, 384],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
     formats: ["image/webp", "image/avif"],
     minimumCacheTTL: 86400, // 1 day
+    dangerouslyAllowSVG: false,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
+  
+  // 🚀 PERFORMANCE: Enhanced Sass compilation
   sassOptions: {
     implementation: "sass",
+    silenceDeprecations: ['legacy-js-api'], // Silence deprecation warnings
   },
+  
+  // 🚀 PERFORMANCE: Compiler optimizations
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+  
+  // 🚀 PERFORMANCE: Enable compression and optimizations
+  compress: true,
+  poweredByHeader: false,
+  
+  // 🚀 PERFORMANCE: Headers for performance
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-DNS-Prefetch-Control',
+            value: 'on'
+          },
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=63072000; includeSubDomains; preload'
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY'
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff'
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'origin-when-cross-origin'
+          }
+        ],
+      },
+      {
+        source: '/tours/:slug*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 's-maxage=3600, stale-while-revalidate=86400'
+          }
+        ],
+      },
+      {
+        source: '/:all*(svg|jpg|png|webp|avif)',
+        locale: false,
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable'
+          }
+        ],
+      },
+      {
+        source: '/_next/static/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable'
+          }
+        ],
+      },
+      {
+        source: '/api/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, s-maxage=60, stale-while-revalidate=300'
+          }
+        ],
+      },
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Link',
+            value: '</fonts/inter.woff2>; rel=preload; as=font; type=font/woff2; crossorigin'
+          }
+        ],
+      },
+    ];
+  },
+  
+  // 🚀 PERFORMANCE: Bundle optimization and code splitting
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+    // Bundle splitting for better caching
+    if (!isServer) {
+      config.optimization.splitChunks = {
+        chunks: 'all',
+        cacheGroups: {
+          default: {
+            minChunks: 2,
+            priority: -20,
+            reuseExistingChunk: true
+          },
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            priority: -10,
+            chunks: 'all',
+            maxSize: 244000, // 244KB
+          },
+          react: {
+            test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+            name: 'react',
+            priority: 20,
+            chunks: 'all',
+          },
+          commons: {
+            name: 'commons',
+            minChunks: 2,
+            priority: 5,
+            reuseExistingChunk: true,
+          }
+        }
+      };
+    }
+
+    // Optimize bundle size
+    config.optimization.usedExports = true;
+    
+    // Add bundle analyzer in production
+    if (!dev && process.env.ANALYZE === 'true') {
+      const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+      config.plugins.push(
+        new BundleAnalyzerPlugin({
+          analyzerMode: 'static',
+          openAnalyzer: false,
+          reportFilename: isServer ? 'server.html' : 'client.html',
+        })
+      );
+    }
+
+    return config;
+  },
+
   experimental: {
-    after: true,
+    webVitalsAttribution: ['CLS', 'LCP'],
+    // Enable modern features for better performance
+    esmExternals: true,
+    serverComponentsExternalPackages: ['sharp', 'ssr-window', 'dom7'],
+    optimizePackageImports: ['lodash', 'date-fns', 'react-icons'],
   },
   async redirects() {
     return [

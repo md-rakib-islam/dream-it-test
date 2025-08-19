@@ -96,7 +96,7 @@ const SidebarRight = ({ data }) => {
     fetchBusData(dataDependency);
   }, [dataDependency, fetchBusData]);
 
-  // 🚀 OPTIMIZATION: Effect for Bokun script loading
+  // 🚀 OPTIMIZATION: Effect for Bokun script loading with idle loading
   useEffect(() => {
     if (data?.is_bokun_url !== true) return;
 
@@ -106,18 +106,28 @@ const SidebarRight = ({ data }) => {
     );
     if (existingScript) return;
 
-    const script = document.createElement("script");
-    script.src =
-      "https://widgets.bokun.io/assets/javascripts/apps/build/BokunWidgetsLoader.js?bookingChannelUUID=c8f2314b-0289-4a75-825c-37cb690a7c70";
-    script.async = true;
-    script.defer = true; // Better for performance
+    const loadBokunScript = () => {
+      const script = document.createElement("script");
+      script.src =
+        "https://widgets.bokun.io/assets/javascripts/apps/build/BokunWidgetsLoader.js?bookingChannelUUID=c8f2314b-0289-4a75-825c-37cb690a7c70";
+      script.async = true;
+      script.defer = true;
 
-    // Add error handling
-    script.onerror = () => {
-      console.error("Failed to load Bokun widget script");
+      // Add error handling
+      script.onerror = () => {
+        console.error("Failed to load Bokun widget script");
+      };
+
+      document.head.appendChild(script); // Use head instead of body
     };
 
-    document.body.appendChild(script);
+    // Load script during idle time to reduce main thread blocking
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(loadBokunScript, { timeout: 2000 });
+    } else {
+      // Fallback for older browsers
+      setTimeout(loadBokunScript, 100);
+    }
 
     return () => {
       // Cleanup script

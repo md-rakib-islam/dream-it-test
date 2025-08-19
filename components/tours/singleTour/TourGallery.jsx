@@ -57,18 +57,23 @@ const TourGallery = ({ tour, openLightbox: externalOpenLightbox }) => {
               <div
                 className="gallery-item gallery-item-large-left"
                 onClick={() => handleImageClick(0)}
+                style={{
+                  minHeight: "250px", // Prevent layout shift
+                  backgroundColor: "#f3f4f6", // Placeholder color
+                }}
               >
                 <OptimizedImage
                   src={normalizedImages[0]}
                   alt={`${tour?.title || "Tour"} - Image 1`}
                   fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 400px"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 800px, 1000px"
                   className="object-cover rounded-4"
                   priority={true}
-                  quality={85} // Slightly higher quality for LCP
+                  quality={95} // Highest quality for LCP
                   fetchPriority="high"
                   loading="eager"
                   placeholder="empty" // No blur delay for LCP
+                  variant="galleryLarge"
                 />
               </div>
 
@@ -76,46 +81,62 @@ const TourGallery = ({ tour, openLightbox: externalOpenLightbox }) => {
               <div
                 className="gallery-item gallery-item-large-center"
                 onClick={() => handleImageClick(1)}
+                style={{
+                  minHeight: "250px", // Prevent layout shift
+                  backgroundColor: "#f3f4f6", // Placeholder color
+                }}
               >
                 <OptimizedImage
                   src={normalizedImages[1]}
                   alt={`${tour?.title || "Tour"} - Image 2`}
                   fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 800px, 1000px"
                   className="object-cover rounded-4"
-                  quality={80}
+                  quality={90}
                   loading="eager" // Also eager since visible
+                  priority={true} // Also priority since above the fold
+                  variant="galleryLarge"
                 />
               </div>
 
-              {/* Remaining images - lazy loaded */}
+              {/* Remaining images - lazy loaded with proper sizing */}
               <div
                 className="gallery-item gallery-item-small-top-right"
                 onClick={() => handleImageClick(2)}
+                style={{
+                  minHeight: "120px", // Prevent layout shift
+                  backgroundColor: "#f3f4f6", // Placeholder color
+                }}
               >
                 <OptimizedImage
                   src={normalizedImages[2]}
                   alt={`${tour?.title || "Tour"} - Image 3`}
                   fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 25vw, 300px"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 300px, 400px"
                   className="object-cover rounded-4"
-                  quality={75}
+                  quality={80}
                   loading="lazy" // Lazy load smaller images
+                  variant="gallerySmail"
                 />
               </div>
 
               <div
                 className="gallery-item gallery-item-small-bottom-right"
                 onClick={() => handleImageClick(3)}
+                style={{
+                  minHeight: "120px", // Prevent layout shift
+                  backgroundColor: "#f3f4f6", // Placeholder color
+                }}
               >
                 <OptimizedImage
                   src={normalizedImages[3]}
                   alt={`${tour?.title || "Tour"} - Image 4`}
                   fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 25vw, 300px"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 300px, 400px"
                   className="object-cover rounded-4"
-                  quality={75}
+                  quality={80}
                   loading="lazy"
+                  variant="gallerySmail"
                 />
                 {tour?.slideImg?.length > 4 && (
                   <div className="more-photos-overlay rounded-4">
@@ -132,6 +153,10 @@ const TourGallery = ({ tour, openLightbox: externalOpenLightbox }) => {
               <div
                 className="mobile-single-image"
                 onClick={() => handleImageClick(0)}
+                style={{
+                  minHeight: "240px", // Prevent layout shift on mobile
+                  backgroundColor: "#f3f4f6", // Placeholder color
+                }}
               >
                 <OptimizedImage
                   src={normalizedImages[0]}
@@ -141,7 +166,7 @@ const TourGallery = ({ tour, openLightbox: externalOpenLightbox }) => {
                   sizes="100vw"
                   className="object-cover rounded-4"
                   priority={true}
-                  quality={85}
+                  quality={90} // Higher quality for mobile LCP
                   fetchPriority="high"
                   loading="eager"
                   placeholder="empty"
@@ -171,25 +196,36 @@ const TourGallery = ({ tour, openLightbox: externalOpenLightbox }) => {
 
                 {/* Lazy load the slider for remaining images */}
                 {normalizedImages.length > 1 && (
-                  <div className="mobile-slider-wrapper">
+                  <div
+                    className="mobile-slider-wrapper"
+                    style={{
+                      minHeight: "240px", // Prevent layout shift
+                      backgroundColor: "#f9f9f9",
+                    }}
+                  >
                     <Slider {...sliderSettings}>
-                      {normalizedImages.slice(1).map((img, idx) => (
-                        <div key={idx + 1}>
+                      {normalizedImages.map((img, idx) => (
+                        <div key={idx}>
                           <div
                             className="mobile-grid-full"
-                            onClick={() => handleImageClick(idx + 1)}
+                            onClick={() => handleImageClick(idx)}
+                            style={{
+                              minHeight: "400px", // Consistent height
+                              backgroundColor: "#f3f4f6",
+                            }}
                           >
                             <OptimizedImage
                               src={img}
                               alt={`${tour?.title || "Tour"} - Image ${
-                                idx + 2
+                                idx + 1
                               }`}
                               width={800}
                               height={500}
                               sizes="100vw"
                               className="object-cover rounded-4"
-                              quality={75}
-                              loading="lazy" // All slider images lazy
+                              quality={idx === 0 ? 90 : 75} // Higher quality for first image
+                              loading={idx === 0 ? "eager" : "lazy"} // First image eager
+                              priority={idx === 0} // First image priority
                             />
                           </div>
                         </div>
@@ -211,7 +247,9 @@ const TourGallery = ({ tour, openLightbox: externalOpenLightbox }) => {
           grid-gap: 10px;
           height: 510px;
           /* Optimize layout shifts */
-          contain: layout;
+          contain: layout style;
+          /* Reserve space immediately */
+          min-height: 510px;
         }
 
         .gallery-item {
@@ -261,6 +299,8 @@ const TourGallery = ({ tour, openLightbox: externalOpenLightbox }) => {
         @media (max-width: 768px) {
           .mobile-slider-container {
             margin-bottom: 20px;
+            /* Contain layout changes */
+            contain: layout style;
           }
 
           .mobile-single-image,
@@ -271,14 +311,20 @@ const TourGallery = ({ tour, openLightbox: externalOpenLightbox }) => {
             overflow: hidden;
             border-radius: 8px;
             margin-bottom: 10px;
+            /* Fixed dimensions to prevent CLS */
+            height: 240px;
+            min-height: 240px;
           }
 
           .mobile-slider-wrapper {
             margin-top: 10px;
+            /* Fixed height for slider */
+            height: 240px;
+            min-height: 240px;
           }
 
           .slider-skeleton {
-            height: 300px;
+            height: 240px; /* Match mobile image height */
             background: #f3f4f6;
             border-radius: 8px;
             display: flex;

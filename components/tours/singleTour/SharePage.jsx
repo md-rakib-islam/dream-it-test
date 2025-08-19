@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, lazy, Suspense } from "react";
+import { useState, useCallback, lazy, Suspense, useEffect, useRef } from "react";
 import Image from "next/image";
 
 // 🚀 CRITICAL: Lazy load heavy share components - not needed for LCP
@@ -33,14 +33,15 @@ const EmailIcon = lazy(() =>
 );
 
 // 🚀 OPTIMIZATION: Lazy load toast - only when needed
-const { toast, ToastContainer } = await import("react-toastify");
-import("react-toastify/dist/ReactToastify.css");
+let toast = null;
+let ToastContainer = null;
 
 const SharePage = ({ children, fullUrl }) => {
   const [copied, setCopied] = useState(false);
   const [isCopyLoading, setIsCopyLoading] = useState(false);
   const [toastMounted, setToastMounted] = useState(false);
   const [shareDropdownOpen, setShareDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   // 🚀 OPTIMIZATION: Memoize clipboard function
   const copyToClipboard = useCallback(async () => {
@@ -61,10 +62,27 @@ const SharePage = ({ children, fullUrl }) => {
       }
 
       setCopied(true);
+      
+      // Dynamic toast import
+      if (!toast) {
+        const toastModule = await import("react-toastify");
+        toast = toastModule.toast;
+        ToastContainer = toastModule.ToastContainer;
+        await import("react-toastify/dist/ReactToastify.css");
+      }
+      
       toast.success("Link copied successfully", { position: "bottom-left" });
       setTimeout(() => setCopied(false), 1500);
     } catch (error) {
       console.error("Copy failed:", error);
+      
+      if (!toast) {
+        const toastModule = await import("react-toastify");
+        toast = toastModule.toast;
+        ToastContainer = toastModule.ToastContainer;
+        await import("react-toastify/dist/ReactToastify.css");
+      }
+      
       toast.error("Failed to copy link", { position: "bottom-left" });
     } finally {
       setIsCopyLoading(false);
@@ -72,9 +90,30 @@ const SharePage = ({ children, fullUrl }) => {
   }, [fullUrl]);
 
   // 🚀 OPTIMIZATION: Handle dropdown toggle
-  const toggleShareDropdown = useCallback(() => {
+  const toggleShareDropdown = useCallback((e) => {
+    e.preventDefault();
+    e.stopPropagation();
     setShareDropdownOpen((prev) => !prev);
   }, []);
+
+  // 🚀 FIX: Handle click outside to close dropdown
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShareDropdownOpen(false);
+      }
+    };
+
+    if (shareDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('touchstart', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, [shareDropdownOpen]);
 
   // 🚀 OPTIMIZATION: Share button loading fallback
   const ShareButtonFallback = () => (
@@ -93,7 +132,7 @@ const SharePage = ({ children, fullUrl }) => {
   return (
     <>
       {/* 🚀 OPTIMIZATION: Only render ToastContainer when needed */}
-      {toastMounted && <ToastContainer />}
+      {toastMounted && ToastContainer && <ToastContainer />}
 
       <section className="pt-50 js-pin-container">
         <div className="container">
@@ -101,23 +140,23 @@ const SharePage = ({ children, fullUrl }) => {
             {children}
             <div className="col-xl-4 d-flex justify-content-end align-items-end">
               <div className="row">
-                {/* Share Dropdown - Optimized */}
-                <div className="col-auto btn-group dropup">
+                {/* Share Dropdown - Fixed React Controlled */}
+                <div className="col-auto share-dropdown-container" ref={dropdownRef}>
                   <button
                     type="button"
-                    data-bs-toggle="dropdown"
                     aria-expanded={shareDropdownOpen}
                     onClick={toggleShareDropdown}
                     className="button px-10 py-10 -blue-1"
                     aria-label="Share this tour"
+                    aria-haspopup="true"
                   >
                     <i className="icon-share mr-10" aria-hidden="true"></i>
                     Share
                   </button>
 
-                  {/* 🚀 CRITICAL: Only render dropdown content when opened */}
+                  {/* 🚀 CRITICAL: React-controlled dropdown - no Bootstrap JS conflicts */}
                   {shareDropdownOpen && (
-                    <ul className="dropdown-menu p-2" role="menu">
+                    <ul className="share-dropdown-menu" role="menu">
                       <li className="d-flex flex-wrap gap-2" role="none">
                         <Suspense fallback={<ShareButtonFallback />}>
                           <FacebookShareButton url={fullUrl} role="menuitem">
@@ -221,9 +260,45 @@ const SharePage = ({ children, fullUrl }) => {
           }
         }
 
-        .dropdown-menu {
-          transform: translateY(-100%);
-          margin-bottom: 0.5rem;
+        .share-dropdown-container {
+          position: relative;
+          display: inline-block;
+        }
+
+        .share-dropdown-menu {
+          position: absolute;
+          bottom: 100%;
+          left: 0;
+          min-width: 200px;
+          padding: 8px;
+          margin-bottom: 8px;
+          background-color: white;
+          border: 1px solid rgba(0, 0, 0, 0.15);
+          border-radius: 6px;
+          box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175);
+          z-index: 1000;
+          list-style: none;
+          animation: fadeInUp 0.2s ease-out;
+        }
+
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+          .share-dropdown-menu {
+            right: 0;
+            left: auto;
+            min-width: 180px;
+          }
         }
       `}</style>
     </>

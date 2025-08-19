@@ -549,6 +549,9 @@ export default function TourSinglePage({ tourData, itenarayItems }) {
               </div>
             </div>
             {/* Related tours component would go here */}
+            {/* <div className="row y-gap-30 pt-40 sm:pt-20 item_gap-x30">
+              <Tours filterTour={tour?.title} />
+            </div> */}
           </div>
         </section>
       </main>
@@ -805,7 +808,7 @@ export default function TourSinglePage({ tourData, itenarayItems }) {
           }
           .lightbox-counter {
             font-size: 14px;
-            padding: 6px 12px;
+            padding: 1px 12px;
           }
 
           .tourTabs__button {

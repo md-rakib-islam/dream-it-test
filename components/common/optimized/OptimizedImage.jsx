@@ -101,14 +101,15 @@ const OptimizedImage = ({
     ...props,
   };
 
-  // 🚀 Optimized sizes for different variants - more specific breakpoints
+  // 🚀 OPTIMIZATION: More precise sizes for better image optimization
   const sizeMap = {
     hero: "100vw",
-    thumbnail:
-      "(max-width: 480px) 50vw, (max-width: 768px) 33vw, (max-width: 1200px) 25vw, 20vw",
-    gallery: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px",
+    thumbnail: "(max-width: 480px) 160px, (max-width: 768px) 200px, (max-width: 1200px) 250px, 300px",
+    gallery: "(max-width: 768px) 100vw, (max-width: 1200px) 600px, 800px", 
+    galleryLarge: "(max-width: 768px) 100vw, (max-width: 1200px) 800px, 1000px",
+    gallerySmail: "(max-width: 768px) 100vw, (max-width: 1200px) 300px, 400px",
     fullwidth: "(max-width: 768px) 100vw, 1200px",
-    default: "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px",
+    default: "(max-width: 768px) 100vw, (max-width: 1200px) 600px, 800px",
   };
 
   // 🚀 LCP CRITICAL: Use empty placeholder for priority images to avoid blur delay

@@ -1,0 +1,181 @@
+/* Critical CSS for Tour Pages - Above the fold only */
+/* Inline this CSS for render-blocking elimination */
+
+/* Container and Grid System - Critical */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* Header margin - Critical for layout */
+.header-margin {
+  margin-top: 80px;
+}
+
+/* Gallery Grid - Critical for LCP */
+.gallery-grid-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: repeat(2, 250px);
+  grid-gap: 10px;
+  height: 510px;
+  contain: layout style;
+  min-height: 510px;
+}
+
+.gallery-item {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  contain: layout;
+}
+
+.gallery-item-large-left {
+  grid-column: 1;
+  grid-row: 1 / 3;
+}
+
+.gallery-item-large-center {
+  grid-column: 2;
+  grid-row: 1 / 3;
+}
+
+.gallery-item-small-top-right {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.gallery-item-small-bottom-right {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+/* Critical Image Styles */
+.object-cover {
+  object-fit: cover;
+}
+
+.rounded-4 {
+  border-radius: 8px;
+}
+
+/* Critical Text Styles */
+.text-25 {
+  font-size: 25px;
+}
+
+.fw-600 {
+  font-weight: 600;
+}
+
+.text-30 {
+  font-size: 30px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.pt-40 {
+  padding-top: 40px;
+}
+
+.pb-40 {
+  padding-bottom: 40px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Critical Button Styles */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.h-50 {
+  height: 50px;
+}
+
+.px-24 {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.-blue-1 {
+  border: 1px solid #1e40af;
+}
+
+.bg-blue-1 {
+  background-color: #1e40af;
+}
+
+.text-white {
+  color: white;
+}
+
+.bg-blue-1-05 {
+  background-color: rgba(30, 64, 175, 0.05);
+}
+
+.text-blue-1 {
+  color: #1e40af;
+}
+
+/* Critical Flexbox */
+.d-flex {
+  display: flex;
+}
+
+.gap-20 {
+  gap: 20px;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+/* Critical Mobile Styles */
+@media (max-width: 768px) {
+  .gallery-grid-container {
+    display: block;
+    height: auto;
+    min-height: 240px;
+  }
+
+  .mobile-single-image,
+  .mobile-grid-full {
+    width: 100%;
+    height: 240px;
+    min-height: 240px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+
+  .container {
+    padding: 0 10px;
+  }
+
+  .text-25 {
+    font-size: 20px;
+  }
+
+  .text-30 {
+    font-size: 24px;
+  }
+}

@@ -1,25 +1,63 @@
 "use client";
 import dynamic from "next/dynamic";
-const Slider = dynamic(() => import("react-slick"), { ssr: false });
-
+import { useContext, useEffect, useRef, useMemo, memo } from "react";
 import useWindowSize from "@/hooks/useWindowSize";
 import { LayoutContext } from "@/app/LayoutProvider";
-import TripReview from "../common/TripReview";
 import TourSkeleton from "../skeleton/TourSkeleton";
-import { useContext, useEffect, useRef } from "react";
 import { modifiedCurrency } from "@/utils/modifiedCurrency";
 import AgentLink from "../AgentLink/AgentLink";
 import OptimizedImage from "../common/optimized/OptimizedImage";
 import LazyComponent from "../common/optimized/LazyComponent";
 
+// 🚀 OPTIMIZATION: Lazy load slider with better loading state
+const Slider = dynamic(() => import("react-slick"), {
+  ssr: false,
+  loading: () => (
+    <div
+      className="slider-loading"
+      style={{
+        height: "300px",
+        background: "#f3f4f6",
+        borderRadius: "8px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <span style={{ color: "#6b7280" }}>Loading tours...</span>
+    </div>
+  ),
+});
+
+// 🚀 OPTIMIZATION: Lazy load TripReview component
+const TripReview = dynamic(() => import("../common/TripReview"), {
+  ssr: false,
+  loading: () => (
+    <div
+      style={{
+        width: "80px",
+        height: "16px",
+        background: "#f3f4f6",
+        borderRadius: "4px",
+      }}
+    />
+  ),
+});
+
 const Tours = ({ destination, filterTour, tourType }) => {
   const { toursMainData, selectedCurrency } = useContext(LayoutContext);
   const sliderRef = useRef(null);
 
-  const filteredtoursMainData = filterTour
-    ? toursMainData.filter((item) => item.title !== filterTour)
-    : tourType == "day"
-    ? toursMainData.filter((item) => {
+  // 🚀 OPTIMIZATION: Memoize filtered tours to prevent unnecessary re-filtering
+  const filteredtoursMainData = useMemo(() => {
+    if (!toursMainData || !Array.isArray(toursMainData)) return [];
+
+    if (filterTour) {
+      return toursMainData.filter((item) => item.title !== filterTour);
+    }
+
+    if (tourType === "day") {
+      return toursMainData.filter((item) => {
         if (item.duration && item.duration.includes("hours")) {
           const hours = Number.parseInt(
             item.duration.replace(/hour[s]?/, "").trim(),
@@ -28,20 +66,29 @@ const Tours = ({ destination, filterTour, tourType }) => {
           return hours < 1 || hours > 4;
         }
         return false;
-      })
-    : tourType == "multi"
-    ? toursMainData.filter(
+      });
+    }
+
+    if (tourType === "multi") {
+      return toursMainData.filter(
         (item) => item.duration && !item.duration.includes("hours")
-      )
-    : tourType == "attraction"
-    ? toursMainData.filter(
+      );
+    }
+
+    if (tourType === "attraction") {
+      return toursMainData.filter(
         (item) => item.title && item.title.includes("Ticket")
-      )
-    : destination
-    ? toursMainData.filter(
+      );
+    }
+
+    if (destination) {
+      return toursMainData.filter(
         (item) => item.location && item.location.includes(destination)
-      )
-    : toursMainData;
+      );
+    }
+
+    return toursMainData;
+  }, [toursMainData, filterTour, tourType, destination]);
 
   const width = useWindowSize();
 
@@ -76,39 +123,61 @@ const Tours = ({ destination, filterTour, tourType }) => {
     };
   }, []);
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    accessibility: true,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    lazyLoad: "ondemand",
-    responsive: [
-      {
-        breakpoint: 992,
-        settings: { slidesToShow: 3, slidesToScroll: 3, accessibility: true },
-      },
-      {
-        breakpoint: 768,
-        settings: { slidesToShow: 3, slidesToScroll: 3, accessibility: true },
-      },
-      {
-        breakpoint: 540,
-        settings: { slidesToShow: 2, slidesToScroll: 2, accessibility: true },
-      },
-      {
-        breakpoint: 300,
-        settings: {
-          slidesToShow: 1.09,
-          slidesToScroll: 1,
-          centerMode: true,
-          centerPadding: "35px",
-          accessibility: true,
+  // 🚀 OPTIMIZATION: Memoize slider settings to prevent recreation
+  const settings = useMemo(
+    () => ({
+      dots: true,
+      infinite: filteredtoursMainData.length >= 4,
+      accessibility: true,
+      speed: 400, // Slightly faster for better UX
+      slidesToShow: 4,
+      slidesToScroll: 4,
+      lazyLoad: "ondemand",
+      swipeToSlide: true,
+      touchThreshold: 20,
+      responsive: [
+        {
+          breakpoint: 992,
+          settings: {
+            slidesToShow: 3,
+            slidesToScroll: 3,
+            accessibility: true,
+            infinite: filteredtoursMainData.length >= 3,
+          },
         },
-      },
-    ],
-  };
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2,
+            accessibility: true,
+            infinite: filteredtoursMainData.length >= 2,
+          },
+        },
+        {
+          breakpoint: 540,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2,
+            accessibility: true,
+            infinite: filteredtoursMainData.length >= 2,
+          },
+        },
+        {
+          breakpoint: 300,
+          settings: {
+            slidesToShow: 1.09,
+            slidesToScroll: 1,
+            centerMode: true,
+            centerPadding: "35px",
+            accessibility: true,
+            infinite: filteredtoursMainData.length >= 2,
+          },
+        },
+      ],
+    }),
+    [filteredtoursMainData.length]
+  );
 
   function Arrow(props) {
     let className =
@@ -133,16 +202,32 @@ const Tours = ({ destination, filterTour, tourType }) => {
     );
   }
 
-  const TourCard = ({ item, index, isInSlider = false }) => {
-    const slug = item?.slug?.endsWith("-1")
-      ? item?.slug.slice(0, -2)
-      : item?.slug;
+  // 🚀 OPTIMIZATION: Memoized TourCard to prevent unnecessary re-renders
+  const TourCard = memo(({ item, index, isInSlider = false }) => {
+    // Memoize expensive calculations
+    const slug = useMemo(() => {
+      return item?.slug?.endsWith("-1") ? item?.slug.slice(0, -2) : item?.slug;
+    }, [item?.slug]);
 
     const isAboveFold = index < 4;
+    const isFirstImage = index === 0 && !isInSlider;
+
+    // Memoize price calculation
+    const formattedPrice = useMemo(() => {
+      return modifiedCurrency(item.price, selectedCurrency.currency);
+    }, [item.price, selectedCurrency.currency]);
+
+    // Only render first image for performance, show others on hover
+    const firstImage = item?.slideImg?.[0];
+    const hasMultipleImages = item?.slideImg?.length > 1;
 
     return (
       <div
-        className={isInSlider ? "" : "col-lg-3 col-md-3 col-6 "}
+        className={
+          isInSlider
+            ? "tour-card-slider"
+            : "col-lg-3 col-md-3 col-6 tour-card-grid"
+        }
         key={item?.id}
       >
         <AgentLink
@@ -153,39 +238,58 @@ const Tours = ({ destination, filterTour, tourType }) => {
         >
           <div className="tourCard__image position-relative">
             <div className="inside-slider">
-              {item?.slideImg?.map((slide, i) => (
-                <div className="cardImage ratio ratio-1:1" key={i}>
-                  <div className="cardImage__content">
-                    <OptimizedImage
-                      width={200}
-                      height={200}
-                      priority={isAboveFold && i === 0}
-                      className="col-12"
-                      src={slide}
-                      alt={`${item?.title} - Image ${i + 1}`}
-                      variant="thumbnail"
-                      quality={80}
-                    />
-                  </div>
+              {/* 🚀 OPTIMIZATION: Only render first image initially, lazy load others */}
+              <div className="cardImage ratio ratio-1:1">
+                <div className="cardImage__content">
+                  <OptimizedImage
+                    width={250}
+                    height={250}
+                    priority={isAboveFold || isFirstImage}
+                    className="col-12"
+                    src={firstImage}
+                    alt={`${item?.title} - Tour image`}
+                    variant="thumbnail"
+                    quality={isAboveFold ? 85 : 75}
+                    loading={isAboveFold || isFirstImage ? "eager" : "lazy"}
+                  />
                 </div>
-              ))}
+              </div>
+
+              {/* Show additional images on hover for desktop */}
+              {hasMultipleImages && (
+                <div className="additional-images d-none">
+                  {item.slideImg.slice(1, 3).map((slide, i) => (
+                    <div
+                      className="cardImage ratio ratio-1:1 hover-image"
+                      key={i + 1}
+                    >
+                      <div className="cardImage__content">
+                        <OptimizedImage
+                          width={250}
+                          height={250}
+                          className="col-12"
+                          src={slide}
+                          alt={`${item?.title} - Image ${i + 2}`}
+                          variant="thumbnail"
+                          quality={70}
+                          loading="lazy"
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
 
               <div className="cardImage__leftBadge cardImage-2__leftBadge sm:d-none">
                 <div className="buttons-2">
                   <button
-                    style={{
-                      backgroundColor: "#353537",
-                      backgroundImage:
-                        "linear-gradient(to right, #353537 , #0d0c0d)",
-                    }}
+                    className="price-badge"
+                    aria-label={`Price: ${selectedCurrency?.symbol}${formattedPrice} per person`}
                   >
-                    {`${selectedCurrency?.symbol} ${modifiedCurrency(
-                      item.price,
-                      selectedCurrency.currency
-                    )}`}
+                    {selectedCurrency?.symbol}
+                    {formattedPrice}
                     <span> PER PERSON</span>
                   </button>
-                  <button>No</button>
                 </div>
               </div>
             </div>
@@ -202,7 +306,7 @@ const Tours = ({ destination, filterTour, tourType }) => {
                   From {selectedCurrency?.symbol}
                   <span className="text-16 md:text-13 fw-500 text-blue-1 fw-bold">
                     {" "}
-                    {modifiedCurrency(item.price, selectedCurrency.currency)}
+                    {formattedPrice}
                   </span>
                 </div>
               </div>
@@ -217,12 +321,13 @@ const Tours = ({ destination, filterTour, tourType }) => {
         </AgentLink>
 
         <AgentLink
-          href={item?.trip_url ? item?.trip_url : "#"}
+          href={item?.trip_url || "#"}
           style={{
             cursor: item?.trip_url ? "pointer" : "default",
           }}
-          className={`${item?.trip_url ? "text-hover-underline" : ""}`}
-          target={item?.trip_url ? "_blank" : ""}
+          className={item?.trip_url ? "text-hover-underline" : ""}
+          target={item?.trip_url ? "_blank" : undefined}
+          rel={item?.trip_url ? "noopener noreferrer" : undefined}
         >
           <div className="row justify-between items-center pt-15">
             <div className="col-auto">
@@ -235,16 +340,76 @@ const Tours = ({ destination, filterTour, tourType }) => {
             </div>
           </div>
         </AgentLink>
+
+        <style jsx>{`
+          .price-badge {
+            background: linear-gradient(to right, #353537, #0d0c0d);
+            border: none;
+            color: white;
+            padding: 1px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+          }
+
+          .hover-inside-slider:hover .additional-images {
+            display: block !important;
+          }
+
+          .additional-images {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+          }
+
+          .hover-image {
+            animation: fadeIn 0.3s ease;
+          }
+
+          @keyframes fadeIn {
+            from {
+              opacity: 0;
+            }
+            to {
+              opacity: 1;
+            }
+          }
+
+          @media (max-width: 768px) {
+            .additional-images {
+              display: none !important;
+            }
+          }
+        `}</style>
       </div>
     );
-  };
+  });
 
-  if (!filteredtoursMainData) {
-    return <TourSkeleton />;
-  }
+  TourCard.displayName = "TourCard";
 
-  if (filteredtoursMainData?.length === 0) {
-    return <p>No tours available</p>;
+  // 🚀 OPTIMIZATION: Early returns with better loading states
+  if (!filteredtoursMainData || filteredtoursMainData.length === 0) {
+    if (!toursMainData) {
+      return <TourSkeleton />;
+    }
+    return (
+      <div className="no-tours-container">
+        <p className="text-center text-light-1">
+          No tours available for the selected criteria
+        </p>
+        <style jsx>{`
+          .no-tours-container {
+            padding: 40px 20px;
+            text-align: center;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        `}</style>
+      </div>
+    );
   }
 
   if (filteredtoursMainData?.length < 4) {
@@ -262,21 +427,52 @@ const Tours = ({ destination, filterTour, tourType }) => {
     );
   }
 
+  // 🚀 OPTIMIZATION: Better lazy loading with intersection observer
   return (
-    <LazyComponent fallback={<TourSkeleton />} rootMargin="100px">
-      <Slider
-        ref={sliderRef}
-        {...settings}
-        arrows={true}
-        nextArrow={<Arrow type="next" />}
-        prevArrow={<Arrow type="prev" />}
-      >
-        {filteredtoursMainData?.map((item, index) => (
-          <div key={item?.id}>
-            <TourCard item={item} index={index} isInSlider={true} />
-          </div>
-        ))}
-      </Slider>
+    <LazyComponent
+      fallback={<TourSkeleton />}
+      rootMargin="50px"
+      threshold={0.1}
+    >
+      <div className="tours-slider-container">
+        <Slider
+          ref={sliderRef}
+          {...settings}
+          arrows={true}
+          nextArrow={<Arrow type="next" />}
+          prevArrow={<Arrow type="prev" />}
+        >
+          {filteredtoursMainData?.map((item, index) => (
+            <div key={`${item?.id}-${index}`} className="slider-item">
+              <TourCard item={item} index={index} isInSlider={true} />
+            </div>
+          ))}
+        </Slider>
+
+        <style jsx>{`
+          .tours-slider-container {
+            position: relative;
+            contain: layout style;
+          }
+
+          .slider-item {
+            padding: 0 8px;
+          }
+
+          :global(.slick-track) {
+            display: flex;
+            align-items: stretch;
+          }
+
+          :global(.slick-slide) {
+            height: inherit;
+          }
+
+          :global(.slick-slide > div) {
+            height: 100%;
+          }
+        `}</style>
+      </div>
     </LazyComponent>
   );
 };
