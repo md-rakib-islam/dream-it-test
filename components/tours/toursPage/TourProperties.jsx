@@ -1,12 +1,8 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
+import OptimizedImage from "../../common/optimized/OptimizedImage";
 import { useSearchParams } from "next/navigation";
 import useWindowSize from "@/hooks/useWindowSize";
-import dynamic from "next/dynamic";
-const Slider = dynamic(() => import("react-slick"), { ssr: false });
-
 import TripReview from "@/components/common/TripReview";
 import { useContext, useEffect, useMemo } from "react";
 import { LayoutContext } from "@/app/LayoutProvider";
@@ -26,7 +22,11 @@ const TourProperties = () => {
 
   const filteredResults = useMemo(() => {
     return toursMainData.filter((item) => {
-      if (!item) return false; // Skip undefined or null items
+      const hours = parseInt(item.duration?.match(/(\d+)/)?.[0] || 0); // Extract numeric value
+      const days = parseInt(item.duration?.match(/(\d+)/)?.[0] || 0);
+
+      if (!item || (days >= 2 && days <= 5 && item.duration.includes("days")))
+        return false; // Skip undefined or null items
 
       const locationMatches = search
         ? item.location && item.location.includes(search)
@@ -38,17 +38,15 @@ const TourProperties = () => {
             item.title.includes("Ticket")) ||
           (category === "Day Tours" &&
             item.duration &&
-            item.duration.includes("hours")) ||
-          (category === "Multi-Day Tours" &&
-            item.duration &&
-            !item.duration.includes("hours"))
-        : true;
+            item.duration.includes("hours"))
+        : // (category === "Multi-Day Tours" &&
+          //   item.duration &&
+          //   !item.duration.includes("hours"))
+          true;
 
       const durationMatches = () => {
         if (!item.duration) return false; // Exclude items with no duration
 
-        const hours = parseInt(item.duration?.match(/(\d+)/)?.[0] || 0); // Extract numeric value
-        const days = parseInt(item.duration?.match(/(\d+)/)?.[0] || 0);
         if (duration === "1 to 4 Hours") {
           return hours >= 1 && hours <= 4;
         }
@@ -57,9 +55,9 @@ const TourProperties = () => {
           return hours > 4 && hours <= 24;
         }
 
-        if (duration === "2 to 5 Days") {
-          return days >= 2 && days <= 5 && item.duration.includes("days"); // Filter for 2 to 5 days// Convert days to hours
-        }
+        // if (duration === "2 to 5 Days") {
+        //   return days >= 2 && days <= 5 && item.duration.includes("days"); // Filter for 2 to 5 days// Convert days to hours
+        // }
 
         return true; // Default to true if no specific duration filter is applied
       };
@@ -126,7 +124,7 @@ const TourProperties = () => {
         const slug = item?.slug?.endsWith("-1")
           ? item?.slug.slice(0, -2)
           : item?.slug;
-
+        const isAboveFold = idx < 4; // First 4 items get priority loading
         return (
           <div key={idx}>
             <AgentLink
@@ -136,27 +134,37 @@ const TourProperties = () => {
             >
               <div className="tourCard__image position-relative">
                 <div className="inside-slider">
-                  <Slider
+                  {/* <Slider
                     {...itemSettings}
                     arrows={true}
                     nextArrow={<Arrow type="next" />}
                     prevArrow={<Arrow type="prev" />}
-                  >
-                    {item?.slideImg?.map((slide, i) => (
-                      <div className="cardImage ratio ratio-1:1" key={i}>
-                        <div className="cardImage__content ">
-                          <Image
+                  > */}
+                  {item?.slideImg?.map((slide, i) => (
+                    <div className="cardImage ratio ratio-1:1" key={i}>
+                      <div className="cardImage__content ">
+                        {/* <Image
                             width={300}
                             height={300}
                             priority
                             className="col-12 "
                             src={slide}
                             alt={item?.title}
-                          />
-                        </div>
+                          /> */}
+                        <OptimizedImage
+                          width={200}
+                          height={200}
+                          priority={isAboveFold && i === 0} // Only first image of first 4 cards get priority
+                          className="col-12"
+                          src={slide}
+                          alt={`${item?.title} - Image ${i + 1}`}
+                          variant="thumbnail"
+                          quality={80}
+                        />
                       </div>
-                    ))}
-                  </Slider>
+                    </div>
+                  ))}
+                  {/* </Slider> */}
 
                   <div className="cardImage__leftBadge cardImage-2__leftBadge sm:d-none">
                     {/* <div>
@@ -246,7 +254,7 @@ const TourProperties = () => {
             </AgentLink>
 
             {/* {isMobile && (
-              <Link href={`/tour/${slug}`} style={{ cursor: "pointer" }}>
+              <Link href={`/tours/${slug}`} style={{ cursor: "pointer" }}>
                 <button className="button -md h-5 border border-secondary bg-blue-1 text-white w-100">
                   Book Now
                 </button>

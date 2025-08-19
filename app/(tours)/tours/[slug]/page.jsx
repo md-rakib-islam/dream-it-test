@@ -41,7 +41,7 @@ function getFullUrl(slug) {
     typeof window !== "undefined"
       ? window.location.origin
       : "https://dreamtourism.it";
-  const fullPath = `${baseUrl}/tour/${slug}`;
+  const fullPath = `${baseUrl}/tours/${slug}`;
   return fullPath;
 }
 

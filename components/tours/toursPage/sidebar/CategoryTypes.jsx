@@ -29,7 +29,7 @@ const CategoryTypes = () => {
   const categories = [
     { name: "Attraction Tours", count: attractionTours.length },
     { name: "Day Tours", count: dailyTours.length },
-    { name: "Multi-Day Tours", count: multiDayTours.length },
+    // { name: "Multi-Day Tours", count: multiDayTours.length },
   ];
 
   // const handleCategoryChange = (categoryLabel) => {

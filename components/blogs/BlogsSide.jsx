@@ -262,7 +262,7 @@ const BlogsSide = ({ categories, fullUrl, countriesData }) => {
             )}
           </div>
         </div>
-        <div className="col-12">
+        {/* <div className="col-12">
           <div className="blog-sidebar">
             <div className="mb-30 mt-20 bg-img">
               <span className="text-20 text-black fw-600"> Categories</span>
@@ -279,7 +279,7 @@ const BlogsSide = ({ categories, fullUrl, countriesData }) => {
               </ul>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="col-12">
           <div className="blog-sidebar">
             <div className="mb-30 mt-20 bg-img">
@@ -303,12 +303,7 @@ const BlogsSide = ({ categories, fullUrl, countriesData }) => {
                   Capri Island Day Trip{" "}
                 </span>
                 <br></br>
-                <button
-                  //   disabled={!email || isLoading}
-                  //   onClick={handleSubmit}
-                  // className="mt-15 px-20 py-10 fw-500 text-14 border-white -outline-white   text-white   pointer"
-                  className="book-now "
-                >
+                <button className="book-now ">
                   <AgentLink href="/tours/capri-island-day-trip-from-rome">
                     Book Now
                   </AgentLink>

@@ -3853,10 +3853,10 @@
   margin-left: 5px;
   color: black;
 }
-.blog-content span {
-  color: rgb(126, 126, 126);
-  // font-style: italic;
-}
+// .blog-content span {
+//   color: rgb(126, 126, 126);
+//   // font-style: italic;
+// }
 .blog-content .blog-sidebar p {
   margin: 0;
 }
@@ -3954,7 +3954,8 @@
   left: 6px;
 }
 .blog-content .blog-sidebar .date {
-  color: #777777 !important;
+  color: #1a1a1a; /* Dark enough text */
+  background-color: #ffffff; /* Light background */
 }
 .blog-content .blog-sidebar .featured-content p a:hover {
   background-size: 100% 1px;
@@ -4008,12 +4009,17 @@
     box-shadow: inset -4.5em 0 0 0 var(--hover), inset 4.5em 0 0 0 var(--hover);
   }
 }
-
+.book-now a {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.75rem 1.5rem; /* ~12px top/bottom + text size */
+  font-size: 1rem; /* ~16px text */
+}
 .book-now:hover,
 .book-now:focus {
   border-color: var(--hover);
   color: #000000;
-  box-shadow: inset -4.5em 0 0 0 var(--hover), inset 4.5em 0 0 0 var(--hover);
+  box-shadow: inset -6.5em 0 0 0 var(--hover), inset 6.5em 0 0 0 var(--hover);
 }
 
 .faq-section {

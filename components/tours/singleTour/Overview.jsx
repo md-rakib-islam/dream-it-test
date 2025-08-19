@@ -1,16 +1,13 @@
-"use client";
-import { use, useState } from "react";
-// import { useSelector } from "react-redux";
 const Overview = ({ data }) => {
-  const [showFullDescription, setShowFullDescription] = useState(true);
+  // const [showFullDescription, setShowFullDescription] = useState(true);
 
-  // Function to toggle between showing full description or half of it
-  const toggleDescription = () => {
-    setShowFullDescription(!showFullDescription);
-  };
+  // // Function to toggle between showing full description or half of it
+  // const toggleDescription = () => {
+  //   setShowFullDescription(!showFullDescription);
+  // };
 
-  // Calculate the length for displaying half of the description
-  const halfLength = Math.ceil(data?.description.length / 2);
+  // // Calculate the length for displaying half of the description
+  // const halfLength = Math.ceil(data?.description.length / 2);
 
   return (
     <>
@@ -19,20 +16,18 @@ const Overview = ({ data }) => {
           <div className="interweave-content">
             <div
               dangerouslySetInnerHTML={{
-                __html: showFullDescription
-                  ? data?.description
-                  : data?.description.slice(0, halfLength),
+                __html: data?.description,
               }}
             ></div>
           </div>
 
-          <button
+          {/* <button
             id="cancle-section"
             className="d-block lh-15 text-14 text-blue-1 underline fw-500 mt-5"
             onClick={toggleDescription}
           >
             {showFullDescription ? "See Less" : "See More"}
-          </button>
+          </button> */}
         </div>
       </div>
     </>

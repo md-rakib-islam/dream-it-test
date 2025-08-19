@@ -673,7 +673,11 @@ const ChooseDateForRegularTour = ({
 
       <div className="calendarWrapper">
         <div className="monthSelector">
-          <button className="monthButton" onClick={() => changeMonth(-1)}>
+          <button
+            className="monthButton"
+            onClick={() => changeMonth(-1)}
+            aria-label="Previous Month"
+          >
             <i className="icon icon-chevron-left text-12 text-dark"></i>
           </button>
 
@@ -725,7 +729,11 @@ const ChooseDateForRegularTour = ({
             )}
           </div>
 
-          <button className="monthButton" onClick={() => changeMonth(1)}>
+          <button
+            className="monthButton"
+            onClick={() => changeMonth(1)}
+            aria-label="Next Month"
+          >
             <i className="icon icon-chevron-right text-12 text-dark"></i>
           </button>
         </div>

@@ -50,7 +50,7 @@ const Duration = () => {
   const durationOptions = [
     { label: "1 to 4 Hours", count: oneToFour.length },
     { label: "5 Hours to 1 Day", count: fiveToDay.length },
-    { label: "2 to 5 Days", count: twoToFiveDays.length },
+    // { label: "2 to 5 Days", count: twoToFiveDays.length },
   ];
 
   return (

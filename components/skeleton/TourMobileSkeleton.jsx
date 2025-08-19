@@ -57,7 +57,7 @@ const TourMobileSkeleton = () => {
   return defaultTourItem?.map((item) => (
     <div className="col-lg-3 col-md-3 col-6" key={item?.id}>
       <AgentLink
-        href={`/tour/${item?.title
+        href={`/tours/${item?.title
           ?.replace(/[,.-]/g, "")
           ?.toLowerCase()
           ?.split(" ")

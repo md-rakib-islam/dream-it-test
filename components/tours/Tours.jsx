@@ -6,7 +6,7 @@ import useWindowSize from "@/hooks/useWindowSize";
 import { LayoutContext } from "@/app/LayoutProvider";
 import TripReview from "../common/TripReview";
 import TourSkeleton from "../skeleton/TourSkeleton";
-import { useContext } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { modifiedCurrency } from "@/utils/modifiedCurrency";
 import AgentLink from "../AgentLink/AgentLink";
 import OptimizedImage from "../common/optimized/OptimizedImage";
@@ -14,6 +14,8 @@ import LazyComponent from "../common/optimized/LazyComponent";
 
 const Tours = ({ destination, filterTour, tourType }) => {
   const { toursMainData, selectedCurrency } = useContext(LayoutContext);
+  const sliderRef = useRef(null);
+
   const filteredtoursMainData = filterTour
     ? toursMainData.filter((item) => item.title !== filterTour)
     : tourType == "day"
@@ -42,41 +44,58 @@ const Tours = ({ destination, filterTour, tourType }) => {
     : toursMainData;
 
   const width = useWindowSize();
-  const isMobile = width < 768;
 
-  // Optimized slider settings with lazy loading
+  // Accessibility fix: Remove focus from aria-hidden slides
+  useEffect(() => {
+    if (!sliderRef.current) return;
+    const updateTabIndex = () => {
+      const slides =
+        sliderRef.current.innerSlider.list.querySelectorAll(".slick-slide");
+      slides.forEach((slide) => {
+        const isHidden = slide.getAttribute("aria-hidden") === "true";
+        slide
+          .querySelectorAll("a, button, input, select, textarea, [tabindex]")
+          .forEach((el) => {
+            el.tabIndex = isHidden ? -1 : 0;
+          });
+      });
+    };
+
+    // Initial run + re-run after every slide change
+    updateTabIndex();
+    sliderRef.current?.innerSlider?.list?.addEventListener(
+      "transitionend",
+      updateTabIndex
+    );
+
+    return () => {
+      sliderRef.current?.innerSlider?.list?.removeEventListener(
+        "transitionend",
+        updateTabIndex
+      );
+    };
+  }, []);
+
   const settings = {
     dots: true,
     infinite: true,
-    accessibility: true, // Changed to true for better accessibility
+    accessibility: true,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 4,
-    lazyLoad: "ondemand", // Added lazy loading for slider
+    lazyLoad: "ondemand",
     responsive: [
       {
         breakpoint: 992,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          accessibility: true,
-        },
+        settings: { slidesToShow: 3, slidesToScroll: 3, accessibility: true },
       },
       {
         breakpoint: 768,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          accessibility: true,
-        },
+        settings: { slidesToShow: 3, slidesToScroll: 3, accessibility: true },
       },
       {
         breakpoint: 540,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          accessibility: true,
-        },
+        settings: { slidesToShow: 2, slidesToScroll: 2, accessibility: true },
       },
       {
         breakpoint: 300,
@@ -91,19 +110,6 @@ const Tours = ({ destination, filterTour, tourType }) => {
     ],
   };
 
-  // Optimized item slider settings
-  const itemSettings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    accessibility: true,
-    lazyLoad: "ondemand",
-    fade: true, // Added fade effect for better performance
-  };
-
-  // Custom navigation arrow component
   function Arrow(props) {
     let className =
       props.type === "next"
@@ -127,13 +133,12 @@ const Tours = ({ destination, filterTour, tourType }) => {
     );
   }
 
-  // Tour card component for reusability
   const TourCard = ({ item, index, isInSlider = false }) => {
     const slug = item?.slug?.endsWith("-1")
       ? item?.slug.slice(0, -2)
       : item?.slug;
 
-    const isAboveFold = index < 4; // First 4 items get priority loading
+    const isAboveFold = index < 4;
 
     return (
       <div
@@ -141,57 +146,29 @@ const Tours = ({ destination, filterTour, tourType }) => {
         key={item?.id}
       >
         <AgentLink
-          href={`/tour/${slug}`}
+          href={`/tours/${slug}`}
           style={{ cursor: "pointer" }}
           className="tourCard -type-1 rounded-4 hover-inside-slider"
           aria-label={`View details of ${item.title}`}
         >
           <div className="tourCard__image position-relative">
             <div className="inside-slider">
-              {isInSlider ? (
-                // For slider items - use inner slider
-                <Slider
-                  {...itemSettings}
-                  arrows={true}
-                  nextArrow={<Arrow type="next" />}
-                  prevArrow={<Arrow type="prev" />}
-                >
-                  {item?.slideImg?.map((slide, i) => (
-                    <div className="cardImage ratio ratio-1:1" key={i}>
-                      <div className="cardImage__content">
-                        <OptimizedImage
-                          width={200}
-                          height={200}
-                          priority={isAboveFold && i === 0} // Only first image of first 4 cards get priority
-                          className="col-12"
-                          src={slide}
-                          alt={`${item?.title} - Image ${i + 1}`}
-                          variant="thumbnail"
-                          quality={80}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </Slider>
-              ) : (
-                // For non-slider items - show all images
-                item?.slideImg?.map((slide, i) => (
-                  <div className="cardImage ratio ratio-1:1" key={i}>
-                    <div className="cardImage__content">
-                      <OptimizedImage
-                        width={200}
-                        height={200}
-                        priority={isAboveFold && i === 0}
-                        className="col-12"
-                        src={slide}
-                        alt={`${item?.title} - Image ${i + 1}`}
-                        variant="thumbnail"
-                        quality={80}
-                      />
-                    </div>
+              {item?.slideImg?.map((slide, i) => (
+                <div className="cardImage ratio ratio-1:1" key={i}>
+                  <div className="cardImage__content">
+                    <OptimizedImage
+                      width={200}
+                      height={200}
+                      priority={isAboveFold && i === 0}
+                      className="col-12"
+                      src={slide}
+                      alt={`${item?.title} - Image ${i + 1}`}
+                      variant="thumbnail"
+                      quality={80}
+                    />
                   </div>
-                ))
-              )}
+                </div>
+              ))}
 
               <div className="cardImage__leftBadge cardImage-2__leftBadge sm:d-none">
                 <div className="buttons-2">
@@ -262,17 +239,14 @@ const Tours = ({ destination, filterTour, tourType }) => {
     );
   };
 
-  // Loading state
   if (!filteredtoursMainData) {
     return <TourSkeleton />;
   }
 
-  // No tours available
   if (filteredtoursMainData?.length === 0) {
     return <p>No tours available</p>;
   }
 
-  // Less than 4 tours - show without slider
   if (filteredtoursMainData?.length < 4) {
     return (
       <div className="row">
@@ -288,13 +262,10 @@ const Tours = ({ destination, filterTour, tourType }) => {
     );
   }
 
-  // 4 or more tours - use slider with lazy loading
   return (
-    <LazyComponent
-      fallback={<TourSkeleton />}
-      rootMargin="100px" // Load when 100px before entering viewport
-    >
+    <LazyComponent fallback={<TourSkeleton />} rootMargin="100px">
       <Slider
+        ref={sliderRef}
         {...settings}
         arrows={true}
         nextArrow={<Arrow type="next" />}

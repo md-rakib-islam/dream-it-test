@@ -12,9 +12,9 @@
 
 // const Index = () => {
 //   const bannerImageMobile =
-//     "https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/05544d7c-e074-4142-d37d-6965369ad600/public?w=800&q=75";
+//     "https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/87922463-e4b0-4300-d6b7-4f26b2eb2800/v1?w=800&q=75";
 //   const bannerImageDesktop =
-//     "https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/05544d7c-e074-4142-d37d-6965369ad600/public?w=1920&q=80";
+//     "https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/87922463-e4b0-4300-d6b7-4f26b2eb2800/v1?w=1920&q=80";
 
 //   const [showHeroBottom, setShowHeroBottom] = useState(false);
 //   const isMobile = useMobile();
@@ -143,7 +143,7 @@ const index = () => {
           >
             {/* Optimized Hero Image */}
             <Image
-              src="https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/05544d7c-e074-4142-d37d-6965369ad600/public"
+              src="https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/87922463-e4b0-4300-d6b7-4f26b2eb2800/v1"
               alt="Hero Banner"
               layout="fill"
               objectFit="fill"

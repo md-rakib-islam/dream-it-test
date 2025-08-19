@@ -182,7 +182,7 @@ const TourSkeleton = () => {
           //   data-aos-delay={item?.delayAnimation}
         >
           <AgentLink
-            href={`/tour/${item?.title?.toLowerCase()?.split(" ")?.join("-")}`}
+            href={`/tours/${item?.title?.toLowerCase()?.split(" ")?.join("-")}`}
             style={{ cursor: "pointer" }}
             className="tourCard -type-1 rounded-4 hover-inside-slider"
             aria-label={`View details of ${item.title}`}

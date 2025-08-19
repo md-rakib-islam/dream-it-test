@@ -74,6 +74,7 @@ const Header = () => {
                       data-bs-toggle="offcanvas"
                       aria-controls="mobile-sidebar_menu"
                       data-bs-target="#mobile-sidebar_menu"
+                      aria-label="Open Mobile Menu"
                     />
                     <div
                       className="offcanvas offcanvas-start  mobile_menu-contnet"

@@ -267,7 +267,7 @@ export default async function RootLayout({ children }) {
           <link
             rel="preload"
             as="image"
-            href="https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/05544d7c-e074-4142-d37d-6965369ad600/public"
+            href="https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/87922463-e4b0-4300-d6b7-4f26b2eb2800/v1"
             fetchPriority="high"
           />
 
@@ -283,7 +283,7 @@ export default async function RootLayout({ children }) {
             href="/fonts/icomoon.woff?ibiouq"
             as="font"
             type="font/woff"
-            crossorigin
+            crossOrigin="anonymous"
           />
 
           <link
@@ -575,7 +575,7 @@ export default async function RootLayout({ children }) {
 //         <link
 //           rel="preload"
 //           as="image"
-//           href="https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/05544d7c-e074-4142-d37d-6965369ad600/public"
+//           href="https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/87922463-e4b0-4300-d6b7-4f26b2eb2800/v1"
 //           fetchPriority="high"
 //         />
 //         {/* Preconnect to external domains for faster loading */}

@@ -74,7 +74,7 @@ const useMenus = (menus) => {
     if (item.name === "Tours") {
       return {
         ...item,
-        routePath: "/tours?location=&category&min=&max",
+        routePath: "/tours",
         children:
           item?.children?.length > 0
             ? item.children.map((subItem) => ({

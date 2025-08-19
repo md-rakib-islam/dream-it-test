@@ -102,7 +102,7 @@ const TestimonialSingleTour = () => {
                           width={20}
                           height={20}
                           src="/img/featureIcons/3/verified.svg"
-                          alt={item?.reviewer_name}
+                          alt="User Varified"
                           className="size-14 ml-5 rounded-circle"
                         />
                       </div>

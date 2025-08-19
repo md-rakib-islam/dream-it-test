@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import useWindowSize from "@/hooks/useWindowSize";
 import TourMobileSkeleton from "../skeleton/TourMobileSkeleton";
 import { useContext } from "react";
@@ -55,7 +54,7 @@ const ToursForMobile = ({ destination, filterTour, tourType }) => {
       return (
         <div className="col-lg-3 col-md-4 col-6" key={item?.id}>
           <AgentLink
-            href={`/tour/${slug}`}
+            href={`/tours/${slug}`}
             style={{ cursor: "pointer" }}
             className="tourCard -type-1 rounded-4 hover-inside-slider"
           >

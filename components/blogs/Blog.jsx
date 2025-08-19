@@ -7,42 +7,41 @@ import { useSearchParams, useRouter } from "next/navigation";
 import AgentLink from "../AgentLink/AgentLink";
 
 const Blog = ({ blogs, countries, currentPage, totalPages }) => {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const country = searchParams.get("country");
+  // const searchParams = useSearchParams();
+  // const router = useRouter();
 
-  const desiredOrder = [
-    "Italy",
-    "Netherlands",
-    "Switzerland",
-    "Germany",
-    "France",
-    "Belgium",
-  ];
+  // const desiredOrder = [
+  //   "Italy",
+  //   "Netherlands",
+  //   "Switzerland",
+  //   "Germany",
+  //   "France",
+  //   "Belgium",
+  // ];
 
-  const orderedCountries = [...countries].sort(
-    (a, b) => desiredOrder.indexOf(a.name) - desiredOrder.indexOf(b.name)
-  );
+  // const orderedCountries = [...countries].sort(
+  //   (a, b) => desiredOrder.indexOf(a.name) - desiredOrder.indexOf(b.name)
+  // );
 
-  const [filterOption, setFilterOption] = useState(orderedCountries[0]?.id);
+  // const [filterOption, setFilterOption] = useState(orderedCountries[0]?.id);
 
-  useEffect(() => {
-    if (country && country !== filterOption) {
-      setFilterOption(country);
-    }
-  }, [country]);
+  // useEffect(() => {
+  //   if (country && country !== filterOption) {
+  //     setFilterOption(country);
+  //   }
+  // }, [country]);
 
-  const handleCategoryChange = (option) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("country", option);
-    router.push(`?${params.toString()}`);
-    setFilterOption(option);
-  };
+  // const handleCategoryChange = (option) => {
+  //   const params = new URLSearchParams(searchParams.toString());
+  //   params.set("country", option);
+  //   router.push(`?${params.toString()}`);
+  //   setFilterOption(option);
+  // };
 
   return (
     <>
       <div className="tabs -pills-3 pt-30 js-tabs">
-        <div className="tabs__controls row x-gap-10 justify-center js-tabs-controls">
+        {/* <div className="tabs__controls row x-gap-10 justify-center js-tabs-controls">
           {orderedCountries.map((option) => (
             <div className="col-auto" key={option.id}>
               <button
@@ -55,7 +54,7 @@ const Blog = ({ blogs, countries, currentPage, totalPages }) => {
               </button>
             </div>
           ))}
-        </div>
+        </div> */}
 
         <div className="row justify-center text-center">
           <div className="col-auto">

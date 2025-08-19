@@ -4,9 +4,6 @@ Disallow: /media/
 Disallow: /img/
 Disallow: /wp-content/
 Disallow: /.well-known/
-Disallow: /?utm=
-Disallow: /?ref=
-Disallow: /?fbclid=
 Disallow: /search
 Disallow: /private/
 Disallow: /admin/
@@ -25,6 +22,9 @@ Disallow: /privacy-and-cookies/feed
 Disallow: /*?
 Disallow: /*?_rsc=
 Disallow: /*?location=
+Disallow: /?utm=
+Disallow: /?ref=
+Disallow: /?fbclid=
 Disallow: /it/
 Disallow: /fr/
 Disallow: /es/
