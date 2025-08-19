@@ -204,12 +204,13 @@ export default async function ThingsToDoMainPage() {
               <div className="text-center">
                 <h1 className="mb-4">Unable to Load Things to Do</h1>
                 <p className="text-muted">Please try refreshing the page or contact support.</p>
-                <button 
-                  onClick={() => window.location.reload()}
+                <a 
+                  href="/things-to-do"
                   className="btn btn-primary mt-3"
+                  style={{ textDecoration: 'none' }}
                 >
-                  Refresh Page
-                </button>
+                  Try Again
+                </a>
               </div>
             </div>
           }
@@ -281,12 +282,13 @@ export default async function ThingsToDoMainPage() {
                   <p className="sectionTitle__text mt-5 sm:mt-0">
                     We're experiencing technical difficulties. Please try again later.
                   </p>
-                  <button 
-                    onClick={() => window.location.reload()}
+                  <a 
+                    href="/things-to-do"
                     className="btn btn-primary mt-3"
+                    style={{ textDecoration: 'none' }}
                   >
                     Try Again
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>

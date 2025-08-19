@@ -187,12 +187,20 @@ export default function Home() {
               <div className="text-center" style={{ padding: '100px 20px' }}>
                 <h1>Something went wrong</h1>
                 <p>Please refresh the page or try again later.</p>
-                <button 
-                  onClick={() => window.location.reload()}
+                <a 
+                  href="/"
                   className="btn-primary"
+                  style={{ 
+                    display: 'inline-block', 
+                    padding: '10px 20px', 
+                    textDecoration: 'none',
+                    backgroundColor: '#3554d1',
+                    color: 'white',
+                    borderRadius: '6px'
+                  }}
                 >
-                  Refresh Page
-                </button>
+                  Go Home
+                </a>
               </div>
             </div>
           </div>

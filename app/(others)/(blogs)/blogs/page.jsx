@@ -201,12 +201,13 @@ export default async function BlogsPage({ searchParams }) {
               <div className="text-center">
                 <h1 className="mb-4">Unable to Load Blogs</h1>
                 <p className="text-muted">Please try refreshing the page or contact support.</p>
-                <button 
-                  onClick={() => window.location.reload()}
+                <a 
+                  href="/blogs"
                   className="btn btn-primary mt-3"
+                  style={{ textDecoration: 'none' }}
                 >
-                  Refresh Page
-                </button>
+                  Try Again
+                </a>
               </div>
             </div>
           }
@@ -268,12 +269,13 @@ export default async function BlogsPage({ searchParams }) {
                 <div className="sectionTitle -md">
                   <h1 className="sectionTitle__title">Blog Unavailable</h1>
                   <p className="text-muted mt-3">We're experiencing technical difficulties. Please try again later.</p>
-                  <button 
-                    onClick={() => window.location.reload()}
+                  <a 
+                    href="/blogs"
                     className="btn btn-primary mt-3"
+                    style={{ textDecoration: 'none' }}
                   >
                     Try Again
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>

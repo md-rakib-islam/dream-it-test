@@ -97,18 +97,9 @@ const nextConfig = {
           }
         ],
       },
-      {
-        source: '/(.*)',
-        headers: [
-          {
-            key: 'Link',
-            value: '</fonts/inter.woff2>; rel=preload; as=font; type=font/woff2; crossorigin'
-          }
-        ],
-      },
     ];
   },
-  
+
   // 🚀 PERFORMANCE: Bundle optimization and code splitting
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     // Bundle splitting for better caching
@@ -162,15 +153,23 @@ const nextConfig = {
     return config;
   },
 
+  // 🚀 PERFORMANCE: Server external packages
+  serverExternalPackages: ['sharp', 'ssr-window', 'dom7'],
+  
   experimental: {
     webVitalsAttribution: ['CLS', 'LCP'],
     // Enable modern features for better performance
     esmExternals: true,
-    serverComponentsExternalPackages: ['sharp', 'ssr-window', 'dom7'],
     optimizePackageImports: ['lodash', 'date-fns', 'react-icons'],
   },
   async redirects() {
     return [
+      // Handle missing Inter font (browser/devtools fallback)
+      {
+        source: "/fonts/inter.woff2",
+        destination: "/fonts/icomoon.woff", // Redirect to existing font
+        permanent: false,
+      },
       {
         source: "/tour/:slug",
         destination: "/tours/:slug",

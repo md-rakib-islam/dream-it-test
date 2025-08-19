@@ -43,12 +43,20 @@ const ErrorFallback = ({ error, resetError }) => (
         <p>
           We're experiencing technical difficulties. Please try again later.
         </p>
-        <button
-          onClick={resetError}
-          style={{ padding: "10px 20px", marginTop: "10px" }}
+        <a
+          href="/"
+          style={{ 
+            padding: "10px 20px", 
+            marginTop: "10px",
+            display: "inline-block",
+            backgroundColor: "#3554d1",
+            color: "white",
+            textDecoration: "none",
+            borderRadius: "6px"
+          }}
         >
-          Try again
-        </button>
+          Go Home
+        </a>
       </main>
     </body>
   </html>
