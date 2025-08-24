@@ -59,7 +59,7 @@ const TourGallery = ({ tour, openLightbox: externalOpenLightbox }) => {
                 onClick={() => handleImageClick(0)}
                 style={{
                   minHeight: "250px", // Prevent layout shift
-                  backgroundColor: "#f3f4f6", // Placeholder color
+                  backgroundColor: "#ffffffff", // Placeholder color
                 }}
               >
                 <OptimizedImage
@@ -83,7 +83,7 @@ const TourGallery = ({ tour, openLightbox: externalOpenLightbox }) => {
                 onClick={() => handleImageClick(1)}
                 style={{
                   minHeight: "250px", // Prevent layout shift
-                  backgroundColor: "#f3f4f6", // Placeholder color
+                  backgroundColor: "#ffffffff", // Placeholder color
                 }}
               >
                 <OptimizedImage
@@ -105,14 +105,14 @@ const TourGallery = ({ tour, openLightbox: externalOpenLightbox }) => {
                 onClick={() => handleImageClick(2)}
                 style={{
                   minHeight: "120px", // Prevent layout shift
-                  backgroundColor: "#f3f4f6", // Placeholder color
+                  backgroundColor: "#ffffffff", // Placeholder color
                 }}
               >
                 <OptimizedImage
                   src={normalizedImages[2]}
                   alt={`${tour?.title || "Tour"} - Image 3`}
                   fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 300px, 400px"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 300px, 240px"
                   className="object-cover rounded-4"
                   quality={80}
                   loading="lazy" // Lazy load smaller images
@@ -125,7 +125,7 @@ const TourGallery = ({ tour, openLightbox: externalOpenLightbox }) => {
                 onClick={() => handleImageClick(3)}
                 style={{
                   minHeight: "120px", // Prevent layout shift
-                  backgroundColor: "#f3f4f6", // Placeholder color
+                  backgroundColor: "#ffffffff", // Placeholder color
                 }}
               >
                 <OptimizedImage
@@ -155,7 +155,7 @@ const TourGallery = ({ tour, openLightbox: externalOpenLightbox }) => {
                 onClick={() => handleImageClick(0)}
                 style={{
                   minHeight: "240px", // Prevent layout shift on mobile
-                  backgroundColor: "#f3f4f6", // Placeholder color
+                  backgroundColor: "#ffffffff", // Placeholder color
                 }}
               >
                 <OptimizedImage
@@ -210,8 +210,8 @@ const TourGallery = ({ tour, openLightbox: externalOpenLightbox }) => {
                             className="mobile-grid-full"
                             onClick={() => handleImageClick(idx)}
                             style={{
-                              minHeight: "400px", // Consistent height
-                              backgroundColor: "#f3f4f6",
+                              minHeight: "240px", // Consistent height
+                              backgroundColor: "#ffffffff",
                             }}
                           >
                             <OptimizedImage
@@ -325,7 +325,7 @@ const TourGallery = ({ tour, openLightbox: externalOpenLightbox }) => {
 
           .slider-skeleton {
             height: 240px; /* Match mobile image height */
-            background: #f3f4f6;
+            background: #ffffffff;
             border-radius: 8px;
             display: flex;
             align-items: center;

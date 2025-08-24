@@ -20,7 +20,7 @@ const HomeLoadingSkeleton = () => {
           ))}
         </div>
       </div>
-      
+
       <style jsx>{`
         .home-loading-skeleton {
           min-height: 100vh;
@@ -43,7 +43,7 @@ const HomeLoadingSkeleton = () => {
         .hero-title-skeleton {
           height: 60px;
           width: 400px;
-          background: rgba(255,255,255,0.2);
+          background: rgba(255, 255, 255, 0.2);
           border-radius: 8px;
           margin: 0 auto 20px;
           animation: pulse 1.5s ease-in-out infinite;
@@ -51,7 +51,7 @@ const HomeLoadingSkeleton = () => {
         .hero-subtitle-skeleton {
           height: 20px;
           width: 300px;
-          background: rgba(255,255,255,0.2);
+          background: rgba(255, 255, 255, 0.2);
           border-radius: 4px;
           margin: 0 auto 30px;
           animation: pulse 1.5s ease-in-out infinite;
@@ -59,7 +59,7 @@ const HomeLoadingSkeleton = () => {
         .hero-buttons-skeleton {
           height: 50px;
           width: 200px;
-          background: rgba(255,255,255,0.2);
+          background: rgba(255, 255, 255, 0.2);
           border-radius: 25px;
           margin: 0 auto;
           animation: pulse 1.5s ease-in-out infinite;
@@ -90,14 +90,29 @@ const HomeLoadingSkeleton = () => {
           animation-delay: ${i * 0.1}s;
         }
         @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.7; }
+          0%,
+          100% {
+            opacity: 1;
+          }
+          50% {
+            opacity: 0.7;
+          }
         }
         @media (max-width: 768px) {
-          .hero-skeleton { height: 400px; }
-          .hero-title-skeleton { height: 40px; width: 280px; }
-          .hero-subtitle-skeleton { width: 250px; }
-          .tour-cards-skeleton { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+          .hero-skeleton {
+            height: 240px;
+          }
+          .hero-title-skeleton {
+            height: 40px;
+            width: 280px;
+          }
+          .hero-subtitle-skeleton {
+            width: 250px;
+          }
+          .tour-cards-skeleton {
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+          }
         }
       `}</style>
     </div>
