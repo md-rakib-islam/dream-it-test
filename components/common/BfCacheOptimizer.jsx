@@ -82,15 +82,29 @@ const BfCacheOptimizer = () => {
         // Facebook Pixel - ensure it doesn't block bfcache
       }
       
-      // Remove any persistent connections that might block bfcache
-      window.addEventListener('pagehide', (event) => {
-        // Only do cleanup if page is being cached
-        if (event.persisted) {
-          return;
+      // 🚀 ENHANCEMENT: Handle unload events properly
+      const handlePageHide = (event) => {
+        // Only do cleanup if page is NOT being cached
+        if (!event.persisted) {
+          // Clean up any persistent connections only when page won't be cached
+          if (window.WebSocketConnections) {
+            window.WebSocketConnections.forEach(ws => ws.close());
+          }
         }
         
-        // Clean up any persistent connections
-      });
+        // Always clean up these resources
+        if (window.mediaRecorder && window.mediaRecorder.state !== 'inactive') {
+          window.mediaRecorder.stop();
+        }
+        
+        // Cancel any pending network requests
+        if (window.pendingRequests) {
+          window.pendingRequests.forEach(controller => controller.abort());
+          window.pendingRequests.clear();
+        }
+      };
+      
+      window.addEventListener('pagehide', handlePageHide, { passive: true });
     };
 
     // 5. Handle form data properly

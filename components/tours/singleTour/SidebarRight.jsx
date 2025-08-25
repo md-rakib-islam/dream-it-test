@@ -4,6 +4,7 @@ import { useEffect, useState, useRef, useMemo, useCallback } from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import { tour_content_id } from "@/constant/constants";
+import thirdPartyManager, { THIRD_PARTY_CONFIGS } from "@/utils/thirdPartyManager";
 
 // 🚀 CRITICAL: Lazy load calendar component - not needed for initial LCP
 const AgentCalendar = dynamic(() => import("./Bookings/AgentCalendar"), {
@@ -86,57 +87,58 @@ const SidebarRight = ({ data }) => {
     }
   }, []);
 
-  // 🚀 OPTIMIZATION: Effect for bus data fetching
+  // 🚀 OPTIMIZATION: Effect for bus data fetching with debouncing
   useEffect(() => {
     // Skip if no dependency or already fetched
     if (!dataDependency || dataFetchedRef.current) {
       return;
     }
 
-    fetchBusData(dataDependency);
+    // Debounce the fetch to prevent rapid calls
+    const timeoutId = setTimeout(() => {
+      fetchBusData(dataDependency);
+    }, 100);
+
+    return () => clearTimeout(timeoutId);
   }, [dataDependency, fetchBusData]);
 
-  // 🚀 OPTIMIZATION: Effect for Bokun script loading with idle loading
+  // 🚀 OPTIMIZATION: Effect for Bokun script loading with optimized third-party manager
   useEffect(() => {
     if (data?.is_bokun_url !== true) return;
 
-    // Check if script already exists
-    const existingScript = document.querySelector(
-      'script[src*="BokunWidgetsLoader.js"]'
-    );
-    if (existingScript) return;
-
-    const loadBokunScript = () => {
-      const script = document.createElement("script");
-      script.src =
-        "https://widgets.bokun.io/assets/javascripts/apps/build/BokunWidgetsLoader.js?bookingChannelUUID=c8f2314b-0289-4a75-825c-37cb690a7c70";
-      script.async = true;
-      script.defer = true;
-
-      // Add error handling
-      script.onerror = () => {
-        console.error("Failed to load Bokun widget script");
-      };
-
-      document.head.appendChild(script); // Use head instead of body
-    };
-
-    // Load script during idle time to reduce main thread blocking
-    if ('requestIdleCallback' in window) {
-      window.requestIdleCallback(loadBokunScript, { timeout: 2000 });
-    } else {
-      // Fallback for older browsers
-      setTimeout(loadBokunScript, 100);
+    // Skip if already loaded
+    if (thirdPartyManager.isLoaded('bokun-widget')) {
+      console.log('Bokun widget already loaded');
+      return;
     }
 
-    return () => {
-      // Cleanup script
-      const scriptToRemove = document.querySelector(
-        'script[src*="BokunWidgetsLoader.js"]'
-      );
-      if (scriptToRemove?.parentNode) {
-        scriptToRemove.parentNode.removeChild(scriptToRemove);
+    // Load Bokun widget with immediate strategy for booking functionality
+    thirdPartyManager.loadScript({
+      id: 'bokun-widget',
+      src: 'https://widgets.bokun.io/assets/javascripts/apps/build/BokunWidgetsLoader.js?bookingChannelUUID=c8f2314b-0289-4a75-825c-37cb690a7c70',
+      loadStrategy: 'immediate', // Changed from intersection to immediate
+      priority: 'user-visible', // Changed from background to user-visible
+      async: true,
+      defer: false,
+      crossOrigin: 'anonymous',
+      onLoad: () => {
+        console.log('Bokun widget loaded successfully');
+        // Initialize Bokun widget if needed
+        if (typeof window !== 'undefined' && window.BokunWidgets) {
+          window.BokunWidgets.init();
+        }
+      },
+      onError: (error) => {
+        console.error('Failed to load Bokun widget:', error);
+        setError('Unable to load booking system. Please try refreshing the page.');
       }
+    }).catch((error) => {
+      console.error('Bokun script loading failed:', error);
+      setError('Booking system temporarily unavailable. Please try again later.');
+    });
+
+    return () => {
+      // Cleanup is handled by the third-party manager
     };
   }, [data?.is_bokun_url]);
 

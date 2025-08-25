@@ -40,7 +40,7 @@ const useMenus = (menus) => {
           item?.children?.length > 0
             ? item.children.map((subItem) => ({
                 ...subItem,
-                routePath: `/${item.name.toLowerCase()}/${subItem.name.toLowerCase()}`,
+                routePath: `/${subItem.name.toLowerCase().replace(/\s+/g, '-')}`,
               }))
             : [],
       };
@@ -53,7 +53,7 @@ const useMenus = (menus) => {
           item?.children?.length > 0
             ? item.children.map((subItem) => ({
                 ...subItem,
-                routePath: `/${item.name.toLowerCase()}/${subItem.name.toLowerCase()}`,
+                routePath: `/${subItem.name.toLowerCase().replace(/\s+/g, '-')}`,
               }))
             : [],
       };
@@ -66,7 +66,7 @@ const useMenus = (menus) => {
           item?.children?.length > 0
             ? item.children.map((subItem) => ({
                 ...subItem,
-                routePath: `/${item.name.toLowerCase()}/${subItem.name.toLowerCase()}`,
+                routePath: `/${subItem.name.toLowerCase().replace(/\s+/g, '-')}`,
               }))
             : [],
       };
@@ -79,7 +79,7 @@ const useMenus = (menus) => {
           item?.children?.length > 0
             ? item.children.map((subItem) => ({
                 ...subItem,
-                routePath: `/${item.name.toLowerCase()}/${subItem.name.toLowerCase()}`,
+                routePath: `/${subItem.name.toLowerCase().replace(/\s+/g, '-')}`,
               }))
             : [],
       };
@@ -92,17 +92,35 @@ const useMenus = (menus) => {
               ?.toLowerCase()
               ?.split(" ")
               ?.join("_")}`
-          : item?.name?.toLowerCase()
+          : `/${item?.name?.toLowerCase().replace(/\s+/g, '-')}`
       }`,
       children:
         item?.children?.length > 0
-          ? item.children.map((subItem) => ({
-              ...subItem,
-              routePath: `/${item.name.toLowerCase()}/${subItem.name
-                .toLowerCase()
-                ?.split(" ")
-                ?.join("_")}`,
-            }))
+          ? item.children.map((subItem) => {
+              const subItemName = subItem.name.toLowerCase();
+              
+              if (subItemName === 'blogs' || subItemName === 'blog') {
+                return {
+                  ...subItem,
+                  routePath: '/blogs',
+                };
+              }
+              
+              if (item.name.toLowerCase() === 'destinations') {
+                return {
+                  ...subItem,
+                  routePath: `/destinations/${subItem.name
+                    .toLowerCase()
+                    ?.split(" ")
+                    ?.join("_")}`,
+                };
+              }
+              
+              return {
+                ...subItem,
+                routePath: `/${subItem.name.toLowerCase().replace(/\s+/g, '-')}`,
+              };
+            })
           : [],
     };
   });

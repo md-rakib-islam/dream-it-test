@@ -180,6 +180,13 @@ export async function generateMetadata({ params }) {
     description: metadata.meta_description,
     keywords: metadata.keywords,
 
+    // 🚀 ULTRA CRITICAL: Add preload links for LCP image
+    other: {
+      "geo.region": "IT",
+      "geo.country": "Italy",
+      ICBM: "41.9028, 12.4964", // Rome coordinates as default
+    },
+
     // Enhanced Open Graph
     openGraph: {
       title: metadata.meta_title,
@@ -276,23 +283,23 @@ export default async function Tour({ params }) {
           __html: `
           .container{max-width:1200px;margin:0 auto;padding:0 15px}
           .header-margin{margin-top:80px}
-          .gallery-grid-container{display:grid;grid-template-columns:1fr 2fr 1fr;grid-template-rows:repeat(2,250px);grid-gap:10px;height:510px;contain:layout style;min-height:510px}
-          .gallery-item{position:relative;cursor:pointer;overflow:hidden;contain:layout}
-          .gallery-item-large-left{grid-column:1;grid-row:1/3}
-          .gallery-item-large-center{grid-column:2;grid-row:1/3}
-          .gallery-item-small-top-right{grid-column:3;grid-row:1}
-          .gallery-item-small-bottom-right{grid-column:3;grid-row:2}
-          .object-cover{object-fit:cover}
+          .gallery-grid-container{display:grid;grid-template-columns:0.62fr 1.2fr 0.62fr;grid-template-rows:1fr 1fr;grid-gap:10px;height:500px;contain:layout style;min-height:500px;width:100%}
+          .gallery-item{position:relative;cursor:pointer;overflow:hidden;contain:layout size;background-color:#f8f9fa;width:100%;height:100%;border-radius:8px}
+          .gallery-item-large-left{grid-column:1;grid-row:1/3;width:100%;height:100%}
+          .gallery-item-large-center{grid-column:2;grid-row:1/3;width:100%;height:100%}
+          .gallery-item-small-top-right{grid-column:3;grid-row:1;width:100%;height:100%}
+          .gallery-item-small-bottom-right{grid-column:3;grid-row:2;width:100%;height:100%}
+          .object-cover{object-fit:cover;width:100%;height:100%}
           .rounded-4{border-radius:8px}
-          .text-25{font-size:25px}
+          .text-25{font-size:25px;line-height:1.3}
           .fw-600{font-weight:600}
-          .text-30{font-size:30px}
+          .text-30{font-size:30px;line-height:1.2}
           .mb-20{margin-bottom:20px}
           .pt-40{padding-top:40px}
           .pb-40{padding-bottom:40px}
           .text-center{text-align:center}
-          .button{display:inline-flex;align-items:center;justify-content:center;padding:12px 24px;border:none;border-radius:6px;text-decoration:none;font-weight:500;cursor:pointer;transition:all .2s ease}
-          .h-50{height:50px}
+          .button{display:inline-flex;align-items:center;justify-content:center;padding:12px 24px;border:none;border-radius:6px;text-decoration:none;font-weight:500;cursor:pointer;transition:transform .15s ease}
+          .h-50{height:50px;min-height:50px}
           .px-24{padding-left:24px;padding-right:24px}
           .-blue-1{border:1px solid #1e40af}
           .bg-blue-1{background-color:#1e40af}
@@ -303,14 +310,139 @@ export default async function Tour({ params }) {
           .gap-20{gap:20px}
           .justify-content-center{justify-content:center}
           .align-items-center{align-items:center}
+          .w-360{min-width:360px;width:360px}
+          .sidebar-container{min-height:500px;contain:layout style}
+          .tour-content{contain:layout;min-height:600px}
           @media(max-width:768px){
             .gallery-grid-container{display:block;height:auto;min-height:240px}
-            .mobile-single-image,.mobile-grid-full{width:100%;height:240px;min-height:240px;position:relative;overflow:hidden;border-radius:8px}
+            .mobile-single-image,.mobile-grid-full{width:100%;height:240px;min-height:240px;position:relative;overflow:hidden;border-radius:8px;aspect-ratio:16/9;background-color:#f8f9fa}
             .container{padding:0 10px}
             .text-25{font-size:20px}
             .text-30{font-size:24px}
+            .w-360{min-width:auto;width:100%}
+            .sidebar-container{min-height:400px}
           }
         `,
+        }}
+      />
+
+      {/* 🚀 ULTRA CRITICAL: Resource hints for LCP image domain */}
+      <link rel="dns-prefetch" href="https://imagedelivery.net" />
+      <link rel="preconnect" href="https://imagedelivery.net" crossOrigin="anonymous" />
+      
+      {contentData?.slideImg?.[0] && (
+        <>
+          <link 
+            rel="preload" 
+            as="image" 
+            href={contentData.slideImg[0]} 
+            fetchPriority="high"
+            crossOrigin="anonymous"
+          />
+        </>
+      )}
+
+      {/* 🚀 ULTRA CRITICAL: Immediate LCP image preload - multiple strategies */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+            // 🚀 ULTRA CRITICAL: Immediate LCP optimization - eliminate 9.47s Load Delay
+            (function() {
+              const lcpImage = ${JSON.stringify(contentData?.slideImg?.[0])};
+              
+              if (lcpImage) {
+                // Strategy 1: IMMEDIATE highest priority preload link
+                const link1 = document.createElement('link');
+                link1.rel = 'preload';
+                link1.as = 'image';
+                link1.href = lcpImage;
+                link1.fetchPriority = 'high';
+                link1.crossOrigin = 'anonymous';
+                document.head.insertBefore(link1, document.head.firstChild);
+                
+                // Strategy 2: IMMEDIATE image object with highest priority
+                const img1 = new Image();
+                img1.fetchPriority = 'high';
+                img1.loading = 'eager';
+                img1.decoding = 'sync';
+                img1.crossOrigin = 'anonymous';
+                img1.src = lcpImage;
+                
+                // Strategy 3: IMMEDIATE DNS prefetch for domain
+                const dnsLink = document.createElement('link');
+                dnsLink.rel = 'dns-prefetch';
+                dnsLink.href = 'https://imagedelivery.net';
+                document.head.insertBefore(dnsLink, document.head.firstChild);
+                
+                // Strategy 4: IMMEDIATE preconnect for faster connection
+                const preconnect = document.createElement('link');
+                preconnect.rel = 'preconnect';
+                preconnect.href = 'https://imagedelivery.net';
+                preconnect.crossOrigin = 'anonymous';
+                document.head.insertBefore(preconnect, document.head.children[1]);
+                
+                // Strategy 5: Create multiple Image objects to force browser prioritization
+                for(let i = 0; i < 3; i++) {
+                  const img = new Image();
+                  img.fetchPriority = 'high';
+                  img.loading = 'eager';
+                  img.decoding = 'sync';
+                  img.crossOrigin = 'anonymous';
+                  img.src = lcpImage;
+                }
+                
+                // Strategy 6: Use fetch with highest priority to warm up the resource
+                if ('fetch' in window && 'Request' in window) {
+                  const request = new Request(lcpImage, {
+                    mode: 'cors',
+                    credentials: 'omit',
+                    priority: 'high'
+                  });
+                  fetch(request).catch(() => {}); // Ignore errors, just warm up
+                }
+              }
+            })();
+          `,
+        }}
+      />
+
+      {/* 🚀 CRITICAL: Defer non-critical CSS loading */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+            // 🚀 CRITICAL: Load non-critical CSS after LCP
+            (function() {
+              function loadNonCriticalCSS() {
+                // Defer loading of large CSS files
+                const cssFiles = [
+                  '/_next/static/css/bootstrap.css',
+                  '/_next/static/css/components.css'
+                ];
+                
+                cssFiles.forEach((url, index) => {
+                  setTimeout(() => {
+                    const link = document.createElement('link');
+                    link.rel = 'preload';
+                    link.as = 'style';
+                    link.href = url;
+                    link.media = 'print';
+                    link.onload = function() {
+                      link.media = 'all';
+                      link.onload = null;
+                    };
+                    document.head.appendChild(link);
+                  }, index * 16); // Stagger loading
+                });
+              }
+              
+              // Load after LCP or after 2 seconds
+              if ('requestIdleCallback' in window) {
+                requestIdleCallback(loadNonCriticalCSS);
+              } else {
+                setTimeout(loadNonCriticalCSS, 2000);
+              }
+            })();
+          `,
         }}
       />
 

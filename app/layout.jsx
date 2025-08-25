@@ -285,7 +285,7 @@ export default async function RootLayout({ children }) {
             content="VfIPoE7rawdeEL2yng_KgkSMWi1LPMPxB1-KgFVutIA"
           />
 
-          {/* Optimized font loading - combined into single request */}
+          {/* 🚀 CRITICAL: Non-render-blocking font loading */}
           <link
             rel="preload"
             href="/fonts/icomoon.woff?ibiouq"
@@ -294,10 +294,40 @@ export default async function RootLayout({ children }) {
             crossOrigin="anonymous"
           />
 
+          {/* 🚀 OPTIMIZATION: Non-render-blocking Google Fonts with font-display:swap */}
           <link
-            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Rubik:ital,wght@0,300..900;1,300..900&family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap"
             rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Rubik:ital,wght@0,300..900;1,300..900&family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap"
+            media="print"
           />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                // Load fonts asynchronously
+                (function() {
+                  const fontLink = document.querySelector('link[href*="fonts.googleapis.com"]');
+                  if (fontLink) {
+                    fontLink.media = 'all';
+                  }
+                })();
+              `,
+            }}
+          />
+          
+          {/* 🚀 CRITICAL: Inline critical font styles for immediate text rendering */}
+          <style dangerouslySetInnerHTML={{
+            __html: `
+              /* Critical fallback fonts to prevent FOUT */
+              body, .text-default { 
+                font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+                font-display: swap;
+              }
+              .fw-600 { font-weight: 600; }
+              .fw-500 { font-weight: 500; }
+              .fw-400 { font-weight: 400; }
+            `
+          }} />
+          
           <noscript>
             <link
               href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Rubik:ital,wght@0,300..900;1,300..900&family=Libre+Franklin:ital,wght@0,100..900;1,100..900&display=swap"
@@ -348,38 +378,74 @@ export default async function RootLayout({ children }) {
             `}
           </Script>
 
-          {/* Lazy load non-critical scripts */}
-          <Script id="microsoft-clarity" strategy="lazyOnload">
+          {/* 🚀 ULTRA DEFERRED: Load third-party scripts only after user interaction */}
+          <Script id="deferred-third-party-loader" strategy="afterInteractive">
             {`
-              (function(c,l,a,r,i,t,y){
-                  c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-                  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-                  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-              })(window, document, "clarity", "script", "r1wiwwxv9l");
+              // 🚀 CRITICAL: Defer third-party scripts until after LCP and user interaction
+              (function() {
+                let scriptsLoaded = false;
+                let userInteracted = false;
+                
+                function loadThirdPartyScripts() {
+                  if (scriptsLoaded) return;
+                  scriptsLoaded = true;
+                  
+                  // Load Microsoft Clarity after 3 seconds delay
+                  setTimeout(function() {
+                    (function(c,l,a,r,i,t,y){
+                      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+                    })(window, document, "clarity", "script", "r1wiwwxv9l");
+                  }, 3000);
+                  
+                  // Load Facebook Pixel after 4 seconds delay
+                  setTimeout(function() {
+                    !function(f,b,e,v,n,t,s)
+                    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+                    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+                    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+                    n.queue=[];t=b.createElement(e);t.async=!0;
+                    t.src=v;s=b.getElementsByTagName(e)[0];
+                    s.parentNode.insertBefore(t,s)}(window, document,'script',
+                    'https://connect.facebook.net/en_US/fbevents.js');
+                    fbq('init', '551593183083152');
+                    fbq('init', '1943853973058055');
+                    fbq('track', 'PageView');
+                  }, 4000);
+                }
+                
+                // Load scripts after any user interaction
+                function onUserInteraction() {
+                  if (userInteracted) return;
+                  userInteracted = true;
+                  loadThirdPartyScripts();
+                  
+                  // Remove event listeners
+                  document.removeEventListener('scroll', onUserInteraction, { passive: true });
+                  document.removeEventListener('touchstart', onUserInteraction, { passive: true });
+                  document.removeEventListener('click', onUserInteraction, { passive: true });
+                  document.removeEventListener('keydown', onUserInteraction, { passive: true });
+                  document.removeEventListener('mousemove', onUserInteraction, { passive: true });
+                }
+                
+                // Attach interaction listeners
+                document.addEventListener('scroll', onUserInteraction, { passive: true });
+                document.addEventListener('touchstart', onUserInteraction, { passive: true });
+                document.addEventListener('click', onUserInteraction, { passive: true });
+                document.addEventListener('keydown', onUserInteraction, { passive: true });
+                document.addEventListener('mousemove', onUserInteraction, { passive: true });
+                
+                // Fallback: load after 8 seconds regardless of interaction
+                setTimeout(loadThirdPartyScripts, 8000);
+              })();
             `}
           </Script>
 
-          <Script id="meta-pixel" strategy="lazyOnload">
-            {`
-            !function(f,b,e,v,n,t,s)
-            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-            n.queue=[];t=b.createElement(e);t.async=!0;
-            t.src=v;s=b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t,s)}(window, document,'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-
-            fbq('init', '551593183083152');
-            fbq('init', '1943853973058055');
-            fbq('track', 'PageView');
-          `}
-          </Script>
-
-          {/* Lazy load components */}
+          {/* 🚀 DEFERRED: Lazy load components after LCP */}
           <MetaPixel />
           <ChatWidget />
-          <GoogleAnalytics gaId="G-TXJZSJCPCZ" />
+          {/* GoogleAnalytics removed - handled by deferred GTM above */}
 
           {/* Noscript fallbacks */}
           <noscript>

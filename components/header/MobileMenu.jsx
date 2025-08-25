@@ -3,7 +3,7 @@
 import Image from "next/image";
 import useMenus from "@/hooks/useMenus";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import { Menu, MenuItem, Sidebar, SubMenu } from "react-pro-sidebar";
 import { isActiveLink } from "../../utils/linkActiveChecker";
 import ContactInfo from "../footer/default/ContactInfo";
@@ -13,20 +13,15 @@ const MobileMenu = ({ menus, logoUrl }) => {
   const pathname = usePathname();
   const menuItems = useMenus(menus);
 
-  const [agentRef, setAgentRef] = useState(null);
-  const [agentCup, setAgentCup] = useState(null);
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
+  const { agentRef, agentCup } = useMemo(() => {
+    if (typeof window === 'undefined') return { agentRef: null, agentCup: null };
+    
     const urlParams = new URLSearchParams(window.location.search);
-    setAgentRef(urlParams.get("agentRef"));
-    setAgentCup(urlParams.get("agentCup"));
-    setIsMounted(true);
+    return {
+      agentRef: urlParams.get("agentRef"),
+      agentCup: urlParams.get("agentCup")
+    };
   }, []);
-
-  if (!isMounted) {
-    return null; // or a loading skeleton
-  }
 
   return (
     <>
