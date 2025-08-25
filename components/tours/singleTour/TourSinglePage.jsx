@@ -255,7 +255,7 @@ export default function TourSinglePage({ tourData, itenarayItems }) {
   // 🚀 OPTIMIZATION: Memoized intersection observer with better performance
   const sectionObserver = useMemo(() => {
     // 🚀 SSR FIX: Check if we're on the client side
-    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
+    if (typeof window === "undefined" || !("IntersectionObserver" in window)) {
       return null;
     }
 
@@ -539,7 +539,7 @@ export default function TourSinglePage({ tourData, itenarayItems }) {
             <div className="row y-gap-30">
               <div
                 className="col-xl-8"
-                style={{ minHeight: "600px", contain: "layout" }}
+                style={{ minHeight: "300px", contain: "layout" }}
               >
                 <header style={{ minHeight: "40px" }}>
                   <h2 className="text-22 sm:text-18 fw-600">About</h2>
@@ -623,32 +623,42 @@ export default function TourSinglePage({ tourData, itenarayItems }) {
               </div>
             </div>
             {/* Related tours component would go here */}
-            <div className="row y-gap-30 pt-40 sm:pt-20 item_gap-x30">
-              {/* 🚀 CRITICAL: Ultra-deferred Tours to reduce DOM from 1400+ elements */}
+            {/* <div className="row y-gap-30 pt-40 sm:pt-20 item_gap-x30">
+              🚀 CRITICAL: Ultra-deferred Tours to reduce DOM from 1400+ elements
               <div
-                ref={(el) => {
-                  if (!el || typeof window === 'undefined' || !('IntersectionObserver' in window)) return;
-                  const observer = new IntersectionObserver(
-                    ([entry]) => {
-                      if (entry.isIntersecting) {
-                        // Only render Tours when it comes into view
-                        import("@/components/tours/Tours").then((ToursModule) => {
-                          const ToursComponent = ToursModule.default;
-                          const container = document.createElement('div');
-                          el.appendChild(container);
-                          // This is simplified - in reality you'd use React.render or a state update
-                        });
-                        observer.disconnect();
-                      }
-                    },
-                    { rootMargin: "200px" }
-                  );
-                  observer.observe(el);
-                }}
-                style={{ minHeight: "400px", background: "#f9f9f9" }}
+                // ref={(el) => {
+                //   if (
+                //     !el ||
+                //     typeof window === "undefined" ||
+                //     !("IntersectionObserver" in window)
+                //   )
+                //     return;
+                //   const observer = new IntersectionObserver(
+                //     ([entry]) => {
+                //       if (entry.isIntersecting) {
+                //         // Only render Tours when it comes into view
+                //         import("@/components/tours/Tours").then(
+                //           (ToursModule) => {
+                //             const ToursComponent = ToursModule.default;
+                //             const container = document.createElement("div");
+                //             el.appendChild(container);
+                //             // This is simplified - in reality you'd use React.render or a state update
+                //           }
+                //         );
+                //         observer.disconnect();
+                //       }
+                //     },
+                //     { rootMargin: "200px" }
+                //   );
+                //   observer.observe(el);
+                // }}
+                style={{ background: "#f9f9f9" }}
               >
                 <Tours filterTour={tour?.title} />
               </div>
+            </div> */}
+            <div className="row y-gap-30 pt-40 sm:pt-20 item_gap-x30">
+              <Tours filterTour={tour?.title} />
             </div>
           </div>
         </section>

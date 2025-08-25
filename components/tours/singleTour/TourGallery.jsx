@@ -4,10 +4,22 @@ import OptimizedImage from "../../common/optimized/OptimizedImage";
 import useWindowSize from "@/hooks/useWindowSize";
 import dynamic from "next/dynamic";
 
-// 🚀 PERFORMANCE: Lazy load slider only for mobile
+// 🚀 PERFORMANCE: Ultra-lazy load slider with timeout
 const Slider = dynamic(() => import("react-slick"), {
   ssr: false,
-  loading: () => <div className="slider-skeleton">Loading...</div>,
+  loading: () => (
+    <div className="slider-skeleton" style={{
+      height: '240px',
+      width: '100%',
+      background: '#f8f9fa',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: '8px',
+      fontSize: '14px',
+      color: '#6b7280'
+    }}>Loading gallery...</div>
+  ),
 });
 
 const TourGallery = ({ tour, openLightbox: externalOpenLightbox }) => {
@@ -62,17 +74,29 @@ const TourGallery = ({ tour, openLightbox: externalOpenLightbox }) => {
 
   const mobileImageGroups = createMobileImageGroups(normalizedImages);
 
-  // 🚀 PERFORMANCE: Optimized slider settings
+  // 🚀 PERFORMANCE: Ultra-lightweight slider settings
   const sliderSettings = {
     dots: false,
-    infinite: true,
-    speed: 400,
+    infinite: normalizedImages.length > 1,
+    speed: 200, // Faster transitions
     slidesToShow: 1,
     slidesToScroll: 1,
-    arrows: true,
-    nextArrow: <Arrow type="next" />,
-    prevArrow: <Arrow type="prev" />,
-    lazyLoad: "ondemand", // 🚀 PERFORMANCE: Lazy load slides
+    arrows: normalizedImages.length > 1,
+    nextArrow: normalizedImages.length > 1 ? <Arrow type="next" /> : null,
+    prevArrow: normalizedImages.length > 1 ? <Arrow type="prev" /> : null,
+    lazyLoad: "ondemand", // Less aggressive lazy loading
+    waitForAnimate: false,
+    useCSS: true,
+    useTransform: false, // Disable transforms to reduce repaints
+    accessibility: false, // Disable for performance
+    touchMove: true,
+    swipe: true,
+    adaptiveHeight: false,
+    fade: false, // No fade animation
+    cssEase: 'linear',
+    pauseOnHover: false,
+    pauseOnFocus: false,
+    autoplay: false,
   };
 
   // Custom arrow component for slider
@@ -203,16 +227,17 @@ const TourGallery = ({ tour, openLightbox: externalOpenLightbox }) => {
                     <OptimizedImage
                       src={img || "/placeholder.svg"}
                       alt={`${tour?.title || "Tour"} - Image ${index + 1}`}
-                      width={800}
-                      height={500}
-                      style={{ width: "100%", height: "auto" }}
-                      sizes="100vw"
+                      width={428}
+                      height={240}
+                      style={{ width: "100%", height: "240px", objectFit: "cover" }}
+                      sizes="(max-width: 768px) 428px, 50vw"
                       className="object-cover rounded-4"
                       priority={index === 0}
-                      quality={index === 0 ? 90 : 75}
+                      quality={index === 0 ? 90 : 80}
                       loading={index === 0 ? "eager" : "lazy"}
                       fetchPriority={index === 0 ? "high" : undefined}
                       placeholder={index === 0 ? "empty" : "blur"}
+                      variant="gallery"
                     />
                   </div>
                 </div>
@@ -296,32 +321,39 @@ const TourGallery = ({ tour, openLightbox: externalOpenLightbox }) => {
         @media (max-width: 768px) {
           .mobile-slider-container {
             margin-bottom: 20px;
-            contain: layout style;
+            contain: layout style paint;
             /* 🚀 CRITICAL: Reserve exact space to prevent CLS */
-            height: 250px;
-            min-height: 250px;
-            width: 100%;
+            height: 240px !important;
+            min-height: 240px !important;
+            max-height: 240px !important;
+            width: 100% !important;
             background-color: #f8f9fa;
             border-radius: 8px;
             overflow: hidden;
+            aspect-ratio: 16/9;
+            position: relative;
+            transform: translateZ(0); /* Force GPU layer */
           }
 
           .mobile-single-slide {
-            width: 100%;
-            position: relative;
+            width: 100% !important;
+            position: relative !important;
             overflow: hidden;
             border-radius: 8px;
             /* 🚀 CRITICAL: Fixed exact dimensions to prevent CLS */
-            height: 250px !important;
-            min-height: 250px !important;
-            max-height: 250px !important;
-            display: flex;
+            height: 240px !important;
+            min-height: 240px !important;
+            max-height: 240px !important;
+            display: flex !important;
             align-items: center;
             justify-content: center;
+            transform: translateZ(0) !important; /* Force GPU layer */
+            contain: layout size style paint;
+            will-change: auto;
           }
 
           .slider-skeleton {
-            height: 250px;
+            height: 240px !important;
             width: 100%;
             background: #f8f9fa;
             border-radius: 8px;
@@ -337,17 +369,56 @@ const TourGallery = ({ tour, openLightbox: externalOpenLightbox }) => {
             bottom: 0;
           }
 
-          /* 🚀 CRITICAL: Slider wrapper height control */
+          /* 🚀 CRITICAL: Slider wrapper height control - prevent layout shifts */
           .slick-slider {
-            height: 250px !important;
+            height: 240px !important;
+            min-height: 240px !important;
+            max-height: 240px !important;
+            width: 100% !important;
+            transform: translateZ(0);
           }
           
           .slick-list {
-            height: 250px !important;
+            height: 240px !important;
+            min-height: 240px !important;
+            max-height: 240px !important;
+            overflow: hidden !important;
+            transform: translateZ(0);
           }
           
           .slick-track {
-            height: 250px !important;
+            height: 240px !important;
+            min-height: 240px !important;
+            max-height: 240px !important;
+            display: flex !important;
+            align-items: stretch !important;
+            transform: translateZ(0);
+            transition: none !important;
+          }
+
+          .slick-slide {
+            height: 240px !important;
+            min-height: 240px !important;
+            max-height: 240px !important;
+            contain: layout size paint;
+            transform: translateZ(0);
+          }
+          
+          .slick-slide > div {
+            height: 100% !important;
+            width: 100% !important;
+            position: relative;
+          }
+          
+          /* Disable slider animations that cause CLS */
+          .slick-track {
+            transition: none !important;
+            transform: translateZ(0) !important;
+          }
+          
+          .slick-slide {
+            transition: none !important;
+            opacity: 1 !important;
           }
         }
 

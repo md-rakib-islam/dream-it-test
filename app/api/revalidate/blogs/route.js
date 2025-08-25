@@ -1,5 +1,14 @@
 import { revalidateTag } from "next/cache";
 
+export async function GET() {
+  return new Response("Blog revalidation endpoint", {
+    status: 200,
+    headers: {
+      "Access-Control-Allow-Origin": "https://admin.dreamtourism.it",
+    },
+  });
+}
+
 export async function OPTIONS() {
   return new Response(null, {
     status: 204,
