@@ -414,7 +414,7 @@ const CheckoutModal = ({
         <div className="modalHeader">
           <div className="headerContent">
             <Image
-              unoptimized
+              unoptimized={true}
               quality={100}
               style={{ width: "60px", height: "60px" }}
               src={logoUrl || "/placeholder.svg"}

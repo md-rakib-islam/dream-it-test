@@ -21,7 +21,8 @@ const OptimizedImage = ({
   loading = "lazy",
   variant = "default",
   fetchPriority, // Add explicit fetchPriority support
-  ...props
+  unoptimized = false,
+  ...otherProps
 }) => {
   // 🚀 CRITICAL LCP FIX: Skip loading state entirely for priority images
   const [isLoading, setIsLoading] = useState(false);
@@ -236,7 +237,7 @@ const OptimizedImage = ({
     fetchPriority: priority ? fetchPriority || "high" : undefined,
     // 🚀 CRITICAL: Add decoding hint for faster rendering
     decoding: priority ? "sync" : "async",
-    ...props,
+    ...otherProps,
   };
 
   // 🚀 LCP CRITICAL: Use empty placeholder for priority images to avoid blur delay
@@ -257,7 +258,7 @@ const OptimizedImage = ({
       decoding: priority ? "sync" : "async",
       fetchPriority: priority ? fetchPriority || "high" : undefined,
       crossOrigin: "anonymous",
-      ...props,
+      ...otherProps,
     };
     
     if (fill) {
@@ -303,6 +304,7 @@ const OptimizedImage = ({
         sizes={sizes || getOptimizedSizes(variant)}
         placeholder={placeholderType}
         blurDataURL={placeholderType === "blur" ? blurDataURL : undefined}
+        unoptimized={unoptimized}
       />
     );
   }
@@ -315,6 +317,7 @@ const OptimizedImage = ({
       sizes={sizes || getOptimizedSizes(variant)}
       placeholder={placeholderType}
       blurDataURL={placeholderType === "blur" ? blurDataURL : undefined}
+      unoptimized={unoptimized}
     />
   );
 };
@@ -419,7 +422,7 @@ export default OptimizedImage;
 //     onClick,
 //     style,
 //     fetchPriority: priority ? "high" : undefined, // LCP fix
-//     ...props,
+//     ...otherProps,
 //   };
 
 //   // Define different sizes for different use cases

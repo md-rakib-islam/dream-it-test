@@ -18,7 +18,7 @@ const Slights = ({ slug }) => {
               <div className="col-auto d-flex justify-content-center align-items-center ">
                 <div className="ratio ratio-1:1 w-200 py-lg-2 my-lg-0 my-2">
                   <Image
-                    unoptimized
+                    unoptimized={true}
                     width={400}
                     height={400}
                     src={item.img}

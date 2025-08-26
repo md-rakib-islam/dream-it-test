@@ -39,7 +39,7 @@ const Header = () => {
               <div className="d-flex items-center">
                 <AgentLink href="/" className="header-logo mr-20">
                   <Image
-                    unoptimized
+                    unoptimized={true}
                     quality={100}
                     style={{ width: "60px", height: "60px" }}
                     src={!data?.menus ? "/img/Logo_150_px-01.webp" : logoUrl}

@@ -77,7 +77,7 @@ const TestimonialSingleTour = () => {
               <div className="row x-gap-10 y-gap-10 items-center">
                 <div className="col-4">
                   <Image
-                    unoptimized
+                    unoptimized={true}
                     width={60}
                     height={60}
                     src={item.cloudflare_image || "/placeholder.svg"}
@@ -98,7 +98,7 @@ const TestimonialSingleTour = () => {
                         </span>
 
                         <Image
-                          unoptimized
+                          unoptimized={true}
                           width={20}
                           height={20}
                           src="/img/featureIcons/3/verified.svg"

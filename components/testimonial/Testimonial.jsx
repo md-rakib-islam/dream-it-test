@@ -159,7 +159,7 @@ const Testimonial = () => {
               <div className="row x-gap-10 y-gap-10 items-center">
                 <div className="col-4">
                   <OptimizedImage
-                    unoptimized
+                    unoptimized={true}
                     width={60}
                     height={60}
                     src={item.cloudflare_image}
