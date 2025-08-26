@@ -604,26 +604,27 @@ export default function TourSinglePage({ tourData, itenarayItems }) {
           </section>
         )}
 
-        <section
-          className="layout-pt-lg layout-pb-lg mt-50 border-top-light"
-          ref={relatedToursRef}
-        >
-          <div className="container">
-            <div className="row y-gap-20 justify-between items-end">
-              <div className="col-12">
-                <header className="sectionTitle -md">
-                  <h2 className="sectionTitle__title text-22 sm:text-18 fw-600">
-                    You might also like...
-                  </h2>
-                  <p className="sectionTitle__text mt-5 sm:mt-0">
-                    Explore Our Best Sellers: Unmatched Experiences in Every
-                    Journey
-                  </p>
-                </header>
+        {!isMobile && (
+          <section
+            className="layout-pt-lg layout-pb-lg mt-50 border-top-light"
+            ref={relatedToursRef}
+          >
+            <div className="container">
+              <div className="row y-gap-20 justify-between items-end">
+                <div className="col-12">
+                  <div className="sectionTitle -md">
+                    <h2 className="sectionTitle__title text-22 sm:text-18 fw-600">
+                      You might also like...
+                    </h2>
+                    <p className="sectionTitle__text mt-5 sm:mt-0">
+                      Explore Our Best Sellers: Unmatched Experiences in Every
+                      Journey
+                    </p>
+                  </div>
+                </div>
               </div>
-            </div>
-            {/* Related tours component would go here */}
-            {/* <div className="row y-gap-30 pt-40 sm:pt-20 item_gap-x30">
+              {/* Related tours component would go here */}
+              {/* <div className="row y-gap-30 pt-40 sm:pt-20 item_gap-x30">
               🚀 CRITICAL: Ultra-deferred Tours to reduce DOM from 1400+ elements
               <div
                 // ref={(el) => {
@@ -657,11 +658,12 @@ export default function TourSinglePage({ tourData, itenarayItems }) {
                 <Tours filterTour={tour?.title} />
               </div>
             </div> */}
-            <div className="row y-gap-30 pt-40 sm:pt-20 item_gap-x30">
-              <Tours filterTour={tour?.title} />
+              <div className="row y-gap-30 pt-40 sm:pt-20 item_gap-x30">
+                <Tours filterTour={tour?.title} />
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
       </main>
 
       {/* 🚀 Optimized CSS with reduced animations for better performance */}

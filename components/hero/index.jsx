@@ -130,6 +130,11 @@ import AgentLink from "../AgentLink/AgentLink";
 import { useMobile } from "@/hooks/useMobile";
 const index = () => {
   const isMobile = useMobile();
+
+  const bannerImageMobile =
+    "https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/87922463-e4b0-4300-d6b7-4f26b2eb2800/w=800,q=75";
+  const bannerImageDesktop =
+    "https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/87922463-e4b0-4300-d6b7-4f26b2eb2800/w=1080,q=80";
   return (
     <>
       <div className="home1-banner-area">
@@ -143,7 +148,9 @@ const index = () => {
           >
             {/* Optimized Hero Image */}
             <Image
-              src="https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/87922463-e4b0-4300-d6b7-4f26b2eb2800/v1"
+              src={isMobile ? bannerImageMobile : bannerImageDesktop}
+              // width={isMobile ? 800 : 1920}
+              // height={isMobile ? 400 : 860}
               alt="Hero Banner"
               layout="fill"
               objectFit="fill"
@@ -179,7 +186,7 @@ const index = () => {
                               height={860}
                               width={1920}
                               priority={true}
-                              src="https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/c58745ac-f736-4a19-8692-edea09e1dc00/public"
+                              src="https://imagedelivery.net/dIKhvGtesTiRSxhQ2oKWkA/c58745ac-f736-4a19-8692-edea09e1dc00/w=50,q=90"
                               alt="review"
                             />
                           </div>
