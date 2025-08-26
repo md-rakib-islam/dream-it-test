@@ -8,17 +8,22 @@ import dynamic from "next/dynamic";
 const Slider = dynamic(() => import("react-slick"), {
   ssr: false,
   loading: () => (
-    <div className="slider-skeleton" style={{
-      height: '240px',
-      width: '100%',
-      background: '#f8f9fa',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: '8px',
-      fontSize: '14px',
-      color: '#6b7280'
-    }}>Loading gallery...</div>
+    <div
+      className="slider-skeleton"
+      style={{
+        height: "240px",
+        width: "100%",
+        background: "#f8f9fa",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: "8px",
+        fontSize: "14px",
+        color: "#6b7280",
+      }}
+    >
+      Loading gallery...
+    </div>
   ),
 });
 
@@ -93,7 +98,7 @@ const TourGallery = ({ tour, openLightbox: externalOpenLightbox }) => {
     swipe: true,
     adaptiveHeight: false,
     fade: false, // No fade animation
-    cssEase: 'linear',
+    cssEase: "linear",
     pauseOnHover: false,
     pauseOnFocus: false,
     autoplay: false,
@@ -218,30 +223,37 @@ const TourGallery = ({ tour, openLightbox: externalOpenLightbox }) => {
           // 🚀 MOBILE: Single image slider - one image per slide
           <div className="mobile-slider-container">
             <Slider {...sliderSettings}>
-              {normalizedImages.map((img, index) => (
-                <div key={index}>
-                  <div
-                    className="mobile-single-slide"
-                    onClick={() => handleImageClick(index)}
-                  >
-                    <OptimizedImage
-                      src={img || "/placeholder.svg"}
-                      alt={`${tour?.title || "Tour"} - Image ${index + 1}`}
-                      width={428}
-                      height={240}
-                      style={{ width: "100%", height: "240px", objectFit: "cover" }}
-                      sizes="(max-width: 768px) 428px, 50vw"
-                      className="object-cover rounded-4"
-                      priority={index === 0}
-                      quality={index === 0 ? 90 : 80}
-                      loading={index === 0 ? "eager" : "lazy"}
-                      fetchPriority={index === 0 ? "high" : undefined}
-                      placeholder={index === 0 ? "empty" : "blur"}
-                      variant="gallery"
-                    />
+              {normalizedImages.map((img, index) => {
+                console.log("Rendering mobile image:", img, "at index:", index);
+                return (
+                  <div key={index}>
+                    <div
+                      className="mobile-single-slide"
+                      onClick={() => handleImageClick(index)}
+                    >
+                      <OptimizedImage
+                        src={img || "/placeholder.svg"}
+                        alt={`${tour?.title || "Tour"} - Image ${index + 1}`}
+                        width={428}
+                        height={240}
+                        style={{
+                          width: "100%",
+                          height: "240px",
+                          objectFit: "cover",
+                        }}
+                        sizes="(max-width: 768px) 428px, 50vw"
+                        className="object-cover rounded-4"
+                        priority={index === 0}
+                        quality={index === 0 ? 90 : 80}
+                        loading={index === 0 ? "eager" : "lazy"}
+                        fetchPriority={index === 0 ? "high" : undefined}
+                        placeholder={index === 0 ? "empty" : "blur"}
+                        variant="gallery"
+                      />
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </Slider>
           </div>
         )}
@@ -377,7 +389,7 @@ const TourGallery = ({ tour, openLightbox: externalOpenLightbox }) => {
             width: 100% !important;
             transform: translateZ(0);
           }
-          
+
           .slick-list {
             height: 240px !important;
             min-height: 240px !important;
@@ -385,7 +397,7 @@ const TourGallery = ({ tour, openLightbox: externalOpenLightbox }) => {
             overflow: hidden !important;
             transform: translateZ(0);
           }
-          
+
           .slick-track {
             height: 240px !important;
             min-height: 240px !important;
@@ -403,19 +415,19 @@ const TourGallery = ({ tour, openLightbox: externalOpenLightbox }) => {
             contain: layout size paint;
             transform: translateZ(0);
           }
-          
+
           .slick-slide > div {
             height: 100% !important;
             width: 100% !important;
             position: relative;
           }
-          
+
           /* Disable slider animations that cause CLS */
           .slick-track {
             transition: none !important;
             transform: translateZ(0) !important;
           }
-          
+
           .slick-slide {
             transition: none !important;
             opacity: 1 !important;
