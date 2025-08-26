@@ -336,7 +336,6 @@ const OptimizedImage = ({
       />
     );
   }
-  console.log("Rakib", imageProps);
   return (
     <Image
       {...imageProps}

@@ -224,7 +224,6 @@ const TourGallery = ({ tour, openLightbox: externalOpenLightbox }) => {
           <div className="mobile-slider-container">
             <Slider {...sliderSettings}>
               {normalizedImages.map((img, index) => {
-                console.log("Rendering mobile image:", img, "at index:", index);
                 return (
                   <div key={index}>
                     <div
