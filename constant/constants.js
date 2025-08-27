@@ -1,7 +1,7 @@
 //base url
 // export const BASE_URL = "http://192.168.68.127:8000";
 
-export const BASE_URL = "https://api.dreamtourism.it";
+export const BASE_URL = "https://backend-dream-tourism-it.onrender.com";
 
 //base url for agents
 // export const BASE_URL_AGENT_BOOKING = "http://192.168.68.127:8003";
