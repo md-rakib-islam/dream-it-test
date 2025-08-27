@@ -378,7 +378,7 @@ export default async function Tour({ params }) {
                 
                 // Add mobile optimization for Cloudflare images (short format)
                 if (lcpImage.indexOf('imagedelivery.net') > -1) {
-                  optimizedUrl += '/w=428,h=240,q=90';
+                  optimizedUrl += '/w=400,h=240,q=90';
                 }
                 
                 // Preconnect to image domain

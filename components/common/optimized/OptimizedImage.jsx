@@ -109,16 +109,16 @@ const OptimizedImage = ({
 
     // Enhanced mobile-first responsive sizes (90KiB+ savings)
     const sizeMap = {
-      hero: "(max-width: 428px) 428px, (max-width: 768px) 428px, 100vw",
-      thumbnail: "(max-width: 428px) 120px, (max-width: 768px) 150px, 200px",
-      gallery: "(max-width: 428px) 320px, (max-width: 768px) 428px, 50vw",
+      hero: "(max-width: 400px) 400px, (max-width: 768px) 400px, 100vw",
+      thumbnail: "(max-width: 400px) 120px, (max-width: 768px) 150px, 200px",
+      gallery: "(max-width: 400px) 320px, (max-width: 768px) 400px, 50vw",
       gallery_large:
-        "(max-width: 428px) 320px, (max-width: 768px) 428px, (max-width: 1200px) 600px, 45vw",
-      gallery_small: "(max-width: 428px) 160px, (max-width: 768px) 200px, 25vw",
-      fullwidth: "(max-width: 428px) 320px, (max-width: 768px) 428px, 100vw",
-      card: "(max-width: 428px) 280px, (max-width: 768px) 350px, 33vw",
-      avatar: "(max-width: 428px) 32px, (max-width: 768px) 40px, 60px",
-      default: "(max-width: 428px) 320px, (max-width: 768px) 428px, 50vw",
+        "(max-width: 400px) 320px, (max-width: 768px) 400px, (max-width: 1200px) 600px, 45vw",
+      gallery_small: "(max-width: 400px) 160px, (max-width: 768px) 200px, 25vw",
+      fullwidth: "(max-width: 400px) 320px, (max-width: 768px) 400px, 100vw",
+      card: "(max-width: 400px) 280px, (max-width: 768px) 350px, 33vw",
+      avatar: "(max-width: 400px) 32px, (max-width: 768px) 40px, 60px",
+      default: "(max-width: 400px) 320px, (max-width: 768px) 400px, 50vw",
     };
 
     return sizeMap[variant] || sizeMap.default;

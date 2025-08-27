@@ -240,7 +240,7 @@ const TourGallery = ({ tour, openLightbox: externalOpenLightbox }) => {
                           height: "240px",
                           objectFit: "cover",
                         }}
-                        sizes="(max-width: 768px) 428px, 50vw"
+                        sizes="(max-width: 768px) 400px, 50vw"
                         className="object-cover rounded-4"
                         priority={index === 0}
                         quality={index === 0 ? 90 : 80}
